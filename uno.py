@@ -1,7 +1,7 @@
 import random
 from typing import List
 from cards import RED, YELLOW, GREEN, BLUE, Card
-from pomdp import State
+from pomdp import State, Action
 
 class Uno:
     """
@@ -83,18 +83,140 @@ class Uno:
         # Check game over condition: if either hand is empty
         if len(self.H_1) == 0 or len(self.H_2) == 0:
             self.G_o = "GameOver"
+            
+    def print_S(self):
+        print(f"H_1: {self.State[0]}, {len(self.State[0])} cards")
+        print(f"H_2: {self.State[1]}, {len(self.State[1])} cards")
+        print(f"D_g: {self.State[2]}, {len(self.State[2])} cards")
+        print(f"P: {self.State[3]}, {len(self.State[3])} cards")
+        print(f"P_t: {self.State[4]}")
+        print(f"G_o: {self.State[5]}")
+        
+    def is_legal_play(self, card: Card) -> bool:
+        """
+        Checks if a card can be legally played on top of P_t.
+        Legal if: card color matches P_t color OR card value matches P_t value
+        
+        Args:
+            card: Card to check (COLOR, VALUE)
+        
+        Returns:
+            True if card is legal to play, False otherwise
+        """
+        if self.P_t is None:
+            return False
+        
+        P_t_color, P_t_value = self.P_t
+        card_color, card_value = card
+        
+        return card_color == P_t_color or card_value == P_t_value
+
+    def get_legal_actions(self, player: int = 1) -> List[Action]:
+        """
+        Returns list of legal actions for specified player.
+        
+        Args:
+            player: 1 for H_1, 2 for H_2
+        
+        Returns:
+            List of legal Action objects
+        """
+        legal_actions = []
+        hand = self.H_1 if player == 1 else self.H_2
+        
+        if self.P_t is None:
+            return legal_actions
+        
+        # Check which cards in hand can be played
+        for card in hand:
+            if self.is_legal_play(card):
+                legal_actions.append(Action(X_1=card))
+        
+        # If no legal plays, must draw 1 card
+        if len(legal_actions) == 0:
+            legal_actions.append(Action(n=1))
+        
+        return legal_actions
+
+    def execute_action(self, action: Action, player: int = 1) -> bool:
+        """
+        Executes an action and updates the game state.
+        
+        Args:
+            action: Action to execute (either X_1 play or Y_n draw)
+            player: 1 for H_1, 2 for H_2
+        
+        Returns:
+            True if action was successful, False otherwise
+        """
+        if self.G_o == "GameOver":
+            print("Game is over, no actions allowed")
+            return False
+        
+        # Select the correct hand
+        hand = self.H_1 if player == 1 else self.H_2
+        
+        if action.is_play():
+            # Play card X_1
+            if action.X_1 not in hand:
+                print(f"Card {action.X_1} not in player {player}'s hand")
+                return False
+            
+            if not self.is_legal_play(action.X_1):
+                print(f"Card {action.X_1} is not a legal play on {self.P_t}")
+                return False
+            
+            # Remove from hand and add to pile
+            hand.remove(action.X_1)
+            self.P.append(action.X_1)
+        elif action.is_draw():
+            # Draw n cards
+            n = action.n
+            cards_drawn = []
+            
+            for i in range(n):
+                if len(self.D_g) == 0:
+                    # Reshuffle played pile into new deck (keep top card P_t), taking all cards except the top card (P_t)
+                    cards_to_shuffle = self.P[:-1]
+                    self.P = [self.P[-1]]  # Keep only top card
+                                
+                    # Shuffle and make new deck
+                    random.shuffle(cards_to_shuffle)
+                    self.D_g = cards_to_shuffle
+                    print(f"Deck empty - reshuffled {len(self.D_g)} cards from pile")
+                
+                # Draw from end of deck (top)
+                card = self.D_g.pop()
+                cards_drawn.append(card)
+                hand.append(card)
+            
+            action.Y_n = cards_drawn
+        
+        # Update state
+        self.update_S()
+        return True
 
 
 # Example usage
-uno = Uno()
-uno.new_game()
+if __name__ == "__main__":
+    uno = Uno()
+    uno.new_game(seed=1)
 
-# Create state
-state = uno.create_S()
-print(f"\nState S:")
-print(f"H_1: {state[0]}")
-print(f"H_2: {state[1]}")
-print(f"D_g (set): {len(state[2])} cards")
-print(f"P: {state[3]}")
-print(f"P_t: {state[4]}")
-print(f"G_o: {state[5]}")
+    # Create state
+    uno.create_S()
+    uno.print_S()
+    
+    # Get legal actions for player 1
+    print(f"\nLegal actions for Player 1:")
+    legal_actions = uno.get_legal_actions(player=1)
+    for i, action in enumerate(legal_actions):
+        print(f"  {i}: {action}")
+    
+    # Execute first legal action
+    if len(legal_actions) > 0:
+        print(f"\nExecuting action: {legal_actions[0]}")
+        uno.execute_action(legal_actions[0], player=1)
+       
+        # Show updated state
+        uno.update_S()
+        uno.print_S()
