@@ -1,6 +1,7 @@
-from typing import List
 import random
+from typing import List
 from cards import RED, YELLOW, GREEN, BLUE, Card
+from pomdp import State
 
 class Uno:
     """
@@ -11,8 +12,9 @@ class Uno:
     def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None, D_g: List[Card] = None, P: List[Card] = None):
         self.H_1 = H_1 if H_1 is not None else [] # Player 1 hand
         self.H_2 = H_2 if H_2 is not None else [] # Player 2 hand
-        self.D_g = D_g if D_g is not None else [] # Current draw deck (top card at end)
+        self.D_g = D_g if D_g is not None else [] # Current draw deck (as list for drawing)
         self.P = P if P is not None else [] # Played cards (top card at end)
+        self.G_o = "Active" # Game status: "Active" or "GameOver"
 
     def build_number_deck(self) -> List[Card]:
         """
@@ -52,12 +54,47 @@ class Uno:
         # Start played pile with top of remaining (pop from front)
         self.P = [remaining.pop(0)]
         self.D_g = remaining
-        
-        print(f"H_1: {self.H_1}, {len(self.H_1)}")
-        print(f"H_2: {self.H_2}, {len(self.H_2)}")
-        print(f"D_g: {self.D_g}, {len(self.D_g)}")
-        print(f"P: {self.P}, {len(self.P)}")
-        
+        self.G_o = "Active"
 
+    def create_S(self) -> State:
+        """
+        Creates the system state S as seen by "God".
+        S = (H_1, H_2, D_g, P, P_t, G_o)
+        - H_1: Player 1 hand (list)
+        - H_2: Player 2 hand (list)
+        - D_g: Current deck (list)
+        - P: Played cards pile (list)
+        - P_t: Top card of pile (COLOR, VALUE) or None if empty
+        - G_o: Game status ("Active" or "GameOver")
+        """
+        # Get top card P_t (last card in pile, or None if empty)
+        self.P_t = self.P[-1] if len(self.P) > 0 else None
+        
+        self.State = (self.H_1, self.H_2, self.D_g, self.P, self.P_t, self.G_o)
+        return self.State
+
+    def update_S(self):
+        """
+        Updates the system state.
+        Any parameter that is None will not be updated.
+        """
+        self.State = (self.H_1, self.H_2, self.D_g, self.P, self.P_t, self.G_o)
+        
+        # Check game over condition: if either hand is empty
+        if len(self.H_1) == 0 or len(self.H_2) == 0:
+            self.G_o = "GameOver"
+
+
+# Example usage
 uno = Uno()
 uno.new_game()
+
+# Create state
+state = uno.create_S()
+print(f"\nState S:")
+print(f"H_1: {state[0]}")
+print(f"H_2: {state[1]}")
+print(f"D_g (set): {len(state[2])} cards")
+print(f"P: {state[3]}")
+print(f"P_t: {state[4]}")
+print(f"G_o: {state[5]}")
