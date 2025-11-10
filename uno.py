@@ -196,6 +196,13 @@ class Uno:
         self.update_S()
         return True
 
+    def get_O_space(self):
+        """
+        O = (H_1, |H_2|, |D_g|, P, P_t, G_o) - observation (as seen by “Player 1”)
+        """
+        self.O = (self.H_1, len(self.H_2), len(self.D_g), self.P, self.P_t, self.G_o)
+        return self.O
+
 
 # Example usage
 if __name__ == "__main__":
@@ -220,3 +227,6 @@ if __name__ == "__main__":
         # Show updated state
         uno.update_S()
         uno.print_S()
+
+    # Observation space ("Player 1" perspective)
+    print(f"\nObservation space: {uno.get_O_space()}")
