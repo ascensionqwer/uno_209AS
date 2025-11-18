@@ -8,10 +8,11 @@ This demonstrates:
 - Turn-by-turn game progression
 """
 
-from uno import Uno
-from pomdp import Action
-from belief import Belief, BeliefUpdater
 import random
+
+from belief import Belief, BeliefUpdater
+from pomdp import Action
+from uno import Uno
 
 
 def simple_policy_player1(legal_actions, hand, belief=None):
@@ -229,7 +230,9 @@ def run_multiple_games(n_games=5, verbose_first=True):
         print(f"{'=' * 70}")
 
         winner, turns = play_full_game(
-            seed=i, verbose=(i == 0 and verbose_first), max_turns=1000
+            seed=random.randint(0, 1000),
+            verbose=(i == 0 and verbose_first),
+            max_turns=1000,
         )
 
         results[winner] += 1
@@ -258,11 +261,11 @@ if __name__ == "__main__":
     # Option 1: Play a single game with detailed output
     print("OPTION 1: Single detailed game")
     print()
-    winner, turns = play_full_game(seed=42, verbose=True, max_turns=1000)
+    winner, turns = play_full_game(seed=42, verbose=True, max_turns=200)
     print(f"\nFinal result: {winner} won in {turns} turns")
 
     # Option 2: Run multiple games for statistics
     print("\n\n" + "=" * 70)
     print("OPTION 2: Multiple games for statistics")
     print("=" * 70)
-    run_multiple_games(n_games=5, verbose_first=False)
+    run_multiple_games(n_games=200, verbose_first=False)
