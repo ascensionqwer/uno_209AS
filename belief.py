@@ -1,3 +1,4 @@
+# belief.py:
 from typing import List, Dict, Tuple, Set, Optional
 import random
 from collections import Counter
@@ -412,7 +413,7 @@ class BeliefUpdater:
 
 # Example usage demonstrating Bayesian updates
 if __name__ == "__main__":
-    from pomdp import Action
+    # from pomdp import Action
 
     # Create a game
     uno = Uno()

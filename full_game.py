@@ -1,271 +1,481 @@
-"""
-Full UNO game simulation with belief tracking.
+# full_game.py:
 
-This demonstrates:
-- Complete game play between two players
-- Player 1 with belief state tracking
-- Simple heuristic policies for both players
-- Turn-by-turn game progression
-"""
-
+from typing import List, Dict, Tuple, Set, Optional
 import random
+from collections import Counter
+from itertools import combinations
+import math
+# from cards import Card, RED, YELLOW, GREEN, BLUE
+# from pomdp import State
+# from uno import Uno
 
-from belief import Belief, BeliefUpdater
-from pomdp import Action
-from uno import Uno
 
-
-def simple_policy_player1(legal_actions, hand, belief=None):
+class Belief:
     """
-    Policy for Player 1: Play highest value card.
+    Belief state representation for UNO POMDP with proper Bayesian updates.
 
-    Args:
-        legal_actions: List of legal actions
-        hand: Current hand
-        belief: Current belief state (optional)
+    Mathematical formulation:
+    - L = D \ (H_1 ∪ P) - unknown card set
+    - bel⁻(H_2) = 1/C(|L|, k) - prior belief (uniform over k-subsets)
+    - Posterior updates based on opponent actions:
+        * Case 1: Opponent plays card z
+        * Case 2: Opponent draws (no legal cards in hand)
 
-    Returns:
-        Selected action
+    O = (H_1, |H_2|, |D_g|, P, P_t, G_o) - Player 1's observation
     """
-    if len(legal_actions) == 0:
-        return None
 
-    # Separate play actions from draw actions
-    play_actions = [a for a in legal_actions if a.is_play()]
-    draw_actions = [a for a in legal_actions if a.is_draw()]
+    def __init__(self, observation: Tuple):
+        """
+        Initialize belief from an observation.
 
-    if play_actions:
-        # Play the card with highest value
-        best_action = max(play_actions, key=lambda a: a.X_1[1])
-        return best_action
-    elif draw_actions:
-        # Must draw
-        return draw_actions[0]
+        Args:
+            observation: O = (H_1, |H_2|, |D_g|, P, P_t, G_o)
+        """
+        self.H_1 = observation[0]  # Player 1's hand (known)
+        self.h2_size = observation[1]  # k = |H_2| (known)
+        self.dg_size = observation[2]  # |D_g| (known)
+        self.P = observation[3]  # Played cards (known)
+        self.P_t = observation[4]  # Top card (known)
+        self.G_o = observation[5]  # Game status (known)
 
-    return legal_actions[0]
+        # L = D \ (H_1 ∪ P) - unknown cards
+        self.L = self._compute_L()
 
+        # N(P_t) = LEGAL(P_t) ∩ L - legal cards in unknown set
+        self.N_Pt = self._compute_legal_unknown()
 
-def simple_policy_player2(legal_actions, hand):
-    """
-    Policy for Player 2: Play first legal card in hand (no optimization).
+        # Valid H_2 configurations (for exact small state spaces)
+        # For large spaces, we use sampling with proper distribution
+        self.valid_h2_configs = None
+        self.use_sampling = len(self.L) > 20  # Use sampling for large spaces
 
-    Args:
-        legal_actions: List of legal actions
-        hand: Current hand
+        # Posterior mode: None, "play", "draw"
+        self.posterior_mode = None
+        self.played_card = None  # Card played by opponent (Case 1)
 
-    Returns:
-        Selected action
-    """
-    if len(legal_actions) == 0:
-        return None
+    def _compute_L(self) -> List[Card]:
+        """
+        Computes L = D \ (H_1 ∪ P) - cards unknown to Player 1.
 
-    # Separate play actions from draw actions
-    play_actions = [a for a in legal_actions if a.is_play()]
-    draw_actions = [a for a in legal_actions if a.is_draw()]
+        Returns:
+            List of cards that could be in H_2 or D_g
+        """
+        # Build full deck
+        full_deck = []
+        colors = [RED, YELLOW, GREEN, BLUE]
+        for color in colors:
+            full_deck.append((color, 0))
+            for number in range(1, 10):
+                full_deck.append((color, number))
+                full_deck.append((color, number))
 
-    if play_actions:
-        # Play first legal card found in hand
-        # Find which card in hand is playable first
-        for card in hand:
-            for action in play_actions:
-                if action.X_1 == card:
-                    return action
-        # Fallback: just return first play action
-        return play_actions[0]
-    elif draw_actions:
-        # Must draw
-        return draw_actions[0]
+        # Count known cards: H_1 ∪ P
+        known_cards = list(self.H_1) + list(self.P)
+        known_counter = Counter(known_cards)
 
-    return legal_actions[0]
+        # L = D \ (H_1 ∪ P)
+        L = []
+        full_counter = Counter(full_deck)
 
+        for card, count in full_counter.items():
+            unknown_count = count - known_counter.get(card, 0)
+            L.extend([card] * unknown_count)
 
-def play_full_game(seed=42, verbose=True, max_turns=200):
-    """
-    Plays a complete game of UNO with belief tracking for Player 1.
+        return L
 
-    Args:
-        seed: Random seed for reproducibility
-        verbose: Print turn-by-turn information
-        max_turns: Maximum turns before declaring draw
+    def _compute_legal_unknown(self) -> Set[Card]:
+        """
+        Computes N(P_t) = LEGAL(P_t) ∩ L
 
-    Returns:
-        Winner ("Player1", "Player2", or "Draw"), number of turns
-    """
-    # Initialize game
-    uno = Uno()
-    uno.new_game(seed=seed, deal=7)
-    uno.create_S()
+        LEGAL(P_t) = {c ∈ D : c.COLOR = P_t.COLOR ∨ c.VALUE = P_t.VALUE}
+        (Simplified: no wild cards in this implementation)
 
-    # Initialize belief for Player 1
-    initial_obs = uno.get_O_space()
-    belief_updater = BeliefUpdater(initial_obs)
+        Returns:
+            Set of legal cards within unknown set L
+        """
+        if self.P_t is None:
+            return set()
 
-    if verbose:
-        print("=" * 70)
-        print("UNO GAME START")
-        print("=" * 70)
-        print(f"Starting hand Player 1: {uno.H_1}")
-        print(f"Starting hand Player 2 size: {len(uno.H_2)}")
-        print(f"Top card: {uno.P_t}")
-        print(f"Deck size: {len(uno.D_g)}")
-        print()
+        P_t_color, P_t_value = self.P_t
+        legal_unknown = set()
 
-    turn = 0
-    current_player = 1  # Start with Player 1
+        for card in self.L:
+            card_color, card_value = card
+            if card_color == P_t_color or card_value == P_t_value:
+                legal_unknown.add(card)
 
-    while uno.G_o == "Active" and turn < max_turns:
-        turn += 1
+        return legal_unknown
 
-        if verbose:
-            print("-" * 70)
-            print(f"TURN {turn} - Player {current_player}'s turn")
-            print("-" * 70)
+    def reset_prior(self):
+        """
+        Resets to prior belief: bel⁻(H_2) = 1/C(|L|, k)
+        Uniform distribution over all k-subsets of L.
+        """
+        self.posterior_mode = None
+        self.played_card = None
+        self.valid_h2_configs = None
 
-        # Get legal actions for current player
-        legal_actions = uno.get_legal_actions(player=current_player)
+    def update_opponent_played(self, played_card: Card):
+        """
+        Case 1: Opponent played card z.
 
-        if verbose:
-            print(f"Top card: {uno.P_t}")
-            if current_player == 1:
-                print(f"Player 1 hand: {uno.H_1}")
-            else:
-                print(f"Player 2 hand size: {len(uno.H_2)}")
-            print(
-                f"Legal actions ({len(legal_actions)}): {legal_actions[:3]}{'...' if len(legal_actions) > 3 else ''}"
-            )
+        Update:
+        - k' = k - 1 (opponent hand size decreases)
+        - P' = P ∪ {z}
+        - P_t' = z
+        - L' = D \ (H_1 ∪ P')
+        - z ∈ H_2 (condition: played card was in opponent hand)
 
-        # Select action based on policy
-        if current_player == 1:
-            # Player 1 uses belief and optimizes for highest value
-            belief = belief_updater.get_belief()
-            if verbose:
-                print(
-                    f"Player 1 belief: |L|={len(belief.L)}, |N(P_t)|={len(belief.N_Pt)}, "
-                    f"P(opp_no_legal)={belief._prob_no_legal():.3f}"
-                )
-            action = simple_policy_player1(legal_actions, uno.H_1, belief)
+        After update, reset to prior with new L and k.
+
+        Args:
+            played_card: Card that opponent played
+        """
+        # Verify card was in L (sanity check)
+        if played_card not in self.L:
+            print(f"Warning: Opponent played {played_card} not in L!")
+
+        # Update game state knowledge
+        self.h2_size -= 1  # k' = k - 1
+        self.P = list(self.P) + [played_card]  # P' = P ∪ {z}
+        self.P_t = played_card  # P_t' = z
+
+        # Recompute L' and N(P_t')
+        self.L = self._compute_L()
+        self.N_Pt = self._compute_legal_unknown()
+
+        # Reset to new prior with updated L and k
+        self.reset_prior()
+
+    def update_opponent_drew(self):
+        """
+        Case 2: Opponent drew a card (no legal play available).
+
+        This observation tells us: H_2 ∩ N(P_t) = ∅
+        (opponent had no legal cards before drawing)
+
+        Posterior belief:
+        - Before draw: bel⁺(H_2 | no_legal) = 1/C(|L|-|N(P_t)|, k)
+          where H_2 ⊆ L \ N(P_t)
+
+        - After draw: k' = k + 1, and we don't know which card was drawn
+          bel⁻(H_2' | no_legal+draw) with |H_2'| = k+1
+
+        Update:
+        - k' = k + 1
+        - |D_g|' = |D_g| - 1
+        - L unchanged (we don't know what was drawn)
+        - Valid H_2 configs must not contain any card from N(P_t)
+        """
+        # Record that we're in posterior mode (opponent had no legal cards)
+        self.posterior_mode = "draw"
+
+        # Update sizes
+        self.h2_size += 1  # k' = k + 1
+        self.dg_size -= 1  # |D_g|' = |D_g| - 1
+
+        # L is unchanged, but valid H_2 must exclude N(P_t)
+        # This constraint is applied during sampling
+
+    def _prob_no_legal(self) -> float:
+        """
+        Computes Pr(no_legal) = C(|L|-|N(P_t)|, k) / C(|L|, k)
+
+        Probability that opponent has no legal cards.
+        """
+        L_size = len(self.L)
+        N_size = len(self.N_Pt)
+        k = self.h2_size
+
+        if k > L_size - N_size:
+            return 0.0  # Impossible to have k cards without any legal ones
+
+        try:
+            numerator = math.comb(L_size - N_size, k)
+            denominator = math.comb(L_size, k)
+            return numerator / denominator if denominator > 0 else 0.0
+        except:
+            return 0.0
+
+    def sample_state(self, seed: int = None) -> State:
+        """
+        Samples a possible state consistent with current belief.
+
+        Sampling respects posterior constraints:
+        - If posterior_mode = "draw": H_2 ⊆ L \ N(P_t)
+        - Otherwise: H_2 ⊆ L (uniform prior)
+
+        Args:
+            seed: Random seed for reproducibility
+
+        Returns:
+            A possible State consistent with belief
+        """
+        rng = random.Random(seed)
+
+        # Determine valid cards for H_2 based on belief state
+        if self.posterior_mode == "draw":
+            # Opponent had no legal cards: H_2 ⊆ L \ N(P_t)
+            valid_for_h2 = [c for c in self.L if c not in self.N_Pt]
         else:
-            # Player 2 plays first legal card (simple)
-            action = simple_policy_player2(legal_actions, uno.H_2)
+            # Prior belief: H_2 can be any k-subset of L
+            valid_for_h2 = self.L.copy()
 
-        if action is None:
-            if verbose:
-                print(f"ERROR: No legal actions available!")
-            break
-
-        if verbose:
-            if action.is_play():
-                print(f"Player {current_player} plays: {action.X_1}")
-            else:
-                print(f"Player {current_player} draws {action.n} card(s)")
-
-        # Execute action
-        success = uno.execute_action(action, player=current_player)
-
-        if not success:
-            if verbose:
-                print(f"ERROR: Action execution failed!")
-            break
-
-        if verbose and action.is_draw():
-            print(f"  Drew: {action.Y_n}")
-
-        # Update belief if Player 2 just acted
-        if current_player == 2:
-            new_obs = uno.get_O_space()
-            belief_updater.update(action, new_obs)
-
-            if verbose:
-                belief = belief_updater.get_belief()
-                if action.is_draw():
-                    print(f"  → Belief updated: Player 2 had no legal cards!")
-                print(
-                    f"  → New belief: |L|={len(belief.L)}, Entropy={belief.entropy():.2f}"
-                )
-
-        # Check win condition
-        if len(uno.H_1) == 0:
-            if verbose:
-                print("\n" + "=" * 70)
-                print("PLAYER 1 WINS!")
-                print("=" * 70)
-            return "Player1", turn
-        elif len(uno.H_2) == 0:
-            if verbose:
-                print("\n" + "=" * 70)
-                print("PLAYER 2 WINS!")
-                print("=" * 70)
-            return "Player2", turn
-
-        # Switch player
-        current_player = 2 if current_player == 1 else 1
-
-        if verbose:
+        # Check if sampling is possible
+        if len(valid_for_h2) < self.h2_size:
             print(
-                f"Cards remaining - P1: {len(uno.H_1)}, P2: {len(uno.H_2)}, Deck: {len(uno.D_g)}"
+                f"Warning: Cannot sample - need {self.h2_size} cards but only {len(valid_for_h2)} valid"
             )
+            valid_for_h2 = self.L.copy()  # Fall back to prior
 
-    if verbose:
-        print("\n" + "=" * 70)
-        print(f"GAME ENDED IN DRAW (reached {max_turns} turns)")
-        print("=" * 70)
+        # Sample H_2: randomly choose k cards from valid set
+        rng.shuffle(valid_for_h2)
+        H_2_sample = valid_for_h2[: self.h2_size]
 
-    return "Draw", turn
+        # Remaining cards go to D_g (up to observed size)
+        remaining = [c for c in self.L if c not in H_2_sample]
+        rng.shuffle(remaining)
+        D_g_sample = remaining[: self.dg_size]
 
-
-def run_multiple_games(n_games=5, verbose_first=True):
-    """
-    Runs multiple games and reports statistics.
-
-    Args:
-        n_games: Number of games to simulate
-        verbose_first: Print details of first game only
-    """
-    results = {"Player1": 0, "Player2": 0, "Draw": 0}
-    turn_counts = []
-
-    for i in range(n_games):
-        print(f"\n{'=' * 70}")
-        print(f"GAME {i + 1}/{n_games}")
-        print(f"{'=' * 70}")
-
-        winner, turns = play_full_game(
-            seed=random.randint(0, 1000),
-            verbose=(i == 0 and verbose_first),
-            max_turns=1000,
+        # Construct state
+        state = (
+            list(self.H_1),  # H_1 (known)
+            H_2_sample,  # H_2 (sampled from belief)
+            D_g_sample,  # D_g (sampled)
+            list(self.P),  # P (known)
+            self.P_t,  # P_t (known)
+            self.G_o,  # G_o (known)
         )
 
-        results[winner] += 1
-        turn_counts.append(turns)
+        return state
 
-        if not (i == 0 and verbose_first):
-            print(f"Result: {winner} won in {turns} turns")
+    def sample_states(self, n_samples: int = 100) -> List[State]:
+        """
+        Generates multiple state samples for belief approximation.
 
-    # Print statistics
-    print("\n" + "=" * 70)
-    print("GAME STATISTICS")
-    print("=" * 70)
-    print(f"Total games: {n_games}")
-    print(
-        f"Player 1 wins: {results['Player1']} ({results['Player1'] / n_games * 100:.1f}%)"
-    )
-    print(
-        f"Player 2 wins: {results['Player2']} ({results['Player2'] / n_games * 100:.1f}%)"
-    )
-    print(f"Draws: {results['Draw']} ({results['Draw'] / n_games * 100:.1f}%)")
-    print(f"Average turns per game: {sum(turn_counts) / len(turn_counts):.1f}")
-    print(f"Min turns: {min(turn_counts)}, Max turns: {max(turn_counts)}")
+        Args:
+            n_samples: Number of states to sample
+
+        Returns:
+            List of possible states from belief distribution
+        """
+        return [self.sample_state(seed=i) for i in range(n_samples)]
+
+    def get_card_probabilities(self, location: str) -> Dict[Card, float]:
+        """
+        Estimates probability of each card being in a specific location.
+
+        Uses proper belief distribution:
+        - If posterior_mode = "draw": conditions on H_2 ⊆ L \ N(P_t)
+        - Otherwise: uniform over k-subsets
+
+        Args:
+            location: Either "H_2" or "D_g"
+
+        Returns:
+            Dictionary mapping cards to probabilities
+        """
+        if location not in ["H_2", "D_g"]:
+            raise ValueError("location must be 'H_2' or 'D_g'")
+
+        # Determine valid cards based on belief
+        if self.posterior_mode == "draw" and location == "H_2":
+            valid_cards = [c for c in self.L if c not in self.N_Pt]
+        else:
+            valid_cards = self.L
+
+        if len(valid_cards) == 0:
+            return {}
+
+        # Compute probabilities
+        probabilities = {}
+
+        if location == "H_2":
+            # P(card in H_2) = k / |valid_cards| for uniform sampling
+            for card in set(valid_cards):
+                count = valid_cards.count(card)
+                # Probability this card is in H_2
+                probabilities[card] = (count * self.h2_size) / len(valid_cards)
+        else:  # D_g
+            # P(card in D_g) = |D_g| / |valid_cards|
+            for card in set(valid_cards):
+                count = valid_cards.count(card)
+                probabilities[card] = (count * self.dg_size) / len(valid_cards)
+
+        return probabilities
+
+    def entropy(self) -> float:
+        """
+        Computes entropy of the belief state as measure of uncertainty.
+
+        For prior: H = log₂(C(|L|, k))
+        For posterior (draw): H = log₂(C(|L|-|N(P_t)|, k))
+
+        Returns:
+            Entropy value in bits
+        """
+        if self.posterior_mode == "draw":
+            # Entropy over configurations with no legal cards
+            L_size = len(self.L) - len(self.N_Pt)
+        else:
+            # Entropy over all configurations
+            L_size = len(self.L)
+
+        k = self.h2_size
+
+        if L_size < k or k <= 0:
+            return 0.0
+
+        try:
+            n_configs = math.comb(L_size, k)
+            return math.log2(n_configs) if n_configs > 0 else 0.0
+        except:
+            # Approximation for very large numbers
+            return L_size * 0.5
+
+    def update(self, opponent_action, new_observation: Tuple):
+        """
+        Updates belief given opponent action and new observation.
+
+        Args:
+            opponent_action: Action opponent took (play or draw)
+            new_observation: New observation O = (H_1, |H_2|, |D_g|, P, P_t, G_o)
+        """
+        if opponent_action is not None:
+            if opponent_action.is_play():
+                # Case 1: Opponent played a card
+                self.update_opponent_played(opponent_action.X_1)
+            elif opponent_action.is_draw():
+                # Case 2: Opponent drew card(s)
+                self.update_opponent_drew()
+
+        # Update with new observation (in case we missed something)
+        self.H_1 = new_observation[0]
+        self.h2_size = new_observation[1]
+        self.dg_size = new_observation[2]
+        self.P = new_observation[3]
+        self.P_t = new_observation[4]
+        self.G_o = new_observation[5]
+
+        # Recompute derived quantities
+        self.L = self._compute_L()
+        self.N_Pt = self._compute_legal_unknown()
+
+    def __repr__(self):
+        mode_str = f", Mode={self.posterior_mode}" if self.posterior_mode else ""
+        prob_no_legal = self._prob_no_legal()
+        return (
+            f"Belief(H_1={len(self.H_1)} cards, "
+            f"H_2={self.h2_size} cards, "
+            f"D_g={self.dg_size} cards, "
+            f"|L|={len(self.L)}, |N(P_t)|={len(self.N_Pt)}, "
+            f"P(no_legal)={prob_no_legal:.3f}, "
+            f"Entropy={self.entropy():.2f}{mode_str})"
+        )
 
 
+class BeliefUpdater:
+    """
+    Helper class for updating beliefs through game play.
+    Properly tracks opponent actions for Bayesian updates.
+    """
+
+    def __init__(self, initial_observation: Tuple):
+        """
+        Initialize belief updater with initial observation.
+
+        Args:
+            initial_observation: Initial O = (H_1, |H_2|, |D_g|, P, P_t, G_o)
+        """
+        self.belief = Belief(initial_observation)
+        self.observation_history = [initial_observation]
+        self.action_history = []
+
+    def update(self, opponent_action, new_observation: Tuple):
+        """
+        Updates belief given opponent action and new observation.
+
+        Args:
+            opponent_action: Action opponent took
+            new_observation: Resulting observation
+        """
+        self.belief.update(opponent_action, new_observation)
+        self.observation_history.append(new_observation)
+        self.action_history.append(opponent_action)
+
+    def get_belief(self) -> Belief:
+        """Returns current belief state"""
+        return self.belief
+
+    def get_history(self) -> Tuple[List[Tuple], List]:
+        """Returns observation and action history"""
+        return self.observation_history, self.action_history
+
+
+# Example usage demonstrating Bayesian updates
 if __name__ == "__main__":
-    # Option 1: Play a single game with detailed output
-    print("OPTION 1: Single detailed game")
-    print()
-    winner, turns = play_full_game(seed=42, verbose=True, max_turns=200)
-    print(f"\nFinal result: {winner} won in {turns} turns")
+    # from pomdp import Action
 
-    # Option 2: Run multiple games for statistics
-    print("\n\n" + "=" * 70)
-    print("OPTION 2: Multiple games for statistics")
-    print("=" * 70)
-    run_multiple_games(n_games=200, verbose_first=False)
+    # Create a game
+    uno = Uno()
+    uno.new_game(seed=42)
+    uno.create_S()
+
+    print("=" * 60)
+    print("INITIAL STATE")
+    print("=" * 60)
+
+    # Get Player 1's observation
+    observation = uno.get_O_space()
+    print(f"H_1: {observation[0]}")
+    print(f"|H_2|: {observation[1]}")
+    print(f"P_t: {observation[4]}")
+
+    # Create belief
+    belief = Belief(observation)
+    print(f"\n{belief}")
+    print(f"Legal unknown cards N(P_t): {belief.N_Pt}")
+
+    # Sample states under prior
+    print("\n" + "=" * 60)
+    print("SAMPLING UNDER PRIOR BELIEF")
+    print("=" * 60)
+    samples = belief.sample_states(3)
+    for i, state in enumerate(samples):
+        print(f"\nSample {i + 1} - Opponent hand H_2: {state[1]}")
+
+    # Simulate Case 2: Opponent draws (no legal play)
+    print("\n" + "=" * 60)
+    print("CASE 2: OPPONENT DRAWS (NO LEGAL CARDS)")
+    print("=" * 60)
+    print(f"Before draw: P(no_legal) = {belief._prob_no_legal():.4f}")
+
+    belief.update_opponent_drew()
+    print(f"\nAfter observing draw:")
+    print(belief)
+    print(f"Opponent hand size now: {belief.h2_size}")
+
+    # Sample states under posterior (should exclude legal cards)
+    print("\nSampling under posterior (H_2 must exclude legal cards):")
+    samples = belief.sample_states(3)
+    for i, state in enumerate(samples):
+        h2 = state[1]
+        print(f"\nSample {i + 1} - H_2: {h2}")
+        has_legal = any(c in belief.N_Pt for c in h2)
+        print(f"  Contains legal card: {has_legal} (should be False)")
+
+    # Simulate Case 1: Opponent plays a card
+    print("\n" + "=" * 60)
+    print("CASE 1: OPPONENT PLAYS A CARD")
+    print("=" * 60)
+
+    # Pick a card from opponent's likely hand
+    if len(belief.L) > 0:
+        played_card = belief.L[0]
+        print(f"Opponent plays: {played_card}")
+
+        belief.update_opponent_played(played_card)
+        print(f"\nAfter opponent play:")
+        print(belief)
+        print(f"New P_t: {belief.P_t}")
+        print(f"New |L|: {len(belief.L)}")
