@@ -13,6 +13,7 @@ def main():
     mcts_iterations = config.get("mcts_iterations", 1000)
     planning_horizon = config.get("planning_horizon", 5)
     gamma = config.get("gamma", 0.95)
+    num_observations = config.get("num_observations", 1000)
 
     print("=" * 60)
     print("Policy Generator 2: Particle Filter + MCTS (MATH2.md)")
@@ -22,6 +23,7 @@ def main():
     print(f"  mcts_iterations: {mcts_iterations}")
     print(f"  planning_horizon: {planning_horizon}")
     print(f"  gamma: {gamma}")
+    print(f"  num_observations: {num_observations}")
     print()
 
     # Generate policy
@@ -30,7 +32,7 @@ def main():
         mcts_iterations=mcts_iterations,
         planning_horizon=planning_horizon,
         gamma=gamma,
-        num_observations=1000,
+        num_observations=num_observations,
     )
 
     # Save to file

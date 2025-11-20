@@ -33,25 +33,50 @@ class Particle:
 
 
 class MCTSNode:
-    """Node in MCTS tree."""
+    """Node in MCTS tree with particle-based belief."""
 
-    def __init__(self, state: Tuple, action: Optional[Action] = None, parent=None):
-        self.state = state  # (H_1, H_2, D_g, P, P_t, G_o)
-        self.action = action
+    def __init__(
+        self,
+        H_1: List[Card],
+        particles: List[Particle],
+        P: List[Card],
+        P_t: Optional[Card],
+        G_o: str,
+        action: Optional[Action] = None,
+        parent=None,
+    ):
+        self.H_1 = H_1
+        self.particles = particles  # Particle set representing belief over opponent's hand
+        self.P = P
+        self.P_t = P_t
+        self.G_o = G_o
+        self.action = action  # Action that led to this node
         self.parent = parent
         self.children = []
         self.visits = 0
-        self.value = 0.0
+        self.total_value = 0.0
         self.untried_actions = []
 
+    @property
+    def value(self) -> float:
+        """Average value of this node."""
+        return self.total_value / (self.visits + 1e-6)
+
     def is_fully_expanded(self) -> bool:
+        """Check if all actions have been tried."""
         return len(self.untried_actions) == 0 and len(self.children) > 0
 
+    def is_terminal(self) -> bool:
+        """Check if this is a terminal state."""
+        return self.G_o == "GameOver" or len(self.H_1) == 0
+
     def best_child(self, c: float = 1.414) -> "MCTSNode":
-        """Select best child using UCB1."""
+        """Select best child using UCB1 formula."""
+        if len(self.children) == 0:
+            return None
         return max(
             self.children,
-            key=lambda child: child.value / (child.visits + 1e-6)
+            key=lambda child: child.value
             + c * math.sqrt(math.log(self.visits + 1) / (child.visits + 1e-6)),
         )
 
@@ -288,6 +313,50 @@ def simulate_rollout(
         return 0.0
 
 
+def update_particles_after_action(
+    particles: List[Particle],
+    action: Action,
+    H_1: List[Card],
+    P: List[Card],
+    P_t: Optional[Card],
+) -> Tuple[List[Card], List[Card], Optional[Card], List[Particle]]:
+    """
+    Update particles after taking an action.
+    Returns (H_1_new, P_new, P_t_new, particles_new).
+    """
+    if action.is_play():
+        card = action.X_1
+        H_1_new = [c for c in H_1 if c != card]
+        P_new = P + [card]
+        P_t_new = card
+        if card[0] == BLACK:
+            chosen_color = action.wild_color if action.wild_color else RED
+            P_t_new = (chosen_color, card[1])
+        # Particles unchanged (opponent hasn't acted yet)
+        particles_new = particles
+    else:
+        # Draw action - update particles by sampling drawn card
+        # For draw action, H_1_new is the same for all particles (we draw one card)
+        particles_new = []
+        if len(particles) > 0 and len(particles[0].D_g) > 0:
+            # Sample a card from first particle's deck (all particles have same deck structure)
+            drawn = random.choice(particles[0].D_g)
+            H_1_new = H_1 + [drawn]
+            for particle in particles:
+                if len(particle.D_g) > 0 and drawn in particle.D_g:
+                    D_g_new = [c for c in particle.D_g if c != drawn]
+                    particles_new.append(Particle(particle.H_2, D_g_new, particle.weight))
+                else:
+                    particles_new.append(particle)
+        else:
+            H_1_new = H_1
+            particles_new = particles
+        P_new = P
+        P_t_new = P_t
+
+    return H_1_new, P_new, P_t_new, particles_new
+
+
 def mcts_search(
     H_1: List[Card],
     particles: List[Particle],
@@ -300,6 +369,7 @@ def mcts_search(
 ) -> Action:
     """
     Monte Carlo Tree Search with particle filter.
+    Implements full MCTS: Selection -> Expansion -> Simulation -> Backpropagation.
     Returns best action.
     """
     # Get legal actions
@@ -312,71 +382,81 @@ def mcts_search(
     if len(legal_actions) == 1:
         return legal_actions[0]
 
-    # Evaluate each action using particle-based value estimation
-    action_values = {}
+    # Initialize root node
+    root = MCTSNode(H_1, particles, P, P_t, G_o)
+    root.untried_actions = legal_actions.copy()
 
-    for action in legal_actions:
-        total_value = 0.0
-        total_weight = 0.0
+    # MCTS iterations
+    for _ in range(num_iterations):
+        # Selection: traverse tree using UCB1
+        node = root
+        depth = 0
 
-        # Sample particles for evaluation
-        for particle in particles:
-            if particle.weight < 1e-6:
-                continue
+        while not node.is_terminal() and node.is_fully_expanded() and depth < max_depth:
+            node = node.best_child()
+            depth += 1
 
-            # Simulate action on this particle
-            if action.is_play():
-                card = action.X_1
-                H_1_new = [c for c in H_1 if c != card]
-                P_new = P + [card]
-                P_t_new = card
-                if card[0] == BLACK:
-                    chosen_color = action.wild_color if action.wild_color else RED
-                    P_t_new = (chosen_color, card[1])
+        # Expansion: add new node for unexplored action
+        if not node.is_terminal() and len(node.untried_actions) > 0:
+            action = node.untried_actions.pop()
+            H_1_new, P_new, P_t_new, particles_new = update_particles_after_action(
+                node.particles, action, node.H_1, node.P, node.P_t
+            )
 
-                # Estimate value using rollout
-                value = simulate_rollout(
-                    H_1_new,
+            # Check if game over
+            G_o_new = "GameOver" if len(H_1_new) == 0 else "Active"
+
+            child = MCTSNode(
+                H_1_new, particles_new, P_new, P_t_new, G_o_new, action, node
+            )
+            current_color_new = (
+                P_t_new[0] if P_t_new and P_t_new[0] != BLACK else None
+            )
+            child.untried_actions = get_legal_actions(H_1_new, P_t_new, current_color_new)
+            node.children.append(child)
+            node = child
+            depth += 1
+
+        # Simulation: roll out using particle samples to estimate value
+        if node.is_terminal():
+            value = compute_reward(node.H_1, node.particles[0].H_2 if node.particles else [])
+        else:
+            # Use particle-based rollout
+            total_value = 0.0
+            total_weight = 0.0
+            for particle in node.particles[: min(10, len(node.particles))]:  # Sample subset
+                rollout_value = simulate_rollout(
+                    node.H_1,
                     particle.H_2,
                     particle.D_g,
-                    P_new,
-                    P_t_new,
-                    "Active",
+                    node.P,
+                    node.P_t,
+                    node.G_o,
                     gamma,
-                    0,
+                    depth,
                     max_depth,
                 )
-
-                total_value += particle.weight * value
+                total_value += particle.weight * rollout_value
                 total_weight += particle.weight
-            else:
-                # Draw action
-                if len(particle.D_g) > 0:
-                    drawn = random.choice(particle.D_g)
-                    H_1_new = H_1 + [drawn]
-                    D_g_new = [c for c in particle.D_g if c != drawn]
-                    value = simulate_rollout(
-                        H_1_new,
-                        particle.H_2,
-                        D_g_new,
-                        P,
-                        P_t,
-                        "Active",
-                        gamma,
-                        0,
-                        max_depth,
-                    )
-                    total_value += particle.weight * value
-                    total_weight += particle.weight
+            value = total_value / (total_weight + 1e-6)
 
-        if total_weight > 0:
-            action_values[action] = total_value / total_weight
-        else:
-            action_values[action] = 0.0
+        # Backpropagation: update node values
+        while node is not None:
+            node.visits += 1
+            node.total_value += value
+            value = gamma * value  # Discount for parent nodes
+            node = node.parent
 
-    # Return best action
-    best_action = max(action_values, key=action_values.get)
-    return best_action
+    # Return best action (most visited child)
+    if len(root.children) == 0:
+        # Fallback: return action with highest value
+        return max(legal_actions, key=lambda a: simulate_rollout(
+            H_1, particles[0].H_2 if particles else [], 
+            particles[0].D_g if particles else [], P, P_t, G_o, gamma, 0, max_depth
+        ) if particles else 0.0)
+
+    best_child = max(root.children, key=lambda c: c.visits)
+    return best_child.action
 
 
 def generate_policy_2(
@@ -389,12 +469,28 @@ def generate_policy_2(
     """
     Generate policy lookup table using particle filter + MCTS approach.
 
+    Parameter Explanation:
+    - num_observations: How many different game states/observations to generate
+      policies for. This is the number of entries in the lookup table. Uses random
+      sampling to select which states to include.
+    
+    - num_particles: For EACH observation, how many particles to use in the particle
+      filter. Each particle represents a possible opponent hand + deck configuration.
+      More particles = better belief approximation but slower computation.
+    
+    - mcts_iterations: Number of MCTS tree search iterations per action evaluation.
+      Each iteration: Selection (UCB1) -> Expansion -> Simulation (particle-based rollout)
+      -> Backpropagation. More iterations = better action selection but slower.
+    
+    - planning_horizon: Maximum lookahead depth when simulating rollouts to estimate
+      action values. Deeper = better estimates but slower.
+
     Args:
-        num_particles: Number of particles for belief approximation
-        mcts_iterations: Number of MCTS iterations (simplified to particle evaluation)
-        planning_horizon: Maximum lookahead depth
+        num_particles: Number of particles for belief approximation per observation
+        mcts_iterations: Number of MCTS iterations (Selection -> Expansion -> Simulation -> Backpropagation)
+        planning_horizon: Maximum lookahead depth for rollouts
         gamma: Discount factor
-        num_observations: Number of observations to generate
+        num_observations: Number of game states to generate policies for (lookup table size)
 
     Returns:
         Dictionary mapping observation keys to {"action": ..., "value": ...}
@@ -442,19 +538,41 @@ def generate_policy_2(
         )
 
         # Estimate value (simplified)
-        current_color = P_t[0] if P_t and P_t[0] != BLACK else None
-        legal_actions = get_legal_actions(H_1, P_t, current_color)
-        if best_action in legal_actions:
-            # Compute approximate value
-            value = 0.0
-            for particle in particles[: min(10, len(particles))]:  # Sample subset
-                if best_action.is_play():
-                    card = best_action.X_1
-                    H_1_new = [c for c in H_1 if c != card]
-                    value += particle.weight * simulate_rollout(
+        # Note: mcts_search already returns a legal action, so we can use it directly
+        value = 0.0
+        total_weight = 0.0
+        particle_subset = particles[: min(10, len(particles))]  # Sample subset
+        for particle in particle_subset:
+            if best_action.is_play():
+                card = best_action.X_1
+                H_1_new = [c for c in H_1 if c != card]
+                P_new = P + [card]
+                P_t_new = card
+                if card[0] == BLACK:
+                    chosen_color = best_action.wild_color if best_action.wild_color else RED
+                    P_t_new = (chosen_color, card[1])
+                rollout_value = simulate_rollout(
+                    H_1_new,
+                    particle.H_2,
+                    particle.D_g,
+                    P_new,
+                    P_t_new,
+                    "Active",
+                    gamma,
+                    0,
+                    planning_horizon,
+                )
+                value += particle.weight * rollout_value
+                total_weight += particle.weight
+            else:
+                if len(particle.D_g) > 0:
+                    drawn = random.choice(particle.D_g)
+                    H_1_new = H_1 + [drawn]
+                    D_g_new = [c for c in particle.D_g if c != drawn]
+                    rollout_value = simulate_rollout(
                         H_1_new,
                         particle.H_2,
-                        particle.D_g,
+                        D_g_new,
                         P,
                         P_t,
                         "Active",
@@ -462,26 +580,18 @@ def generate_policy_2(
                         0,
                         planning_horizon,
                     )
-                else:
-                    if len(particle.D_g) > 0:
-                        H_1_new = H_1 + [random.choice(particle.D_g)]
-                        value += particle.weight * simulate_rollout(
-                            H_1_new,
-                            particle.H_2,
-                            particle.D_g,
-                            P,
-                            P_t,
-                            "Active",
-                            gamma,
-                            0,
-                            planning_horizon,
-                        )
+                    value += particle.weight * rollout_value
+                    total_weight += particle.weight
+        
+        # Normalize by total weight
+        if total_weight > 0:
+            value = value / total_weight
 
-            # Canonicalize observation
-            obs_key = canonicalize_observation(
-                H_1, opponent_size, deck_size, P_t, "Active"
-            )
-            policy[obs_key] = {"action": serialize_action(best_action), "value": value}
+        # Canonicalize observation
+        obs_key = canonicalize_observation(
+            H_1, opponent_size, deck_size, P_t, "Active"
+        )
+        policy[obs_key] = {"action": serialize_action(best_action), "value": value}
 
     print(f"Generated {len(policy)} policy entries.")
     return policy

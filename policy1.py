@@ -10,16 +10,24 @@ def main():
     """Generate Policy 1 and save to policy/policy1.json"""
     config = get_policy1_config()
     gamma = config.get("gamma", 0.95)
+    num_belief_samples = config.get("num_belief_samples", 50)
+    max_depth = config.get("max_depth", 3)
 
     print("=" * 60)
     print("Policy Generator 1: Value Function Approach (MATH.md)")
     print("=" * 60)
-    print(f"Configuration: gamma={gamma}")
+    print("Configuration:")
+    print(f"  gamma: {gamma}")
+    print(f"  num_belief_samples: {num_belief_samples}")
+    print(f"  max_depth: {max_depth}")
+    print("  num_observations: ALL (full enumeration)")
     print()
 
-    # Generate policy
+    # Generate policy - enumerates ALL possible states
     policy = generate_policy_1(
-        gamma=gamma, num_observations=1000, num_belief_samples=50, max_depth=3
+        gamma=gamma,
+        num_belief_samples=num_belief_samples,
+        max_depth=max_depth,
     )
 
     # Save to file

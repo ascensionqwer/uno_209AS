@@ -7,6 +7,7 @@ Generates lookup table mapping observations to optimal actions.
 
 import random
 from typing import List, Dict, Any, Optional, Tuple
+from itertools import combinations
 
 from ..uno.cards import (
     Card,
@@ -241,16 +242,15 @@ def approximate_value_function(
 
 def generate_policy_1(
     gamma: float = 0.95,
-    num_observations: int = 1000,
     num_belief_samples: int = 50,
     max_depth: int = 3,
 ) -> Dict[str, Dict[str, Any]]:
     """
     Generate policy lookup table using value function approach.
+    ENUMERATES ALL POSSIBLE OBSERVATIONS (assumes infinite compute resources).
 
     Args:
         gamma: Discount factor
-        num_observations: Number of observations to generate
         num_belief_samples: Number of belief state samples per observation
         max_depth: Maximum lookahead depth
 
@@ -259,87 +259,146 @@ def generate_policy_1(
     """
     policy = {}
     full_deck = build_full_deck()
+    total_cards = len(full_deck)
 
-    print(f"Generating Policy 1 with {num_observations} observations...")
+    print("Generating Policy 1: Enumerating ALL possible observations...")
+    print("(This may take a very long time - assumes infinite compute resources)")
 
-    for i in range(num_observations):
-        if (i + 1) % 100 == 0:
-            print(f"  Processed {i + 1}/{num_observations} observations...")
+    total_processed = 0
+    total_valid = 0
 
-        # Generate random observation
-        # Sample hand size (1-10 cards)
-        hand_size = random.randint(1, 10)
-        opponent_size = random.randint(1, 15)
-        deck_size = random.randint(10, 50)
+    # Enumerate all possible observations
+    # O = (H_1, |H_2|, |D_g|, P_t, G_o)
+    # We iterate over all possible H_1, P_t, and valid |H_2|, |D_g| combinations
 
-        # Sample hand
-        H_1 = random.sample(full_deck, min(hand_size, len(full_deck)))
-        remaining = [c for c in full_deck if c not in H_1]
+    # For each possible hand size for H_1
+    for hand_size in range(0, total_cards + 1):
+        print(f"\nProcessing hand size {hand_size}/{total_cards}...")
+        hand_count = 0
 
-        # Sample pile and top card
-        if len(remaining) > 0:
-            P_t = random.choice(remaining)
-            P = [P_t]
-        else:
-            P_t = None
-            P = []
+        # For each possible combination of cards in H_1
+        for H_1 in combinations(full_deck, hand_size):
+            H_1 = list(H_1)
+            remaining = [c for c in full_deck if c not in H_1]
+            remaining_count = len(remaining)
 
-        # Get legal actions
-        current_color = P_t[0] if P_t and P_t[0] != BLACK else None
-        legal_actions = get_legal_actions(H_1, P_t, current_color)
+            if remaining_count == 0:
+                # All cards in hand - game over state
+                obs_key = canonicalize_observation(H_1, 0, 0, None, "GameOver")
+                policy[obs_key] = {
+                    "action": {"type": "draw", "n": 1},  # Dummy action
+                    "value": 1.0,  # Player wins
+                }
+                total_valid += 1
+                continue
 
-        if len(legal_actions) == 0:
-            continue
+            # For each possible top card
+            for P_t in remaining:
+                P = [P_t]
+                remaining_after_pile = [c for c in remaining if c != P_t]
+                remaining_after_pile_count = len(remaining_after_pile)
 
-        # Sample belief states
-        samples = sample_belief_states(
-            H_1, opponent_size, deck_size, P, P_t, num_belief_samples
-        )
+                # For each possible opponent hand size
+                for opponent_size in range(0, remaining_after_pile_count + 1):
+                    # For each possible deck size
+                    # Range already ensures opponent_size + deck_size <= remaining_after_pile_count
+                    for deck_size in range(0, remaining_after_pile_count - opponent_size + 1):
+                        total_processed += 1
+                        if total_processed % 10000 == 0:
+                            print(f"  Processed {total_processed} states, {total_valid} valid entries so far...")
 
-        if len(samples) == 0:
-            continue
+                        # Get legal actions
+                        current_color = P_t[0] if P_t and P_t[0] != BLACK else None
+                        legal_actions = get_legal_actions(H_1, P_t, current_color)
 
-        # Evaluate each action
-        best_action = None
-        best_value = float("-inf")
+                        if len(legal_actions) == 0:
+                            continue
 
-        for action in legal_actions:
-            total_value = 0.0
-            count = 0
+                        # Sample belief states
+                        samples = sample_belief_states(
+                            H_1, opponent_size, deck_size, P, P_t, num_belief_samples
+                        )
 
-            for H_1_sample, H_2_sample, D_g_sample in samples:
-                try:
-                    value = approximate_value_function(
-                        H_1_sample,
-                        H_2_sample,
-                        D_g_sample,
-                        P,
-                        P_t,
-                        "Active",
-                        gamma,
-                        0,
-                        max_depth,
-                    )
-                    total_value += value
-                    count += 1
-                except Exception:
-                    continue
+                        if len(samples) == 0:
+                            continue
 
-            if count > 0:
-                avg_value = total_value / count
-                if avg_value > best_value:
-                    best_value = avg_value
-                    best_action = action
+                        # Evaluate each action
+                        best_action = None
+                        best_value = float("-inf")
 
-        if best_action is not None:
-            # Canonicalize observation
-            obs_key = canonicalize_observation(
-                H_1, opponent_size, deck_size, P_t, "Active"
-            )
-            policy[obs_key] = {
-                "action": serialize_action(best_action),
-                "value": best_value,
-            }
+                        for action in legal_actions:
+                            total_value = 0.0
+                            count = 0
 
-    print(f"Generated {len(policy)} policy entries.")
+                            for H_1_sample, H_2_sample, D_g_sample in samples:
+                                try:
+                                    # Simulate the action first, then evaluate value
+                                    if action.is_play():
+                                        card = action.X_1
+                                        if card not in H_1_sample:
+                                            continue  # Skip if card not in sampled hand
+                                        H_1_new = [c for c in H_1_sample if c != card]
+                                        P_new = P + [card]
+                                        P_t_new = card
+                                        if card[0] == BLACK:
+                                            chosen_color = action.wild_color if action.wild_color else RED
+                                            P_t_new = (chosen_color, card[1])
+                                        # Evaluate from state after action
+                                        value = approximate_value_function(
+                                            H_1_new,
+                                            H_2_sample,
+                                            D_g_sample,
+                                            P_new,
+                                            P_t_new,
+                                            "Active",
+                                            gamma,
+                                            0,
+                                            max_depth,
+                                        )
+                                    else:
+                                        # Draw action
+                                        if len(D_g_sample) > 0:
+                                            drawn = D_g_sample[0]
+                                            H_1_new = H_1_sample + [drawn]
+                                            D_g_new = D_g_sample[1:]
+                                            value = approximate_value_function(
+                                                H_1_new,
+                                                H_2_sample,
+                                                D_g_new,
+                                                P,
+                                                P_t,
+                                                "Active",
+                                                gamma,
+                                                0,
+                                                max_depth,
+                                            )
+                                        else:
+                                            value = 0.0
+
+                                    total_value += value
+                                    count += 1
+                                except Exception:
+                                    continue
+
+                            if count > 0:
+                                avg_value = total_value / count
+                                if avg_value > best_value:
+                                    best_value = avg_value
+                                    best_action = action
+
+                        if best_action is not None:
+                            # Canonicalize observation
+                            obs_key = canonicalize_observation(
+                                H_1, opponent_size, deck_size, P_t, "Active"
+                            )
+                            policy[obs_key] = {
+                                "action": serialize_action(best_action),
+                                "value": best_value,
+                            }
+                            total_valid += 1
+                            hand_count += 1
+
+        print(f"  Hand size {hand_size}: {hand_count} valid entries")
+
+    print(f"\nGenerated {len(policy)} policy entries from {total_processed} total states processed.")
     return policy

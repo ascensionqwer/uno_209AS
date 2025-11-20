@@ -1,0 +1,28 @@
+{
+  "policy1": {
+    // Discount factor for value function (0-1, typically 0.95)
+    "gamma": 0.95,
+    // Number of belief state samples per observation for value estimation
+    "num_belief_samples": 50,
+    // Maximum lookahead depth for value function approximation
+    "max_depth": 2
+    // Note: Policy 1 enumerates ALL possible game states (no num_observations limit)
+  },
+  "policy2": {
+    // Number of particles for belief approximation per observation
+    // Each particle represents a possible opponent hand + deck configuration
+    // More particles = better approximation but slower computation
+    "num_particles": 1000,
+    // Number of MCTS iterations (tree search iterations: Selection -> Expansion -> Simulation -> Backpropagation)
+    "mcts_iterations": 10,
+    // Maximum lookahead depth when simulating rollouts to estimate action values
+    // Deeper = better estimates but slower
+    "planning_horizon": 5,
+    // Discount factor for value function (0-1, typically 0.95)
+    "gamma": 0.95,
+    // Number of different game states/observations to generate policies for
+    // This is the number of entries in the lookup table
+    // Uses random sampling to select which states to include
+    "num_observations": 10000
+  }
+}
