@@ -1,30 +1,3 @@
-## Rules
-
-- 2 players
-
-- 108 card deck
-  - 25 red, blue, yellow, green
-    - 2x 1-9
-    - 1x 0
-    - 2x SKIP - The next player's turn is forfeited.
-    - 2x REVERSE - The next player's turn is forfeited.
-    - 2x +2 - The next player forfeits their turn and draws 2 cards.
-  - 8 black
-    - 4 WILD - Changes the pile color. Other players must play a card respecting the color.
-    - 4 +4 - The next player forfeits their turn and draws 4 cards.
-
-<br/>
-
-- Each player starts with 7 cards randomly distributed. A player cannot see the other player's cards.
-
-- The deck is hidden from all player's viewpoint. 1 card from the deck becomes the top card of the pile.
-
-- When playing a card, either the number AND/OR the color need to match. This card then goes into the pile. Pile is visible to everyone.
-  - If a player does not have a legal card to play, they must draw 1 card from the deck.
-  - If a player can make a legal card play, they must play that card no matter what.
-
-- When a +2 or +4 is played, the next player may not play a card, and instead draws the corresponding number of cards. This effect cannot stack with itself.
-
 ## Math
 
 $D = H_1 \sqcup H_2 \sqcup D_g \sqcup P$ - entire 108 uno card deck
@@ -121,7 +94,7 @@ Belief-
 
 Prior- Before Observation:
 
-- $bel^-(H_2) = \frac{1}{\binom{|L|}{k}}$ where $L= D\setminus H_1 \setminus P$ and $k= |H_2|$
+- $bel^-(H_2) = \frac{1}{C_k^{|L|}} (L= D\setminus H_1 \setminus P ; k= |H_2|)
 
 Posterior- Updated after observation:
 
@@ -135,17 +108,15 @@ New turns with new $L$ and $k$ and reset prior
 
 Case2- Opponent doesn't have legal card to play, and draw a card
 
-Probability of no legal card:\quad $Pr(no_legal)= \frac{\binom{|L|-|N(P_t)|}{k}}{\binom{|L|}{k}} \quad ,N(P_t)= Legal(P_t) \cap L$
+Probibility of no legal card:\quad $Pr(no_legal)= \frac{C_k^{|L|-|N(P_t)|}}{C_k^{|L|}} \quad ,N(P_t)= Legal(P_t) \cap L
 
 Before drawing card (After observation)
 
-- $bel^+(H_2|no_legal)= \frac{1}{\binom{|L|-|N(P_t)|}{k}}, H_2\subseteq L\setminus N(P_t)$
+- $bel^+(H_2|no_legal)= \frac{1}{C_k^{|L|-|N(P_t)|}}, H_2\subseteq L\setminus N(P_t)
 
 After drawing card
 
-- $bel^-(H_2'|no\_legal+draw)= \frac{1}{\binom{|L|-|N(P_t)|}{k+1}}$ if $H_2'\subseteq L\setminus N(P_t)$ and $|H_2'|=k+1$, else $0$
-
-  Note: The drawn card must be in $(L\setminus N(P_t)) \cap D_g$ for $H_2' \subseteq L\setminus N(P_t)$ to hold. After drawing, we know $H_2'$ has size $k+1$ and contains no legal cards, so we reset the prior uniformly over all such hands.
+- $bel^-(H_2'|no\_legal+draw)= \frac{C_{|L|-|N(P_t)|-(k+1)}^{|D_g|-1}}{C_{|L|-|N(P_t)|-k}^{|D_g|}}, H_2'\subseteq L\setminus N(P_t), |H_2'|=k+1$
 
 If need reshuffle:
 
