@@ -1,4 +1,5 @@
 # Implement uno game engine in Python
+
 _Exported on 11/20/2025 at 13:33:14 PST from Cursor (2.0.77)_
 
 ---
@@ -7,22 +8,15 @@ _Exported on 11/20/2025 at 13:33:14 PST from Cursor (2.0.77)_
 
 implement a fully working uno game engine within the src/uno/ folder, such that if i run main.py it will start that simulator for 2 players. for now, it should be functioning within terminal only, and assume both players irl are trusting and take turns so you don't need to hide the full game state in the terminal
 
-
-
-@AGENTS.md 
+@AGENTS.md
 
 ---
 
 **Cursor**
 
-
 Reviewing the codebase to understand the current state before planning the UNO game engine.
 
-
-
 Checking for additional context:
-
-
 
 A few clarifications:
 
@@ -50,13 +44,9 @@ A few clarifications:
 
 **Cursor**
 
-
 Reviewing MATH.md to understand the full rules, then drafting the plan.
 
-
-
 Creating the plan:
-
 
 ---
 
@@ -70,13 +60,9 @@ To-do's from the plan have already been created. Do not create them again. Mark 
 
 **Cursor**
 
-
 Starting implementation. Reviewing existing files, then reorganizing and extending the code.
 
-
-
 Creating the directory structure and starting file reorganization:
-
 
 ```python
 from typing import Tuple, Union, Optional
@@ -111,7 +97,7 @@ def build_full_deck() -> list[Card]:
     """
     deck: list[Card] = []
     colors = [RED, YELLOW, GREEN, BLUE]
-    
+
     # Number cards: 0-9
     for color in colors:
         # One 0 per color
@@ -120,7 +106,7 @@ def build_full_deck() -> list[Card]:
         for number in range(1, 10):
             deck.append((color, number))
             deck.append((color, number))
-    
+
     # Special cards: Skip, Reverse, Draw 2 (2 each per color)
     for color in colors:
         deck.append((color, SKIP))
@@ -129,13 +115,13 @@ def build_full_deck() -> list[Card]:
         deck.append((color, REVERSE))
         deck.append((color, DRAW_2))
         deck.append((color, DRAW_2))
-    
+
     # Wild cards (no color)
     for _ in range(4):
         deck.append((BLACK, WILD))
     for _ in range(4):
         deck.append((BLACK, WILD_DRAW_4))
-    
+
     return deck
 
 def card_to_string(card: Card) -> str:
@@ -162,16 +148,16 @@ class Action:
     """
     Action space for UNO game.
     A = {X_1}, {Y_n : n ∈ {1, 2, 4}}
-    
+
     An action is EITHER:
     - X_1: a single card to play from hand
     - Y_n: draw n cards from deck where n ∈ {1, 2, 4}
     """
-    
+
     def __init__(self, X_1: Optional[Card] = None, n: Optional[int] = None, wild_color: Optional[str] = None):
         """
         Initialize an action - must specify EITHER X_1 OR n, not both.
-        
+
         Args:
             X_1: Card to play (COLOR, VALUE) - for PLAY action
             n: Number of cards to draw, n ∈ {1, 2, 4} - for DRAW action
@@ -180,24 +166,24 @@ class Action:
         # Validate that exactly one is specified
         if (X_1 is None and n is None) or (X_1 is not None and n is not None):
             raise ValueError("Must specify EITHER X_1 (play) OR n (draw), not both or neither")
-        
+
         self.X_1 = X_1  # Card to play (None if draw action)
         self.n = n      # Number to draw (None if play action)
         self.Y_n = []   # Cards actually drawn (filled during execution)
         self.wild_color = wild_color  # Color chosen for Wild cards
-        
+
         # Validation for draw action
         if n is not None and n not in [1, 2, 4]:
             raise ValueError(f"n must be in {{1, 2, 4}}, got {n}")
-    
+
     def is_play(self) -> bool:
         """Returns True if this is a PLAY action (X_1)"""
         return self.X_1 is not None
-    
+
     def is_draw(self) -> bool:
         """Returns True if this is a DRAW action (Y_n)"""
         return self.n is not None
-    
+
     def __repr__(self):
         if self.is_play():
             if self.wild_color:
@@ -221,9 +207,7 @@ remember to read @AGENTS.md for agent rules to follow
 
 **Cursor**
 
-
 Continuing implementation, following AGENTS.md rules. Creating the full game engine:
-
 
 ```python
 import random
@@ -245,8 +229,8 @@ class Uno:
     D = H_1 ⊔ H_2 ⊔ D_g ⊔ P : entire deck partitioned into hands, draw pile, played pile.
     Builds 108-card deck with all UNO cards.
     """
-    
-    def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None, 
+
+    def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None,
                  D_g: List[Card] = None, P: List[Card] = None):
         self.H_1 = H_1 if H_1 is not None else []
         self.H_2 = H_2 if H_2 is not None else []
@@ -259,11 +243,11 @@ class Uno:
         self.turn_direction = 1  # 1 = forward (P1->P2), -1 = reverse (P2->P1)
         self.skip_next = False  # Skip next player's turn
         self.draw_pending = 0  # Cards to draw before next turn
-        
+
     def build_full_deck(self) -> List[Card]:
         """Builds the full 108-card UNO deck."""
         return build_full_deck()
-    
+
     def new_game(self, seed: int = None, deal: int = 7):
         """
         Initializes a new game state.
@@ -275,17 +259,17 @@ class Uno:
         rng = random.Random(seed)
         full_deck = self.build_full_deck()
         rng.shuffle(full_deck)
-        
+
         # Deal to hands
         self.H_1 = full_deck[:deal]
         self.H_2 = full_deck[deal:2 * deal]
         remaining = full_deck[2 * deal:]
-        
+
         # Start played pile with first non-Wild card
         while remaining and self._is_wild(remaining[0]):
             # Reshuffle wilds back in
             rng.shuffle(remaining)
-        
+
         if remaining:
             self.P = [remaining.pop(0)]
             self.current_color, _ = self.P[0]
@@ -303,20 +287,20 @@ class Uno:
             self.current_color, _ = self.P[0]
             if self.current_color is None:
                 self.current_color = RED
-        
+
         self.D_g = remaining
         self.G_o = "Active"
         self.turn_direction = 1
         self.skip_next = False
         self.draw_pending = 0
-        
+
         self.create_S()
-    
+
     def _is_wild(self, card: Card) -> bool:
         """Check if card is Wild or Wild Draw 4."""
         _, value = card
         return value in [WILD, WILD_DRAW_4]
-    
+
     def create_S(self) -> State:
         """
         Creates the system state S as seen by "God".
@@ -325,13 +309,13 @@ class Uno:
         self.P_t = self.P[-1] if len(self.P) > 0 else None
         self.State = (self.H_1, self.H_2, self.D_g, self.P, self.P_t, self.G_o)
         return self.State
-    
+
     def update_S(self):
         """Updates the system state."""
         if len(self.H_1) == 0 or len(self.H_2) == 0:
             self.G_o = "GameOver"
         self.create_S()
-    
+
     def print_S(self):
         """Print current game state."""
         if self.State is None:
@@ -342,7 +326,7 @@ class Uno:
         print(f"P: {len(self.State[3])} cards, top: {card_to_string(self.State[4]) if self.State[4] else 'None'}")
         print(f"Current color: {self.current_color}")
         print(f"G_o: {self.State[5]}")
-    
+
     def is_legal_play(self, card: Card) -> bool:
         """
         Checks if a card can be legally played.
@@ -353,25 +337,25 @@ class Uno:
         """
         if self.P_t is None:
             return False
-        
+
         card_color, card_value = card
         P_t_color, P_t_value = self.P_t
-        
+
         # Wild cards are always legal
         if self._is_wild(card):
             return True
-        
+
         # Match by color (use current_color for Wild cards)
         effective_color = self.current_color if P_t_color is None else P_t_color
         if card_color == effective_color:
             return True
-        
+
         # Match by value
         if card_value == P_t_value:
             return True
-        
+
         return False
-    
+
     def get_legal_actions(self, player: int = 1) -> List[Action]:
         """
         Returns list of legal actions for specified player.
@@ -380,21 +364,21 @@ class Uno:
             self.create_S()
         legal_actions = []
         hand = self.H_1 if player == 1 else self.H_2
-        
+
         if self.P_t is None:
             return legal_actions
-        
+
         # Check which cards in hand can be played
         for card in hand:
             if self.is_legal_play(card):
                 legal_actions.append(Action(X_1=card))
-        
+
         # If no legal plays, must draw 1 card
         if len(legal_actions) == 0:
             legal_actions.append(Action(n=1))
-        
+
         return legal_actions
-    
+
     def _choose_wild_color(self, hand: List[Card]) -> str:
         """
         Choose color for Wild card based on most common color in hand.
@@ -405,12 +389,12 @@ class Uno:
             color, _ = card
             if color in color_counts:
                 color_counts[color] += 1
-        
+
         max_color = max(color_counts, key=color_counts.get)
         if color_counts[max_color] > 0:
             return max_color
         return RED  # Default
-    
+
     def execute_action(self, action: Action, player: int = 1) -> bool:
         """
         Executes an action and updates the game state.
@@ -418,31 +402,31 @@ class Uno:
         """
         if self.G_o == "GameOver":
             return False
-        
+
         hand = self.H_1 if player == 1 else self.H_2
-        
+
         if action.is_play():
             card = action.X_1
             if card not in hand:
                 return False
-            
+
             if not self.is_legal_play(card):
                 return False
-            
+
             # Remove from hand and add to pile
             hand.remove(card)
             self.P.append(card)
-            
+
             # Handle special card effects
             _, value = card
-            
+
             if self._is_wild(card):
                 # Wild card: choose color
                 if action.wild_color:
                     self.current_color = action.wild_color
                 else:
                     self.current_color = self._choose_wild_color(hand)
-                
+
                 if value == WILD_DRAW_4:
                     # Next player draws 4 and skips turn
                     self.draw_pending = 4
@@ -463,12 +447,12 @@ class Uno:
         elif action.is_draw():
             # Draw n cards
             n = action.n
-            
+
             # If draw_pending > 0, must draw that many
             if self.draw_pending > 0:
                 n = self.draw_pending
                 self.draw_pending = 0
-            
+
             cards_drawn = []
             for i in range(n):
                 if len(self.D_g) == 0:
@@ -480,21 +464,21 @@ class Uno:
                     self.P = [self.P[-1]]
                     random.shuffle(cards_to_shuffle)
                     self.D_g = cards_to_shuffle
-                
+
                 if len(self.D_g) > 0:
                     card = self.D_g.pop()
                     cards_drawn.append(card)
                     hand.append(card)
-            
+
             action.Y_n = cards_drawn
-            
+
             # If drew due to draw_pending, skip turn
             if self.draw_pending == 0 and n > 1:
                 self.skip_next = True
-        
+
         self.update_S()
         return True
-    
+
     def get_O_space(self):
         """
         O = (H_1, |H_2|, |D_g|, P, P_t, G_o) - observation (as seen by "Player 1")
@@ -506,9 +490,7 @@ class Uno:
 
 ```
 
-
 Fixing game logic and completing the implementation:
-
 
 ```python
 import random
@@ -530,8 +512,8 @@ class Uno:
     D = H_1 ⊔ H_2 ⊔ D_g ⊔ P : entire deck partitioned into hands, draw pile, played pile.
     Builds 108-card deck with all UNO cards.
     """
-    
-    def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None, 
+
+    def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None,
                  D_g: List[Card] = None, P: List[Card] = None):
         self.H_1 = H_1 if H_1 is not None else []
         self.H_2 = H_2 if H_2 is not None else []
@@ -544,11 +526,11 @@ class Uno:
         self.turn_direction = 1  # 1 = forward (P1->P2), -1 = reverse (P2->P1)
         self.skip_next = False  # Skip next player's turn
         self.draw_pending = 0  # Cards to draw before next turn
-        
+
     def build_full_deck(self) -> List[Card]:
         """Builds the full 108-card UNO deck."""
         return build_full_deck()
-    
+
     def new_game(self, seed: int = None, deal: int = 7):
         """
         Initializes a new game state.
@@ -560,17 +542,17 @@ class Uno:
         rng = random.Random(seed)
         full_deck = self.build_full_deck()
         rng.shuffle(full_deck)
-        
+
         # Deal to hands
         self.H_1 = full_deck[:deal]
         self.H_2 = full_deck[deal:2 * deal]
         remaining = full_deck[2 * deal:]
-        
+
         # Start played pile with first non-Wild card
         while remaining and self._is_wild(remaining[0]):
             # Reshuffle wilds back in
             rng.shuffle(remaining)
-        
+
         if remaining:
             self.P = [remaining.pop(0)]
             self.current_color, _ = self.P[0]
@@ -588,20 +570,20 @@ class Uno:
             self.current_color, _ = self.P[0]
             if self.current_color is None:
                 self.current_color = RED
-        
+
         self.D_g = remaining
         self.G_o = "Active"
         self.turn_direction = 1
         self.skip_next = False
         self.draw_pending = 0
-        
+
         self.create_S()
-    
+
     def _is_wild(self, card: Card) -> bool:
         """Check if card is Wild or Wild Draw 4."""
         _, value = card
         return value in [WILD, WILD_DRAW_4]
-    
+
     def create_S(self) -> State:
         """
         Creates the system state S as seen by "God".
@@ -610,13 +592,13 @@ class Uno:
         self.P_t = self.P[-1] if len(self.P) > 0 else None
         self.State = (self.H_1, self.H_2, self.D_g, self.P, self.P_t, self.G_o)
         return self.State
-    
+
     def update_S(self):
         """Updates the system state."""
         if len(self.H_1) == 0 or len(self.H_2) == 0:
             self.G_o = "GameOver"
         self.create_S()
-    
+
     def print_S(self):
         """Print current game state."""
         if self.State is None:
@@ -627,7 +609,7 @@ class Uno:
         print(f"P: {len(self.State[3])} cards, top: {card_to_string(self.State[4]) if self.State[4] else 'None'}")
         print(f"Current color: {self.current_color}")
         print(f"G_o: {self.State[5]}")
-    
+
     def is_legal_play(self, card: Card) -> bool:
         """
         Checks if a card can be legally played.
@@ -638,25 +620,25 @@ class Uno:
         """
         if self.P_t is None:
             return False
-        
+
         card_color, card_value = card
         P_t_color, P_t_value = self.P_t
-        
+
         # Wild cards are always legal
         if self._is_wild(card):
             return True
-        
+
         # Match by color (use current_color for Wild cards)
         effective_color = self.current_color if P_t_color is None else P_t_color
         if card_color == effective_color:
             return True
-        
+
         # Match by value
         if card_value == P_t_value:
             return True
-        
+
         return False
-    
+
     def get_legal_actions(self, player: int = 1) -> List[Action]:
         """
         Returns list of legal actions for specified player.
@@ -665,21 +647,21 @@ class Uno:
             self.create_S()
         legal_actions = []
         hand = self.H_1 if player == 1 else self.H_2
-        
+
         if self.P_t is None:
             return legal_actions
-        
+
         # Check which cards in hand can be played
         for card in hand:
             if self.is_legal_play(card):
                 legal_actions.append(Action(X_1=card))
-        
+
         # If no legal plays, must draw 1 card
         if len(legal_actions) == 0:
             legal_actions.append(Action(n=1))
-        
+
         return legal_actions
-    
+
     def _choose_wild_color(self, hand: List[Card]) -> str:
         """
         Choose color for Wild card based on most common color in hand.
@@ -690,12 +672,12 @@ class Uno:
             color, _ = card
             if color in color_counts:
                 color_counts[color] += 1
-        
+
         max_color = max(color_counts, key=color_counts.get)
         if color_counts[max_color] > 0:
             return max_color
         return RED  # Default
-    
+
     def execute_action(self, action: Action, player: int = 1) -> bool:
         """
         Executes an action and updates the game state.
@@ -703,31 +685,31 @@ class Uno:
         """
         if self.G_o == "GameOver":
             return False
-        
+
         hand = self.H_1 if player == 1 else self.H_2
-        
+
         if action.is_play():
             card = action.X_1
             if card not in hand:
                 return False
-            
+
             if not self.is_legal_play(card):
                 return False
-            
+
             # Remove from hand and add to pile
             hand.remove(card)
             self.P.append(card)
-            
+
             # Handle special card effects
             _, value = card
-            
+
             if self._is_wild(card):
                 # Wild card: choose color
                 if action.wild_color:
                     self.current_color = action.wild_color
                 else:
                     self.current_color = self._choose_wild_color(hand)
-                
+
                 if value == WILD_DRAW_4:
                     # Next player draws 4 and skips turn
                     self.draw_pending = 4
@@ -748,12 +730,12 @@ class Uno:
         elif action.is_draw():
             # Draw n cards
             n = action.n
-            
+
             # If draw_pending > 0, must draw that many
             if self.draw_pending > 0:
                 n = self.draw_pending
                 self.draw_pending = 0
-            
+
             cards_drawn = []
             for i in range(n):
                 if len(self.D_g) == 0:
@@ -765,17 +747,17 @@ class Uno:
                     self.P = [self.P[-1]]
                     random.shuffle(cards_to_shuffle)
                     self.D_g = cards_to_shuffle
-                
+
                 if len(self.D_g) > 0:
                     card = self.D_g.pop()
                     cards_drawn.append(card)
                     hand.append(card)
-            
+
             action.Y_n = cards_drawn
-        
+
         self.update_S()
         return True
-    
+
     def get_O_space(self):
         """
         O = (H_1, |H_2|, |D_g|, P, P_t, G_o) - observation (as seen by "Player 1")
@@ -818,7 +800,7 @@ def display_game_state(game: Uno, current_player: int):
     print("=" * 60)
     game.create_S()
     state = game.State
-    
+
     print(f"\nTop Card: {card_to_string(state[4]) if state[4] else 'None'}")
     if game.current_color:
         print(f"Current Color: {game.current_color}")
@@ -840,10 +822,10 @@ def choose_action_simple(game: Uno, player: int):
     - If no legal play, draw 1
     """
     legal_actions = game.get_legal_actions(player)
-    
+
     if not legal_actions:
         return None
-    
+
     # Prefer playing over drawing
     play_actions = [a for a in legal_actions if a.is_play()]
     if play_actions:
@@ -853,7 +835,7 @@ def choose_action_simple(game: Uno, player: int):
             hand = game.H_1 if player == 1 else game.H_2
             action.wild_color = game._choose_wild_color(hand)
         return action
-    
+
     # Must draw
     return legal_actions[0]
 
@@ -862,24 +844,24 @@ def main():
     """Run 2-player UNO game simulator."""
     print("Starting UNO Game Simulator (2 Players)")
     print("=" * 60)
-    
+
     game = Uno()
     game.new_game(seed=None)
-    
+
     current_player = 1
     turn_count = 0
     max_turns = 1000  # Safety limit
-    
+
     while game.G_o == "Active" and turn_count < max_turns:
         turn_count += 1
-        
+
         # Check if we need to skip this player
         if game.skip_next:
             print(f"\n>>> Player {current_player} is skipped!")
             game.skip_next = False
             current_player = 3 - current_player  # Switch: 1->2, 2->1
             continue
-        
+
         # Check if player needs to draw cards
         if game.draw_pending > 0:
             print(f"\n>>> Player {current_player} must draw {game.draw_pending} cards!")
@@ -890,15 +872,15 @@ def main():
             display_game_state(game, current_player)
             current_player = 3 - current_player
             continue
-        
+
         display_game_state(game, current_player)
-        
+
         # Choose and execute action
         action = choose_action_simple(game, current_player)
         if action is None:
             print(f"Player {current_player} has no actions available!")
             break
-        
+
         if action.is_play():
             card_str = card_to_string(action.X_1)
             if action.wild_color:
@@ -907,30 +889,30 @@ def main():
                 print(f"Player {current_player} plays {card_str}")
         else:
             print(f"Player {current_player} draws {action.n} card(s)")
-        
+
         success = game.execute_action(action, current_player)
         if not success:
             print(f"Action failed for player {current_player}")
             break
-        
+
         # Check game over
         if game.G_o == "GameOver":
             break
-        
+
         # Switch players (unless skip_next is set)
         if not game.skip_next:
             current_player = 3 - current_player
         else:
             # Skip was set by the card played, next player will be skipped
             pass
-    
+
     # Game over
     print("\n" + "=" * 60)
     print("GAME OVER")
     print("=" * 60)
     game.create_S()
     state = game.State
-    
+
     if len(state[0]) == 0:
         print("Player 1 wins!")
     elif len(state[1]) == 0:
@@ -946,9 +928,7 @@ if __name__ == "__main__":
 
 ```
 
-
 Fixing turn logic and cleaning up old files:
-
 
 ```python
 import random
@@ -970,8 +950,8 @@ class Uno:
     D = H_1 ⊔ H_2 ⊔ D_g ⊔ P : entire deck partitioned into hands, draw pile, played pile.
     Builds 108-card deck with all UNO cards.
     """
-    
-    def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None, 
+
+    def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None,
                  D_g: List[Card] = None, P: List[Card] = None):
         self.H_1 = H_1 if H_1 is not None else []
         self.H_2 = H_2 if H_2 is not None else []
@@ -984,11 +964,11 @@ class Uno:
         self.turn_direction = 1  # 1 = forward (P1->P2), -1 = reverse (P2->P1)
         self.skip_next = False  # Skip next player's turn
         self.draw_pending = 0  # Cards to draw before next turn
-        
+
     def build_full_deck(self) -> List[Card]:
         """Builds the full 108-card UNO deck."""
         return build_full_deck()
-    
+
     def new_game(self, seed: int = None, deal: int = 7):
         """
         Initializes a new game state.
@@ -1000,17 +980,17 @@ class Uno:
         rng = random.Random(seed)
         full_deck = self.build_full_deck()
         rng.shuffle(full_deck)
-        
+
         # Deal to hands
         self.H_1 = full_deck[:deal]
         self.H_2 = full_deck[deal:2 * deal]
         remaining = full_deck[2 * deal:]
-        
+
         # Start played pile with first non-Wild card
         while remaining and self._is_wild(remaining[0]):
             # Reshuffle wilds back in
             rng.shuffle(remaining)
-        
+
         if remaining:
             self.P = [remaining.pop(0)]
             self.current_color, _ = self.P[0]
@@ -1028,20 +1008,20 @@ class Uno:
             self.current_color, _ = self.P[0]
             if self.current_color is None:
                 self.current_color = RED
-        
+
         self.D_g = remaining
         self.G_o = "Active"
         self.turn_direction = 1
         self.skip_next = False
         self.draw_pending = 0
-        
+
         self.create_S()
-    
+
     def _is_wild(self, card: Card) -> bool:
         """Check if card is Wild or Wild Draw 4."""
         _, value = card
         return value in [WILD, WILD_DRAW_4]
-    
+
     def create_S(self) -> State:
         """
         Creates the system state S as seen by "God".
@@ -1050,13 +1030,13 @@ class Uno:
         self.P_t = self.P[-1] if len(self.P) > 0 else None
         self.State = (self.H_1, self.H_2, self.D_g, self.P, self.P_t, self.G_o)
         return self.State
-    
+
     def update_S(self):
         """Updates the system state."""
         if len(self.H_1) == 0 or len(self.H_2) == 0:
             self.G_o = "GameOver"
         self.create_S()
-    
+
     def print_S(self):
         """Print current game state."""
         if self.State is None:
@@ -1067,7 +1047,7 @@ class Uno:
         print(f"P: {len(self.State[3])} cards, top: {card_to_string(self.State[4]) if self.State[4] else 'None'}")
         print(f"Current color: {self.current_color}")
         print(f"G_o: {self.State[5]}")
-    
+
     def is_legal_play(self, card: Card) -> bool:
         """
         Checks if a card can be legally played.
@@ -1078,25 +1058,25 @@ class Uno:
         """
         if self.P_t is None:
             return False
-        
+
         card_color, card_value = card
         P_t_color, P_t_value = self.P_t
-        
+
         # Wild cards are always legal
         if self._is_wild(card):
             return True
-        
+
         # Match by color (use current_color for Wild cards)
         effective_color = self.current_color if P_t_color is None else P_t_color
         if card_color == effective_color:
             return True
-        
+
         # Match by value
         if card_value == P_t_value:
             return True
-        
+
         return False
-    
+
     def get_legal_actions(self, player: int = 1) -> List[Action]:
         """
         Returns list of legal actions for specified player.
@@ -1105,21 +1085,21 @@ class Uno:
             self.create_S()
         legal_actions = []
         hand = self.H_1 if player == 1 else self.H_2
-        
+
         if self.P_t is None:
             return legal_actions
-        
+
         # Check which cards in hand can be played
         for card in hand:
             if self.is_legal_play(card):
                 legal_actions.append(Action(X_1=card))
-        
+
         # If no legal plays, must draw 1 card
         if len(legal_actions) == 0:
             legal_actions.append(Action(n=1))
-        
+
         return legal_actions
-    
+
     def _choose_wild_color(self, hand: List[Card]) -> str:
         """
         Choose color for Wild card based on most common color in hand.
@@ -1130,12 +1110,12 @@ class Uno:
             color, _ = card
             if color in color_counts:
                 color_counts[color] += 1
-        
+
         max_color = max(color_counts, key=color_counts.get)
         if color_counts[max_color] > 0:
             return max_color
         return RED  # Default
-    
+
     def execute_action(self, action: Action, player: int = 1) -> bool:
         """
         Executes an action and updates the game state.
@@ -1143,31 +1123,31 @@ class Uno:
         """
         if self.G_o == "GameOver":
             return False
-        
+
         hand = self.H_1 if player == 1 else self.H_2
-        
+
         if action.is_play():
             card = action.X_1
             if card not in hand:
                 return False
-            
+
             if not self.is_legal_play(card):
                 return False
-            
+
             # Remove from hand and add to pile
             hand.remove(card)
             self.P.append(card)
-            
+
             # Handle special card effects
             _, value = card
-            
+
             if self._is_wild(card):
                 # Wild card: choose color
                 if action.wild_color:
                     self.current_color = action.wild_color
                 else:
                     self.current_color = self._choose_wild_color(hand)
-                
+
                 if value == WILD_DRAW_4:
                     # Next player draws 4 and skips turn
                     self.draw_pending = 4
@@ -1186,12 +1166,12 @@ class Uno:
         elif action.is_draw():
             # Draw n cards
             n = action.n
-            
+
             # If draw_pending > 0, must draw that many
             if self.draw_pending > 0:
                 n = self.draw_pending
                 self.draw_pending = 0
-            
+
             cards_drawn = []
             for i in range(n):
                 if len(self.D_g) == 0:
@@ -1203,17 +1183,17 @@ class Uno:
                     self.P = [self.P[-1]]
                     random.shuffle(cards_to_shuffle)
                     self.D_g = cards_to_shuffle
-                
+
                 if len(self.D_g) > 0:
                     card = self.D_g.pop()
                     cards_drawn.append(card)
                     hand.append(card)
-            
+
             action.Y_n = cards_drawn
-        
+
         self.update_S()
         return True
-    
+
     def get_O_space(self):
         """
         O = (H_1, |H_2|, |D_g|, P, P_t, G_o) - observation (as seen by "Player 1")
@@ -1237,7 +1217,7 @@ def display_game_state(game: Uno, current_player: int):
     print("=" * 60)
     game.create_S()
     state = game.State
-    
+
     print(f"\nTop Card: {card_to_string(state[4]) if state[4] else 'None'}")
     if game.current_color:
         print(f"Current Color: {game.current_color}")
@@ -1259,10 +1239,10 @@ def choose_action_simple(game: Uno, player: int):
     - If no legal play, draw 1
     """
     legal_actions = game.get_legal_actions(player)
-    
+
     if not legal_actions:
         return None
-    
+
     # Prefer playing over drawing
     play_actions = [a for a in legal_actions if a.is_play()]
     if play_actions:
@@ -1272,7 +1252,7 @@ def choose_action_simple(game: Uno, player: int):
             hand = game.H_1 if player == 1 else game.H_2
             action.wild_color = game._choose_wild_color(hand)
         return action
-    
+
     # Must draw
     return legal_actions[0]
 
@@ -1281,24 +1261,24 @@ def main():
     """Run 2-player UNO game simulator."""
     print("Starting UNO Game Simulator (2 Players)")
     print("=" * 60)
-    
+
     game = Uno()
     game.new_game(seed=None)
-    
+
     current_player = 1
     turn_count = 0
     max_turns = 1000  # Safety limit
-    
+
     while game.G_o == "Active" and turn_count < max_turns:
         turn_count += 1
-        
+
         # Check if we need to skip this player
         if game.skip_next:
             print(f"\n>>> Player {current_player} is skipped!")
             game.skip_next = False
             current_player = 3 - current_player  # Switch: 1->2, 2->1
             continue
-        
+
         # Check if player needs to draw cards (from Draw 2 or Wild Draw 4)
         if game.draw_pending > 0:
             print(f"\n>>> Player {current_player} must draw {game.draw_pending} cards!")
@@ -1310,15 +1290,15 @@ def main():
             display_game_state(game, current_player)
             current_player = 3 - current_player
             continue
-        
+
         display_game_state(game, current_player)
-        
+
         # Choose and execute action
         action = choose_action_simple(game, current_player)
         if action is None:
             print(f"Player {current_player} has no actions available!")
             break
-        
+
         if action.is_play():
             card_str = card_to_string(action.X_1)
             if action.wild_color:
@@ -1327,30 +1307,30 @@ def main():
                 print(f"Player {current_player} plays {card_str}")
         else:
             print(f"Player {current_player} draws {action.n} card(s)")
-        
+
         success = game.execute_action(action, current_player)
         if not success:
             print(f"Action failed for player {current_player}")
             break
-        
+
         # Check game over
         if game.G_o == "GameOver":
             break
-        
+
         # Switch players (unless skip_next is set)
         if not game.skip_next:
             current_player = 3 - current_player
         else:
             # Skip was set by the card played, next player will be skipped
             pass
-    
+
     # Game over
     print("\n" + "=" * 60)
     print("GAME OVER")
     print("=" * 60)
     game.create_S()
     state = game.State
-    
+
     if len(state[0]) == 0:
         print("Player 1 wins!")
     elif len(state[1]) == 0:
@@ -1377,7 +1357,7 @@ def display_game_state(game: Uno, current_player: int):
     print("=" * 60)
     game.create_S()
     state = game.State
-    
+
     print(f"\nTop Card: {card_to_string(state[4]) if state[4] else 'None'}")
     if game.current_color:
         print(f"Current Color: {game.current_color}")
@@ -1399,10 +1379,10 @@ def choose_action_simple(game: Uno, player: int):
     - If no legal play, draw 1
     """
     legal_actions = game.get_legal_actions(player)
-    
+
     if not legal_actions:
         return None
-    
+
     # Prefer playing over drawing
     play_actions = [a for a in legal_actions if a.is_play()]
     if play_actions:
@@ -1412,7 +1392,7 @@ def choose_action_simple(game: Uno, player: int):
             hand = game.H_1 if player == 1 else game.H_2
             action.wild_color = game._choose_wild_color(hand)
         return action
-    
+
     # Must draw
     return legal_actions[0]
 
@@ -1421,24 +1401,24 @@ def main():
     """Run 2-player UNO game simulator."""
     print("Starting UNO Game Simulator (2 Players)")
     print("=" * 60)
-    
+
     game = Uno()
     game.new_game(seed=None)
-    
+
     current_player = 1
     turn_count = 0
     max_turns = 1000  # Safety limit
-    
+
     while game.G_o == "Active" and turn_count < max_turns:
         turn_count += 1
-        
+
         # Check if we need to skip this player
         if game.skip_next:
             print(f"\n>>> Player {current_player} is skipped!")
             game.skip_next = False
             current_player = 3 - current_player  # Switch: 1->2, 2->1
             continue
-        
+
         # Check if player needs to draw cards (from Draw 2 or Wild Draw 4)
         if game.draw_pending > 0:
             print(f"\n>>> Player {current_player} must draw {game.draw_pending} cards!")
@@ -1450,15 +1430,15 @@ def main():
             display_game_state(game, current_player)
             current_player = 3 - current_player
             continue
-        
+
         display_game_state(game, current_player)
-        
+
         # Choose and execute action
         action = choose_action_simple(game, current_player)
         if action is None:
             print(f"Player {current_player} has no actions available!")
             break
-        
+
         if action.is_play():
             card_str = card_to_string(action.X_1)
             if action.wild_color:
@@ -1467,28 +1447,28 @@ def main():
                 print(f"Player {current_player} plays {card_str}")
         else:
             print(f"Player {current_player} draws {action.n} card(s)")
-        
+
         success = game.execute_action(action, current_player)
         if not success:
             print(f"Action failed for player {current_player}")
             break
-        
+
         # Check game over
         if game.G_o == "GameOver":
             break
-        
+
         # Switch players
         # If skip_next is True, it will be handled at start of next iteration
         if not game.skip_next:
             current_player = 3 - current_player
-    
+
     # Game over
     print("\n" + "=" * 60)
     print("GAME OVER")
     print("=" * 60)
     game.create_S()
     state = game.State
-    
+
     if len(state[0]) == 0:
         print("Player 1 wins!")
     elif len(state[1]) == 0:
@@ -1504,9 +1484,7 @@ if __name__ == "__main__":
 
 ```
 
-
 Fixing the draw_pending and skip logic:
-
 
 ```python
                 if value == WILD_DRAW_4:
@@ -1534,7 +1512,7 @@ def display_game_state(game: Uno, current_player: int):
     print("=" * 60)
     game.create_S()
     state = game.State
-    
+
     print(f"\nTop Card: {card_to_string(state[4]) if state[4] else 'None'}")
     if game.current_color:
         print(f"Current Color: {game.current_color}")
@@ -1556,10 +1534,10 @@ def choose_action_simple(game: Uno, player: int):
     - If no legal play, draw 1
     """
     legal_actions = game.get_legal_actions(player)
-    
+
     if not legal_actions:
         return None
-    
+
     # Prefer playing over drawing
     play_actions = [a for a in legal_actions if a.is_play()]
     if play_actions:
@@ -1569,7 +1547,7 @@ def choose_action_simple(game: Uno, player: int):
             hand = game.H_1 if player == 1 else game.H_2
             action.wild_color = game._choose_wild_color(hand)
         return action
-    
+
     # Must draw
     return legal_actions[0]
 
@@ -1578,24 +1556,24 @@ def main():
     """Run 2-player UNO game simulator."""
     print("Starting UNO Game Simulator (2 Players)")
     print("=" * 60)
-    
+
     game = Uno()
     game.new_game(seed=None)
-    
+
     current_player = 1
     turn_count = 0
     max_turns = 1000  # Safety limit
-    
+
     while game.G_o == "Active" and turn_count < max_turns:
         turn_count += 1
-        
+
         # Check if we need to skip this player
         if game.skip_next:
             print(f"\n>>> Player {current_player} is skipped!")
             game.skip_next = False
             current_player = 3 - current_player  # Switch: 1->2, 2->1
             continue
-        
+
         # Check if player needs to draw cards (from Draw 2 or Wild Draw 4)
         if game.draw_pending > 0:
             print(f"\n>>> Player {current_player} must draw {game.draw_pending} cards!")
@@ -1606,15 +1584,15 @@ def main():
             display_game_state(game, current_player)
             current_player = 3 - current_player
             continue
-        
+
         display_game_state(game, current_player)
-        
+
         # Choose and execute action
         action = choose_action_simple(game, current_player)
         if action is None:
             print(f"Player {current_player} has no actions available!")
             break
-        
+
         if action.is_play():
             card_str = card_to_string(action.X_1)
             if action.wild_color:
@@ -1623,28 +1601,28 @@ def main():
                 print(f"Player {current_player} plays {card_str}")
         else:
             print(f"Player {current_player} draws {action.n} card(s)")
-        
+
         success = game.execute_action(action, current_player)
         if not success:
             print(f"Action failed for player {current_player}")
             break
-        
+
         # Check game over
         if game.G_o == "GameOver":
             break
-        
+
         # Switch players
         # If skip_next is True, it will be handled at start of next iteration
         if not game.skip_next:
             current_player = 3 - current_player
-    
+
     # Game over
     print("\n" + "=" * 60)
     print("GAME OVER")
     print("=" * 60)
     game.create_S()
     state = game.State
-    
+
     if len(state[0]) == 0:
         print("Player 1 wins!")
     elif len(state[1]) == 0:
@@ -1660,14 +1638,9 @@ if __name__ == "__main__":
 
 ```
 
-
 Verifying the implementation is complete:
 
-
-
 Verifying imports and running a quick syntax check:
-
-
 
 Implementation complete. Summary:
 
@@ -1708,10 +1681,8 @@ skip cards are implemented wrong, if a player plays a skip, then the player gets
 
 **Cursor**
 
-
 Fixing Skip/Reverse: the player who plays it gets another turn immediately (no player switch).
 
-
 ```python
 import random
 from typing import List, Optional
@@ -1732,8 +1703,8 @@ class Uno:
     D = H_1 ⊔ H_2 ⊔ D_g ⊔ P : entire deck partitioned into hands, draw pile, played pile.
     Builds 108-card deck with all UNO cards.
     """
-    
-    def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None, 
+
+    def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None,
                  D_g: List[Card] = None, P: List[Card] = None):
         self.H_1 = H_1 if H_1 is not None else []
         self.H_2 = H_2 if H_2 is not None else []
@@ -1747,11 +1718,11 @@ class Uno:
         self.skip_next = False  # Skip next player's turn
         self.draw_pending = 0  # Cards to draw before next turn
         self.player_plays_again = False  # Current player gets another turn
-        
+
     def build_full_deck(self) -> List[Card]:
         """Builds the full 108-card UNO deck."""
         return build_full_deck()
-    
+
     def new_game(self, seed: int = None, deal: int = 7):
         """
         Initializes a new game state.
@@ -1763,17 +1734,17 @@ class Uno:
         rng = random.Random(seed)
         full_deck = self.build_full_deck()
         rng.shuffle(full_deck)
-        
+
         # Deal to hands
         self.H_1 = full_deck[:deal]
         self.H_2 = full_deck[deal:2 * deal]
         remaining = full_deck[2 * deal:]
-        
+
         # Start played pile with first non-Wild card
         while remaining and self._is_wild(remaining[0]):
             # Reshuffle wilds back in
             rng.shuffle(remaining)
-        
+
         if remaining:
             self.P = [remaining.pop(0)]
             self.current_color, _ = self.P[0]
@@ -1791,20 +1762,20 @@ class Uno:
             self.current_color, _ = self.P[0]
             if self.current_color is None:
                 self.current_color = RED
-        
+
         self.D_g = remaining
         self.G_o = "Active"
         self.turn_direction = 1
         self.skip_next = False
         self.draw_pending = 0
-        
+
         self.create_S()
-    
+
     def _is_wild(self, card: Card) -> bool:
         """Check if card is Wild or Wild Draw 4."""
         _, value = card
         return value in [WILD, WILD_DRAW_4]
-    
+
     def create_S(self) -> State:
         """
         Creates the system state S as seen by "God".
@@ -1813,13 +1784,13 @@ class Uno:
         self.P_t = self.P[-1] if len(self.P) > 0 else None
         self.State = (self.H_1, self.H_2, self.D_g, self.P, self.P_t, self.G_o)
         return self.State
-    
+
     def update_S(self):
         """Updates the system state."""
         if len(self.H_1) == 0 or len(self.H_2) == 0:
             self.G_o = "GameOver"
         self.create_S()
-    
+
     def print_S(self):
         """Print current game state."""
         if self.State is None:
@@ -1830,7 +1801,7 @@ class Uno:
         print(f"P: {len(self.State[3])} cards, top: {card_to_string(self.State[4]) if self.State[4] else 'None'}")
         print(f"Current color: {self.current_color}")
         print(f"G_o: {self.State[5]}")
-    
+
     def is_legal_play(self, card: Card) -> bool:
         """
         Checks if a card can be legally played.
@@ -1841,25 +1812,25 @@ class Uno:
         """
         if self.P_t is None:
             return False
-        
+
         card_color, card_value = card
         P_t_color, P_t_value = self.P_t
-        
+
         # Wild cards are always legal
         if self._is_wild(card):
             return True
-        
+
         # Match by color (use current_color for Wild cards)
         effective_color = self.current_color if P_t_color is None else P_t_color
         if card_color == effective_color:
             return True
-        
+
         # Match by value
         if card_value == P_t_value:
             return True
-        
+
         return False
-    
+
     def get_legal_actions(self, player: int = 1) -> List[Action]:
         """
         Returns list of legal actions for specified player.
@@ -1868,21 +1839,21 @@ class Uno:
             self.create_S()
         legal_actions = []
         hand = self.H_1 if player == 1 else self.H_2
-        
+
         if self.P_t is None:
             return legal_actions
-        
+
         # Check which cards in hand can be played
         for card in hand:
             if self.is_legal_play(card):
                 legal_actions.append(Action(X_1=card))
-        
+
         # If no legal plays, must draw 1 card
         if len(legal_actions) == 0:
             legal_actions.append(Action(n=1))
-        
+
         return legal_actions
-    
+
     def _choose_wild_color(self, hand: List[Card]) -> str:
         """
         Choose color for Wild card based on most common color in hand.
@@ -1893,12 +1864,12 @@ class Uno:
             color, _ = card
             if color in color_counts:
                 color_counts[color] += 1
-        
+
         max_color = max(color_counts, key=color_counts.get)
         if color_counts[max_color] > 0:
             return max_color
         return RED  # Default
-    
+
     def execute_action(self, action: Action, player: int = 1) -> bool:
         """
         Executes an action and updates the game state.
@@ -1906,31 +1877,31 @@ class Uno:
         """
         if self.G_o == "GameOver":
             return False
-        
+
         hand = self.H_1 if player == 1 else self.H_2
-        
+
         if action.is_play():
             card = action.X_1
             if card not in hand:
                 return False
-            
+
             if not self.is_legal_play(card):
                 return False
-            
+
             # Remove from hand and add to pile
             hand.remove(card)
             self.P.append(card)
-            
+
             # Handle special card effects
             _, value = card
-            
+
             if self._is_wild(card):
                 # Wild card: choose color
                 if action.wild_color:
                     self.current_color = action.wild_color
                 else:
                     self.current_color = self._choose_wild_color(hand)
-                
+
                 if value == WILD_DRAW_4:
                     # Next player draws 4 and skips turn
                     self.draw_pending = 4
@@ -1949,12 +1920,12 @@ class Uno:
         elif action.is_draw():
             # Draw n cards
             n = action.n
-            
+
             # If draw_pending > 0, must draw that many
             if self.draw_pending > 0:
                 n = self.draw_pending
                 self.draw_pending = 0
-            
+
             cards_drawn = []
             for i in range(n):
                 if len(self.D_g) == 0:
@@ -1966,17 +1937,17 @@ class Uno:
                     self.P = [self.P[-1]]
                     random.shuffle(cards_to_shuffle)
                     self.D_g = cards_to_shuffle
-                
+
                 if len(self.D_g) > 0:
                     card = self.D_g.pop()
                     cards_drawn.append(card)
                     hand.append(card)
-            
+
             action.Y_n = cards_drawn
-        
+
         self.update_S()
         return True
-    
+
     def get_O_space(self):
         """
         O = (H_1, |H_2|, |D_g|, P, P_t, G_o) - observation (as seen by "Player 1")
@@ -2009,8 +1980,8 @@ class Uno:
     D = H_1 ⊔ H_2 ⊔ D_g ⊔ P : entire deck partitioned into hands, draw pile, played pile.
     Builds 108-card deck with all UNO cards.
     """
-    
-    def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None, 
+
+    def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None,
                  D_g: List[Card] = None, P: List[Card] = None):
         self.H_1 = H_1 if H_1 is not None else []
         self.H_2 = H_2 if H_2 is not None else []
@@ -2024,11 +1995,11 @@ class Uno:
         self.skip_next = False  # Skip next player's turn
         self.draw_pending = 0  # Cards to draw before next turn
         self.player_plays_again = False  # Current player gets another turn
-        
+
     def build_full_deck(self) -> List[Card]:
         """Builds the full 108-card UNO deck."""
         return build_full_deck()
-    
+
     def new_game(self, seed: int = None, deal: int = 7):
         """
         Initializes a new game state.
@@ -2040,17 +2011,17 @@ class Uno:
         rng = random.Random(seed)
         full_deck = self.build_full_deck()
         rng.shuffle(full_deck)
-        
+
         # Deal to hands
         self.H_1 = full_deck[:deal]
         self.H_2 = full_deck[deal:2 * deal]
         remaining = full_deck[2 * deal:]
-        
+
         # Start played pile with first non-Wild card
         while remaining and self._is_wild(remaining[0]):
             # Reshuffle wilds back in
             rng.shuffle(remaining)
-        
+
         if remaining:
             self.P = [remaining.pop(0)]
             self.current_color, _ = self.P[0]
@@ -2068,21 +2039,21 @@ class Uno:
             self.current_color, _ = self.P[0]
             if self.current_color is None:
                 self.current_color = RED
-        
+
         self.D_g = remaining
         self.G_o = "Active"
         self.turn_direction = 1
         self.skip_next = False
         self.draw_pending = 0
         self.player_plays_again = False
-        
+
         self.create_S()
-    
+
     def _is_wild(self, card: Card) -> bool:
         """Check if card is Wild or Wild Draw 4."""
         _, value = card
         return value in [WILD, WILD_DRAW_4]
-    
+
     def create_S(self) -> State:
         """
         Creates the system state S as seen by "God".
@@ -2091,13 +2062,13 @@ class Uno:
         self.P_t = self.P[-1] if len(self.P) > 0 else None
         self.State = (self.H_1, self.H_2, self.D_g, self.P, self.P_t, self.G_o)
         return self.State
-    
+
     def update_S(self):
         """Updates the system state."""
         if len(self.H_1) == 0 or len(self.H_2) == 0:
             self.G_o = "GameOver"
         self.create_S()
-    
+
     def print_S(self):
         """Print current game state."""
         if self.State is None:
@@ -2108,7 +2079,7 @@ class Uno:
         print(f"P: {len(self.State[3])} cards, top: {card_to_string(self.State[4]) if self.State[4] else 'None'}")
         print(f"Current color: {self.current_color}")
         print(f"G_o: {self.State[5]}")
-    
+
     def is_legal_play(self, card: Card) -> bool:
         """
         Checks if a card can be legally played.
@@ -2119,25 +2090,25 @@ class Uno:
         """
         if self.P_t is None:
             return False
-        
+
         card_color, card_value = card
         P_t_color, P_t_value = self.P_t
-        
+
         # Wild cards are always legal
         if self._is_wild(card):
             return True
-        
+
         # Match by color (use current_color for Wild cards)
         effective_color = self.current_color if P_t_color is None else P_t_color
         if card_color == effective_color:
             return True
-        
+
         # Match by value
         if card_value == P_t_value:
             return True
-        
+
         return False
-    
+
     def get_legal_actions(self, player: int = 1) -> List[Action]:
         """
         Returns list of legal actions for specified player.
@@ -2146,21 +2117,21 @@ class Uno:
             self.create_S()
         legal_actions = []
         hand = self.H_1 if player == 1 else self.H_2
-        
+
         if self.P_t is None:
             return legal_actions
-        
+
         # Check which cards in hand can be played
         for card in hand:
             if self.is_legal_play(card):
                 legal_actions.append(Action(X_1=card))
-        
+
         # If no legal plays, must draw 1 card
         if len(legal_actions) == 0:
             legal_actions.append(Action(n=1))
-        
+
         return legal_actions
-    
+
     def _choose_wild_color(self, hand: List[Card]) -> str:
         """
         Choose color for Wild card based on most common color in hand.
@@ -2171,12 +2142,12 @@ class Uno:
             color, _ = card
             if color in color_counts:
                 color_counts[color] += 1
-        
+
         max_color = max(color_counts, key=color_counts.get)
         if color_counts[max_color] > 0:
             return max_color
         return RED  # Default
-    
+
     def execute_action(self, action: Action, player: int = 1) -> bool:
         """
         Executes an action and updates the game state.
@@ -2184,31 +2155,31 @@ class Uno:
         """
         if self.G_o == "GameOver":
             return False
-        
+
         hand = self.H_1 if player == 1 else self.H_2
-        
+
         if action.is_play():
             card = action.X_1
             if card not in hand:
                 return False
-            
+
             if not self.is_legal_play(card):
                 return False
-            
+
             # Remove from hand and add to pile
             hand.remove(card)
             self.P.append(card)
-            
+
             # Handle special card effects
             _, value = card
-            
+
             if self._is_wild(card):
                 # Wild card: choose color
                 if action.wild_color:
                     self.current_color = action.wild_color
                 else:
                     self.current_color = self._choose_wild_color(hand)
-                
+
                 if value == WILD_DRAW_4:
                     # Next player draws 4 and skips turn
                     self.draw_pending = 4
@@ -2227,12 +2198,12 @@ class Uno:
         elif action.is_draw():
             # Draw n cards
             n = action.n
-            
+
             # If draw_pending > 0, must draw that many
             if self.draw_pending > 0:
                 n = self.draw_pending
                 self.draw_pending = 0
-            
+
             cards_drawn = []
             for i in range(n):
                 if len(self.D_g) == 0:
@@ -2244,17 +2215,17 @@ class Uno:
                     self.P = [self.P[-1]]
                     random.shuffle(cards_to_shuffle)
                     self.D_g = cards_to_shuffle
-                
+
                 if len(self.D_g) > 0:
                     card = self.D_g.pop()
                     cards_drawn.append(card)
                     hand.append(card)
-            
+
             action.Y_n = cards_drawn
-        
+
         self.update_S()
         return True
-    
+
     def get_O_space(self):
         """
         O = (H_1, |H_2|, |D_g|, P, P_t, G_o) - observation (as seen by "Player 1")
@@ -2287,8 +2258,8 @@ class Uno:
     D = H_1 ⊔ H_2 ⊔ D_g ⊔ P : entire deck partitioned into hands, draw pile, played pile.
     Builds 108-card deck with all UNO cards.
     """
-    
-    def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None, 
+
+    def __init__(self, H_1: List[Card] = None, H_2: List[Card] = None,
                  D_g: List[Card] = None, P: List[Card] = None):
         self.H_1 = H_1 if H_1 is not None else []
         self.H_2 = H_2 if H_2 is not None else []
@@ -2302,11 +2273,11 @@ class Uno:
         self.skip_next = False  # Skip next player's turn
         self.draw_pending = 0  # Cards to draw before next turn
         self.player_plays_again = False  # Current player gets another turn
-        
+
     def build_full_deck(self) -> List[Card]:
         """Builds the full 108-card UNO deck."""
         return build_full_deck()
-    
+
     def new_game(self, seed: int = None, deal: int = 7):
         """
         Initializes a new game state.
@@ -2318,17 +2289,17 @@ class Uno:
         rng = random.Random(seed)
         full_deck = self.build_full_deck()
         rng.shuffle(full_deck)
-        
+
         # Deal to hands
         self.H_1 = full_deck[:deal]
         self.H_2 = full_deck[deal:2 * deal]
         remaining = full_deck[2 * deal:]
-        
+
         # Start played pile with first non-Wild card
         while remaining and self._is_wild(remaining[0]):
             # Reshuffle wilds back in
             rng.shuffle(remaining)
-        
+
         if remaining:
             self.P = [remaining.pop(0)]
             self.current_color, _ = self.P[0]
@@ -2346,21 +2317,21 @@ class Uno:
             self.current_color, _ = self.P[0]
             if self.current_color is None:
                 self.current_color = RED
-        
+
         self.D_g = remaining
         self.G_o = "Active"
         self.turn_direction = 1
         self.skip_next = False
         self.draw_pending = 0
         self.player_plays_again = False
-        
+
         self.create_S()
-    
+
     def _is_wild(self, card: Card) -> bool:
         """Check if card is Wild or Wild Draw 4."""
         _, value = card
         return value in [WILD, WILD_DRAW_4]
-    
+
     def create_S(self) -> State:
         """
         Creates the system state S as seen by "God".
@@ -2369,13 +2340,13 @@ class Uno:
         self.P_t = self.P[-1] if len(self.P) > 0 else None
         self.State = (self.H_1, self.H_2, self.D_g, self.P, self.P_t, self.G_o)
         return self.State
-    
+
     def update_S(self):
         """Updates the system state."""
         if len(self.H_1) == 0 or len(self.H_2) == 0:
             self.G_o = "GameOver"
         self.create_S()
-    
+
     def print_S(self):
         """Print current game state."""
         if self.State is None:
@@ -2386,7 +2357,7 @@ class Uno:
         print(f"P: {len(self.State[3])} cards, top: {card_to_string(self.State[4]) if self.State[4] else 'None'}")
         print(f"Current color: {self.current_color}")
         print(f"G_o: {self.State[5]}")
-    
+
     def is_legal_play(self, card: Card) -> bool:
         """
         Checks if a card can be legally played.
@@ -2397,25 +2368,25 @@ class Uno:
         """
         if self.P_t is None:
             return False
-        
+
         card_color, card_value = card
         P_t_color, P_t_value = self.P_t
-        
+
         # Wild cards are always legal
         if self._is_wild(card):
             return True
-        
+
         # Match by color (use current_color for Wild cards)
         effective_color = self.current_color if P_t_color is None else P_t_color
         if card_color == effective_color:
             return True
-        
+
         # Match by value
         if card_value == P_t_value:
             return True
-        
+
         return False
-    
+
     def get_legal_actions(self, player: int = 1) -> List[Action]:
         """
         Returns list of legal actions for specified player.
@@ -2424,21 +2395,21 @@ class Uno:
             self.create_S()
         legal_actions = []
         hand = self.H_1 if player == 1 else self.H_2
-        
+
         if self.P_t is None:
             return legal_actions
-        
+
         # Check which cards in hand can be played
         for card in hand:
             if self.is_legal_play(card):
                 legal_actions.append(Action(X_1=card))
-        
+
         # If no legal plays, must draw 1 card
         if len(legal_actions) == 0:
             legal_actions.append(Action(n=1))
-        
+
         return legal_actions
-    
+
     def _choose_wild_color(self, hand: List[Card]) -> str:
         """
         Choose color for Wild card based on most common color in hand.
@@ -2449,12 +2420,12 @@ class Uno:
             color, _ = card
             if color in color_counts:
                 color_counts[color] += 1
-        
+
         max_color = max(color_counts, key=color_counts.get)
         if color_counts[max_color] > 0:
             return max_color
         return RED  # Default
-    
+
     def execute_action(self, action: Action, player: int = 1) -> bool:
         """
         Executes an action and updates the game state.
@@ -2462,31 +2433,31 @@ class Uno:
         """
         if self.G_o == "GameOver":
             return False
-        
+
         hand = self.H_1 if player == 1 else self.H_2
-        
+
         if action.is_play():
             card = action.X_1
             if card not in hand:
                 return False
-            
+
             if not self.is_legal_play(card):
                 return False
-            
+
             # Remove from hand and add to pile
             hand.remove(card)
             self.P.append(card)
-            
+
             # Handle special card effects
             _, value = card
-            
+
             if self._is_wild(card):
                 # Wild card: choose color
                 if action.wild_color:
                     self.current_color = action.wild_color
                 else:
                     self.current_color = self._choose_wild_color(hand)
-                
+
                 if value == WILD_DRAW_4:
                     # Next player draws 4 and skips turn
                     self.draw_pending = 4
@@ -2505,12 +2476,12 @@ class Uno:
         elif action.is_draw():
             # Draw n cards
             n = action.n
-            
+
             # If draw_pending > 0, must draw that many
             if self.draw_pending > 0:
                 n = self.draw_pending
                 self.draw_pending = 0
-            
+
             cards_drawn = []
             for i in range(n):
                 if len(self.D_g) == 0:
@@ -2522,17 +2493,17 @@ class Uno:
                     self.P = [self.P[-1]]
                     random.shuffle(cards_to_shuffle)
                     self.D_g = cards_to_shuffle
-                
+
                 if len(self.D_g) > 0:
                     card = self.D_g.pop()
                     cards_drawn.append(card)
                     hand.append(card)
-            
+
             action.Y_n = cards_drawn
-        
+
         self.update_S()
         return True
-    
+
     def get_O_space(self):
         """
         O = (H_1, |H_2|, |D_g|, P, P_t, G_o) - observation (as seen by "Player 1")
@@ -2556,7 +2527,7 @@ def display_game_state(game: Uno, current_player: int):
     print("=" * 60)
     game.create_S()
     state = game.State
-    
+
     print(f"\nTop Card: {card_to_string(state[4]) if state[4] else 'None'}")
     if game.current_color:
         print(f"Current Color: {game.current_color}")
@@ -2578,10 +2549,10 @@ def choose_action_simple(game: Uno, player: int):
     - If no legal play, draw 1
     """
     legal_actions = game.get_legal_actions(player)
-    
+
     if not legal_actions:
         return None
-    
+
     # Prefer playing over drawing
     play_actions = [a for a in legal_actions if a.is_play()]
     if play_actions:
@@ -2591,7 +2562,7 @@ def choose_action_simple(game: Uno, player: int):
             hand = game.H_1 if player == 1 else game.H_2
             action.wild_color = game._choose_wild_color(hand)
         return action
-    
+
     # Must draw
     return legal_actions[0]
 
@@ -2600,24 +2571,24 @@ def main():
     """Run 2-player UNO game simulator."""
     print("Starting UNO Game Simulator (2 Players)")
     print("=" * 60)
-    
+
     game = Uno()
     game.new_game(seed=None)
-    
+
     current_player = 1
     turn_count = 0
     max_turns = 1000  # Safety limit
-    
+
     while game.G_o == "Active" and turn_count < max_turns:
         turn_count += 1
-        
+
         # Check if we need to skip this player
         if game.skip_next:
             print(f"\n>>> Player {current_player} is skipped!")
             game.skip_next = False
             current_player = 3 - current_player  # Switch: 1->2, 2->1
             continue
-        
+
         # Check if player needs to draw cards (from Draw 2 or Wild Draw 4)
         if game.draw_pending > 0:
             print(f"\n>>> Player {current_player} must draw {game.draw_pending} cards!")
@@ -2628,15 +2599,15 @@ def main():
             display_game_state(game, current_player)
             current_player = 3 - current_player
             continue
-        
+
         display_game_state(game, current_player)
-        
+
         # Choose and execute action
         action = choose_action_simple(game, current_player)
         if action is None:
             print(f"Player {current_player} has no actions available!")
             break
-        
+
         if action.is_play():
             card_str = card_to_string(action.X_1)
             if action.wild_color:
@@ -2645,30 +2616,30 @@ def main():
                 print(f"Player {current_player} plays {card_str}")
         else:
             print(f"Player {current_player} draws {action.n} card(s)")
-        
+
         success = game.execute_action(action, current_player)
         if not success:
             print(f"Action failed for player {current_player}")
             break
-        
+
         # Check game over
         if game.G_o == "GameOver":
             break
-        
+
         # Switch players (unless current player plays again)
         if not game.player_plays_again and not game.skip_next:
             current_player = 3 - current_player
         elif game.player_plays_again:
             # Reset flag - player will continue their turn
             game.player_plays_again = False
-    
+
     # Game over
     print("\n" + "=" * 60)
     print("GAME OVER")
     print("=" * 60)
     game.create_S()
     state = game.State
-    
+
     if len(state[0]) == 0:
         print("Player 1 wins!")
     elif len(state[1]) == 0:
@@ -2684,23 +2655,19 @@ if __name__ == "__main__":
 
 ```
 
-
 Fixed Skip and Reverse: when a player plays Skip or Reverse, they get another turn immediately instead of skipping the next player. Updated the game logic to use a `player_plays_again` flag that prevents switching players after these cards.
 
 ---
 
 **User**
 
-how are the moves decided currently? 
+how are the moves decided currently?
 
 ---
 
 **Cursor**
 
-
 Checking how moves are decided:
-
-
 
 Moves are decided by `choose_action_simple` in `main.py`:
 
@@ -2713,10 +2680,10 @@ def choose_action_simple(game: Uno, player: int):
     - If no legal play, draw 1
     """
     legal_actions = game.get_legal_actions(player)
-    
+
     if not legal_actions:
         return None
-    
+
     # Prefer playing over drawing
     play_actions = [a for a in legal_actions if a.is_play()]
     if play_actions:
@@ -2726,12 +2693,13 @@ def choose_action_simple(game: Uno, player: int):
             hand = game.H_1 if player == 1 else game.H_2
             action.wild_color = game._choose_wild_color(hand)
         return action
-    
+
     # Must draw
     return legal_actions[0]
 ```
 
 Strategy:
+
 1. Play the first legal card found in the hand (first match from `get_legal_actions`).
 2. For Wild/Wild Draw 4, choose the most common color in the player's hand.
 3. If no legal play, draw 1 card.
@@ -2747,10 +2715,10 @@ def choose_action_simple(game: Uno, player: int):
     - If no legal play, draw 1
     """
     legal_actions = game.get_legal_actions(player)
-    
+
     if not legal_actions:
         return None
-    
+
     # Prefer playing over drawing
     play_actions = [a for a in legal_actions if a.is_play()]
     if play_actions:
@@ -2760,8 +2728,7 @@ def choose_action_simple(game: Uno, player: int):
             hand = game.H_1 if player == 1 else game.H_2
             action.wild_color = game._choose_wild_color(hand)
         return action
-    
+
     # Must draw
     return legal_actions[0]
 ```
-
