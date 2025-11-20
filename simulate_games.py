@@ -89,7 +89,7 @@ def simulate_game_with_policy(pg, seed=None, verbose=False):
 
 def build_policy_for_small_game():
     """Build a policy table for small UNO games (3 cards each)"""
-    print("Building Q-MDP policy with 1M state target...")
+    print("Building Q-MDP policy with 10M state target...")
     print("(This will take several minutes...)")
     import time
     start_time = time.time()
@@ -122,7 +122,7 @@ def build_policy_for_small_game():
     print(f"Generated {len(initial_states)} unique initial states from game setups")
     
     # Build transition table from these states
-    print(f"Building transition table (targeting ~1M states)...")
+    print(f"Building transition table (targeting ~10M states)...")
     last_report_time = time.time()
     
     for i, state in enumerate(initial_states):
@@ -136,8 +136,8 @@ def build_policy_for_small_game():
         pg.build_transition_table(state, max_depth=5000)  # Increased depth
         
         # Early stop if we've hit the limit
-        if len(pg.states) >= 1000000:
-            print(f"\n  Reached 1M state limit with {len(pg.states):,} states")
+        if len(pg.states) >= 10000000:
+            print(f"\n  Reached 10M state limit with {len(pg.states):,} states")
             break
     
     build_time = time.time() - start_time
