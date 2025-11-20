@@ -1,5 +1,5 @@
 from typing import List, Tuple, Optional
-from cards import Card
+from .cards import Card
 
 # State type: S = (H_1, H_2, D_g, P, P_t, G_o)
 State = Tuple[List[Card], List[Card], List[Card], List[Card], Optional[Card], str]
@@ -16,13 +16,14 @@ class Action:
     - Y_n: draw n cards from deck where n ∈ {1, 2, 4}
     """
     
-    def __init__(self, X_1: Optional[Card] = None, n: Optional[int] = None):
+    def __init__(self, X_1: Optional[Card] = None, n: Optional[int] = None, wild_color: Optional[str] = None):
         """
         Initialize an action - must specify EITHER X_1 OR n, not both.
         
         Args:
             X_1: Card to play (COLOR, VALUE) - for PLAY action
             n: Number of cards to draw, n ∈ {1, 2, 4} - for DRAW action
+            wild_color: Color chosen for Wild/Wild Draw 4 (only used when X_1 is Wild)
         """
         # Validate that exactly one is specified
         if (X_1 is None and n is None) or (X_1 is not None and n is not None):
@@ -31,6 +32,7 @@ class Action:
         self.X_1 = X_1  # Card to play (None if draw action)
         self.n = n      # Number to draw (None if play action)
         self.Y_n = []   # Cards actually drawn (filled during execution)
+        self.wild_color = wild_color  # Color chosen for Wild cards
         
         # Validation for draw action
         if n is not None and n not in [1, 2, 4]:
@@ -46,9 +48,12 @@ class Action:
     
     def __repr__(self):
         if self.is_play():
+            if self.wild_color:
+                return f"Action(X_1={self.X_1}, wild_color={self.wild_color})"
             return f"Action(X_1={self.X_1})"
         elif self.is_draw():
             if len(self.Y_n) > 0:
                 return f"Action(Y_{self.n}={self.Y_n})"
             else:
                 return f"Action(Y_{self.n}=[])"
+
