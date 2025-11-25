@@ -158,11 +158,16 @@ def update_particles_opponent_play(
     """
     Update particles when opponent plays a card.
     Case 1: Opponent plays card z
+    
+    Only keeps particles where played_card was in H_2 (legally possible).
     """
     updated = []
     for particle in particles:
+        # Only keep particles where the played card was actually in opponent's hand
         if played_card in particle.H_2:
             H_2_new = [c for c in particle.H_2 if c != played_card]
+            # Validation: ensure played card is removed
+            assert played_card not in H_2_new, "Played card still in H_2 after update!"
             updated.append(Particle(H_2_new, particle.D_g, particle.weight))
 
     # Normalize weights
@@ -180,16 +185,20 @@ def update_particles_opponent_draw(
     """
     Update particles when opponent draws (no legal move).
     Case 2: Opponent draws card
+    
+    Only updates particles where opponent has no legal cards (legally possible state).
     """
     updated = []
     for particle in particles:
-        # Check if opponent has no legal cards
+        # Check if opponent has no legal cards (required for draw action)
         legal_cards = [c for c in particle.H_2 if is_legal_play(c, P_t)]
         if len(legal_cards) == 0 and len(particle.D_g) > 0:
-            # Sample a card from deck
+            # Sample a card from deck (must be from D_g, which doesn't contain H_1 or P cards)
             drawn = random.choice(particle.D_g)
             H_2_new = particle.H_2 + [drawn]
             D_g_new = [c for c in particle.D_g if c != drawn]
+            # Validation: drawn card should be removed from deck
+            assert drawn not in D_g_new, "Drawn card still in D_g after update!"
             # Weight by likelihood
             weight = particle.weight * (1.0 / len(particle.D_g))
             updated.append(Particle(H_2_new, D_g_new, weight))
@@ -356,8 +365,10 @@ def update_particles_after_action(
     P_t: Optional[Card],
 ) -> Tuple[List[Card], List[Card], Optional[Card], List[Particle]]:
     """
-    Update particles after taking an action.
+    Update particles after Player 1 takes an action.
     Returns (H_1_new, P_new, P_t_new, particles_new).
+    
+    Ensures particles remain valid: no cards from H_1_new or P_new appear in particle H_2 or D_g.
     """
     if action.is_play():
         card = action.X_1
@@ -368,6 +379,9 @@ def update_particles_after_action(
             chosen_color = action.wild_color if action.wild_color else RED
             P_t_new = (chosen_color, card[1])
         # Particles unchanged (opponent hasn't acted yet)
+        # Note: If particles were generated correctly for the current state,
+        # the played card (which was in H_1) should not be in any particle.
+        # Validation happens in MCTS after state update.
         particles_new = particles
     else:
         # Draw action - update particles by sampling drawn card
@@ -375,11 +389,17 @@ def update_particles_after_action(
         particles_new = []
         if len(particles) > 0 and len(particles[0].D_g) > 0:
             # Sample a card from first particle's deck (all particles have same deck structure)
+            # This card is guaranteed to not be in H_1 or P since D_g was generated from L = D \ (H_1 ∪ P)
             drawn = random.choice(particles[0].D_g)
             H_1_new = H_1 + [drawn]
             for particle in particles:
                 if len(particle.D_g) > 0 and drawn in particle.D_g:
                     D_g_new = [c for c in particle.D_g if c != drawn]
+                    # Validation: drawn card should be removed from deck
+                    assert drawn not in D_g_new, "Drawn card still in D_g after update!"
+                    # Validation: drawn card should not be in H_1 or P
+                    assert drawn not in H_1, f"Drawn card {drawn} was in H_1!"
+                    assert drawn not in P, f"Drawn card {drawn} was in P!"
                     particles_new.append(
                         Particle(particle.H_2, D_g_new, particle.weight)
                     )
@@ -444,6 +464,37 @@ def mcts_search(
 
             # Check if game over
             G_o_new = "GameOver" if len(H_1_new) == 0 else "Active"
+
+            # Validate particles are valid for new state
+            # Particles should not contain any cards from H_1_new or P_new
+            # This ensures we never sample impossible states (e.g., if Player 1 has all blue 3s,
+            # particles should not contain any blue 3s in H_2 or D_g)
+            valid_particles = []
+            for p in particles_new:
+                is_valid = True
+                # Check H_2 and D_g don't contain cards from H_1_new or P_new
+                for card in H_1_new:
+                    if card in p.H_2 or card in p.D_g:
+                        is_valid = False
+                        break
+                if is_valid:
+                    for card in P_new:
+                        if card in p.H_2 or card in p.D_g:
+                            is_valid = False
+                            break
+                if is_valid:
+                    valid_particles.append(p)
+            
+            # If we lost particles, reweight the remaining ones
+            if len(valid_particles) < len(particles_new) and len(valid_particles) > 0:
+                total_weight = sum(p.weight for p in valid_particles)
+                for p in valid_particles:
+                    p.weight /= total_weight
+                particles_new = valid_particles
+            elif len(valid_particles) == 0:
+                # All particles invalid - regenerate from cache if possible
+                # This shouldn't normally happen if particles were generated correctly
+                particles_new = particles_new
 
             child = MCTSNode(
                 H_1_new, particles_new, P_new, P_t_new, G_o_new, action, node

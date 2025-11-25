@@ -58,29 +58,42 @@ class ParticleCache:
     ) -> List[Particle]:
         """
         Generate particles dynamically at runtime.
-        Uses the same logic as initialize_particles but with fixed bug.
+        
+        Each particle represents a possible complete game state s = (H_1, H_2, D_g, P, P_t, G_o).
+        We only sample the hidden parts (H_2, D_g) since H_1, P, P_t, G_o are known.
+        
+        Filtering: Only sample from L = D minus (H_1 union P) to ensure legally possible states.
+        This means if Player 1 has all blue 3s, no particle will contain blue 3s in H_2 or D_g.
         """
         full_deck = build_full_deck()
+        
+        # Filter: only cards NOT in Player 1's hand or played pile
+        # This is the key constraint - we can only sample from available cards
         L = [c for c in full_deck if c not in H_1 and c not in P]
-
-        # Auto-correct deck_size to match mathematical constraint: |D_g| = |L| - |H_2|
-        actual_deck_size = len(L) - opponent_size
-
-        # Validate constraint
+        
+        # Validate: ensure we have enough cards for opponent hand + deck
         if len(L) < opponent_size:
             return []
 
+        # Auto-correct deck_size to match mathematical constraint: |D_g| = |L| - |H_2|
+        actual_deck_size = len(L) - opponent_size
         if actual_deck_size < 0:
             return []
 
         particles = []
         for _ in range(num_particles):
-            # Sample opponent hand uniformly
+            # Sample opponent hand uniformly from available cards only
             H_2 = random.sample(L, opponent_size)
+            
+            # Remaining cards go to deck (all cards in L that aren't in H_2)
             remaining = [c for c in L if c not in H_2]
-
-            # Take all remaining cards for deck (enforces |D_g| = |L| - |H_2|)
             D_g = remaining.copy()
+
+            # Validation: ensure no cards from H_1 or P appear in particle
+            assert all(c not in H_1 for c in H_2), "Particle H_2 contains cards from H_1!"
+            assert all(c not in P for c in H_2), "Particle H_2 contains cards from P!"
+            assert all(c not in H_1 for c in D_g), "Particle D_g contains cards from H_1!"
+            assert all(c not in P for c in D_g), "Particle D_g contains cards from P!"
 
             particles.append(Particle(H_2, D_g, 1.0 / num_particles))
 
