@@ -3,7 +3,7 @@
     // Number of particles for belief approximation
     // Each particle represents a possible opponent hand + deck configuration
     // More particles = better approximation but slower computation
-    "num_particles": 1000,
+    "num_particles": 500,
     // Number of MCTS iterations per decision (Selection -> Expansion -> Simulation -> Backpropagation)
     // More iterations = better action selection but slower
     "mcts_iterations": 200,
@@ -21,5 +21,9 @@
     // Effective sample size threshold for resampling (fraction of num_particles)
     // Lower = resample more often (better diversity but slower)
     "resample_threshold": 0.5
+  },
+  "batch_run": {
+    // Number of simulations to run in batch mode
+    "num_simulations": 10
   }
 }
