@@ -1,6 +1,5 @@
 """Tests for UNO card and deck building logic."""
 
-import pytest
 from src.uno.cards import (
     build_full_deck,
     card_to_string,

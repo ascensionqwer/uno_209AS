@@ -158,7 +158,7 @@ def update_particles_opponent_play(
     """
     Update particles when opponent plays a card.
     Case 1: Opponent plays card z
-    
+
     Only keeps particles where played_card was in H_2 (legally possible).
     """
     updated = []
@@ -185,7 +185,7 @@ def update_particles_opponent_draw(
     """
     Update particles when opponent draws (no legal move).
     Case 2: Opponent draws card
-    
+
     Only updates particles where opponent has no legal cards (legally possible state).
     """
     updated = []
@@ -367,7 +367,7 @@ def update_particles_after_action(
     """
     Update particles after Player 1 takes an action.
     Returns (H_1_new, P_new, P_t_new, particles_new).
-    
+
     Ensures particles remain valid: no cards from H_1_new or P_new appear in particle H_2 or D_g.
     """
     if action.is_play():
@@ -484,7 +484,7 @@ def mcts_search(
                             break
                 if is_valid:
                     valid_particles.append(p)
-            
+
             # If we lost particles, reweight the remaining ones
             if len(valid_particles) < len(particles_new) and len(valid_particles) > 0:
                 total_weight = sum(p.weight for p in valid_particles)

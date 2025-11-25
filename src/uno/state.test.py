@@ -11,16 +11,16 @@ def test_action_validation_must_specify_one():
     action1 = Action(X_1=(RED, 5))
     assert action1.is_play() is True
     assert action1.is_draw() is False
-    
+
     # Valid: only n
     action2 = Action(n=1)
     assert action2.is_play() is False
     assert action2.is_draw() is True
-    
+
     # Invalid: both specified
     with pytest.raises(ValueError, match="Must specify EITHER"):
         Action(X_1=(RED, 5), n=1)
-    
+
     # Invalid: neither specified
     with pytest.raises(ValueError, match="Must specify EITHER"):
         Action()
@@ -32,14 +32,14 @@ def test_action_validation_draw_n_values():
     Action(n=1)
     Action(n=2)
     Action(n=4)
-    
+
     # Invalid values
     with pytest.raises(ValueError, match="n must be in"):
         Action(n=0)
-    
+
     with pytest.raises(ValueError, match="n must be in"):
         Action(n=3)
-    
+
     with pytest.raises(ValueError, match="n must be in"):
         Action(n=5)
 
@@ -49,7 +49,7 @@ def test_action_type_checking():
     play_action = Action(X_1=(RED, 5))
     assert play_action.is_play() is True
     assert play_action.is_draw() is False
-    
+
     draw_action = Action(n=1)
     assert draw_action.is_play() is False
     assert draw_action.is_draw() is True
@@ -61,7 +61,7 @@ def test_action_representation_play():
     repr_str = repr(action)
     assert "X_1" in repr_str
     assert "RED" in repr_str or "5" in repr_str
-    
+
     # With wild color
     wild_action = Action(X_1=(BLACK, WILD), wild_color=YELLOW)
     repr_str = repr(wild_action)
@@ -74,7 +74,7 @@ def test_action_representation_draw():
     action = Action(n=1)
     repr_str = repr(action)
     assert "Y_1" in repr_str or "n=1" in repr_str
-    
+
     # After drawing (Y_n filled)
     action.Y_n = [(RED, 5)]
     repr_str = repr(action)
@@ -86,4 +86,3 @@ def test_action_wild_color():
     action = Action(X_1=(BLACK, WILD), wild_color=RED)
     assert action.wild_color == RED
     assert action.X_1 == (BLACK, WILD)
-
