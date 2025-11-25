@@ -1,7 +1,7 @@
 """Particle cache for dynamic particle filter generation (Player 1 perspective)."""
 
 import random
-from typing import List, Optional, Any
+from typing import List
 from ..uno.cards import Card, build_full_deck
 from .particle import Particle
 
@@ -10,7 +10,7 @@ class ParticleCache:
     """
     Cache for particle sets keyed by game state.
     Generates particles dynamically at runtime and caches them for reuse.
-    
+
     Particles represent beliefs about Player 2's hidden hand (H_2).
     Each particle contains a sampled H_2 and corresponding D_g.
     """
@@ -30,7 +30,7 @@ class ParticleCache:
     ) -> List[Particle]:
         """
         Get particles for a game state, generating them if not cached.
-        
+
         Args:
             game_state_key: Canonical game state key
             H_1: Player 1's hand
@@ -38,7 +38,7 @@ class ParticleCache:
             deck_size: Size of deck (will be auto-corrected to |L| - opponent_size)
             P: Played cards
             num_particles: Number of particles to generate
-        
+
         Returns:
             List of Particle objects
         """
@@ -93,4 +93,3 @@ class ParticleCache:
     def size(self) -> int:
         """Get number of cached game states."""
         return len(self.cache)
-

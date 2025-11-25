@@ -15,11 +15,10 @@ This module implements decision-making from Player 1's perspective:
 
 import random
 import math
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Optional, Tuple
 
 from ..uno.cards import (
     Card,
-    build_full_deck,
     RED,
     YELLOW,
     GREEN,
@@ -27,7 +26,7 @@ from ..uno.cards import (
     BLACK,
 )
 from ..uno.state import Action
-from .observation_utils import canonicalize_game_state, serialize_action
+from .observation_utils import canonicalize_game_state
 from .particle_cache import ParticleCache
 from .particle import Particle
 

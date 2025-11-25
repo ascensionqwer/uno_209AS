@@ -18,10 +18,10 @@ def strip_jsonc_comments(text: str) -> str:
     """
     # Remove single-line comments
     text = re.sub(r"//.*?$", "", text, flags=re.MULTILINE)
-    
+
     # Remove multi-line comments
     text = re.sub(r"/\*.*?\*/", "", text, flags=re.DOTALL)
-    
+
     return text
 
 

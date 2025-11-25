@@ -54,7 +54,7 @@ def choose_action_simple(game: Uno, player: int):
 
 def main():
     """Run 2-player UNO game simulator.
-    
+
     Player 1 uses ParticlePolicy, Player 2 uses simple policy.
     """
     print("=" * 60)
@@ -69,7 +69,7 @@ def main():
     config = get_particle_policy_config()
     policy = ParticlePolicy(**config)
 
-    print(f"\nParticlePolicy Configuration:")
+    print("\nParticlePolicy Configuration:")
     for key, value in config.items():
         print(f"  {key}: {value}")
     print()
@@ -99,7 +99,9 @@ def main():
             current_player = 3 - current_player
             continue
 
-        display_game_state(game, current_player, policy if current_player == 1 else None)
+        display_game_state(
+            game, current_player, policy if current_player == 1 else None
+        )
 
         # Get current state for Player 1's policy
         game.create_S()

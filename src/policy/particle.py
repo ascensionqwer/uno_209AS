@@ -11,4 +11,3 @@ class Particle:
         self.H_2 = H_2
         self.D_g = D_g
         self.weight = weight
-
