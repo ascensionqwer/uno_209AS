@@ -39,26 +39,18 @@ def load_config() -> Dict[str, Any]:
     return _config_cache
 
 
-def get_policy1_config() -> Dict[str, Any]:
-    """Get configuration for policy generator 1."""
-    config = load_config()
-    return config.get("policy1", {
-        "gamma": 0.95,
-        "num_belief_samples": 50,
-        "max_depth": 3
-    })
-
-
-def get_policy2_config() -> Dict[str, Any]:
-    """Get configuration for policy generator 2."""
+def get_particle_policy_config() -> Dict[str, Any]:
+    """Get configuration for particle policy (runtime decision-making)."""
     config = load_config()
     return config.get(
-        "policy2",
+        "particle_policy",
         {
-            "num_particles": 1000,
-            "mcts_iterations": 1000,
+            "num_particles": 500,
+            "mcts_iterations": 200,
             "planning_horizon": 5,
             "gamma": 0.95,
-            "num_observations": 1000,
+            "ucb_c": 1.414,
+            "rollout_particle_sample_size": 20,
+            "resample_threshold": 0.5,
         },
     )

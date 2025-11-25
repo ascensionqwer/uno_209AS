@@ -1,28 +1,25 @@
 {
-  "policy1": {
-    // Discount factor for value function (0-1, typically 0.95)
-    "gamma": 0.95,
-    // Number of belief state samples per observation for value estimation
-    "num_belief_samples": 50,
-    // Maximum lookahead depth for value function approximation
-    "max_depth": 2
-    // Note: Policy 1 enumerates ALL possible game states (no num_observations limit)
-  },
-  "policy2": {
-    // Number of particles for belief approximation per observation
+  "particle_policy": {
+    // Number of particles for belief approximation
     // Each particle represents a possible opponent hand + deck configuration
     // More particles = better approximation but slower computation
-    "num_particles": 1000,
-    // Number of MCTS iterations (tree search iterations: Selection -> Expansion -> Simulation -> Backpropagation)
-    "mcts_iterations": 10,
+    "num_particles": 5000,
+    // Number of MCTS iterations per decision (Selection -> Expansion -> Simulation -> Backpropagation)
+    // More iterations = better action selection but slower
+    "mcts_iterations": 2000,
     // Maximum lookahead depth when simulating rollouts to estimate action values
     // Deeper = better estimates but slower
     "planning_horizon": 5,
     // Discount factor for value function (0-1, typically 0.95)
     "gamma": 0.95,
-    // Number of different game states/observations to generate policies for
-    // This is the number of entries in the lookup table
-    // Uses random sampling to select which states to include
-    "num_observations": 10000
+    // UCB1 exploration constant for MCTS tree search
+    // Higher = more exploration, lower = more exploitation
+    "ucb_c": 1.414,
+    // Number of particles to sample for each rollout simulation
+    // Fewer = faster but less accurate value estimates
+    "rollout_particle_sample_size": 40,
+    // Effective sample size threshold for resampling (fraction of num_particles)
+    // Lower = resample more often (better diversity but slower)
+    "resample_threshold": 0.5
   }
 }

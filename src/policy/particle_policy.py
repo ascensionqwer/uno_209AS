@@ -1,8 +1,16 @@
 """
-Policy Generator 2: Based on MATH2.md particle filter + MCTS approach.
+Particle Policy: Runtime decision-making using dynamic particle filter + MCTS.
 
 Uses particle filtering for belief approximation and MCTS for action selection.
-Generates lookup table mapping observations to optimal actions.
+Generates particles dynamically at runtime with caching.
+
+**Player 1 Perspective:**
+This module implements decision-making from Player 1's perspective:
+- Player 1 observes game state (H_1, |H_2|, |D_g|, P, P_t, G_o)
+- Player 1 makes decisions using get_action()
+- System dynamics handle Player 2's turn
+- Player 1 observes new state and updates particles based on Player 2's actions
+- Particles represent beliefs about Player 2's hidden hand (H_2)
 """
 
 import random
@@ -19,17 +27,9 @@ from ..uno.cards import (
     BLACK,
 )
 from ..uno.state import Action
-from .observation_utils import canonicalize_observation, serialize_action
-from .policy_generator_1 import is_legal_play, get_legal_actions, compute_reward
-
-
-class Particle:
-    """Represents a particle in the particle filter."""
-
-    def __init__(self, H_2: List[Card], D_g: List[Card], weight: float = 1.0):
-        self.H_2 = H_2
-        self.D_g = D_g
-        self.weight = weight
+from .observation_utils import canonicalize_game_state, serialize_action
+from .particle_cache import ParticleCache
+from .particle import Particle
 
 
 class MCTSNode:
@@ -46,7 +46,9 @@ class MCTSNode:
         parent=None,
     ):
         self.H_1 = H_1
-        self.particles = particles  # Particle set representing belief over opponent's hand
+        self.particles = (
+            particles  # Particle set representing belief over opponent's hand
+        )
         self.P = P
         self.P_t = P_t
         self.G_o = G_o
@@ -81,40 +83,74 @@ class MCTSNode:
         )
 
 
-def initialize_particles(
-    H_1: List[Card],
-    opponent_size: int,
-    deck_size: int,
-    P: List[Card],
-    num_particles: int,
-) -> List[Particle]:
+def is_legal_play(
+    card: Card, P_t: Optional[Card], current_color: Optional[str] = None
+) -> bool:
     """
-    Initialize particle set for belief approximation.
-    P = {(s^(i), w^(i))} where we sample H_2^(i) and D_g^(i).
+    Check if card can be legally played on top of P_t.
+    LEGAL(P_t) = {c: c(COLOR) = P_t(COLOR) OR c(VALUE) = P_t(VALUE) OR c(COLOR) = BLACK}
     """
-    full_deck = build_full_deck()
-    L = [c for c in full_deck if c not in H_1 and c not in P]
+    if P_t is None:
+        return False
 
-    particles = []
-    for _ in range(num_particles):
-        if len(L) < opponent_size + deck_size:
-            continue
+    card_color, card_value = card
+    P_t_color, P_t_value = P_t
 
-        # Sample opponent hand uniformly
-        if opponent_size > len(L):
-            continue
-        H_2 = random.sample(L, opponent_size)
-        remaining = [c for c in L if c not in H_2]
+    # Wild cards are always legal
+    if card_color == BLACK:
+        return True
 
-        # Sample deck
-        if deck_size > len(remaining):
-            D_g = remaining
-        else:
-            D_g = random.sample(remaining, deck_size)
+    # Use current_color for Wild cards that were played
+    effective_color = current_color if P_t_color == BLACK else P_t_color
 
-        particles.append(Particle(H_2, D_g, 1.0 / num_particles))
+    # Match by color
+    if card_color == effective_color:
+        return True
 
-    return particles
+    # Match by value
+    if card_value == P_t_value:
+        return True
+
+    return False
+
+
+def get_legal_actions(
+    H_1: List[Card], P_t: Optional[Card], current_color: Optional[str] = None
+) -> List[Action]:
+    """Get all legal actions for player 1 given hand and top card."""
+    legal_actions = []
+
+    if P_t is None:
+        return []
+
+    # Check for playable cards
+    for card in H_1:
+        if is_legal_play(card, P_t, current_color):
+            if card[0] == BLACK:  # Wild card - need to choose color
+                # Add action for each possible color choice
+                for color in [RED, YELLOW, GREEN, BLUE]:
+                    legal_actions.append(Action(X_1=card, wild_color=color))
+            else:
+                legal_actions.append(Action(X_1=card))
+
+    # If no legal plays, must draw 1
+    if len(legal_actions) == 0:
+        legal_actions.append(Action(n=1))
+
+    return legal_actions
+
+
+def compute_reward(H_1_prime: List[Card], H_2_prime: List[Card]) -> float:
+    """
+    R(s', s, a) = +1 if |H_1'| = 0 (player 1 wins)
+                 -1 if |H_2'| = 0 (player 2 wins)
+                  0 otherwise
+    """
+    if len(H_1_prime) == 0:
+        return 1.0
+    if len(H_2_prime) == 0:
+        return -1.0
+    return 0.0
 
 
 def update_particles_opponent_play(
@@ -122,7 +158,7 @@ def update_particles_opponent_play(
 ) -> List[Particle]:
     """
     Update particles when opponent plays a card.
-    Case 1 from MATH2.md: Opponent plays card z
+    Case 1: Opponent plays card z
     """
     updated = []
     for particle in particles:
@@ -144,7 +180,7 @@ def update_particles_opponent_draw(
 ) -> List[Particle]:
     """
     Update particles when opponent draws (no legal move).
-    Case 2 from MATH2.md: Opponent draws card
+    Case 2: Opponent draws card
     """
     updated = []
     for particle in particles:
@@ -345,7 +381,9 @@ def update_particles_after_action(
             for particle in particles:
                 if len(particle.D_g) > 0 and drawn in particle.D_g:
                     D_g_new = [c for c in particle.D_g if c != drawn]
-                    particles_new.append(Particle(particle.H_2, D_g_new, particle.weight))
+                    particles_new.append(
+                        Particle(particle.H_2, D_g_new, particle.weight)
+                    )
                 else:
                     particles_new.append(particle)
         else:
@@ -366,6 +404,8 @@ def mcts_search(
     gamma: float,
     num_iterations: int = 1000,
     max_depth: int = 5,
+    ucb_c: float = 1.414,
+    rollout_particle_sample_size: int = 10,
 ) -> Action:
     """
     Monte Carlo Tree Search with particle filter.
@@ -393,7 +433,7 @@ def mcts_search(
         depth = 0
 
         while not node.is_terminal() and node.is_fully_expanded() and depth < max_depth:
-            node = node.best_child()
+            node = node.best_child(ucb_c)
             depth += 1
 
         # Expansion: add new node for unexplored action
@@ -409,22 +449,27 @@ def mcts_search(
             child = MCTSNode(
                 H_1_new, particles_new, P_new, P_t_new, G_o_new, action, node
             )
-            current_color_new = (
-                P_t_new[0] if P_t_new and P_t_new[0] != BLACK else None
+            current_color_new = P_t_new[0] if P_t_new and P_t_new[0] != BLACK else None
+            child.untried_actions = get_legal_actions(
+                H_1_new, P_t_new, current_color_new
             )
-            child.untried_actions = get_legal_actions(H_1_new, P_t_new, current_color_new)
             node.children.append(child)
             node = child
             depth += 1
 
         # Simulation: roll out using particle samples to estimate value
         if node.is_terminal():
-            value = compute_reward(node.H_1, node.particles[0].H_2 if node.particles else [])
+            value = compute_reward(
+                node.H_1, node.particles[0].H_2 if node.particles else []
+            )
         else:
             # Use particle-based rollout
             total_value = 0.0
             total_weight = 0.0
-            for particle in node.particles[: min(10, len(node.particles))]:  # Sample subset
+            particle_subset = node.particles[
+                : min(rollout_particle_sample_size, len(node.particles))
+            ]
+            for particle in particle_subset:
                 rollout_value = simulate_rollout(
                     node.H_1,
                     particle.H_2,
@@ -450,148 +495,196 @@ def mcts_search(
     # Return best action (most visited child)
     if len(root.children) == 0:
         # Fallback: return action with highest value
-        return max(legal_actions, key=lambda a: simulate_rollout(
-            H_1, particles[0].H_2 if particles else [], 
-            particles[0].D_g if particles else [], P, P_t, G_o, gamma, 0, max_depth
-        ) if particles else 0.0)
+        return max(
+            legal_actions,
+            key=lambda a: simulate_rollout(
+                H_1,
+                particles[0].H_2 if particles else [],
+                particles[0].D_g if particles else [],
+                P,
+                P_t,
+                G_o,
+                gamma,
+                0,
+                max_depth,
+            )
+            if particles
+            else 0.0,
+        )
 
     best_child = max(root.children, key=lambda c: c.visits)
     return best_child.action
 
 
-def generate_policy_2(
-    num_particles: int = 1000,
-    mcts_iterations: int = 1000,
-    planning_horizon: int = 5,
-    gamma: float = 0.95,
-    num_observations: int = 1000,
-) -> Dict[str, Dict[str, Any]]:
+class ParticlePolicy:
     """
-    Generate policy lookup table using particle filter + MCTS approach.
+    Runtime particle filter policy using MCTS for decision-making.
+    Generates particles dynamically at runtime with caching.
 
-    Parameter Explanation:
-    - num_observations: How many different game states/observations to generate
-      policies for. This is the number of entries in the lookup table. Uses random
-      sampling to select which states to include.
-    
-    - num_particles: For EACH observation, how many particles to use in the particle
-      filter. Each particle represents a possible opponent hand + deck configuration.
-      More particles = better belief approximation but slower computation.
-    
-    - mcts_iterations: Number of MCTS tree search iterations per action evaluation.
-      Each iteration: Selection (UCB1) -> Expansion -> Simulation (particle-based rollout)
-      -> Backpropagation. More iterations = better action selection but slower.
-    
-    - planning_horizon: Maximum lookahead depth when simulating rollouts to estimate
-      action values. Deeper = better estimates but slower.
+    **Perspective: Player 1**
+    This policy operates from Player 1's perspective:
+    1. Player 1 observes game state (H_1, |H_2|, |D_g|, P, P_t, G_o)
+    2. Player 1 makes a move using get_action()
+    3. System dynamics occur (including Player 2's turn)
+    4. Player 1 observes new game state
+    5. Update particles based on observations of Player 2's actions
+    6. Repeat
 
-    Args:
-        num_particles: Number of particles for belief approximation per observation
-        mcts_iterations: Number of MCTS iterations (Selection -> Expansion -> Simulation -> Backpropagation)
-        planning_horizon: Maximum lookahead depth for rollouts
-        gamma: Discount factor
-        num_observations: Number of game states to generate policies for (lookup table size)
-
-    Returns:
-        Dictionary mapping observation keys to {"action": ..., "value": ...}
+    Particles represent beliefs about Player 2's hidden hand (H_2).
     """
-    policy = {}
-    full_deck = build_full_deck()
 
-    print(f"Generating Policy 2 with {num_observations} observations...")
+    def __init__(
+        self,
+        num_particles: int = 1000,
+        mcts_iterations: int = 1000,
+        planning_horizon: int = 5,
+        gamma: float = 0.95,
+        ucb_c: float = 1.414,
+        rollout_particle_sample_size: int = 10,
+        resample_threshold: float = 0.5,
+    ):
+        """
+        Initialize particle policy (Player 1's perspective).
 
-    for i in range(num_observations):
-        if (i + 1) % 100 == 0:
-            print(f"  Processed {i + 1}/{num_observations} observations...")
+        Args:
+            num_particles: Number of particles for belief approximation over Player 2's hand
+            mcts_iterations: Number of MCTS iterations per decision
+            planning_horizon: Maximum lookahead depth for rollouts
+            gamma: Discount factor
+            ucb_c: UCB1 exploration constant
+            rollout_particle_sample_size: Number of particles to sample for rollouts
+            resample_threshold: ESS threshold for resampling (fraction of num_particles)
+        """
+        self.num_particles = num_particles
+        self.mcts_iterations = mcts_iterations
+        self.planning_horizon = planning_horizon
+        self.gamma = gamma
+        self.ucb_c = ucb_c
+        self.rollout_particle_sample_size = rollout_particle_sample_size
+        self.resample_threshold = resample_threshold
+        self.cache = ParticleCache()
+        self.action_history = []  # Track action history for cache keys
 
-        # Generate random observation
-        hand_size = random.randint(1, 10)
-        opponent_size = random.randint(1, 15)
-        deck_size = random.randint(10, 50)
+    def get_action(
+        self,
+        H_1: List[Card],
+        opponent_size: int,
+        deck_size: int,
+        P: List[Card],
+        P_t: Optional[Card],
+        G_o: str = "Active",
+    ) -> Action:
+        """
+        Get optimal action for Player 1 from current game state using particle filter + MCTS.
 
-        # Sample hand
-        H_1 = random.sample(full_deck, min(hand_size, len(full_deck)))
-        remaining = [c for c in full_deck if c not in H_1]
+        This is called when it's Player 1's turn. After this action is executed,
+        system dynamics will handle Player 2's turn, and you should call update_after_opponent_action()
+        when you observe the new game state.
 
-        # Sample pile and top card
-        if len(remaining) > 0:
-            P_t = random.choice(remaining)
-            P = [P_t]
-        else:
-            P_t = None
-            P = []
+        Args:
+            H_1: Player 1's hand (observable)
+            opponent_size: Size of Player 2's hand (observable, but not the actual cards)
+            deck_size: Size of deck (will be auto-corrected to |L| - opponent_size)
+            P: Played cards (observable)
+            P_t: Top card of pile (observable)
+            G_o: Game over status
 
-        # Initialize particles
-        particles = initialize_particles(
-            H_1, opponent_size, deck_size, P, num_particles
+        Returns:
+            Optimal action for Player 1
+        """
+        # Create game state key for caching
+        game_state_key = canonicalize_game_state(
+            H_1, opponent_size, deck_size, P, P_t, G_o, self.action_history
+        )
+
+        # Get particles from cache (generates if not cached)
+        particles = self.cache.get_particles(
+            game_state_key, H_1, opponent_size, deck_size, P, self.num_particles
         )
 
         if len(particles) == 0:
-            continue
+            # Fallback: return draw action
+            return Action(n=1)
 
         # Resample if needed
-        particles = resample_particles(particles, num_particles)
+        particles = resample_particles(particles, self.num_particles)
 
         # Run MCTS to find best action
         best_action = mcts_search(
-            H_1, particles, P, P_t, "Active", gamma, mcts_iterations, planning_horizon
+            H_1,
+            particles,
+            P,
+            P_t,
+            G_o,
+            self.gamma,
+            self.mcts_iterations,
+            self.planning_horizon,
+            self.ucb_c,
+            self.rollout_particle_sample_size,
         )
 
-        # Estimate value (simplified)
-        # Note: mcts_search already returns a legal action, so we can use it directly
-        value = 0.0
-        total_weight = 0.0
-        particle_subset = particles[: min(10, len(particles))]  # Sample subset
-        for particle in particle_subset:
-            if best_action.is_play():
-                card = best_action.X_1
-                H_1_new = [c for c in H_1 if c != card]
-                P_new = P + [card]
-                P_t_new = card
-                if card[0] == BLACK:
-                    chosen_color = best_action.wild_color if best_action.wild_color else RED
-                    P_t_new = (chosen_color, card[1])
-                rollout_value = simulate_rollout(
-                    H_1_new,
-                    particle.H_2,
-                    particle.D_g,
-                    P_new,
-                    P_t_new,
-                    "Active",
-                    gamma,
-                    0,
-                    planning_horizon,
-                )
-                value += particle.weight * rollout_value
-                total_weight += particle.weight
-            else:
-                if len(particle.D_g) > 0:
-                    drawn = random.choice(particle.D_g)
-                    H_1_new = H_1 + [drawn]
-                    D_g_new = [c for c in particle.D_g if c != drawn]
-                    rollout_value = simulate_rollout(
-                        H_1_new,
-                        particle.H_2,
-                        D_g_new,
-                        P,
-                        P_t,
-                        "Active",
-                        gamma,
-                        0,
-                        planning_horizon,
-                    )
-                    value += particle.weight * rollout_value
-                    total_weight += particle.weight
-        
-        # Normalize by total weight
-        if total_weight > 0:
-            value = value / total_weight
+        return best_action
 
-        # Canonicalize observation
-        obs_key = canonicalize_observation(
-            H_1, opponent_size, deck_size, P_t, "Active"
-        )
-        policy[obs_key] = {"action": serialize_action(best_action), "value": value}
+    def update_after_action(self, action: Action):
+        """
+        Update action history after Player 1 takes an action.
+        Call this after executing the action returned by get_action().
+        """
+        self.action_history.append(action)
+        # Limit history size to prevent unbounded growth
+        if len(self.action_history) > 100:
+            self.action_history = self.action_history[-100:]
 
-    print(f"Generated {len(policy)} policy entries.")
-    return policy
+    def update_after_opponent_action(
+        self,
+        particles: List[Particle],
+        new_opponent_size: int,
+        new_deck_size: int,
+        new_P: List[Card],
+        new_P_t: Optional[Card],
+        opponent_played_card: Optional[Card] = None,
+        opponent_drew: bool = False,
+    ) -> List[Particle]:
+        """
+        Update particles after observing Player 2's action (system dynamics).
+
+        Call this when you observe the new game state after Player 2's turn.
+        This updates the particle filter based on what Player 2 did.
+
+        Args:
+            particles: Current particle set (from previous state)
+            new_opponent_size: New size of Player 2's hand after their action
+            new_deck_size: New size of deck after their action
+            new_P: New played cards pile
+            new_P_t: New top card
+            opponent_played_card: Card Player 2 played (if they played), None otherwise
+            opponent_drew: True if Player 2 drew a card (no legal move)
+
+        Returns:
+            Updated particle set
+        """
+        if opponent_played_card is not None:
+            # Case 1: Player 2 played a card
+            updated = update_particles_opponent_play(
+                particles, opponent_played_card, new_P_t
+            )
+        elif opponent_drew:
+            # Case 2: Player 2 drew a card (no legal move)
+            updated = update_particles_opponent_draw(particles, new_P_t)
+        else:
+            # Case 3: Player 2's turn was skipped or other case
+            # Particles remain unchanged
+            updated = particles
+
+        # Resample if needed
+        updated = resample_particles(updated, self.num_particles)
+
+        return updated
+
+    def reset(self):
+        """Reset policy state (clear action history)."""
+        self.action_history = []
+
+    def clear_cache(self):
+        """Clear particle cache."""
+        self.cache.clear()

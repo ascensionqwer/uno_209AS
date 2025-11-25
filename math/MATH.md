@@ -1,3 +1,7 @@
+## Mathematical Framework for UNO POMDP (Player 1 Perspective)
+
+This document presents the mathematical framework for a 2-player UNO game from **Player 1's perspective**. Player 1 observes partial information about the game state and maintains beliefs about Player 2's hidden hand using particle filtering. System dynamics handle Player 2's actions, which Player 1 observes and uses to update beliefs.
+
 ## Rules
 
 - 2 players
@@ -20,12 +24,13 @@
 - The deck is hidden from all player's viewpoint. 1 card from the deck becomes the top card of the pile.
 
 - When playing a card, either the number AND/OR the color need to match. This card then goes into the pile. Pile is visible to everyone.
+
   - If a player does not have a legal card to play, they must draw 1 card from the deck.
   - If a player can make a legal card play, they must play that card no matter what.
 
 - When a +2 or +4 is played, the next player may not play a card, and instead draws the corresponding number of cards. This effect cannot stack with itself.
 
-## Math for 2 Player Uno Game
+## POMDP Formulation
 
 $D = H_1 \sqcup H_2 \sqcup D_g \sqcup P$ - entire 108 uno card deck
 
@@ -56,12 +61,7 @@ $O = (H_1, |H_2|, |D_g|, P, P_t, G_o)$ - observation (as seen by "Player 1")
 - $P_t = (\text{COLOR}, \text{VALUE}) \in P$ - top card of the pile; order of other cards in the pile don't matter
 - $G_o$ - is game over or not
 
-<!-- $T(s' \mid s, a) = \begin{cases}
-1 & H_1' = H_1 - X_1, X_1 \in \text{LEGAL}(P_t), X_1 \in H_1, G_o' = \text{Active} \text{ (played legal move)}\\
-1 & H_1' = H_1 + Y_1, H_1 \cap \text{LEGAL}(P_t) = \emptyset, G_o' = \text{Active} \text{ (no legal moves; draw 1 card)}\\
-1 & H_1' = H_1 + Y_n, P_t(\text{VALUE}) \in \{+2, +4\}, G_o' = \text{Active} \text{ (top card is +2 / +4)}\\
-0 & \text{otherwise} \\
-\end{cases}$ -->
+### Transition Function
 
 $T(s' \mid s, a) = \begin{cases}
 1 & a = X_1, X_1 \in H_1 \cap \text{LEGAL}(P_t), \\
@@ -79,14 +79,8 @@ $T(s' \mid s, a) = \begin{cases}
 
 **Note on SKIP/REVERSE:** When a SKIP or REVERSE card is played (by opponent), Player 1's turn is automatically skipped. This is handled in the game flow, not as a separate action. After opponent plays SKIP/REVERSE, Player 1's next turn is skipped and control returns to opponent.
 
-- Cases:
-  - Play 1 card, that card is in hand and legally playable, the new hand is the existing hand minus the played card, the updated pile contains the played card. For WILD/+4 cards, the top card color becomes the chosen color (not BLACK). For regular cards, the top card is the played card. Special effects: SKIP/REVERSE skip next player's turn; +2/+4 force next player to draw.
-  - Draw 1 card, no legally playable moves AND top card is not a special action card (+2, +4, SKIP, REVERSE), the new hand is the existing hand plus the drawn card, the drawn card was part of the deck, the new deck is the existing deck minus the drawn card.
-  - Draw $n$ cards ($n \in \{2, 4\}$), the top card is a +2/+4 card, the new hand is the existing hand plus all drawn cards ($J_n$), all drawn cards were part of the deck, the number of drawn cards matches $n$ (2 for +2, 4 for +4), the new deck is the existing deck minus the drawn cards, the top card remains unchanged after resolving the effect.
-  - All other scenarios are invalid (especially game over)
-- $s, s' \in S, a \in A$
+### Legal Play Function
 
-<br/>
 $\text{LEGAL}(P_t)$ - set of all cards legally playable on top of $P_t$
 
 $\text{LEGAL}(P_t) = \left\{c \in D : 
@@ -99,13 +93,15 @@ c(\text{COLOR}) = \text{BLACK} \text{ (WILD and +4 can always be played)}
 
 Special card values: $\text{VALUE} \in \{0, 1, \ldots, 9, \text{SKIP}, \text{REVERSE}, +2, \text{WILD}, +4\}$
 
+### Reward Function
+
 $R(s', s, a) = \begin{cases}
 +1 & |H_1'| = 0 \text{ (player 1 wins)} \\
 -1 & |H_2'| = 0 \text{ (player 2 wins)} \\
 0 & \text{otherwise}
 \end{cases}$
 
-<br/>
+### Observation Function
 
 $O(o \mid s', a)$ - observation function, probability of observation $o$ given state $s'$ and action $a$
 
@@ -124,155 +120,206 @@ where $o \in O$ and $s' \in S$.
 - When opponent plays SKIP/REVERSE: $P_t'$ shows the SKIP/REVERSE card, and Player 1's turn is skipped (observable through game flow).
 - When $P_t(\text{VALUE}) \in \{+2, +4\}$: Player 1 observes this and must draw accordingly (no legal play option).
 
-<br/>
+## Particle Filtering for Belief State Approximation (Player 1 Perspective)
 
-$B$ - Belief space
+Since the state space is too large to enumerate all possible states, we use **particle filtering** (a form of Bayesian filtering) to maintain an approximate belief distribution. This approach generates particles dynamically at runtime, caching them per game state for efficiency.
 
-$b(s)$ - belief state, probability distribution over states $s \in S$
+**Player 1's Perspective:**
+- Player 1 observes: $O = (H_1, |H_2|, |D_g|, P, P_t, G_o)$
+- Player 1 maintains beliefs about Player 2's hidden hand $H_2$ using particles
+- Each particle $s^{(i)} = (H_1, H_2^{(i)}, D_g^{(i)}, P, P_t, G_o)$ represents a possible complete state
+- After Player 1 acts, system dynamics handle Player 2's turn
+- Player 1 observes the new state and updates particles based on what Player 2 did
 
-- $b: S \to [0,1]$ where $\sum_{s \in S} b(s) = 1$
-- $b(s) = \Pr(s \mid o, \text{history})$ - probability of state $s$ given observation $o$ and action history
-- For Player 1, $b(s) = \Pr((H_1, H_2, D_g, P, P_t, G_o) \mid (H_1, |H_2|, |D_g|, P, P_t, G_o), \text{history})$
-- Belief state $b \in B$ where $B$ is the space of all probability distributions over $S$
+### Particle-Based Belief Representation
 
-<br/>
+Instead of maintaining $b(s) = \Pr(s \mid o, \text{history})$ over all states $s \in S$, we maintain a **particle set**:
 
-**Belief Update**
+$\mathcal{P} = \{(s^{(i)}, w^{(i)})\}_{i=1}^{N}$
 
-Let $bel^-(s)$ denote the prior belief (before observation) and $bel^+(s)$ denote the posterior belief (after observation).
+where:
 
-For Player 1, the unknown component is $H_2$ (opponent's hand). Let:
+- $N$ is the number of particles (e.g., $N = 1000$ or $N = 5000$)
+- $s^{(i)} = (H_1, H_2^{(i)}, D_g^{(i)}, P, P_t, G_o)$ is a sampled state (particle)
+- $w^{(i)} \geq 0$ is the importance weight of particle $i$
+- $\sum_{i=1}^{N} w^{(i)} = 1$ (normalized weights)
 
-- $L = D \setminus H_1 \setminus P$ - set of cards that could be in opponent's hand or deck
-- $k = |H_2|$ - opponent's hand size
-- $N(P_t) = \text{LEGAL}(P_t) \cap L$ - legal cards available to opponent
+The key insight: we only need to sample $H_2^{(i)}$ (opponent's hand) since $H_1, P, P_t, G_o$ are observable.
 
-**Prior Belief (Before Observation):**
+### Dynamic Particle Generation
 
-$bel^-(H_2) = \begin{cases}
-\frac{1}{\binom{|L|}{k}} & H_2 \subseteq L, |H_2| = k \\
-0 & \text{otherwise}
-\end{cases}$
+Particles are generated **dynamically at runtime** based on the current observation. For a given observation $O = (H_1, |H_2|, |D_g|, P, P_t, G_o)$:
 
-This assumes uniform distribution over all possible $k$-card subsets of $L$.
+1. Compute $L = D \setminus H_1 \setminus P$ - available cards for opponent/deck
+2. Enforce constraint: $|L| = |H_2| + |D_g|$ (all cards must be accounted for)
+3. For each particle $i = 1, \ldots, N$:
+   - Sample $H_2^{(i)}$ uniformly from all $\binom{|L|}{|H_2|}$ possible $|H_2|$-card subsets of $L$
+   - Set $D_g^{(i)} = L \setminus H_2^{(i)}$ (all remaining cards go to deck)
+   - Set $w^{(i)} = \frac{1}{N}$ (uniform initial weights)
 
-**Posterior Belief (After Observation):**
+**Critical constraint**: The deck size must satisfy $|D_g| = |L| - |H_2|$. If a parameter $deck\_size$ is provided that doesn't match this constraint, it is automatically corrected to $|L| - |H_2|$.
 
-**Case 1: Opponent plays a card**
+### Bayesian Filtering Update (Particle Filter)
 
-Observation: opponent played card $z$
+When an observation $o$ is received after action $a$, update particles using **Bayesian filtering**:
 
-- $k' = k - 1$ (opponent hand size decreases)
-- $P' = P \cup \{z\}$ (card added to pile)
-- $P_t' = \begin{cases} (\text{CHOSEN\_COLOR}, \text{VALUE}) & \text{if } z(\text{VALUE}) \in \{\text{WILD}, +4\} \\ z & \text{otherwise} \end{cases}$ (new top card; WILD/+4 set chosen color)
-- $L' = D \setminus (H_1 \cup P')$ (update available cards)
-- Constraint: $z \in H_2$ (played card must have been in opponent's hand)
+**Step 1: Prediction (State Transition)**
 
-$bel^+(H_2' \mid z) = \begin{cases}
-\frac{1}{\binom{|L'|}{k'}} & H_2' \subseteq L', |H_2'| = k', z \notin H_2' \\
-0 & \text{otherwise}
-\end{cases}$
+For each particle $(s^{(i)}, w^{(i)})$:
 
-The posterior is uniform over all $(k-1)$-card subsets of $L'$ (since $z$ was removed).
+- Sample $s'^{(i)} \sim T(\cdot \mid s^{(i)}, a)$
+- Keep weight $w^{(i)}$ (temporarily)
 
-**Special card effects:**
+**Step 2: Update (Observation Likelihood)**
 
-- If $z(\text{VALUE}) \in \{+2, +4\}$: Next player (Player 1) must draw $n$ cards where $n = 2$ for +2, $n = 4$ for +4.
-- If $z(\text{VALUE}) \in \{\text{SKIP}, \text{REVERSE}\}$: Next player's turn is skipped (in 2-player, REVERSE = SKIP).
-- If $z(\text{VALUE}) \in \{\text{WILD}, +4\}$: The chosen color becomes the new $P_t(\text{COLOR})$ for determining legal plays.
+For each particle $s'^{(i)}$:
 
-**Case 2: Opponent draws a card (no legal move available)**
+- Compute observation likelihood: $w'^{(i)} = w^{(i)} \cdot O(o \mid s'^{(i)}, a)$
+- This weights particles by how well they match the observation
 
-Observation: opponent has no legal card to play, draws one card
+**Step 3: Normalization**
 
-This case only applies when $P_t(\text{VALUE}) \notin \{+2, +4, \text{SKIP}, \text{REVERSE}\}$ (opponent can draw normally, not forced by special card).
+Normalize weights:
+$w^{(i)} = \frac{w'^{(i)}}{\sum_{j=1}^{N} w'^{(j)}}$
 
-Probability that opponent has no legal card:
+**Step 4: Resampling (Optional but Recommended)**
 
-$\Pr(\text{no\_legal}) = \frac{\binom{|L| - |N(P_t)|}{k}}{\binom{|L|}{k}}$
+If effective sample size is too low:
+$\text{ESS} = \frac{1}{\sum_{i=1}^{N} (w^{(i)})^2}$
 
-where $N(P_t) = \text{LEGAL}(P_t) \cap L$ is the set of legal cards available to opponent.
+If $\text{ESS} < \frac{N}{2}$ (or similar threshold):
 
-**Before drawing (after observation, before draw):**
+- Resample $N$ particles with replacement from current particles, weighted by $w^{(i)}$
+- Reset weights to $w^{(i)} = \frac{1}{N}$
 
-$bel^+(H_2 \mid \text{no\_legal}) = \begin{cases}
-\frac{1}{\binom{|L| - |N(P_t)|}{k}} & H_2 \subseteq L \setminus N(P_t), |H_2| = k \\
-0 & \text{otherwise}
-\end{cases}$
+### Specific Update Cases
 
-**After drawing (updated prior for next turn):**
+**Case 1: Opponent plays card $z$**
 
-$bel^-(H_2' \mid \text{no\_legal} + \text{draw}) = \begin{cases}
-\frac{\binom{|L| - |N(P_t)| - (k+1)}{|D_g| - 1}}{\binom{|L| - |N(P_t)| - k}{|D_g|}} & H_2' \subseteq L \setminus N(P_t), |H_2'| = k+1 \\
-0 & \text{otherwise}
-\end{cases}$
+Observation: opponent played card $z$, $|H_2'| = |H_2| - 1$
 
-This accounts for the fact that opponent drew one card from $D_g$, increasing hand size to $k+1$.
+For each particle:
+
+- If $z \notin H_2^{(i)}$: set $w^{(i)} = 0$ (inconsistent particle)
+- If $z \in H_2^{(i)}$:
+  - $H_2'^{(i)} = H_2^{(i)} \setminus \{z\}$
+  - $P' = P \cup \{z\}$
+  - Update $P_t'$ based on $z$ (handle WILD/+4 color choice)
+  - $D_g'^{(i)} = D_g^{(i)}$ (unchanged)
+  - $w^{(i)} = w^{(i)}$ (weight unchanged, observation is deterministic)
+
+After update, normalize weights and resample if needed.
+
+**Case 2: Opponent draws card (no legal move)**
+
+Observation: opponent has no legal card, draws 1 card, $|H_2'| = |H_2| + 1$
+
+For each particle:
+
+- Check if $H_2^{(i)} \cap \text{LEGAL}(P_t) = \emptyset$ (no legal cards)
+- If false: set $w^{(i)} = 0$ (inconsistent)
+- If true:
+  - Sample $c^{(i)} \sim \text{Uniform}(D_g^{(i)})$ (card drawn)
+  - $H_2'^{(i)} = H_2^{(i)} \cup \{c^{(i)}\}$
+  - $D_g'^{(i)} = D_g^{(i)} \setminus \{c^{(i)}\}$
+  - $w^{(i)} = w^{(i)} \cdot \frac{1}{|D_g^{(i)}|}$ (likelihood of drawing that card)
+
+Normalize and resample.
 
 **Case 3: Opponent forced to draw by +2/+4**
 
-Observation: $P_t(\text{VALUE}) \in \{+2, +4\}$, opponent draws $n$ cards where $n = 2$ for +2, $n = 4$ for +4.
+Observation: $P_t(\text{VALUE}) \in \{+2, +4\}$, opponent draws $n$ cards, $|H_2'| = |H_2| + n$
 
-- $k' = k + n$ (opponent hand size increases by $n$)
-- $P_t$ remains unchanged (opponent did not play)
-- $L' = D \setminus (H_1 \cup P)$ (available cards unchanged, but opponent drew from $D_g$)
+For each particle:
 
-$bel^-(H_2' \mid \text{forced\_draw}) = \begin{cases}
-\frac{1}{\binom{|D_g|}{n}} & H_2' \subseteq L, |H_2'| = k', H_2 \subset H_2' \text{ for some } H_2 \text{ with } |H_2| = k \\
-0 & \text{otherwise}
-\end{cases}$
+- Sample $J_n^{(i)} \subset D_g^{(i)}$ with $|J_n^{(i)}| = n$ uniformly
+- $H_2'^{(i)} = H_2^{(i)} \cup J_n^{(i)}$
+- $D_g'^{(i)} = D_g^{(i)} \setminus J_n^{(i)}$
+- $w^{(i)} = w^{(i)} \cdot \frac{1}{\binom{|D_g^{(i)}|}{n}}$ (likelihood of drawing those cards)
 
-This accounts for opponent drawing $n$ cards from $D_g$, increasing hand size from $k$ to $k+n$.
+Normalize and resample.
 
-**Case 4: Opponent's turn skipped by SKIP/REVERSE**
+**Case 4: Opponent's turn skipped**
 
-Observation: $P_t(\text{VALUE}) \in \{\text{SKIP}, \text{REVERSE}\}$, opponent's turn is skipped.
+Observation: $P_t(\text{VALUE}) \in \{\text{SKIP}, \text{REVERSE}\}$, $|H_2'| = |H_2|$
 
-- $k' = k$ (opponent hand size unchanged)
-- $P_t$ remains unchanged
-- No cards drawn, no cards played
+For each particle:
 
-$bel^+(H_2' \mid \text{skipped}) = \begin{cases}
-1 & H_2' = H_2, |H_2'| = k \\
-0 & \text{otherwise}
-\end{cases}$
+- $H_2'^{(i)} = H_2^{(i)}$ (unchanged)
+- $D_g'^{(i)} = D_g^{(i)}$ (unchanged)
+- $w^{(i)} = w^{(i)}$ (unchanged)
 
-The belief remains unchanged since no action was taken.
+No update needed.
 
-**Reshuffle Handling:**
+### Reshuffle Handling
 
-When $D_g$ is empty, move $P \setminus \{P_t\}$ back into $D_g$, then compute $L = D \setminus (H_1 \cup P)$ and reset the prior belief accordingly using the updated $L$ and $k$.
+When $D_g$ is empty:
 
-<br/>
+- For each particle: $D_g'^{(i)} = P \setminus \{P_t\}$ (reshuffle played cards)
+- Update $L = D \setminus H_1 \setminus P$ and resample $H_2^{(i)}$ if needed to maintain consistency
 
-**Value Function and Expected Discounted Reward**
+## Value Function and Decision Making
 
-Let $\gamma = 0.95$ be the discount factor.
+### Approximate Value Function
 
-**Value Function:**
-
-$V^*(b)$ - optimal value function for belief state $b$
-
+Instead of exact value function:
 $V^*(b) = \max_{a \in A} \sum_{s} b(s) \sum_{s'} T(s' \mid s, a) \sum_{o} O(o \mid s', a) \left[ R(s', s, a) + \gamma V^*(b') \right]$
 
-where $b'$ is the updated belief state after taking action $a$ and observing $o$:
+We use particle-based approximation:
 
-$b'(s') = \frac{O(o \mid s', a) \sum_{s} T(s' \mid s, a) b(s)}{\sum_{s''} O(o \mid s'', a) \sum_{s} T(s'' \mid s, a) b(s)}$
+$\hat{V}^*(b) = \max_{a \in A} \sum_{i=1}^{N} w^{(i)} \sum_{s'} T(s' \mid s^{(i)}, a) \sum_{o} O(o \mid s', a) \left[ R(s', s^{(i)}, a) + \gamma \hat{V}^*(b') \right]$
 
-The value function represents the maximum expected discounted reward achievable from belief state $b$ under an optimal policy. The opponent's actions are treated as stochastic based on their unknown hand distribution (captured in the belief state), not as a fixed policy.
+where $b'$ is the updated particle-based belief after action $a$ and observation $o$, and $\gamma = 0.95$ is the discount factor.
 
-**Expected Discounted Reward:**
+### Monte Carlo Tree Search (MCTS) with Particle Filter
 
-For a policy $\pi: B \to A$ (mapping belief states to actions), the expected discounted reward starting from belief $b_0$ is:
+For decision-making, combine particle filtering with **MCTS**:
 
-$E\left[\sum_{t=0}^{\infty} \gamma^t R_t \mid b_0, \pi\right] = V^\pi(b_0)$
+1. **Selection**: Traverse tree using UCB1, using particle-based belief at each node
+2. **Expansion**: Add new node for unexplored action
+3. **Simulation**: Roll out using particle samples to estimate value
+4. **Backpropagation**: Update node values based on simulation result
 
-where $R_t$ is the reward at time step $t$ and $\gamma = 0.95$.
+At each node, maintain particle set $\mathcal{P}$ representing belief over opponent's hand.
 
-The value function $V^\pi(b)$ for policy $\pi$ satisfies:
+### Computational Complexity
 
-$V^\pi(b) = \sum_{s} b(s) \sum_{s'} T(s' \mid s, \pi(b)) \sum_{o} O(o \mid s', \pi(b)) \left[ R(s', s, \pi(b)) + \gamma V^\pi(b') \right]$
+- **Exact approach**: $O(|\mathcal{S}|)$ where $|\mathcal{S}|$ is exponential in deck size
+- **Particle filter**: $O(N \cdot |A| \cdot H)$ where:
+  - $N$ = number of particles (e.g., 1000-10000)
+  - $|A|$ = action space size (typically small, ~10-20)
+  - $H$ = planning horizon (depth of lookahead)
 
-The optimal value function $V^*(b)$ is the maximum over all policies:
+This makes the problem tractable for real-time play.
 
-$V^*(b) = \max_{\pi} V^\pi(b)$
+## Caching Strategy
+
+Particles are cached per **game state** to avoid redundant generation. A game state key includes:
+
+- $H_1$ (player's hand)
+- $|H_2|$ (opponent hand size)
+- $|D_g|$ (deck size)
+- $P$ (played cards)
+- $P_t$ (top card)
+- $G_o$ (game over status)
+- Action history (for disambiguation)
+
+When the same game state is encountered, cached particles are reused, significantly improving performance.
+
+## Advantages of Dynamic Particle Filtering
+
+1. **Tractable**: Only maintains $N$ samples instead of full state distribution
+2. **Adaptive**: Automatically focuses particles on likely states
+3. **Robust**: Handles non-linear/non-Gaussian distributions
+4. **Scalable**: Can adjust $N$ based on computational budget
+5. **Efficient**: Runtime generation with caching avoids precomputation overhead
+6. **Memory-efficient**: Cache grows naturally with unique game states encountered
+
+## Implementation Notes
+
+- Use **systematic resampling** for better diversity
+- **Rao-Blackwellization**: If some components are analytically tractable, marginalize them out
+- **Adaptive particle count**: Increase $N$ in critical situations (e.g., near endgame)
+- **Particle diversity**: Monitor and prevent particle collapse (all particles identical)
+- **Cache management**: No size limits - cache grows naturally with game play
+- **Canonical state representation**: Use sorted, canonical forms for cache keys

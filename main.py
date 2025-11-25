@@ -1,8 +1,10 @@
 from src.uno import Uno, Action, card_to_string
+from src.policy.particle_policy import ParticlePolicy
+from src.utils.config_loader import get_particle_policy_config
 
 
-def display_game_state(game: Uno, current_player: int):
-    """Display current game state."""
+def display_game_state(game: Uno, current_player: int, policy=None):
+    """Display current game state (full visibility - God mode)."""
     print("\n" + "=" * 60)
     print(f"Player {current_player}'s Turn")
     print("=" * 60)
@@ -13,6 +15,8 @@ def display_game_state(game: Uno, current_player: int):
     if game.current_color:
         print(f"Current Color: {game.current_color}")
     print(f"Deck: {len(state[2])} cards remaining")
+    if policy:
+        print(f"ParticlePolicy Cache Size: {policy.cache.size()}")
     print(f"\nPlayer 1 Hand ({len(state[0])} cards):")
     for i, card in enumerate(state[0], 1):
         print(f"  {i}. {card_to_string(card)}")
@@ -25,7 +29,7 @@ def display_game_state(game: Uno, current_player: int):
 def choose_action_simple(game: Uno, player: int):
     """
     Simple automated action selection:
-    - Play first legal card found
+    - Play first legal card found (first index)
     - If Wild, choose most common color in hand
     - If no legal play, draw 1
     """
@@ -49,12 +53,26 @@ def choose_action_simple(game: Uno, player: int):
 
 
 def main():
-    """Run 2-player UNO game simulator."""
-    print("Starting UNO Game Simulator (2 Players)")
+    """Run 2-player UNO game simulator.
+    
+    Player 1 uses ParticlePolicy, Player 2 uses simple policy.
+    """
+    print("=" * 60)
+    print("UNO Simulation: ParticlePolicy (Player 1) vs Simple Policy (Player 2)")
     print("=" * 60)
 
+    # Initialize game
     game = Uno()
-    game.new_game(seed=None)
+    game.new_game()
+
+    # Initialize ParticlePolicy for Player 1
+    config = get_particle_policy_config()
+    policy = ParticlePolicy(**config)
+
+    print(f"\nParticlePolicy Configuration:")
+    for key, value in config.items():
+        print(f"  {key}: {value}")
+    print()
 
     current_player = 1
     turn_count = 0
@@ -81,10 +99,24 @@ def main():
             current_player = 3 - current_player
             continue
 
-        display_game_state(game, current_player)
+        display_game_state(game, current_player, policy if current_player == 1 else None)
 
-        # Choose and execute action
-        action = choose_action_simple(game, current_player)
+        # Get current state for Player 1's policy
+        game.create_S()
+        state = game.State
+
+        # Choose action based on player
+        if current_player == 1:
+            # Player 1: Use ParticlePolicy
+            print("Player 1 (ParticlePolicy) computing action...")
+            action = policy.get_action(
+                state[0], len(state[1]), len(state[2]), state[3], state[4], state[5]
+            )
+            policy.update_after_action(action)
+        else:
+            # Player 2: Use simple policy
+            action = choose_action_simple(game, current_player)
+
         if action is None:
             print(f"Player {current_player} has no actions available!")
             break
@@ -123,14 +155,17 @@ def main():
     game.create_S()
     state = game.State
 
+    print(f"Total turns: {turn_count}")
+    print(f"Player 1 final hand size: {len(state[0])}")
+    print(f"Player 2 final hand size: {len(state[1])}")
+    print(f"ParticlePolicy cache size: {policy.cache.size()}")
+
     if len(state[0]) == 0:
-        print("Player 1 wins!")
+        print("\n🎉 Player 1 (ParticlePolicy) WINS!")
     elif len(state[1]) == 0:
-        print("Player 2 wins!")
+        print("\n🎉 Player 2 (Simple Policy) WINS!")
     else:
-        print(f"Game ended after {turn_count} turns")
-        print(f"Player 1: {len(state[0])} cards")
-        print(f"Player 2: {len(state[1])} cards")
+        print("\nGame ended without a winner (safety limit reached)")
 
 
 if __name__ == "__main__":
