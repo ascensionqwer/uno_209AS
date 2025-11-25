@@ -71,3 +71,14 @@ python main.py
 - **Caching**: Game-state keyed cache for particle reuse
 - **No Precomputation**: All decisions made in real-time
 - **Mathematical Correctness**: Enforces constraint `|D_g| = |L| - |H_2|` automatically
+
+## AI Disclaimer
+
+AI was used to generate most of the code in this repository. See `prompts/` folder for a list of AI prompts utilized to help generate this code.
+
+Main AI Tools used:
+
+- ChatGPT
+- Claude
+- Cursor IDE AI Agents
+- Perplexity
