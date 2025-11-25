@@ -9,7 +9,6 @@ $D = H_1 \sqcup H_2 \sqcup D_g \sqcup P$ - entire 108 uno card deck
 $S = (H_1, H_2, D_g, P, P_t, G_o)$ - system state (as seen by "God")
 
 - $D_g$ - current card deck SET (unordered)
-- $P$ - already played cards (pile). **Note:** The pile $P$ implicitly encodes the action history of all play actions, as every card played is added to $P$. While we don't explicitly track action history, it's part of the state through $P$.
 - $P_t = (\text{COLOR}, \text{VALUE}) \in P$ - top card of the pile; order of other cards in the pile doesn't matter
   - For WILD/+4: $P_t = (\text{CHOSEN\_COLOR}, \text{VALUE})$ where $\text{CHOSEN\_COLOR}$ is the color chosen by the player who played the WILD/+4
 - $G_o \in \{\text{Active},\text{GameOver}\}$ - is game over or not
