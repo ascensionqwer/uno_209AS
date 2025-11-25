@@ -1,4 +1,5 @@
 # Create a plan for particle filter approach
+
 _Exported on 11/25/2025 at 02:30:32 PST from Cursor (2.1.26)_
 
 ---
@@ -19,21 +20,13 @@ remember to @AGENTS.md @Uv take a look at these
 
 **Cursor**
 
-
 Reviewing the codebase to understand the current structure and identify what needs refactoring.
-
-
 
 Checking additional files to understand the structure:
 
-
-
 Clarifying a few points before creating the plan:
 
-
-
 Creating the plan:
-
 
 ---
 
@@ -47,13 +40,9 @@ To-do's from the plan have already been created. Do not create them again. Mark 
 
 **Cursor**
 
-
 Starting Phase 1: consolidating the math documentation.
 
-
-
 Creating the consolidated math documentation:
-
 
 ```markdown
 ## Rules
@@ -369,16 +358,11 @@ When the same game state is encountered, cached particles are reused, significan
 - **Particle diversity**: Monitor and prevent particle collapse (all particles identical)
 - **Cache management**: No size limits - cache grows naturally with game play
 - **Canonical state representation**: Use sorted, canonical forms for cache keys
-
 ```
-
 
 Removing Policy 1 files and references:
 
-
-
 Removing Policy 1 references from config files:
-
 
 ```python
 """Configuration loader for policy generators."""
@@ -401,10 +385,10 @@ def strip_jsonc_comments(text: str) -> str:
     """
     # Remove single-line comments
     text = re.sub(r"//.*?$", "", text, flags=re.MULTILINE)
-    
+
     # Remove multi-line comments
     text = re.sub(r"/\*.*?\*/", "", text, flags=re.DOTALL)
-    
+
     return text
 
 
@@ -455,10 +439,9 @@ def get_policy2_config() -> Dict[str, Any]:
     // Number of different game states/observations to generate policies for
     // This is the number of entries in the lookup table
     // Uses random sampling to select which states to include
-    "num_observations": 10000
-  }
+    "num_observations": 10000,
+  },
 }
-
 ```
 
 ---
@@ -471,13 +454,9 @@ if there are parameters with no right or wrong answer on what their value should
 
 **Cursor**
 
-
 Continuing implementation and ensuring configurable parameters are in `config.jsonc`. Completing Policy 1 removal, then fixing sampling bugs.
 
-
-
 Fixing the sampling bug in `initialize_particles`:
-
 
 ```python
 """
@@ -573,7 +552,7 @@ def initialize_particles(
     """
     Initialize particle set for belief approximation.
     P = {(s^(i), w^(i))} where we sample H_2^(i) and D_g^(i).
-    
+
     Enforces constraint: |L| = |H_2| + |D_g|, auto-correcting deck_size if needed.
     """
     full_deck = build_full_deck()
@@ -581,11 +560,11 @@ def initialize_particles(
 
     # Auto-correct deck_size to match mathematical constraint: |D_g| = |L| - |H_2|
     actual_deck_size = len(L) - opponent_size
-    
+
     # Validate constraint
     if len(L) < opponent_size:
         return []
-    
+
     if actual_deck_size < 0:
         return []
 
@@ -594,7 +573,7 @@ def initialize_particles(
         # Sample opponent hand uniformly
         H_2 = random.sample(L, opponent_size)
         remaining = [c for c in L if c not in H_2]
-        
+
         # Take all remaining cards for deck (enforces |D_g| = |L| - |H_2|)
         D_g = remaining.copy()
 
@@ -937,7 +916,7 @@ def mcts_search(
     if len(root.children) == 0:
         # Fallback: return action with highest value
         return max(legal_actions, key=lambda a: simulate_rollout(
-            H_1, particles[0].H_2 if particles else [], 
+            H_1, particles[0].H_2 if particles else [],
             particles[0].D_g if particles else [], P, P_t, G_o, gamma, 0, max_depth
         ) if particles else 0.0)
 
@@ -959,15 +938,15 @@ def generate_policy_2(
     - num_observations: How many different game states/observations to generate
       policies for. This is the number of entries in the lookup table. Uses random
       sampling to select which states to include.
-    
+
     - num_particles: For EACH observation, how many particles to use in the particle
       filter. Each particle represents a possible opponent hand + deck configuration.
       More particles = better belief approximation but slower computation.
-    
+
     - mcts_iterations: Number of MCTS tree search iterations per action evaluation.
       Each iteration: Selection (UCB1) -> Expansion -> Simulation (particle-based rollout)
       -> Backpropagation. More iterations = better action selection but slower.
-    
+
     - planning_horizon: Maximum lookahead depth when simulating rollouts to estimate
       action values. Deeper = better estimates but slower.
 
@@ -1068,7 +1047,7 @@ def generate_policy_2(
                     )
                     value += particle.weight * rollout_value
                     total_weight += particle.weight
-        
+
         # Normalize by total weight
         if total_weight > 0:
             value = value / total_weight
@@ -1084,13 +1063,9 @@ def generate_policy_2(
 
 ```
 
-
 Creating the ParticleCache class. Checking observation_utils for canonicalization functions:
 
-
-
 Creating the ParticleCache class and adding a game state canonicalization function:
-
 
 ```python
 """Utilities for canonicalizing observations and serializing actions."""
@@ -1216,7 +1191,7 @@ class ParticleCache:
     ) -> List[Particle]:
         """
         Get particles for a game state, generating them if not cached.
-        
+
         Args:
             game_state_key: Canonical game state key
             H_1: Player 1's hand
@@ -1224,7 +1199,7 @@ class ParticleCache:
             deck_size: Size of deck (will be auto-corrected to |L| - opponent_size)
             P: Played cards
             num_particles: Number of particles to generate
-        
+
         Returns:
             List of Particle objects
         """
@@ -1282,17 +1257,11 @@ class ParticleCache:
 
 ```
 
-
 Refactoring policy_generator_2.py into a runtime ParticlePolicy class. Reading the full file to understand its structure:
-
-
 
 Refactoring into a runtime ParticlePolicy class. Moving utility functions from the deleted policy_generator_1 into this file:
 
-
-
 Refactoring the file into a runtime ParticlePolicy class. Adding the utility functions and restructuring:
-
 
 ```python
 """
@@ -1785,7 +1754,7 @@ def mcts_search(
     if len(root.children) == 0:
         # Fallback: return action with highest value
         return max(legal_actions, key=lambda a: simulate_rollout(
-            H_1, particles[0].H_2 if particles else [], 
+            H_1, particles[0].H_2 if particles else [],
             particles[0].D_g if particles else [], P, P_t, G_o, gamma, 0, max_depth
         ) if particles else 0.0)
 
@@ -1914,13 +1883,9 @@ before terminating for the last time, verify that everything actually does work 
 
 **Cursor**
 
-
 Completing the remaining tasks, then testing the scripts. Updating the config and finishing the refactor:
 
-
-
 Updating policy2.py to use the runtime ParticlePolicy, updating the config with all parameters, and completing the refactor:
-
 
 ```python
 """Script to test ParticlePolicy runtime decision-making."""
@@ -1933,7 +1898,7 @@ from src.uno.game import Uno
 def main():
     """Test ParticlePolicy with a sample game."""
     config = get_particle_policy_config()
-    
+
     print("=" * 60)
     print("Particle Policy: Runtime Particle Filter + MCTS")
     print("=" * 60)
@@ -1969,7 +1934,7 @@ def main():
     # Get action from policy
     print("Computing optimal action...")
     action = policy.get_action(H_1, opponent_size, deck_size, P, P_t, G_o)
-    
+
     print(f"Selected action: {action}")
     print()
     print("Policy test completed successfully!")
@@ -2001,10 +1966,10 @@ def strip_jsonc_comments(text: str) -> str:
     """
     # Remove single-line comments
     text = re.sub(r"//.*?$", "", text, flags=re.MULTILINE)
-    
+
     # Remove multi-line comments
     text = re.sub(r"/\*.*?\*/", "", text, flags=re.DOTALL)
-    
+
     return text
 
 
@@ -2068,24 +2033,21 @@ def get_policy2_config() -> Dict[str, Any]:
     "rollout_particle_sample_size": 10,
     // Effective sample size threshold for resampling (fraction of num_particles)
     // Lower = resample more often (better diversity but slower)
-    "resample_threshold": 0.5
+    "resample_threshold": 0.5,
   },
   "policy2": {
     // Legacy alias - same as particle_policy
     "num_particles": 1000,
     "mcts_iterations": 1000,
     "planning_horizon": 5,
-    "gamma": 0.95
-  }
+    "gamma": 0.95,
+  },
 }
-
 ```
-
 
 Updating the README and finishing cleanup:
 
-
-```markdown
+````markdown
 # uno_209AS
 
 by Samyak Kakatur & others
@@ -2107,6 +2069,7 @@ The system uses a **dynamic particle filter** approach that generates particles 
 ### Mathematical Foundation
 
 See `math/math.md` for the complete mathematical framework including:
+
 - POMDP formulation
 - Particle-based belief representation
 - Bayesian filtering update equations
@@ -2119,12 +2082,14 @@ See `math/math.md` for the complete mathematical framework including:
 ```bash
 python policy2.py
 ```
+````
 
 This will test the ParticlePolicy with a sample game state.
 
 ### Configuration
 
 Edit `config.jsonc` to adjust parameters:
+
 - `num_particles`: Number of particles for belief approximation
 - `mcts_iterations`: MCTS tree search iterations per decision
 - `planning_horizon`: Maximum lookahead depth
@@ -2146,7 +2111,7 @@ python main.py
 - **No Precomputation**: All decisions made in real-time
 - **Mathematical Correctness**: Enforces constraint `|D_g| = |L| - |H_2|` automatically
 
-```
+````
 
 
 Testing the scripts to verify everything works:
@@ -2200,7 +2165,7 @@ class ParticleCache:
     ) -> List[Particle]:
         """
         Get particles for a game state, generating them if not cached.
-        
+
         Args:
             game_state_key: Canonical game state key
             H_1: Player 1's hand
@@ -2208,7 +2173,7 @@ class ParticleCache:
             deck_size: Size of deck (will be auto-corrected to |L| - opponent_size)
             P: Played cards
             num_particles: Number of particles to generate
-        
+
         Returns:
             List of Particle objects
         """
@@ -2265,11 +2230,9 @@ class ParticleCache:
         return len(self.cache)
 
 
-```
-
+````
 
 Fixing the circular import by moving the `Particle` class to a separate file:
-
 
 ```python
 """Particle class for particle filter."""
@@ -2318,7 +2281,7 @@ class ParticleCache:
     ) -> List[Particle]:
         """
         Get particles for a game state, generating them if not cached.
-        
+
         Args:
             game_state_key: Canonical game state key
             H_1: Player 1's hand
@@ -2326,7 +2289,7 @@ class ParticleCache:
             deck_size: Size of deck (will be auto-corrected to |L| - opponent_size)
             P: Played cards
             num_particles: Number of particles to generate
-        
+
         Returns:
             List of Particle objects
         """
@@ -2868,7 +2831,7 @@ def mcts_search(
     if len(root.children) == 0:
         # Fallback: return action with highest value
         return max(legal_actions, key=lambda a: simulate_rollout(
-            H_1, particles[0].H_2 if particles else [], 
+            H_1, particles[0].H_2 if particles else [],
             particles[0].D_g if particles else [], P, P_t, G_o, gamma, 0, max_depth
         ) if particles else 0.0)
 
@@ -2988,21 +2951,13 @@ class ParticlePolicy:
 
 ```
 
-
 Testing main.py to verify the game engine still works:
-
-
 
 Checking main.py imports:
 
-
-
 Verifying the math file exists and checking the overall structure:
 
-
-
 The math directory is empty. Recreating the consolidated math file:
-
 
 ```markdown
 ## Rules
@@ -3318,17 +3273,11 @@ When the same game state is encountered, cached particles are reused, significan
 - **Particle diversity**: Monitor and prevent particle collapse (all particles identical)
 - **Cache management**: No size limits - cache grows naturally with game play
 - **Canonical state representation**: Use sorted, canonical forms for cache keys
-
 ```
-
 
 Checking if the file was written correctly:
 
-
-
 The file is correct. Running a final verification:
-
-
 
 ## Summary
 
@@ -3344,6 +3293,7 @@ The file is correct. Running a final verification:
 8. **Updated docs**: Updated README.md with dynamic particle filter approach
 
 **Verification:**
+
 - `policy2.py` runs successfully
 - All imports work correctly
 - ParticlePolicy instantiates and functions properly
@@ -3361,13 +3311,9 @@ remember, the most important thing is that this is from PLAYER1 perspective, pla
 
 **Cursor**
 
-
 Reviewing the code to ensure it's from Player 1's perspective and updating documentation/comments accordingly:
 
-
-
 Updating the ParticlePolicy to clarify it's from Player 1's perspective and adding methods to update particles after observing Player 2's actions:
-
 
 ```python
 """
@@ -3884,7 +3830,7 @@ class ParticlePolicy:
     """
     Runtime particle filter policy using MCTS for decision-making.
     Generates particles dynamically at runtime with caching.
-    
+
     **Perspective: Player 1**
     This policy operates from Player 1's perspective:
     1. Player 1 observes game state (H_1, |H_2|, |D_g|, P, P_t, G_o)
@@ -3893,7 +3839,7 @@ class ParticlePolicy:
     4. Player 1 observes new game state
     5. Update particles based on observations of Player 2's actions
     6. Repeat
-    
+
     Particles represent beliefs about Player 2's hidden hand (H_2).
     """
 
@@ -4517,7 +4463,7 @@ class ParticlePolicy:
     """
     Runtime particle filter policy using MCTS for decision-making.
     Generates particles dynamically at runtime with caching.
-    
+
     **Perspective: Player 1**
     This policy operates from Player 1's perspective:
     1. Player 1 observes game state (H_1, |H_2|, |D_g|, P, P_t, G_o)
@@ -4526,7 +4472,7 @@ class ParticlePolicy:
     4. Player 1 observes new game state
     5. Update particles based on observations of Player 2's actions
     6. Repeat
-    
+
     Particles represent beliefs about Player 2's hidden hand (H_2).
     """
 
@@ -4573,7 +4519,7 @@ class ParticlePolicy:
     ) -> Action:
         """
         Get optimal action for Player 1 from current game state using particle filter + MCTS.
-        
+
         This is called when it's Player 1's turn. After this action is executed,
         system dynamics will handle Player 2's turn, and you should call update_after_opponent_action()
         when you observe the new game state.
@@ -5154,7 +5100,7 @@ class ParticlePolicy:
     """
     Runtime particle filter policy using MCTS for decision-making.
     Generates particles dynamically at runtime with caching.
-    
+
     **Perspective: Player 1**
     This policy operates from Player 1's perspective:
     1. Player 1 observes game state (H_1, |H_2|, |D_g|, P, P_t, G_o)
@@ -5163,7 +5109,7 @@ class ParticlePolicy:
     4. Player 1 observes new game state
     5. Update particles based on observations of Player 2's actions
     6. Repeat
-    
+
     Particles represent beliefs about Player 2's hidden hand (H_2).
     """
 
@@ -5210,7 +5156,7 @@ class ParticlePolicy:
     ) -> Action:
         """
         Get optimal action for Player 1 from current game state using particle filter + MCTS.
-        
+
         This is called when it's Player 1's turn. After this action is executed,
         system dynamics will handle Player 2's turn, and you should call update_after_opponent_action()
         when you observe the new game state.
@@ -5281,10 +5227,10 @@ class ParticlePolicy:
     ) -> List[Particle]:
         """
         Update particles after observing Player 2's action (system dynamics).
-        
+
         Call this when you observe the new game state after Player 2's turn.
         This updates the particle filter based on what Player 2 did.
-        
+
         Args:
             particles: Current particle set (from previous state)
             new_opponent_size: New size of Player 2's hand after their action
@@ -5293,7 +5239,7 @@ class ParticlePolicy:
             new_P_t: New top card
             opponent_played_card: Card Player 2 played (if they played), None otherwise
             opponent_drew: True if Player 2 drew a card (no legal move)
-        
+
         Returns:
             Updated particle set
         """
@@ -5307,10 +5253,10 @@ class ParticlePolicy:
             # Case 3: Player 2's turn was skipped or other case
             # Particles remain unchanged
             updated = particles
-        
+
         # Resample if needed
         updated = resample_particles(updated, self.num_particles)
-        
+
         return updated
 
     def reset(self):
@@ -5846,7 +5792,7 @@ class ParticlePolicy:
     """
     Runtime particle filter policy using MCTS for decision-making.
     Generates particles dynamically at runtime with caching.
-    
+
     **Perspective: Player 1**
     This policy operates from Player 1's perspective:
     1. Player 1 observes game state (H_1, |H_2|, |D_g|, P, P_t, G_o)
@@ -5855,7 +5801,7 @@ class ParticlePolicy:
     4. Player 1 observes new game state
     5. Update particles based on observations of Player 2's actions
     6. Repeat
-    
+
     Particles represent beliefs about Player 2's hidden hand (H_2).
     """
 
@@ -5902,7 +5848,7 @@ class ParticlePolicy:
     ) -> Action:
         """
         Get optimal action for Player 1 from current game state using particle filter + MCTS.
-        
+
         This is called when it's Player 1's turn. After this action is executed,
         system dynamics will handle Player 2's turn, and you should call update_after_opponent_action()
         when you observe the new game state.
@@ -5973,10 +5919,10 @@ class ParticlePolicy:
     ) -> List[Particle]:
         """
         Update particles after observing Player 2's action (system dynamics).
-        
+
         Call this when you observe the new game state after Player 2's turn.
         This updates the particle filter based on what Player 2 did.
-        
+
         Args:
             particles: Current particle set (from previous state)
             new_opponent_size: New size of Player 2's hand after their action
@@ -5985,7 +5931,7 @@ class ParticlePolicy:
             new_P_t: New top card
             opponent_played_card: Card Player 2 played (if they played), None otherwise
             opponent_drew: True if Player 2 drew a card (no legal move)
-        
+
         Returns:
             Updated particle set
         """
@@ -5999,10 +5945,10 @@ class ParticlePolicy:
             # Case 3: Player 2's turn was skipped or other case
             # Particles remain unchanged
             updated = particles
-        
+
         # Resample if needed
         updated = resample_particles(updated, self.num_particles)
-        
+
         return updated
 
     def reset(self):
@@ -6028,7 +5974,7 @@ class ParticleCache:
     """
     Cache for particle sets keyed by game state.
     Generates particles dynamically at runtime and caches them for reuse.
-    
+
     Particles represent beliefs about Player 2's hidden hand (H_2).
     Each particle contains a sampled H_2 and corresponding D_g.
     """
@@ -6048,7 +5994,7 @@ class ParticleCache:
     ) -> List[Particle]:
         """
         Get particles for a game state, generating them if not cached.
-        
+
         Args:
             game_state_key: Canonical game state key
             H_1: Player 1's hand
@@ -6056,7 +6002,7 @@ class ParticleCache:
             deck_size: Size of deck (will be auto-corrected to |L| - opponent_size)
             P: Played cards
             num_particles: Number of particles to generate
-        
+
         Returns:
             List of Particle objects
         """
@@ -6115,11 +6061,9 @@ class ParticleCache:
 
 ```
 
-
 Updating the README to clarify the Player 1 perspective:
 
-
-```markdown
+````markdown
 # uno_209AS
 
 by Samyak Kakatur & others
@@ -6130,6 +6074,7 @@ UNO game engine with AI agent using dynamic particle filter and Monte Carlo Tree
 
 **Important: Player 1 Perspective**
 The policy operates from **Player 1's perspective**:
+
 1. Player 1 observes game state (H_1, |H_2|, |D_g|, P, P_t, G_o)
 2. Player 1 makes a move using `get_action()`
 3. System dynamics occur (including Player 2's turn)
@@ -6152,6 +6097,7 @@ The system uses a **dynamic particle filter** approach that generates particles 
 ### Mathematical Foundation
 
 See `math/math.md` for the complete mathematical framework including:
+
 - POMDP formulation
 - Particle-based belief representation
 - Bayesian filtering update equations
@@ -6164,12 +6110,14 @@ See `math/math.md` for the complete mathematical framework including:
 ```bash
 python policy2.py
 ```
+````
 
 This will test the ParticlePolicy with a sample game state.
 
 ### Configuration
 
 Edit `config.jsonc` to adjust parameters:
+
 - `num_particles`: Number of particles for belief approximation
 - `mcts_iterations`: MCTS tree search iterations per decision
 - `planning_horizon`: Maximum lookahead depth
@@ -6191,7 +6139,7 @@ python main.py
 - **No Precomputation**: All decisions made in real-time
 - **Mathematical Correctness**: Enforces constraint `|D_g| = |L| - |H_2|` automatically
 
-```
+````
 
 
 Updated the code to clarify the Player 1 perspective. Changes:
@@ -6321,7 +6269,7 @@ $T(s' \mid s, a) = \begin{cases}
 
 $\text{LEGAL}(P_t)$ - set of all cards legally playable on top of $P_t$
 
-$\text{LEGAL}(P_t) = \left\{c \in D : 
+$\text{LEGAL}(P_t) = \left\{c \in D :
 \begin{array}{l}
 c(\text{COLOR}) = P_t(\text{COLOR}) \lor \\
 c(\text{VALUE}) = P_t(\text{VALUE}) \lor \\
@@ -6555,7 +6503,7 @@ When the same game state is encountered, cached particles are reused, significan
 - **Cache management**: No size limits - cache grows naturally with game play
 - **Canonical state representation**: Use sorted, canonical forms for cache keys
 
-```
+````
 
 ```markdown
 ## Mathematical Framework for UNO POMDP (Player 1 Perspective)
@@ -6584,7 +6532,6 @@ This document presents the mathematical framework for a 2-player UNO game from *
 - The deck is hidden from all player's viewpoint. 1 card from the deck becomes the top card of the pile.
 
 - When playing a card, either the number AND/OR the color need to match. This card then goes into the pile. Pile is visible to everyone.
-
   - If a player does not have a legal card to play, they must draw 1 card from the deck.
   - If a player can make a legal card play, they must play that card no matter what.
 
@@ -6685,6 +6632,7 @@ where $o \in O$ and $s' \in S$.
 Since the state space is too large to enumerate all possible states, we use **particle filtering** (a form of Bayesian filtering) to maintain an approximate belief distribution. This approach generates particles dynamically at runtime, caching them per game state for efficiency.
 
 **Player 1's Perspective:**
+
 - Player 1 observes: $O = (H_1, |H_2|, |D_g|, P, P_t, G_o)$
 - Player 1 maintains beliefs about Player 2's hidden hand $H_2$ using particles
 - Each particle $s^{(i)} = (H_1, H_2^{(i)}, D_g^{(i)}, P, P_t, G_o)$ represents a possible complete state
@@ -6883,13 +6831,12 @@ When the same game state is encountered, cached particles are reused, significan
 - **Particle diversity**: Monitor and prevent particle collapse (all particles identical)
 - **Cache management**: No size limits - cache grows naturally with game play
 - **Canonical state representation**: Use sorted, canonical forms for cache keys
-
 ```
-
 
 Verified and updated `math/math.md`. The file is complete and correct:
 
 **Verified sections:**
+
 1. Rules — complete
 2. POMDP Formulation — complete with Player 1 perspective note
 3. Transition Function — complete
@@ -6905,6 +6852,7 @@ Verified and updated `math/math.md`. The file is complete and correct:
 13. Advantages and Implementation Notes — complete
 
 **Added:**
+
 - Header note emphasizing Player 1 perspective
 - Player 1 perspective section in the Particle Filtering introduction
 
@@ -6920,13 +6868,9 @@ run a full uno simulation with this policy against the npc who is using a basic 
 
 **Cursor**
 
-
 Creating a simulation script that uses ParticlePolicy for Player 1 and a simple policy for Player 2:
 
-
-
 Creating a simulation script using ParticlePolicy for Player 1:
-
 
 ```python
 """Full UNO game simulation: ParticlePolicy (Player 1) vs Simple Policy (Player 2)."""
@@ -7119,9 +7063,7 @@ if __name__ == "__main__":
 
 ```
 
-
 Fixing the script to properly handle particle updates and simplify the logic:
-
 
 ```python
 """Full UNO game simulation: ParticlePolicy (Player 1) vs Simple Policy (Player 2)."""
@@ -7309,9 +7251,7 @@ if __name__ == "__main__":
 
 ```
 
-
 Reducing MCTS iterations and running the simulation:
-
 
 ---
 
@@ -7323,13 +7263,9 @@ we already have a simulation engine type thing implemented right? if theres dupl
 
 **Cursor**
 
-
 Checking existing simulation code and removing duplicates:
 
-
-
 Updating `main.py` to support ParticlePolicy for Player 1, removing the duplicate file:
-
 
 ```python
 from src.uno import Uno, Action, card_to_string
@@ -7386,7 +7322,7 @@ def choose_action_simple(game: Uno, player: int):
 
 def main():
     """Run 2-player UNO game simulator.
-    
+
     Player 1 uses ParticlePolicy, Player 2 uses simple policy.
     """
     print("=" * 60)
@@ -7548,7 +7484,7 @@ def choose_action_simple(game: Uno, player: int):
 
 def main():
     """Run 2-player UNO game simulator.
-    
+
     Player 1 uses ParticlePolicy, Player 2 uses simple policy.
     """
     print("=" * 60)
@@ -7724,7 +7660,7 @@ def choose_action_simple(game: Uno, player: int):
 
 def main():
     """Run 2-player UNO game simulator.
-    
+
     Player 1 uses ParticlePolicy, Player 2 uses simple policy.
     """
     print("=" * 60)
@@ -7858,9 +7794,7 @@ additionally, make sure that when logging don't hide something cause its player 
 
 **Cursor**
 
-
 Updating the display function to show all information, including Player 2's hand:
-
 
 ```python
 from src.uno import Uno, Action, card_to_string
@@ -7919,7 +7853,7 @@ def choose_action_simple(game: Uno, player: int):
 
 def main():
     """Run 2-player UNO game simulator.
-    
+
     Player 1 uses ParticlePolicy, Player 2 uses simple policy.
     """
     print("=" * 60)
@@ -8043,9 +7977,7 @@ if __name__ == "__main__":
 
 ```
 
-
 Simulation is running and showing all information, including Player 2's hand. Verifying it completes successfully:
-
 
 ---
 
@@ -8057,20 +7989,13 @@ also go through and delete unecessary files i might have accidentally stopped yo
 
 **Cursor**
 
-
 Removed dupl
-
 
 Checking which files are unnecessary:
 
-
-
 Deleting unnecessary files:
 
-
-
 Removing the empty policy directory and verifying everything still works:
-
 
 ---
 
@@ -8082,24 +8007,21 @@ i need the prompts folder thats my bad, don't delete any .md files i meant only 
 
 **Cursor**
 
-
 Restoring the prompts folder and TODO.md. Checking what was deleted:
 
-
-
 Verifying the prompts folder and TODO.md are intact:
-
-
 
 The prompts folder and TODO.md are still present. Summary of what was removed:
 
 **Deleted (unnecessary .py/.json files):**
+
 - `simulate_game.py` - duplicate of main.py functionality
 - `policy/policy1.json` - outdated Policy 1 file
 - `policy/policy2.json` - outdated precomputed policy (we use runtime now)
 - `policy/` directory - was empty after removing JSON files
 
 **Kept (as requested):**
+
 - `prompts/` folder - still there with `cursor_implement_uno_game_engine_in_pyt.md`
 - `TODO.md` - still there
 - All other `.md` files
@@ -8110,23 +8032,17 @@ The codebase is cleaned up: only the necessary Python and JSON files remain, and
 
 **User**
 
-ensure that when doing sampling we aren't sampling from states that are not legally possible from the given position, ex. if i have all the blue 3s then the states we are sampling for future states should not have the blue 3s anywhere else etc. 
+ensure that when doing sampling we aren't sampling from states that are not legally possible from the given position, ex. if i have all the blue 3s then the states we are sampling for future states should not have the blue 3s anywhere else etc.
 
 ---
 
 **Cursor**
 
-
 Verifying particle generation excludes cards already in Player 1's hand or the played pile. Checking the implementation:
-
-
 
 Checking card comparison and adding explicit validation to ensure we never sample cards from H_1 or P:
 
-
-
 Adding explicit validation to ensure we never sample cards from H_1 or P. Improving the particle generation code:
-
 
 ```python
 """Particle cache for dynamic particle filter generation (Player 1 perspective)."""
@@ -8190,15 +8106,15 @@ class ParticleCache:
         """
         Generate particles dynamically at runtime.
         Ensures particles only contain cards NOT in H_1 or P (legally possible states).
-        
+
         Critical constraint: L = D \ (H_1 ∪ P), so particles can only sample from L.
         """
         full_deck = build_full_deck()
-        
+
         # Compute available cards: all cards NOT in Player 1's hand or played pile
         # This ensures we never sample cards that Player 1 has or that have been played
         L = [c for c in full_deck if c not in H_1 and c not in P]
-        
+
         # Validate: ensure we have enough cards for opponent hand + deck
         if len(L) < opponent_size:
             return []
@@ -8212,7 +8128,7 @@ class ParticleCache:
         for _ in range(num_particles):
             # Sample opponent hand uniformly from available cards only
             H_2 = random.sample(L, opponent_size)
-            
+
             # Remaining cards go to deck (all cards in L that aren't in H_2)
             remaining = [c for c in L if c not in H_2]
             D_g = remaining.copy()
@@ -8398,7 +8314,7 @@ def update_particles_opponent_play(
     """
     Update particles when opponent plays a card.
     Case 1: Opponent plays card z
-    
+
     Only keeps particles where played_card was in H_2 (legally possible).
     """
     updated = []
@@ -9096,7 +9012,7 @@ def update_particles_opponent_play(
     """
     Update particles when opponent plays a card.
     Case 1: Opponent plays card z
-    
+
     Only keeps particles where played_card was in H_2 (legally possible).
     """
     updated = []
@@ -9123,7 +9039,7 @@ def update_particles_opponent_draw(
     """
     Update particles when opponent draws (no legal move).
     Case 2: Opponent draws card
-    
+
     Only updates particles where opponent has no legal cards (legally possible state).
     """
     updated = []
@@ -9798,7 +9714,7 @@ def update_particles_opponent_play(
     """
     Update particles when opponent plays a card.
     Case 1: Opponent plays card z
-    
+
     Only keeps particles where played_card was in H_2 (legally possible).
     """
     updated = []
@@ -9825,7 +9741,7 @@ def update_particles_opponent_draw(
     """
     Update particles when opponent draws (no legal move).
     Case 2: Opponent draws card
-    
+
     Only updates particles where opponent has no legal cards (legally possible state).
     """
     updated = []
@@ -10007,7 +9923,7 @@ def update_particles_after_action(
     """
     Update particles after Player 1 takes an action.
     Returns (H_1_new, P_new, P_t_new, particles_new).
-    
+
     Ensures particles remain valid: no cards from H_1_new or P_new appear in particle H_2 or D_g.
     """
     if action.is_play():
@@ -10351,9 +10267,7 @@ class ParticlePolicy:
 
 ```
 
-
 Fixing the syntax warning and adding a test to verify the constraint:
-
 
 ```python
 """Particle cache for dynamic particle filter generation (Player 1 perspective)."""
@@ -10417,15 +10331,15 @@ class ParticleCache:
         """
         Generate particles dynamically at runtime.
         Ensures particles only contain cards NOT in H_1 or P (legally possible states).
-        
+
         Critical constraint: L = D minus (H_1 union P), so particles can only sample from L.
         """
         full_deck = build_full_deck()
-        
+
         # Compute available cards: all cards NOT in Player 1's hand or played pile
         # This ensures we never sample cards that Player 1 has or that have been played
         L = [c for c in full_deck if c not in H_1 and c not in P]
-        
+
         # Validate: ensure we have enough cards for opponent hand + deck
         if len(L) < opponent_size:
             return []
@@ -10439,7 +10353,7 @@ class ParticleCache:
         for _ in range(num_particles):
             # Sample opponent hand uniformly from available cards only
             H_2 = random.sample(L, opponent_size)
-            
+
             # Remaining cards go to deck (all cards in L that aren't in H_2)
             remaining = [c for c in L if c not in H_2]
             D_g = remaining.copy()
@@ -10464,13 +10378,9 @@ class ParticleCache:
 
 ```
 
-
 Validation passes. Verifying that `simulate_rollout` maintains the constraint when simulating future states:
 
-
-
 The assertion fails because MCTS reuses particles from the parent state. Fixing this by regenerating or validating particles for the new state:
-
 
 ```python
 """
@@ -10633,7 +10543,7 @@ def update_particles_opponent_play(
     """
     Update particles when opponent plays a card.
     Case 1: Opponent plays card z
-    
+
     Only keeps particles where played_card was in H_2 (legally possible).
     """
     updated = []
@@ -10660,7 +10570,7 @@ def update_particles_opponent_draw(
     """
     Update particles when opponent draws (no legal move).
     Case 2: Opponent draws card
-    
+
     Only updates particles where opponent has no legal cards (legally possible state).
     """
     updated = []
@@ -10842,7 +10752,7 @@ def update_particles_after_action(
     """
     Update particles after Player 1 takes an action.
     Returns (H_1_new, P_new, P_t_new, particles_new).
-    
+
     Ensures particles remain valid: no cards from H_1_new or P_new appear in particle H_2 or D_g.
     """
     if action.is_play():
@@ -11357,7 +11267,7 @@ def update_particles_opponent_play(
     """
     Update particles when opponent plays a card.
     Case 1: Opponent plays card z
-    
+
     Only keeps particles where played_card was in H_2 (legally possible).
     """
     updated = []
@@ -11384,7 +11294,7 @@ def update_particles_opponent_draw(
     """
     Update particles when opponent draws (no legal move).
     Case 2: Opponent draws card
-    
+
     Only updates particles where opponent has no legal cards (legally possible state).
     """
     updated = []
@@ -11566,7 +11476,7 @@ def update_particles_after_action(
     """
     Update particles after Player 1 takes an action.
     Returns (H_1_new, P_new, P_t_new, particles_new).
-    
+
     Ensures particles remain valid: no cards from H_1_new or P_new appear in particle H_2 or D_g.
     """
     if action.is_play():
@@ -11924,9 +11834,7 @@ class ParticlePolicy:
 
 ```
 
-
 The assertion fails because it checks during the update. Moving validation to after the state update and fixing the logic:
-
 
 ```python
 """
@@ -12089,7 +11997,7 @@ def update_particles_opponent_play(
     """
     Update particles when opponent plays a card.
     Case 1: Opponent plays card z
-    
+
     Only keeps particles where played_card was in H_2 (legally possible).
     """
     updated = []
@@ -12116,7 +12024,7 @@ def update_particles_opponent_draw(
     """
     Update particles when opponent draws (no legal move).
     Case 2: Opponent draws card
-    
+
     Only updates particles where opponent has no legal cards (legally possible state).
     """
     updated = []
@@ -12298,7 +12206,7 @@ def update_particles_after_action(
     """
     Update particles after Player 1 takes an action.
     Returns (H_1_new, P_new, P_t_new, particles_new).
-    
+
     Ensures particles remain valid: no cards from H_1_new or P_new appear in particle H_2 or D_g.
     """
     if action.is_play():
@@ -12812,7 +12720,7 @@ def update_particles_opponent_play(
     """
     Update particles when opponent plays a card.
     Case 1: Opponent plays card z
-    
+
     Only keeps particles where played_card was in H_2 (legally possible).
     """
     updated = []
@@ -12839,7 +12747,7 @@ def update_particles_opponent_draw(
     """
     Update particles when opponent draws (no legal move).
     Case 2: Opponent draws card
-    
+
     Only updates particles where opponent has no legal cards (legally possible state).
     """
     updated = []
@@ -13021,7 +12929,7 @@ def update_particles_after_action(
     """
     Update particles after Player 1 takes an action.
     Returns (H_1_new, P_new, P_t_new, particles_new).
-    
+
     Ensures particles remain valid: no cards from H_1_new or P_new appear in particle H_2 or D_g.
     """
     if action.is_play():
@@ -13137,7 +13045,7 @@ def mcts_search(
                             break
                 if is_valid:
                     valid_particles.append(p)
-            
+
             # If we lost particles, reweight the remaining ones
             if len(valid_particles) < len(particles_new) and len(valid_particles) > 0:
                 total_weight = sum(p.weight for p in valid_particles)
@@ -13393,9 +13301,7 @@ class ParticlePolicy:
 
 ```
 
-
 Adding a comment explaining the validation and ensuring particle generation always excludes H_1 and P:
-
 
 ```python
 """
@@ -13558,7 +13464,7 @@ def update_particles_opponent_play(
     """
     Update particles when opponent plays a card.
     Case 1: Opponent plays card z
-    
+
     Only keeps particles where played_card was in H_2 (legally possible).
     """
     updated = []
@@ -13585,7 +13491,7 @@ def update_particles_opponent_draw(
     """
     Update particles when opponent draws (no legal move).
     Case 2: Opponent draws card
-    
+
     Only updates particles where opponent has no legal cards (legally possible state).
     """
     updated = []
@@ -13767,7 +13673,7 @@ def update_particles_after_action(
     """
     Update particles after Player 1 takes an action.
     Returns (H_1_new, P_new, P_t_new, particles_new).
-    
+
     Ensures particles remain valid: no cards from H_1_new or P_new appear in particle H_2 or D_g.
     """
     if action.is_play():
@@ -13884,7 +13790,7 @@ def mcts_search(
                             break
                 if is_valid:
                     valid_particles.append(p)
-            
+
             # If we lost particles, reweight the remaining ones
             if len(valid_particles) < len(particles_new) and len(valid_particles) > 0:
                 total_weight = sum(p.weight for p in valid_particles)
@@ -14141,7 +14047,6 @@ class ParticlePolicy:
 
 ```
 
-
 Validation passes. Summary of changes:
 
 1. **Particle generation** (`particle_cache.py`): Explicitly computes `L = D \ (H_1 ∪ P)` and only samples from `L`, ensuring particles never contain cards from Player 1's hand or the played pile.
@@ -14164,15 +14069,11 @@ my understanding was particles generate the full game state right? or am i wrong
 
 **Cursor**
 
-
 Confirming: particles represent a full game state. Checking what they contain:
-
-
 
 Confirming: particles represent a full game state. We only store the hidden parts (H_2, D_g) in the Particle class; the observable parts (H_1, P, P_t, G_o) come from the current observation. When used, we combine them to form the full state: (H_1, H_2, D_g, P, P_t, G_o).
 
 Updating comments to clarify this:
-
 
 ```python
 """Particle class for particle filter."""
@@ -14184,11 +14085,11 @@ from ..uno.cards import Card
 class Particle:
     """
     Represents a particle in the particle filter.
-    
+
     A particle represents a possible complete game state s = (H_1, H_2, D_g, P, P_t, G_o).
     We only store the hidden parts (H_2, D_g) since H_1, P, P_t, G_o are observable.
     When used, combine with observable state to get full state.
-    
+
     Critical constraint: H_2 and D_g can only contain cards NOT in H_1 or P.
     This ensures we only sample from legally possible states.
     """
@@ -14261,19 +14162,19 @@ class ParticleCache:
     ) -> List[Particle]:
         """
         Generate particles dynamically at runtime.
-        
+
         Each particle represents a possible complete game state s = (H_1, H_2, D_g, P, P_t, G_o).
         We only sample the hidden parts (H_2, D_g) since H_1, P, P_t, G_o are known.
-        
+
         Filtering: Only sample from L = D \ (H_1 ∪ P) to ensure legally possible states.
         This means if Player 1 has all blue 3s, no particle will contain blue 3s in H_2 or D_g.
         """
         full_deck = build_full_deck()
-        
+
         # Filter: only cards NOT in Player 1's hand or played pile
         # This is the key constraint - we can only sample from available cards
         L = [c for c in full_deck if c not in H_1 and c not in P]
-        
+
         # Validate: ensure we have enough cards for opponent hand + deck
         if len(L) < opponent_size:
             return []
@@ -14287,7 +14188,7 @@ class ParticleCache:
         for _ in range(num_particles):
             # Sample opponent hand uniformly from available cards only
             H_2 = random.sample(L, opponent_size)
-            
+
             # Remaining cards go to deck (all cards in L that aren't in H_2)
             remaining = [c for c in L if c not in H_2]
             D_g = remaining.copy()
@@ -14312,9 +14213,7 @@ class ParticleCache:
 
 ```
 
-
 Fixing the syntax warning:
-
 
 ```python
 """Particle cache for dynamic particle filter generation (Player 1 perspective)."""
@@ -14377,19 +14276,19 @@ class ParticleCache:
     ) -> List[Particle]:
         """
         Generate particles dynamically at runtime.
-        
+
         Each particle represents a possible complete game state s = (H_1, H_2, D_g, P, P_t, G_o).
         We only sample the hidden parts (H_2, D_g) since H_1, P, P_t, G_o are known.
-        
+
         Filtering: Only sample from L = D minus (H_1 union P) to ensure legally possible states.
         This means if Player 1 has all blue 3s, no particle will contain blue 3s in H_2 or D_g.
         """
         full_deck = build_full_deck()
-        
+
         # Filter: only cards NOT in Player 1's hand or played pile
         # This is the key constraint - we can only sample from available cards
         L = [c for c in full_deck if c not in H_1 and c not in P]
-        
+
         # Validate: ensure we have enough cards for opponent hand + deck
         if len(L) < opponent_size:
             return []
@@ -14403,7 +14302,7 @@ class ParticleCache:
         for _ in range(num_particles):
             # Sample opponent hand uniformly from available cards only
             H_2 = random.sample(L, opponent_size)
-            
+
             # Remaining cards go to deck (all cards in L that aren't in H_2)
             remaining = [c for c in L if c not in H_2]
             D_g = remaining.copy()
@@ -14428,14 +14327,13 @@ class ParticleCache:
 
 ```
 
-
 Particles represent full game states. We only store the hidden parts (H_2, D_g) in the Particle class; the observable parts (H_1, P, P_t, G_o) come from the current observation.
 
 When used, we combine them: `s = (H_1, H_2, D_g, P, P_t, G_o)`.
 
 Filtering: we only sample from `L = D \ (H_1 ∪ P)`, so:
+
 - If Player 1 has all blue 3s, no particle contains blue 3s in H_2 or D_g
 - If a card is in the played pile P, no particle contains it in H_2 or D_g
 
 This ensures we only sample legally possible states. The code already does this correctly; I've updated the comments to clarify that particles represent full states when combined with the observable parts.
-

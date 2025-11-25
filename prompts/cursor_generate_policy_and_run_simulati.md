@@ -1,4 +1,5 @@
 # Generate policy and run simulation game
+
 _Exported on 11/25/2025 at 02:34:27 PST from Cursor (2.1.26)_
 
 ---
@@ -11,17 +12,11 @@ generate the policy and then run the full simulation game engine for one full ga
 
 **Cursor**
 
-
 Reviewing the codebase to understand policy generation and the game engine, then generating the policy and running a full game simulation.
-
-
 
 Running the full game simulation. The policy is initialized automatically when the ParticlePolicy is created.
 
-
-
 Trying `python3`:
-
 
 ---
 
@@ -33,20 +28,19 @@ remember, @AGENTS.md use uv for python
 
 **Cursor**
 
-
 Re-running the simulation with `uv`:
-
-
 
 Ran the full game simulation using `uv`. Results:
 
 **Game Summary:**
+
 - **Winner**: Player 2 (Simple Policy) won with 0 cards remaining
 - **Total turns**: 14
 - **Player 1 (ParticlePolicy)**: Ended with 10 cards
 - **ParticlePolicy cache**: 5 cached particle sets
 
 **Notable events:**
+
 1. Player 1 opened with a WILD card, choosing blue
 2. Player 2 played a WILD_DRAW_4, forcing Player 1 to draw 4 cards
 3. Player 2 used REVERSE cards to maintain control
@@ -64,10 +58,7 @@ is the deck randomly distributed to each player?
 
 **Cursor**
 
-
 Checking how cards are distributed in the game initialization:
-
-
 
 Yes. The deck is randomly shuffled before dealing.
 
@@ -114,14 +105,9 @@ increase the number of particles cause player 1 is sucking really bad now idk wh
 
 **Cursor**
 
-
 Analyzing why Player 1 is underperforming and increasing particles. Checking the current configuration and particle policy implementation:
 
-
-
 Analyzing why Player 1 is underperforming and increasing particles and related parameters:
-
-
 
 Issue: parameters are too low, causing poor decisions.
 
@@ -131,7 +117,6 @@ Issue: parameters are too low, causing poor decisions.
 - rollout_particle_sample_size = 10: noisy value estimates during rollouts.
 
 Increasing these parameters:
-
 
 ```python
 from src.uno import Uno, Action, card_to_string
@@ -190,7 +175,7 @@ def choose_action_simple(game: Uno, player: int):
 
 def main():
     """Run 2-player UNO game simulator.
-    
+
     Player 1 uses ParticlePolicy, Player 2 uses simple policy.
     """
     print("=" * 60)
@@ -315,9 +300,7 @@ if __name__ == "__main__":
 
 ```
 
-
 Re-running the simulation with the improved parameters:
-
 
 ---
 
@@ -329,13 +312,9 @@ don't keep 'legacy' code or whatever, if it needs to get removed or refactored t
 
 **Cursor**
 
-
 Searching for legacy code to remove:
 
-
-
 Checking if the legacy code is used anywhere:
-
 
 ---
 
@@ -347,13 +326,9 @@ additionally, make sure all parameters are taken from @config.jsonc bro don't ha
 
 **Cursor**
 
-
 Removing legacy code and ensuring all parameters come from `config.jsonc`. Checking what's hardcoded:
 
-
-
 Removing legacy code and hardcoded overrides:
-
 
 ```jsonc
 {
@@ -378,10 +353,9 @@ Removing legacy code and hardcoded overrides:
     "rollout_particle_sample_size": 20,
     // Effective sample size threshold for resampling (fraction of num_particles)
     // Lower = resample more often (better diversity but slower)
-    "resample_threshold": 0.5
-  }
+    "resample_threshold": 0.5,
+  },
 }
-
 ```
 
 ```python
@@ -441,7 +415,7 @@ def choose_action_simple(game: Uno, player: int):
 
 def main():
     """Run 2-player UNO game simulator.
-    
+
     Player 1 uses ParticlePolicy, Player 2 uses simple policy.
     """
     print("=" * 60)
@@ -582,10 +556,10 @@ def strip_jsonc_comments(text: str) -> str:
     """
     # Remove single-line comments
     text = re.sub(r"//.*?$", "", text, flags=re.MULTILINE)
-    
+
     # Remove multi-line comments
     text = re.sub(r"/\*.*?\*/", "", text, flags=re.DOTALL)
-    
+
     return text
 
 
@@ -678,7 +652,7 @@ def choose_action_simple(game: Uno, player: int):
 
 def main():
     """Run 2-player UNO game simulator.
-    
+
     Player 1 uses ParticlePolicy, Player 2 uses simple policy.
     """
     print("=" * 60)
@@ -797,14 +771,9 @@ if __name__ == "__main__":
 
 ```
 
-
 Checking for lint errors and verifying everything works:
 
-
-
 Verifying the final state:
-
-
 
 Cleanup complete:
 
@@ -814,6 +783,7 @@ Cleanup complete:
 4. Updated config printing to show all parameters
 
 All parameters now come from `config.jsonc`. The current values are:
+
 - `num_particles`: 1000
 - `mcts_iterations`: 2000
 - `planning_horizon`: 5
@@ -831,17 +801,11 @@ is there a set random seed? if so then remove it
 
 **Cursor**
 
-
 Searching for random seed usage:
-
-
 
 Removing fixed seeds in `main.py` and `policy2.py`:
 
-
-
 Removing fixed seeds from both files:
-
 
 ```python
 from src.uno import Uno, Action, card_to_string
@@ -900,7 +864,7 @@ def choose_action_simple(game: Uno, player: int):
 
 def main():
     """Run 2-player UNO game simulator.
-    
+
     Player 1 uses ParticlePolicy, Player 2 uses simple policy.
     """
     print("=" * 60)
@@ -1077,10 +1041,7 @@ if __name__ == "__main__":
 
 ```
 
-
 Removed fixed seeds from both files. Games will now use random seeds each run. Verifying no issues:
-
-
 
 Removed fixed seeds from `main.py` and `policy2.py`. Each run now uses a random seed, so games will vary.
 
@@ -1094,22 +1055,13 @@ run uvx ruff check and format respectively then commit all changes to this branc
 
 **Cursor**
 
-
 Checking the current branch, then running ruff check and format, then committing:
-
-
 
 Fixing issues automatically, then formatting:
 
-
-
 Checking git status, then committing all changes:
 
-
-
 Checking if `config.jsonc` needs to be committed:
-
-
 
 Completed:
 
@@ -1134,17 +1086,11 @@ actually nevermind, instead of test.py, use an actual python
 
 **Cursor**
 
-
 Reviewing the game implementation to understand the UNO rules, then drafting a test plan.
-
-
 
 Checking project structure and dependencies:
 
-
-
 Creating a plan for `test.py` and a GitHub Actions CI workflow:
-
 
 ---
 
@@ -1156,13 +1102,9 @@ use an actual python testing frameowrk like pytest, then you can create <thing>.
 
 **Cursor**
 
-
 Updating the plan to use inline test files next to the game logic files:
 
-
-
 Creating a new plan with the correct structure:
-
 
 ---
 
@@ -1174,9 +1116,7 @@ ensure you use uvx pytest or similar or whatever is best im not 100% sure about 
 
 **Cursor**
 
-
 Updating the plan to use `uvx pytest` for running tests:
-
 
 ---
 
@@ -1188,13 +1128,9 @@ double check the plan making sure that the new tests are specifically around cor
 
 **Cursor**
 
-
 Reviewing the plan to confirm it focuses only on core UNO game logic:
 
-
-
 Confirming the plan focuses only on core UNO game logic. Adding a clarifying note and updating CI to use `uvx pytest`:
-
 
 ---
 
@@ -1206,9 +1142,7 @@ continue
 
 **Cursor**
 
-
 Executing the plan. Creating inline test files for core UNO game logic and the CI workflow:
-
 
 ```python
 """Tests for UNO card building and deck construction."""
@@ -1238,7 +1172,7 @@ def test_deck_size():
 def test_deck_distribution():
     """Verify correct distribution of card types."""
     deck = build_full_deck()
-    
+
     # Count card types
     number_cards = sum(1 for _, value in deck if isinstance(value, int))
     skip_cards = sum(1 for _, value in deck if value == SKIP)
@@ -1246,12 +1180,12 @@ def test_deck_distribution():
     draw_2_cards = sum(1 for _, value in deck if value == DRAW_2)
     wild_cards = sum(1 for _, value in deck if value == WILD)
     wild_draw_4_cards = sum(1 for _, value in deck if value == WILD_DRAW_4)
-    
+
     # Verify counts
     assert number_cards == 76  # 4 colors * (1 zero + 2 each of 1-9) = 4 * 19 = 76
     assert skip_cards == 8  # 2 per color * 4 colors = 8
     assert reverse_cards == 8  # 2 per color * 4 colors = 8
-    assert draw_2_cards == 
+    assert draw_2_cards ==
 ```
 
 ---
@@ -1266,9 +1200,7 @@ To-do's from the plan have already been created. Do not create them again. Mark 
 
 **Cursor**
 
-
 Implementing the plan. Starting with the first todo: creating the cards test file.
-
 
 ```python
 """Tests for UNO card and deck building logic."""
@@ -1299,14 +1231,14 @@ def test_deck_size():
 def test_deck_distribution():
     """Verify correct distribution of card types."""
     deck = build_full_deck()
-    
+
     number_cards = [c for c in deck if isinstance(c[1], int)]
     skip_cards = [c for c in deck if c[1] == SKIP]
     reverse_cards = [c for c in deck if c[1] == REVERSE]
     draw_2_cards = [c for c in deck if c[1] == DRAW_2]
     wild_cards = [c for c in deck if c[1] == WILD]
     wild_draw_4_cards = [c for c in deck if c[1] == WILD_DRAW_4]
-    
+
     assert len(number_cards) == 76  # 4 colors * (1 zero + 2 each of 1-9)
     assert len(skip_cards) == 8  # 2 per color * 4 colors
     assert len(reverse_cards) == 8  # 2 per color * 4 colors
@@ -1319,11 +1251,11 @@ def test_number_card_distribution():
     """Verify one 0 per color, two of each 1-9 per color."""
     deck = build_full_deck()
     colors = [RED, YELLOW, GREEN, BLUE]
-    
+
     for color in colors:
         zeros = [c for c in deck if c == (color, 0)]
         assert len(zeros) == 1, f"Should have exactly 1 zero card in {color}"
-        
+
         for number in range(1, 10):
             number_cards = [c for c in deck if c == (color, number)]
             assert len(number_cards) == 2, f"Should have exactly 2 {color}{number} cards"
@@ -1334,7 +1266,7 @@ def test_special_card_distribution():
     deck = build_full_deck()
     colors = [RED, YELLOW, GREEN, BLUE]
     special_types = [SKIP, REVERSE, DRAW_2]
-    
+
     for color in colors:
         for special_type in special_types:
             cards = [c for c in deck if c == (color, special_type)]
@@ -1344,13 +1276,13 @@ def test_special_card_distribution():
 def test_wild_card_distribution():
     """Verify Wild cards have no color and correct count."""
     deck = build_full_deck()
-    
+
     wild_cards = [c for c in deck if c[1] == WILD]
     wild_draw_4_cards = [c for c in deck if c[1] == WILD_DRAW_4]
-    
+
     assert len(wild_cards) == 4
     assert len(wild_draw_4_cards) == 4
-    
+
     # All wild cards should have BLACK (None) color
     for card in wild_cards + wild_draw_4_cards:
         assert card[0] == BLACK, "Wild cards should have BLACK (None) color"
@@ -1361,21 +1293,19 @@ def test_card_to_string():
     # Number card
     assert card_to_string((RED, 5)) == "R5"
     assert card_to_string((YELLOW, 0)) == "Y0"
-    
+
     # Special cards
     assert card_to_string((GREEN, SKIP)) == "G_SKIP"
     assert card_to_string((BLUE, REVERSE)) == "B_REVERSE"
     assert card_to_string((RED, DRAW_2)) == "R_DRAW_2"
-    
+
     # Wild cards
     assert card_to_string((BLACK, WILD)) == "WILD"
     assert card_to_string((BLACK, WILD_DRAW_4)) == "WILD_DRAW_4"
 
 ```
 
-
 Creating the game test file:
-
 
 ```python
 """Tests for UNO game logic and rules."""
@@ -1411,7 +1341,7 @@ def test_game_initialization():
     """Verify 7 cards dealt to each player, initial top card is non-Wild, game state is Active."""
     game = Uno()
     game.new_game(seed=42)
-    
+
     assert len(game.H_1) == 7, "Player 1 should have 7 cards"
     assert len(game.H_2) == 7, "Player 2 should have 7 cards"
     assert len(game.P) == 1, "Should have one card in played pile"
@@ -1426,7 +1356,7 @@ def test_game_initialization_state_creation():
     """Verify state creation works correctly."""
     game = Uno()
     game.new_game(seed=42)
-    
+
     state = game.create_S()
     assert state is not None
     assert len(state[0]) == 7  # H_1
@@ -1446,7 +1376,7 @@ def test_legal_play_color_match():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     assert game.is_legal_play((RED, 5)) is True, "Red card should match red top card"
     assert game.is_legal_play((YELLOW, 3)) is False, "Yellow card should not match red top card"
 
@@ -1459,7 +1389,7 @@ def test_legal_play_value_match():
         top_card=(GREEN, 5),
         deck=[]
     )
-    
+
     assert game.is_legal_play((RED, 5)) is True, "Same value should match"
     assert game.is_legal_play((YELLOW, 5)) is True, "Same value should match"
 
@@ -1472,7 +1402,7 @@ def test_legal_play_wild_always_legal():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     assert game.is_legal_play((BLACK, WILD)) is True, "Wild should always be legal"
     assert game.is_legal_play((BLACK, WILD_DRAW_4)) is True, "Wild Draw 4 should always be legal"
 
@@ -1485,7 +1415,7 @@ def test_legal_play_illegal_rejected():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     assert game.is_legal_play((YELLOW, 3)) is False, "Different color and value should be illegal"
     assert game.is_legal_play((GREEN, 8)) is False, "Different color and value should be illegal"
 
@@ -1499,9 +1429,9 @@ def test_legal_play_wild_color_handling():
         deck=[]
     )
     game.current_color = BLUE
-    
+
     assert game.is_legal_play((RED, 5)) is False, "Should not match when current_color is BLUE"
-    
+
     game.current_color = RED
     assert game.is_legal_play((RED, 5)) is True, "Should match when current_color is RED"
 
@@ -1514,7 +1444,7 @@ def test_get_legal_actions():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     legal_actions = game.get_legal_actions(1)
     assert len(legal_actions) == 1, "Should have one legal play (RED 5)"
     assert legal_actions[0].is_play() is True
@@ -1529,7 +1459,7 @@ def test_get_legal_actions_no_legal_plays():
         top_card=(RED, 7),
         deck=[(BLUE, 1)]
     )
-    
+
     legal_actions = game.get_legal_actions(1)
     assert len(legal_actions) == 1, "Should have one action (draw)"
     assert legal_actions[0].is_draw() is True
@@ -1545,10 +1475,10 @@ def test_special_card_skip():
         top_card=(RED, 5),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, SKIP))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.player_plays_again is True, "Player should play again after Skip"
     assert len(game.H_1) == 0, "Card should be removed from hand"
@@ -1562,10 +1492,10 @@ def test_special_card_reverse():
         top_card=(RED, 5),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, REVERSE))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.player_plays_again is True, "Player should play again after Reverse (2-player rule)"
 
@@ -1578,10 +1508,10 @@ def test_special_card_draw_2():
         top_card=(RED, 5),
         deck=[(BLUE, 2), (GREEN, 3)]
     )
-    
+
     action = Action(X_1=(RED, DRAW_2))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.draw_pending == 2, "Next player should draw 2 cards"
 
@@ -1594,10 +1524,10 @@ def test_special_card_wild():
         top_card=(RED, 5),
         deck=[]
     )
-    
+
     action = Action(X_1=(BLACK, WILD), wild_color=BLUE)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.current_color == BLUE, "Current color should be set to chosen color"
     assert len(game.H_1) == 0, "Card should be removed from hand"
@@ -1611,10 +1541,10 @@ def test_special_card_wild_draw_4():
         top_card=(RED, 5),
         deck=[(BLUE, 2), (GREEN, 3), (RED, 4), (YELLOW, 5)]
     )
-    
+
     action = Action(X_1=(BLACK, WILD_DRAW_4), wild_color=GREEN)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.current_color == GREEN, "Current color should be set"
     assert game.draw_pending == 4, "Next player should draw 4 cards"
@@ -1629,7 +1559,7 @@ def test_draw_rules_no_legal_plays():
         top_card=(RED, 7),
         deck=[(BLUE, 1)]
     )
-    
+
     legal_actions = game.get_legal_actions(1)
     assert len(legal_actions) == 1
     assert legal_actions[0].is_draw() is True
@@ -1644,11 +1574,11 @@ def test_draw_action_adds_cards():
         top_card=(RED, 7),
         deck=[(BLUE, 1), (GREEN, 2)]
     )
-    
+
     initial_hand_size = len(game.H_1)
     action = Action(n=1)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert len(game.H_1) == initial_hand_size + 1, "Hand should have one more card"
     assert len(action.Y_n) == 1, "Action should record drawn cards"
@@ -1663,10 +1593,10 @@ def test_draw_pending_cards():
         deck=[(BLUE, 1), (GREEN, 2)]
     )
     game.draw_pending = 2
-    
+
     action = Action(n=1)  # Player tries to draw 1, but should draw 2
     result = game.execute_action(action, 2)
-    
+
     assert result is True
     assert len(game.H_2) == 3, "Should have drawn 2 cards (1 original + 2 pending)"
     assert game.draw_pending == 0, "Draw pending should be cleared"
@@ -1681,10 +1611,10 @@ def test_game_end_player_has_zero_cards():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, 5))
     game.execute_action(action, 1)
-    
+
     assert len(game.H_1) == 0, "Player 1 should have 0 cards"
     assert game.G_o == "GameOver", "Game should be over"
 
@@ -1698,10 +1628,10 @@ def test_game_end_no_actions_after_game_over():
         deck=[]
     )
     game.G_o = "GameOver"
-    
+
     action = Action(X_1=(YELLOW, 1))
     result = game.execute_action(action, 2)
-    
+
     assert result is False, "Should not allow actions after game over"
 
 
@@ -1716,10 +1646,10 @@ def test_deck_reshuffle_when_empty():
     )
     # Add some cards to played pile
     game.P = [(RED, 7), (BLUE, 1), (GREEN, 2), (YELLOW, 3)]
-    
+
     action = Action(n=1)
     game.execute_action(action, 1)
-    
+
     assert len(game.D_g) > 0, "Deck should have cards after reshuffle"
     assert len(game.P) == 1, "Played pile should only have top card"
     assert game.P[0] == (RED, 7), "Top card should remain"
@@ -1734,11 +1664,11 @@ def test_draw_after_reshuffle():
         deck=[]  # Empty deck
     )
     game.P = [(RED, 7), (BLUE, 1), (GREEN, 2)]
-    
+
     initial_hand_size = len(game.H_1)
     action = Action(n=1)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert len(game.H_1) == initial_hand_size + 1, "Should have drawn a card after reshuffle"
 
@@ -1752,13 +1682,13 @@ def test_action_execution_valid_play():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     initial_hand_size = len(game.H_1)
     initial_pile_size = len(game.P)
-    
+
     action = Action(X_1=(RED, 5))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert len(game.H_1) == initial_hand_size - 1, "Card should be removed from hand"
     assert len(game.P) == initial_pile_size + 1, "Card should be added to played pile"
@@ -1772,10 +1702,10 @@ def test_action_execution_invalid_card_not_in_hand():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(YELLOW, 3))  # Not in hand
     result = game.execute_action(action, 1)
-    
+
     assert result is False, "Should reject card not in hand"
 
 
@@ -1787,10 +1717,10 @@ def test_action_execution_invalid_illegal_play():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(YELLOW, 3))  # Illegal play
     result = game.execute_action(action, 1)
-    
+
     assert result is False, "Should reject illegal play"
 
 
@@ -1802,10 +1732,10 @@ def test_action_execution_player_2():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, 5))
     result = game.execute_action(action, 2)
-    
+
     assert result is True
     assert len(game.H_2) == 0, "Card should be removed from Player 2's hand"
     assert len(game.P) == 2, "Card should be added to played pile"
@@ -1826,16 +1756,16 @@ def test_action_validation_must_specify_one():
     action1 = Action(X_1=(RED, 5))
     assert action1.is_play() is True
     assert action1.is_draw() is False
-    
+
     # Valid: only n
     action2 = Action(n=1)
     assert action2.is_play() is False
     assert action2.is_draw() is True
-    
+
     # Invalid: both specified
     with pytest.raises(ValueError, match="Must specify EITHER"):
         Action(X_1=(RED, 5), n=1)
-    
+
     # Invalid: neither specified
     with pytest.raises(ValueError, match="Must specify EITHER"):
         Action()
@@ -1847,14 +1777,14 @@ def test_action_validation_draw_n_values():
     Action(n=1)
     Action(n=2)
     Action(n=4)
-    
+
     # Invalid values
     with pytest.raises(ValueError, match="n must be in"):
         Action(n=0)
-    
+
     with pytest.raises(ValueError, match="n must be in"):
         Action(n=3)
-    
+
     with pytest.raises(ValueError, match="n must be in"):
         Action(n=5)
 
@@ -1864,7 +1794,7 @@ def test_action_type_checking():
     play_action = Action(X_1=(RED, 5))
     assert play_action.is_play() is True
     assert play_action.is_draw() is False
-    
+
     draw_action = Action(n=1)
     assert draw_action.is_play() is False
     assert draw_action.is_draw() is True
@@ -1876,7 +1806,7 @@ def test_action_representation_play():
     repr_str = repr(action)
     assert "X_1" in repr_str
     assert "RED" in repr_str or "5" in repr_str
-    
+
     # With wild color
     wild_action = Action(X_1=(BLACK, WILD), wild_color=YELLOW)
     repr_str = repr(wild_action)
@@ -1889,7 +1819,7 @@ def test_action_representation_draw():
     action = Action(n=1)
     repr_str = repr(action)
     assert "Y_1" in repr_str or "n=1" in repr_str
-    
+
     # After drawing (Y_n filled)
     action.Y_n = [(RED, 5)]
     repr_str = repr(action)
@@ -1916,30 +1846,25 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v4
         with:
           version: "latest"
-      
+
       - name: Set up Python
         run: uv python install 3.13
-      
+
       - name: Run tests
         run: uvx pytest -v
-
 ```
-
 
 Pytest didn't discover the tests. Checking pytest configuration and renaming test files to the standard `test_*.py` format:
 
-
-
 Fixing imports to use relative imports:
-
 
 ```python
 """Tests for UNO card and deck building logic."""
@@ -1970,14 +1895,14 @@ def test_deck_size():
 def test_deck_distribution():
     """Verify correct distribution of card types."""
     deck = build_full_deck()
-    
+
     number_cards = [c for c in deck if isinstance(c[1], int)]
     skip_cards = [c for c in deck if c[1] == SKIP]
     reverse_cards = [c for c in deck if c[1] == REVERSE]
     draw_2_cards = [c for c in deck if c[1] == DRAW_2]
     wild_cards = [c for c in deck if c[1] == WILD]
     wild_draw_4_cards = [c for c in deck if c[1] == WILD_DRAW_4]
-    
+
     assert len(number_cards) == 76  # 4 colors * (1 zero + 2 each of 1-9)
     assert len(skip_cards) == 8  # 2 per color * 4 colors
     assert len(reverse_cards) == 8  # 2 per color * 4 colors
@@ -1990,11 +1915,11 @@ def test_number_card_distribution():
     """Verify one 0 per color, two of each 1-9 per color."""
     deck = build_full_deck()
     colors = [RED, YELLOW, GREEN, BLUE]
-    
+
     for color in colors:
         zeros = [c for c in deck if c == (color, 0)]
         assert len(zeros) == 1, f"Should have exactly 1 zero card in {color}"
-        
+
         for number in range(1, 10):
             number_cards = [c for c in deck if c == (color, number)]
             assert len(number_cards) == 2, f"Should have exactly 2 {color}{number} cards"
@@ -2005,7 +1930,7 @@ def test_special_card_distribution():
     deck = build_full_deck()
     colors = [RED, YELLOW, GREEN, BLUE]
     special_types = [SKIP, REVERSE, DRAW_2]
-    
+
     for color in colors:
         for special_type in special_types:
             cards = [c for c in deck if c == (color, special_type)]
@@ -2015,13 +1940,13 @@ def test_special_card_distribution():
 def test_wild_card_distribution():
     """Verify Wild cards have no color and correct count."""
     deck = build_full_deck()
-    
+
     wild_cards = [c for c in deck if c[1] == WILD]
     wild_draw_4_cards = [c for c in deck if c[1] == WILD_DRAW_4]
-    
+
     assert len(wild_cards) == 4
     assert len(wild_draw_4_cards) == 4
-    
+
     # All wild cards should have BLACK (None) color
     for card in wild_cards + wild_draw_4_cards:
         assert card[0] == BLACK, "Wild cards should have BLACK (None) color"
@@ -2032,12 +1957,12 @@ def test_card_to_string():
     # Number card
     assert card_to_string((RED, 5)) == "R5"
     assert card_to_string((YELLOW, 0)) == "Y0"
-    
+
     # Special cards
     assert card_to_string((GREEN, SKIP)) == "G_SKIP"
     assert card_to_string((BLUE, REVERSE)) == "B_REVERSE"
     assert card_to_string((RED, DRAW_2)) == "R_DRAW_2"
-    
+
     # Wild cards
     assert card_to_string((BLACK, WILD)) == "WILD"
     assert card_to_string((BLACK, WILD_DRAW_4)) == "WILD_DRAW_4"
@@ -2079,7 +2004,7 @@ def test_game_initialization():
     """Verify 7 cards dealt to each player, initial top card is non-Wild, game state is Active."""
     game = Uno()
     game.new_game(seed=42)
-    
+
     assert len(game.H_1) == 7, "Player 1 should have 7 cards"
     assert len(game.H_2) == 7, "Player 2 should have 7 cards"
     assert len(game.P) == 1, "Should have one card in played pile"
@@ -2094,7 +2019,7 @@ def test_game_initialization_state_creation():
     """Verify state creation works correctly."""
     game = Uno()
     game.new_game(seed=42)
-    
+
     state = game.create_S()
     assert state is not None
     assert len(state[0]) == 7  # H_1
@@ -2114,7 +2039,7 @@ def test_legal_play_color_match():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     assert game.is_legal_play((RED, 5)) is True, "Red card should match red top card"
     assert game.is_legal_play((YELLOW, 3)) is False, "Yellow card should not match red top card"
 
@@ -2127,7 +2052,7 @@ def test_legal_play_value_match():
         top_card=(GREEN, 5),
         deck=[]
     )
-    
+
     assert game.is_legal_play((RED, 5)) is True, "Same value should match"
     assert game.is_legal_play((YELLOW, 5)) is True, "Same value should match"
 
@@ -2140,7 +2065,7 @@ def test_legal_play_wild_always_legal():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     assert game.is_legal_play((BLACK, WILD)) is True, "Wild should always be legal"
     assert game.is_legal_play((BLACK, WILD_DRAW_4)) is True, "Wild Draw 4 should always be legal"
 
@@ -2153,7 +2078,7 @@ def test_legal_play_illegal_rejected():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     assert game.is_legal_play((YELLOW, 3)) is False, "Different color and value should be illegal"
     assert game.is_legal_play((GREEN, 8)) is False, "Different color and value should be illegal"
 
@@ -2167,9 +2092,9 @@ def test_legal_play_wild_color_handling():
         deck=[]
     )
     game.current_color = BLUE
-    
+
     assert game.is_legal_play((RED, 5)) is False, "Should not match when current_color is BLUE"
-    
+
     game.current_color = RED
     assert game.is_legal_play((RED, 5)) is True, "Should match when current_color is RED"
 
@@ -2182,7 +2107,7 @@ def test_get_legal_actions():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     legal_actions = game.get_legal_actions(1)
     assert len(legal_actions) == 1, "Should have one legal play (RED 5)"
     assert legal_actions[0].is_play() is True
@@ -2197,7 +2122,7 @@ def test_get_legal_actions_no_legal_plays():
         top_card=(RED, 7),
         deck=[(BLUE, 1)]
     )
-    
+
     legal_actions = game.get_legal_actions(1)
     assert len(legal_actions) == 1, "Should have one action (draw)"
     assert legal_actions[0].is_draw() is True
@@ -2213,10 +2138,10 @@ def test_special_card_skip():
         top_card=(RED, 5),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, SKIP))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.player_plays_again is True, "Player should play again after Skip"
     assert len(game.H_1) == 0, "Card should be removed from hand"
@@ -2230,10 +2155,10 @@ def test_special_card_reverse():
         top_card=(RED, 5),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, REVERSE))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.player_plays_again is True, "Player should play again after Reverse (2-player rule)"
 
@@ -2246,10 +2171,10 @@ def test_special_card_draw_2():
         top_card=(RED, 5),
         deck=[(BLUE, 2), (GREEN, 3)]
     )
-    
+
     action = Action(X_1=(RED, DRAW_2))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.draw_pending == 2, "Next player should draw 2 cards"
 
@@ -2262,10 +2187,10 @@ def test_special_card_wild():
         top_card=(RED, 5),
         deck=[]
     )
-    
+
     action = Action(X_1=(BLACK, WILD), wild_color=BLUE)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.current_color == BLUE, "Current color should be set to chosen color"
     assert len(game.H_1) == 0, "Card should be removed from hand"
@@ -2279,10 +2204,10 @@ def test_special_card_wild_draw_4():
         top_card=(RED, 5),
         deck=[(BLUE, 2), (GREEN, 3), (RED, 4), (YELLOW, 5)]
     )
-    
+
     action = Action(X_1=(BLACK, WILD_DRAW_4), wild_color=GREEN)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.current_color == GREEN, "Current color should be set"
     assert game.draw_pending == 4, "Next player should draw 4 cards"
@@ -2297,7 +2222,7 @@ def test_draw_rules_no_legal_plays():
         top_card=(RED, 7),
         deck=[(BLUE, 1)]
     )
-    
+
     legal_actions = game.get_legal_actions(1)
     assert len(legal_actions) == 1
     assert legal_actions[0].is_draw() is True
@@ -2312,11 +2237,11 @@ def test_draw_action_adds_cards():
         top_card=(RED, 7),
         deck=[(BLUE, 1), (GREEN, 2)]
     )
-    
+
     initial_hand_size = len(game.H_1)
     action = Action(n=1)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert len(game.H_1) == initial_hand_size + 1, "Hand should have one more card"
     assert len(action.Y_n) == 1, "Action should record drawn cards"
@@ -2331,10 +2256,10 @@ def test_draw_pending_cards():
         deck=[(BLUE, 1), (GREEN, 2)]
     )
     game.draw_pending = 2
-    
+
     action = Action(n=1)  # Player tries to draw 1, but should draw 2
     result = game.execute_action(action, 2)
-    
+
     assert result is True
     assert len(game.H_2) == 3, "Should have drawn 2 cards (1 original + 2 pending)"
     assert game.draw_pending == 0, "Draw pending should be cleared"
@@ -2349,10 +2274,10 @@ def test_game_end_player_has_zero_cards():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, 5))
     game.execute_action(action, 1)
-    
+
     assert len(game.H_1) == 0, "Player 1 should have 0 cards"
     assert game.G_o == "GameOver", "Game should be over"
 
@@ -2366,10 +2291,10 @@ def test_game_end_no_actions_after_game_over():
         deck=[]
     )
     game.G_o = "GameOver"
-    
+
     action = Action(X_1=(YELLOW, 1))
     result = game.execute_action(action, 2)
-    
+
     assert result is False, "Should not allow actions after game over"
 
 
@@ -2384,10 +2309,10 @@ def test_deck_reshuffle_when_empty():
     )
     # Add some cards to played pile
     game.P = [(RED, 7), (BLUE, 1), (GREEN, 2), (YELLOW, 3)]
-    
+
     action = Action(n=1)
     game.execute_action(action, 1)
-    
+
     assert len(game.D_g) > 0, "Deck should have cards after reshuffle"
     assert len(game.P) == 1, "Played pile should only have top card"
     assert game.P[0] == (RED, 7), "Top card should remain"
@@ -2402,11 +2327,11 @@ def test_draw_after_reshuffle():
         deck=[]  # Empty deck
     )
     game.P = [(RED, 7), (BLUE, 1), (GREEN, 2)]
-    
+
     initial_hand_size = len(game.H_1)
     action = Action(n=1)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert len(game.H_1) == initial_hand_size + 1, "Should have drawn a card after reshuffle"
 
@@ -2420,13 +2345,13 @@ def test_action_execution_valid_play():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     initial_hand_size = len(game.H_1)
     initial_pile_size = len(game.P)
-    
+
     action = Action(X_1=(RED, 5))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert len(game.H_1) == initial_hand_size - 1, "Card should be removed from hand"
     assert len(game.P) == initial_pile_size + 1, "Card should be added to played pile"
@@ -2440,10 +2365,10 @@ def test_action_execution_invalid_card_not_in_hand():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(YELLOW, 3))  # Not in hand
     result = game.execute_action(action, 1)
-    
+
     assert result is False, "Should reject card not in hand"
 
 
@@ -2455,10 +2380,10 @@ def test_action_execution_invalid_illegal_play():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(YELLOW, 3))  # Illegal play
     result = game.execute_action(action, 1)
-    
+
     assert result is False, "Should reject illegal play"
 
 
@@ -2470,10 +2395,10 @@ def test_action_execution_player_2():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, 5))
     result = game.execute_action(action, 2)
-    
+
     assert result is True
     assert len(game.H_2) == 0, "Card should be removed from Player 2's hand"
     assert len(game.P) == 2, "Card should be added to played pile"
@@ -2515,7 +2440,7 @@ def test_game_initialization():
     """Verify 7 cards dealt to each player, initial top card is non-Wild, game state is Active."""
     game = Uno()
     game.new_game(seed=42)
-    
+
     assert len(game.H_1) == 7, "Player 1 should have 7 cards"
     assert len(game.H_2) == 7, "Player 2 should have 7 cards"
     assert len(game.P) == 1, "Should have one card in played pile"
@@ -2530,7 +2455,7 @@ def test_game_initialization_state_creation():
     """Verify state creation works correctly."""
     game = Uno()
     game.new_game(seed=42)
-    
+
     state = game.create_S()
     assert state is not None
     assert len(state[0]) == 7  # H_1
@@ -2550,7 +2475,7 @@ def test_legal_play_color_match():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     assert game.is_legal_play((RED, 5)) is True, "Red card should match red top card"
     assert game.is_legal_play((YELLOW, 3)) is False, "Yellow card should not match red top card"
 
@@ -2563,7 +2488,7 @@ def test_legal_play_value_match():
         top_card=(GREEN, 5),
         deck=[]
     )
-    
+
     assert game.is_legal_play((RED, 5)) is True, "Same value should match"
     assert game.is_legal_play((YELLOW, 5)) is True, "Same value should match"
 
@@ -2576,7 +2501,7 @@ def test_legal_play_wild_always_legal():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     assert game.is_legal_play((BLACK, WILD)) is True, "Wild should always be legal"
     assert game.is_legal_play((BLACK, WILD_DRAW_4)) is True, "Wild Draw 4 should always be legal"
 
@@ -2589,7 +2514,7 @@ def test_legal_play_illegal_rejected():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     assert game.is_legal_play((YELLOW, 3)) is False, "Different color and value should be illegal"
     assert game.is_legal_play((GREEN, 8)) is False, "Different color and value should be illegal"
 
@@ -2603,9 +2528,9 @@ def test_legal_play_wild_color_handling():
         deck=[]
     )
     game.current_color = BLUE
-    
+
     assert game.is_legal_play((RED, 5)) is False, "Should not match when current_color is BLUE"
-    
+
     game.current_color = RED
     assert game.is_legal_play((RED, 5)) is True, "Should match when current_color is RED"
 
@@ -2618,7 +2543,7 @@ def test_get_legal_actions():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     legal_actions = game.get_legal_actions(1)
     assert len(legal_actions) == 1, "Should have one legal play (RED 5)"
     assert legal_actions[0].is_play() is True
@@ -2633,7 +2558,7 @@ def test_get_legal_actions_no_legal_plays():
         top_card=(RED, 7),
         deck=[(BLUE, 1)]
     )
-    
+
     legal_actions = game.get_legal_actions(1)
     assert len(legal_actions) == 1, "Should have one action (draw)"
     assert legal_actions[0].is_draw() is True
@@ -2649,10 +2574,10 @@ def test_special_card_skip():
         top_card=(RED, 5),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, SKIP))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.player_plays_again is True, "Player should play again after Skip"
     assert len(game.H_1) == 0, "Card should be removed from hand"
@@ -2666,10 +2591,10 @@ def test_special_card_reverse():
         top_card=(RED, 5),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, REVERSE))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.player_plays_again is True, "Player should play again after Reverse (2-player rule)"
 
@@ -2682,10 +2607,10 @@ def test_special_card_draw_2():
         top_card=(RED, 5),
         deck=[(BLUE, 2), (GREEN, 3)]
     )
-    
+
     action = Action(X_1=(RED, DRAW_2))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.draw_pending == 2, "Next player should draw 2 cards"
 
@@ -2698,10 +2623,10 @@ def test_special_card_wild():
         top_card=(RED, 5),
         deck=[]
     )
-    
+
     action = Action(X_1=(BLACK, WILD), wild_color=BLUE)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.current_color == BLUE, "Current color should be set to chosen color"
     assert len(game.H_1) == 0, "Card should be removed from hand"
@@ -2715,10 +2640,10 @@ def test_special_card_wild_draw_4():
         top_card=(RED, 5),
         deck=[(BLUE, 2), (GREEN, 3), (RED, 4), (YELLOW, 5)]
     )
-    
+
     action = Action(X_1=(BLACK, WILD_DRAW_4), wild_color=GREEN)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.current_color == GREEN, "Current color should be set"
     assert game.draw_pending == 4, "Next player should draw 4 cards"
@@ -2733,7 +2658,7 @@ def test_draw_rules_no_legal_plays():
         top_card=(RED, 7),
         deck=[(BLUE, 1)]
     )
-    
+
     legal_actions = game.get_legal_actions(1)
     assert len(legal_actions) == 1
     assert legal_actions[0].is_draw() is True
@@ -2748,11 +2673,11 @@ def test_draw_action_adds_cards():
         top_card=(RED, 7),
         deck=[(BLUE, 1), (GREEN, 2)]
     )
-    
+
     initial_hand_size = len(game.H_1)
     action = Action(n=1)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert len(game.H_1) == initial_hand_size + 1, "Hand should have one more card"
     assert len(action.Y_n) == 1, "Action should record drawn cards"
@@ -2767,10 +2692,10 @@ def test_draw_pending_cards():
         deck=[(BLUE, 1), (GREEN, 2)]
     )
     game.draw_pending = 2
-    
+
     action = Action(n=1)  # Player tries to draw 1, but should draw 2
     result = game.execute_action(action, 2)
-    
+
     assert result is True
     assert len(game.H_2) == 3, "Should have drawn 2 cards (1 original + 2 pending)"
     assert game.draw_pending == 0, "Draw pending should be cleared"
@@ -2785,10 +2710,10 @@ def test_game_end_player_has_zero_cards():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, 5))
     game.execute_action(action, 1)
-    
+
     assert len(game.H_1) == 0, "Player 1 should have 0 cards"
     assert game.G_o == "GameOver", "Game should be over"
 
@@ -2802,10 +2727,10 @@ def test_game_end_no_actions_after_game_over():
         deck=[]
     )
     game.G_o = "GameOver"
-    
+
     action = Action(X_1=(YELLOW, 1))
     result = game.execute_action(action, 2)
-    
+
     assert result is False, "Should not allow actions after game over"
 
 
@@ -2820,10 +2745,10 @@ def test_deck_reshuffle_when_empty():
     )
     # Add some cards to played pile
     game.P = [(RED, 7), (BLUE, 1), (GREEN, 2), (YELLOW, 3)]
-    
+
     action = Action(n=1)
     game.execute_action(action, 1)
-    
+
     assert len(game.D_g) > 0, "Deck should have cards after reshuffle"
     assert len(game.P) == 1, "Played pile should only have top card"
     assert game.P[0] == (RED, 7), "Top card should remain"
@@ -2838,11 +2763,11 @@ def test_draw_after_reshuffle():
         deck=[]  # Empty deck
     )
     game.P = [(RED, 7), (BLUE, 1), (GREEN, 2)]
-    
+
     initial_hand_size = len(game.H_1)
     action = Action(n=1)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert len(game.H_1) == initial_hand_size + 1, "Should have drawn a card after reshuffle"
 
@@ -2856,13 +2781,13 @@ def test_action_execution_valid_play():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     initial_hand_size = len(game.H_1)
     initial_pile_size = len(game.P)
-    
+
     action = Action(X_1=(RED, 5))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert len(game.H_1) == initial_hand_size - 1, "Card should be removed from hand"
     assert len(game.P) == initial_pile_size + 1, "Card should be added to played pile"
@@ -2876,10 +2801,10 @@ def test_action_execution_invalid_card_not_in_hand():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(YELLOW, 3))  # Not in hand
     result = game.execute_action(action, 1)
-    
+
     assert result is False, "Should reject card not in hand"
 
 
@@ -2891,10 +2816,10 @@ def test_action_execution_invalid_illegal_play():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(YELLOW, 3))  # Illegal play
     result = game.execute_action(action, 1)
-    
+
     assert result is False, "Should reject illegal play"
 
 
@@ -2906,10 +2831,10 @@ def test_action_execution_player_2():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, 5))
     result = game.execute_action(action, 2)
-    
+
     assert result is True
     assert len(game.H_2) == 0, "Card should be removed from Player 2's hand"
     assert len(game.P) == 2, "Card should be added to played pile"
@@ -2931,16 +2856,16 @@ def test_action_validation_must_specify_one():
     action1 = Action(X_1=(RED, 5))
     assert action1.is_play() is True
     assert action1.is_draw() is False
-    
+
     # Valid: only n
     action2 = Action(n=1)
     assert action2.is_play() is False
     assert action2.is_draw() is True
-    
+
     # Invalid: both specified
     with pytest.raises(ValueError, match="Must specify EITHER"):
         Action(X_1=(RED, 5), n=1)
-    
+
     # Invalid: neither specified
     with pytest.raises(ValueError, match="Must specify EITHER"):
         Action()
@@ -2952,14 +2877,14 @@ def test_action_validation_draw_n_values():
     Action(n=1)
     Action(n=2)
     Action(n=4)
-    
+
     # Invalid values
     with pytest.raises(ValueError, match="n must be in"):
         Action(n=0)
-    
+
     with pytest.raises(ValueError, match="n must be in"):
         Action(n=3)
-    
+
     with pytest.raises(ValueError, match="n must be in"):
         Action(n=5)
 
@@ -2969,7 +2894,7 @@ def test_action_type_checking():
     play_action = Action(X_1=(RED, 5))
     assert play_action.is_play() is True
     assert play_action.is_draw() is False
-    
+
     draw_action = Action(n=1)
     assert draw_action.is_play() is False
     assert draw_action.is_draw() is True
@@ -2981,7 +2906,7 @@ def test_action_representation_play():
     repr_str = repr(action)
     assert "X_1" in repr_str
     assert "RED" in repr_str or "5" in repr_str
-    
+
     # With wild color
     wild_action = Action(X_1=(BLACK, WILD), wild_color=YELLOW)
     repr_str = repr(wild_action)
@@ -2994,7 +2919,7 @@ def test_action_representation_draw():
     action = Action(n=1)
     repr_str = repr(action)
     assert "Y_1" in repr_str or "n=1" in repr_str
-    
+
     # After drawing (Y_n filled)
     action.Y_n = [(RED, 5)]
     repr_str = repr(action)
@@ -3010,9 +2935,7 @@ def test_action_wild_color():
 
 ```
 
-
 Fixing the failing test: the top card is the last card in the pile, not the first:
-
 
 ```python
 """Tests for UNO game logic and rules."""
@@ -3048,7 +2971,7 @@ def test_game_initialization():
     """Verify 7 cards dealt to each player, initial top card is non-Wild, game state is Active."""
     game = Uno()
     game.new_game(seed=42)
-    
+
     assert len(game.H_1) == 7, "Player 1 should have 7 cards"
     assert len(game.H_2) == 7, "Player 2 should have 7 cards"
     assert len(game.P) == 1, "Should have one card in played pile"
@@ -3063,7 +2986,7 @@ def test_game_initialization_state_creation():
     """Verify state creation works correctly."""
     game = Uno()
     game.new_game(seed=42)
-    
+
     state = game.create_S()
     assert state is not None
     assert len(state[0]) == 7  # H_1
@@ -3083,7 +3006,7 @@ def test_legal_play_color_match():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     assert game.is_legal_play((RED, 5)) is True, "Red card should match red top card"
     assert game.is_legal_play((YELLOW, 3)) is False, "Yellow card should not match red top card"
 
@@ -3096,7 +3019,7 @@ def test_legal_play_value_match():
         top_card=(GREEN, 5),
         deck=[]
     )
-    
+
     assert game.is_legal_play((RED, 5)) is True, "Same value should match"
     assert game.is_legal_play((YELLOW, 5)) is True, "Same value should match"
 
@@ -3109,7 +3032,7 @@ def test_legal_play_wild_always_legal():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     assert game.is_legal_play((BLACK, WILD)) is True, "Wild should always be legal"
     assert game.is_legal_play((BLACK, WILD_DRAW_4)) is True, "Wild Draw 4 should always be legal"
 
@@ -3122,7 +3045,7 @@ def test_legal_play_illegal_rejected():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     assert game.is_legal_play((YELLOW, 3)) is False, "Different color and value should be illegal"
     assert game.is_legal_play((GREEN, 8)) is False, "Different color and value should be illegal"
 
@@ -3136,9 +3059,9 @@ def test_legal_play_wild_color_handling():
         deck=[]
     )
     game.current_color = BLUE
-    
+
     assert game.is_legal_play((RED, 5)) is False, "Should not match when current_color is BLUE"
-    
+
     game.current_color = RED
     assert game.is_legal_play((RED, 5)) is True, "Should match when current_color is RED"
 
@@ -3151,7 +3074,7 @@ def test_get_legal_actions():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     legal_actions = game.get_legal_actions(1)
     assert len(legal_actions) == 1, "Should have one legal play (RED 5)"
     assert legal_actions[0].is_play() is True
@@ -3166,7 +3089,7 @@ def test_get_legal_actions_no_legal_plays():
         top_card=(RED, 7),
         deck=[(BLUE, 1)]
     )
-    
+
     legal_actions = game.get_legal_actions(1)
     assert len(legal_actions) == 1, "Should have one action (draw)"
     assert legal_actions[0].is_draw() is True
@@ -3182,10 +3105,10 @@ def test_special_card_skip():
         top_card=(RED, 5),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, SKIP))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.player_plays_again is True, "Player should play again after Skip"
     assert len(game.H_1) == 0, "Card should be removed from hand"
@@ -3199,10 +3122,10 @@ def test_special_card_reverse():
         top_card=(RED, 5),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, REVERSE))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.player_plays_again is True, "Player should play again after Reverse (2-player rule)"
 
@@ -3215,10 +3138,10 @@ def test_special_card_draw_2():
         top_card=(RED, 5),
         deck=[(BLUE, 2), (GREEN, 3)]
     )
-    
+
     action = Action(X_1=(RED, DRAW_2))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.draw_pending == 2, "Next player should draw 2 cards"
 
@@ -3231,10 +3154,10 @@ def test_special_card_wild():
         top_card=(RED, 5),
         deck=[]
     )
-    
+
     action = Action(X_1=(BLACK, WILD), wild_color=BLUE)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.current_color == BLUE, "Current color should be set to chosen color"
     assert len(game.H_1) == 0, "Card should be removed from hand"
@@ -3248,10 +3171,10 @@ def test_special_card_wild_draw_4():
         top_card=(RED, 5),
         deck=[(BLUE, 2), (GREEN, 3), (RED, 4), (YELLOW, 5)]
     )
-    
+
     action = Action(X_1=(BLACK, WILD_DRAW_4), wild_color=GREEN)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert game.current_color == GREEN, "Current color should be set"
     assert game.draw_pending == 4, "Next player should draw 4 cards"
@@ -3266,7 +3189,7 @@ def test_draw_rules_no_legal_plays():
         top_card=(RED, 7),
         deck=[(BLUE, 1)]
     )
-    
+
     legal_actions = game.get_legal_actions(1)
     assert len(legal_actions) == 1
     assert legal_actions[0].is_draw() is True
@@ -3281,11 +3204,11 @@ def test_draw_action_adds_cards():
         top_card=(RED, 7),
         deck=[(BLUE, 1), (GREEN, 2)]
     )
-    
+
     initial_hand_size = len(game.H_1)
     action = Action(n=1)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert len(game.H_1) == initial_hand_size + 1, "Hand should have one more card"
     assert len(action.Y_n) == 1, "Action should record drawn cards"
@@ -3300,10 +3223,10 @@ def test_draw_pending_cards():
         deck=[(BLUE, 1), (GREEN, 2)]
     )
     game.draw_pending = 2
-    
+
     action = Action(n=1)  # Player tries to draw 1, but should draw 2
     result = game.execute_action(action, 2)
-    
+
     assert result is True
     assert len(game.H_2) == 3, "Should have drawn 2 cards (1 original + 2 pending)"
     assert game.draw_pending == 0, "Draw pending should be cleared"
@@ -3318,10 +3241,10 @@ def test_game_end_player_has_zero_cards():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, 5))
     game.execute_action(action, 1)
-    
+
     assert len(game.H_1) == 0, "Player 1 should have 0 cards"
     assert game.G_o == "GameOver", "Game should be over"
 
@@ -3335,10 +3258,10 @@ def test_game_end_no_actions_after_game_over():
         deck=[]
     )
     game.G_o = "GameOver"
-    
+
     action = Action(X_1=(YELLOW, 1))
     result = game.execute_action(action, 2)
-    
+
     assert result is False, "Should not allow actions after game over"
 
 
@@ -3354,12 +3277,12 @@ def test_deck_reshuffle_when_empty():
     # Add some cards to played pile (top card is last)
     game.P = [(RED, 7), (BLUE, 1), (GREEN, 2), (YELLOW, 3)]
     game.create_S()  # Update P_t
-    
+
     top_card_before = game.P_t
-    
+
     action = Action(n=1)
     game.execute_action(action, 1)
-    
+
     assert len(game.D_g) > 0, "Deck should have cards after reshuffle"
     assert len(game.P) == 1, "Played pile should only have top card"
     assert game.P[0] == top_card_before, "Top card should remain"
@@ -3374,11 +3297,11 @@ def test_draw_after_reshuffle():
         deck=[]  # Empty deck
     )
     game.P = [(RED, 7), (BLUE, 1), (GREEN, 2)]
-    
+
     initial_hand_size = len(game.H_1)
     action = Action(n=1)
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert len(game.H_1) == initial_hand_size + 1, "Should have drawn a card after reshuffle"
 
@@ -3392,13 +3315,13 @@ def test_action_execution_valid_play():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     initial_hand_size = len(game.H_1)
     initial_pile_size = len(game.P)
-    
+
     action = Action(X_1=(RED, 5))
     result = game.execute_action(action, 1)
-    
+
     assert result is True
     assert len(game.H_1) == initial_hand_size - 1, "Card should be removed from hand"
     assert len(game.P) == initial_pile_size + 1, "Card should be added to played pile"
@@ -3412,10 +3335,10 @@ def test_action_execution_invalid_card_not_in_hand():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(YELLOW, 3))  # Not in hand
     result = game.execute_action(action, 1)
-    
+
     assert result is False, "Should reject card not in hand"
 
 
@@ -3427,10 +3350,10 @@ def test_action_execution_invalid_illegal_play():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(YELLOW, 3))  # Illegal play
     result = game.execute_action(action, 1)
-    
+
     assert result is False, "Should reject illegal play"
 
 
@@ -3442,10 +3365,10 @@ def test_action_execution_player_2():
         top_card=(RED, 7),
         deck=[]
     )
-    
+
     action = Action(X_1=(RED, 5))
     result = game.execute_action(action, 2)
-    
+
     assert result is True
     assert len(game.H_2) == 0, "Card should be removed from Player 2's hand"
     assert len(game.P) == 2, "Card should be added to played pile"
@@ -3453,14 +3376,9 @@ def test_action_execution_player_2():
 
 ```
 
-
 Running all tests to confirm everything passes:
 
-
-
 All 37 tests pass. Verifying the CI workflow is correct:
-
-
 
 ## Summary
 
@@ -3498,16 +3416,13 @@ All 37 tests pass. Tests focus on core UNO game logic for 2-player games, not po
 
 **User**
 
-verify they all work using uvx 
+verify they all work using uvx
 
 ---
 
 **Cursor**
 
-
 Running all tests with `uvx pytest`:
-
-
 
 All 37 tests pass using `uvx pytest`.
 
@@ -3516,4 +3431,3 @@ All 37 tests pass using `uvx pytest`.
 - 6 state/action tests
 
 Tests cover core UNO game logic for 2-player games. The CI workflow will run these automatically on push/PR.
-
