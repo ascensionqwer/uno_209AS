@@ -6,21 +6,21 @@
     "num_particles": 800,
     // Number of MCTS iterations per decision (Selection -> Expansion -> Simulation -> Backpropagation)
     // More iterations = better action selection but slower
-    "mcts_iterations": 500,
+    "mcts_iterations": 700,
     // Maximum lookahead depth when simulating rollouts to estimate action values
     // Deeper = better estimates but slower
-    "planning_horizon": 2,
+    "planning_horizon": 3,
     // Discount factor for value function (0-1, typically 0.95)
-    "gamma": 0.95,
+    "gamma": 0.97,
     // UCB1 exploration constant for MCTS tree search
     // Higher = more exploration, lower = more exploitation
-    "ucb_c": 1.414,
+    "ucb_c": 1.2,
     // Number of particles to sample for each rollout simulation
     // Fewer = faster but less accurate value estimates
-    "rollout_particle_sample_size": 200,
+    "rollout_particle_sample_size": 150,
     // Effective sample size threshold for resampling (fraction of num_particles)
     // Lower = resample more often (better diversity but slower)
-    "resample_threshold": 0.4
+    "resample_threshold": 0.3
   },
   "batch_run": {
     // Number of simulations to run in batch mode
