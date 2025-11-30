@@ -67,9 +67,19 @@ class Uno:
         remaining = full_deck[2 * deal :]
 
         # Start played pile with first non-Wild card
-        while remaining and self._is_wild(remaining[0]):
-            # Reshuffle wilds back in
-            rng.shuffle(remaining)
+        # Move all wild cards to the end of the deck
+        non_wild_cards = []
+        wild_cards = []
+        for card in remaining:
+            if self._is_wild(card):
+                wild_cards.append(card)
+            else:
+                non_wild_cards.append(card)
+        
+        # Shuffle each group separately
+        rng.shuffle(non_wild_cards)
+        rng.shuffle(wild_cards)
+        remaining = non_wild_cards + wild_cards
 
         if remaining:
             self.P = [remaining.pop(0)]

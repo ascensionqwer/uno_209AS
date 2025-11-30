@@ -344,6 +344,19 @@ def resample_particles(particles: List[Particle], num_particles: int) -> List[Pa
     return particles
 
 
+def default_rollout_policy(H_1: List[Card], P_t: Optional[Card], current_color: Optional[str]) -> Action:
+    """
+    Simple rollout policy for POMCP - uniform random as per paper.
+    """
+    legal_actions = get_legal_actions(H_1, P_t, current_color)
+    
+    if len(legal_actions) == 0:
+        return Action(n=1)
+    
+    # Uniform random action selection (as suggested in POMCP paper)
+    return random.choice(legal_actions)
+
+
 def simulate_rollout(
     H_1: List[Card],
     H_2: List[Card],
@@ -371,8 +384,8 @@ def simulate_rollout(
     if len(legal_actions) == 0:
         return 0.0
 
-    # Random action
-    action = random.choice(legal_actions)
+    # Default policy for rollouts (not pure random)
+    action = default_rollout_policy(H_1, P_t, current_color)
 
     if action.is_play():
         card = action.X_1
@@ -512,6 +525,7 @@ def pomcp_search(
     max_depth: int = 5,
     ucb_c: float = 1.414,
     rollout_particle_sample_size: int = 10,
+    current_color: Optional[str] = None,
 ) -> Action:
     """
     Monte Carlo Tree Search with particle filter.
@@ -519,14 +533,17 @@ def pomcp_search(
     Returns best action.
     """
     # Get legal actions
-    current_color = P_t[0] if P_t and P_t[0] != BLACK else None
-    legal_actions = get_legal_actions(H_1, P_t, current_color)
+    # Use passed current_color, fall back to top card color if not provided
+    effective_color = current_color if current_color is not None else (P_t[0] if P_t and P_t[0] != BLACK else None)
+    legal_actions = get_legal_actions(H_1, P_t, effective_color)
 
     if len(legal_actions) == 0:
         return Action(n=1)
 
     if len(legal_actions) == 1:
         return legal_actions[0]
+    
+
 
     # Initialize root node with empty history for POMCP
     root = POMCPNode([], H_1, particles, P, P_t, G_o)
@@ -716,6 +733,7 @@ class ParticlePolicy:
         P: List[Card],
         P_t: Optional[Card],
         G_o: str = "Active",
+        current_color: Optional[str] = None,
     ) -> Action:
         """
         Get optimal action for Player 1 using full POMCP algorithm.
@@ -782,6 +800,7 @@ class ParticlePolicy:
             self.planning_horizon,
             self.ucb_c,
             self.rollout_particle_sample_size,
+            current_color,
         )
 
         decision_time = time.time() - start_time

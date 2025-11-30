@@ -152,7 +152,7 @@ def get_action_for_player(game: Uno, player: int, player_type: PlayerType,
         player_hand = state[0] if player == 1 else state[1]
         opponent_hand_size = len(state[1]) if player == 1 else len(state[0])
         return policy.get_action(
-            player_hand, opponent_hand_size, len(state[2]), state[3], state[4], state[5]
+            player_hand, opponent_hand_size, len(state[2]), state[3], state[4], state[5], game.current_color
         )
     elif player_type == PlayerType.NAIVE:
         return choose_action_naive(game, player)
@@ -187,6 +187,11 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
     current_player = 1
     turn_count = 0
     max_turns = 5000000
+    consecutive_no_progress = 0
+    max_no_progress = 50  # Safety check for infinite loops
+    consecutive_draws = 0
+    max_consecutive_draws = 20  # Safety check for draw loops
+    prev_state = None
 
     # Track decision times
     decision_times = {1: [], 2: []}
@@ -200,6 +205,19 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
                 print(f"\n>>> Player {current_player} is skipped!")
             game.skip_next = False
             current_player = 3 - current_player
+            # Track state after skip
+            game.create_S()
+            current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+            if prev_state == current_state:
+                consecutive_no_progress += 1
+                if consecutive_no_progress >= max_no_progress:
+                    if show_output:
+                        print(f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!")
+                        print(f">>> Breaking at turn {turn_count}")
+                    break
+            else:
+                consecutive_no_progress = 0
+            prev_state = current_state
             continue
 
         # Handle pending draws
@@ -212,6 +230,19 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
                 break
             game.skip_next = True
             current_player = 3 - current_player
+            # Track state after draw
+            game.create_S()
+            current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+            if prev_state == current_state:
+                consecutive_no_progress += 1
+                if consecutive_no_progress >= max_no_progress:
+                    if show_output:
+                        print(f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!")
+                        print(f">>> Breaking at turn {turn_count}")
+                    break
+            else:
+                consecutive_no_progress = 0
+            prev_state = current_state
             continue
 
         if show_output:
@@ -253,11 +284,39 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
             else:
                 print(f"Player {current_player} draws {action.n} card(s)")
 
+        # Track if this is a draw action for infinite loop detection
+        is_draw_action = not action.is_play()
+        if is_draw_action:
+            consecutive_draws += 1
+        else:
+            consecutive_draws = 0
+
+        # Check for too many consecutive draws
+        if consecutive_draws >= max_consecutive_draws:
+            if show_output:
+                print(f"\n>>> INFINITE LOOP DETECTED: {max_consecutive_draws} consecutive draws!")
+                print(f">>> Breaking at turn {turn_count}")
+            break
+
         success = game.execute_action(action, current_player)
         if not success:
             if show_output:
                 print(f"Action failed for player {current_player}")
             break
+
+        # Track state after action for infinite loop detection
+        game.create_S()
+        current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+        if prev_state == current_state:
+            consecutive_no_progress += 1
+            if consecutive_no_progress >= max_no_progress:
+                if show_output:
+                    print(f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!")
+                    print(f">>> Breaking at turn {turn_count}")
+                break
+        else:
+            consecutive_no_progress = 0
+        prev_state = current_state
 
         # Check game over
         if game.G_o == "GameOver":
