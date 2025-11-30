@@ -183,7 +183,7 @@ def run_comprehensive_analysis():
     """Run comprehensive analysis with 100+ games per configuration."""
     config = load_config()
     batch_config = config.get("batch_run", {})
-    num_simulations = batch_config.get("comprehensive_simulations", 100)
+    num_simulations = batch_config.get("num_simulations", 100)
     
     print("=" * 80)
     print("UNO COMPREHENSIVE WIN RATE ANALYSIS")
@@ -191,7 +191,8 @@ def run_comprehensive_analysis():
     print(f"Running {num_simulations} simulations per configuration...")
     
     variator = ConfigVariator("config.jsonc")
-    variants = variator.generate_variants(0.25)
+    num_variants = batch_config.get("num_variants", 5)
+    variants = variator.generate_variants(0.25)[:num_variants]
     
     logger = SimulationLogger()
     all_results = {}
@@ -255,14 +256,15 @@ def run_parameter_sensitivity_analysis():
     """Run parameter sensitivity analysis with config variants."""
     config = load_config()
     batch_config = config.get("batch_run", {})
-    num_simulations = batch_config.get("sensitivity_simulations", 10)
+    num_simulations = batch_config.get("num_simulations", 10)
     
     print("=" * 80)
     print("UNO PARAMETER SENSITIVITY ANALYSIS")
     print("=" * 80)
     
     variator = ConfigVariator("config.jsonc")
-    variants = variator.generate_variants(0.25)
+    num_variants = batch_config.get("num_variants", 5)
+    variants = variator.generate_variants(0.25)[:num_variants]
     
     logger = SimulationLogger()
     all_results = {}
@@ -466,14 +468,21 @@ def run_mixed_config_matchup(matchup: Matchup, num_simulations: int, config1: di
 
 
 def main():
-    """Run batch simulations for all matchups."""
+    """Run batch simulations for all matchups with variants."""
     config = load_config()
     batch_config = config.get("batch_run", {})
     num_simulations = batch_config.get("num_simulations", 100)
+    num_variants = batch_config.get("num_variants", 5)
 
     print("=" * 80)
-    print("UNO BATCH SIMULATION RUNNER - ALL MATCHUPS")
+    print("UNO BATCH SIMULATION RUNNER - ALL MATCHUPS WITH VARIANTS")
     print("=" * 80)
+    print(f"Running {num_simulations} simulations per variant")
+    print(f"Testing {num_variants} variants per parameter")
+
+    # Generate variants
+    variator = ConfigVariator("config.jsonc")
+    variants = variator.generate_variants(0.25)[:num_variants]
 
     # Define all matchups
     matchups = [
@@ -484,29 +493,52 @@ def main():
 
     logger = SimulationLogger()
     all_results = {}
+    total_games = 0
 
-    # Run each matchup
-    for matchup in matchups:
-        result = run_matchup_batch(matchup, num_simulations, config)
-        all_results[str(matchup)] = result
+    # Test each variant with all matchups
+    for i, (variant_config, variant_info) in enumerate(variants):
+        print(f"\n{'=' * 80}")
+        print(f"TESTING VARIANT {i+1}/{len(variants)}")
+        print(f"{'=' * 80}")
+        
+        variant_desc = variant_info[0]
+        print(f"Parameter: {variant_desc.parameter_path}")
+        print(f"Change: {variant_desc.variation_type} {variant_desc.percentage_change*100:.0f}%")
+        print(f"Original: {variant_desc.original_value}")
+        print(f"Variant: {variant_desc.variant_value}")
+        
+        variant_results = {}
+        
+        # Run each matchup with this variant
+        for matchup in matchups:
+            print(f"\n--- {matchup.player1_type.value} vs {matchup.player2_type.value} ---")
+            result = run_matchup_batch(matchup, num_simulations, variant_config)
+            variant_results[str(matchup)] = result
+            total_games += num_simulations
+        
+        variant_key = f"variant_{i+1}_{variant_desc.parameter_path.replace('.', '_')}_{variant_desc.variation_type}"
+        all_results[variant_key] = {
+            "results": variant_results,
+            "variant_info": {
+                "parameter_path": variant_desc.parameter_path,
+                "original_value": variant_desc.original_value,
+                "variant_value": variant_desc.variant_value,
+                "variation_type": variant_desc.variation_type,
+                "percentage_change": variant_desc.percentage_change
+            }
+        }
 
     # Log all results to JSON
     simulation_result = SimulationResult(
         timestamp=logger.get_timestamp_filename().split("/")[-1].replace(".json", ""),
         config=config,
-        matchup="all_matchups",
-        total_games=num_simulations * len(matchups),
-        player_wins=all_results,
-        win_rates={
-            matchup: result["win_rates"] for matchup, result in all_results.items()
-        },
-        avg_decision_times={
-            matchup: result["avg_decision_times"]
-            for matchup, result in all_results.items()
-        },
-        cache_stats={
-            matchup: result["cache_stats"] for matchup, result in all_results.items()
-        },
+        matchup="all_matchups_with_variants",
+        total_games=total_games,
+        player_wins={k: v["results"] for k, v in all_results.items()},
+        win_rates={k: {m: r["win_rates"] for m, r in v["results"].items()} for k, v in all_results.items()},
+        avg_decision_times={k: {m: r["avg_decision_times"] for m, r in v["results"].items()} for k, v in all_results.items()},
+        cache_stats={k: {m: r["cache_stats"] for m, r in v["results"].items()} for k, v in all_results.items()},
+        parameter_variants={k: v["variant_info"] for k, v in all_results.items()}
     )
 
     filename = logger.log_results(simulation_result)
