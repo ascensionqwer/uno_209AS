@@ -33,7 +33,7 @@ def test_particle_policy():
     if state is None:
         print("Error: Game state is None")
         return
-    
+
     H_1 = state[0] if len(state) > 0 else []
     H_2 = state[1] if len(state) > 1 else []
     D_g = state[2] if len(state) > 2 else []
@@ -77,23 +77,25 @@ def choose_action_naive(game: Uno, player: int):
     play_actions = [a for a in legal_actions if a.is_play()]
     if play_actions:
         action = random.choice(play_actions)
-        
+
         # If Wild card, choose most frequent color in hand
         if action.X_1 and game._is_wild(action.X_1):
             hand = game.H_1 if player == 1 else game.H_2
             color_counts = {}
             for card in hand:
-                if card[0] != 'Black':  # Don't count wild cards
+                if card[0] != "Black":  # Don't count wild cards
                     color_counts[card[0]] = color_counts.get(card[0], 0) + 1
-            
+
             if color_counts:
                 max_count = max(color_counts.values())
-                most_frequent_colors = [color for color, count in color_counts.items() if count == max_count]
+                most_frequent_colors = [
+                    color for color, count in color_counts.items() if count == max_count
+                ]
                 chosen_color = random.choice(most_frequent_colors)
             else:
-                colors = ['Red', 'Yellow', 'Green', 'Blue']
+                colors = ["Red", "Yellow", "Green", "Blue"]
                 chosen_color = random.choice(colors)
-            
+
             action.wild_color = chosen_color
         return action
 
@@ -114,9 +116,9 @@ def run_naive_vs_naive_game(seed=None, show_output=True):
     max_turns = 10000
 
     if show_output:
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"GAME START - Seed: {seed}")
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
 
     while game.G_o == "Active" and turn_count < max_turns:
         turn_count += 1
@@ -166,7 +168,9 @@ def run_naive_vs_naive_game(seed=None, show_output=True):
             if action.is_play():
                 card_str = card_to_string(action.X_1)
                 if action.wild_color:
-                    print(f"Player {current_player} plays {card_str} and chooses color {action.wild_color}")
+                    print(
+                        f"Player {current_player} plays {card_str} and chooses color {action.wild_color}"
+                    )
                 else:
                     print(f"Player {current_player} plays {card_str}")
             else:
@@ -190,13 +194,13 @@ def run_naive_vs_naive_game(seed=None, show_output=True):
     # Determine winner
     game.create_S()
     state = game.State
-    
+
     if show_output:
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print("GAME OVER")
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
         print(f"Total turns: {turn_count}")
-    
+
     if state is not None and len(state) >= 2:
         if show_output:
             print(f"Player 1 final hand size: {len(state[0])}")
@@ -212,7 +216,9 @@ def run_naive_vs_naive_game(seed=None, show_output=True):
             return 0, 1
         else:
             if show_output:
-                print("Game ended without a winner (turn limit reached) - 0.5 wins each")
+                print(
+                    "Game ended without a winner (turn limit reached) - 0.5 wins each"
+                )
             return 0.5, 0.5
     else:
         if show_output:
@@ -225,26 +231,26 @@ def main():
     print("=" * 60)
     print("NAIVE AGENT VS NAIVE AGENT SIMULATION")
     print("=" * 60)
-    
+
     player1_wins = 0
     player2_wins = 0
-    
+
     for game_num in range(1, 11):
-        print(f"\n{'#'*40}")
+        print(f"\n{'#' * 40}")
         print(f"GAME {game_num}/10")
-        print(f"{'#'*40}")
-        
+        print(f"{'#' * 40}")
+
         p1_wins, p2_wins = run_naive_vs_naive_game(seed=game_num, show_output=False)
         player1_wins += p1_wins
         player2_wins += p2_wins
-    
-    print(f"\n{'='*60}")
+
+    print(f"\n{'=' * 60}")
     print("FINAL RESULTS")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
     print(f"Player 1 total wins: {player1_wins}")
     print(f"Player 2 total wins: {player2_wins}")
-    print(f"Player 1 win rate: {player1_wins/10:.1%}")
-    print(f"Player 2 win rate: {player2_wins/10:.1%}")
+    print(f"Player 1 win rate: {player1_wins / 10:.1%}")
+    print(f"Player 2 win rate: {player2_wins / 10:.1%}")
 
 
 if __name__ == "__main__":

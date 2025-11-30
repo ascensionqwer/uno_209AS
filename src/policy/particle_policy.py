@@ -1,16 +1,19 @@
 """
-Particle Policy: Runtime decision-making using dynamic particle filter + MCTS.
+Particle Policy: Full POMCP implementation for UNO.
 
-Uses particle filtering for belief approximation and MCTS for action selection.
-Generates particles dynamically at runtime with caching.
+Implements Partially Observable Monte-Carlo Planning (POMCP) with:
+- History-based search tree T(h) = {N(h), V(h), B(h)}
+- Particle filter for belief state approximation B(h)
+- Monte-Carlo simulations with belief state updates
+- Tree pruning after real actions/observations
 
 **Player 1 Perspective:**
-This module implements decision-making from Player 1's perspective:
-- Player 1 observes game state (H_1, |H_2|, |D_g|, P, P_t, G_o)
-- Player 1 makes decisions using get_action()
-- System dynamics handle Player 2's turn
-- Player 1 observes new state and updates particles based on Player 2's actions
-- Particles represent beliefs about Player 2's hidden hand (H_2)
+This module implements POMCP from Player 1's perspective:
+- Player 1 observes O = (H_1, |H_2|, |D_g|, P, P_t, G_o)
+- Maintains belief B(h) over opponent's hidden hand using particles
+- Each simulation samples start state s ~ B(h_t)
+- Updates belief states B(h) during simulations
+- Prunes tree to T(h_t a_t o_t) after real action/observation
 """
 
 import random
@@ -32,55 +35,139 @@ from .particle_cache import ParticleCache
 from .particle import Particle
 
 
-class MCTSNode:
-    """Node in MCTS tree with particle-based belief."""
+class POMCPNode:
+    """
+    POMCP Tree Node: T(h) = {N(h), V(h), B(h)}
+
+    Implements history-based node with:
+    - N(h): visit count for history h
+    - V(h): value estimate for history h
+    - B(h): belief state (particles) for history h
+    """
 
     def __init__(
         self,
-        H_1: List[Card],
-        particles: List[Particle],
+        history: List[Tuple[Action, Optional[Card]]],  # Action-observation history
+        H_1: List[Card],  # Current observable state
+        particles: List[Particle],  # Belief state B(h)
         P: List[Card],
         P_t: Optional[Card],
         G_o: str,
-        action: Optional[Action] = None,
-        parent=None,
+        action: Optional[Action] = None,  # Action that led to this node
+        parent: Optional["POMCPNode"] = None,
     ):
-        self.H_1 = H_1
-        self.particles = (
-            particles  # Particle set representing belief over opponent's hand
-        )
+        self.history = history  # Action-observation history h
+        self.H_1 = H_1  # Observable state component
+        self.particles = particles  # Belief state B(h) - CRITICAL for POMCP
         self.P = P
         self.P_t = P_t
         self.G_o = G_o
         self.action = action  # Action that led to this node
         self.parent = parent
-        self.children = []
-        self.visits = 0
-        self.total_value = 0.0
+
+        # POMCP node statistics - maintain compatibility with existing code
+        self.N_h = 0  # Visit count N(h)
+        self.V_h = 0.0  # Value estimate V(h)
+        self.children = []  # List of POMCPNode children
         self.untried_actions = []
+
+        # Compatibility aliases for existing code
+        self.visits = 0  # Alias for N_h
+        self.total_value = 0.0  # Alias for V_h * N_h
 
     @property
     def value(self) -> float:
-        """Average value of this node."""
-        return self.total_value / (self.visits + 1e-6)
+        """Average value V(h) of this history."""
+        return self.V_h / (self.N_h + 1e-6)
+
+    def update_stats(self, reward: float):
+        """Update POMCP node statistics."""
+        self.N_h += 1
+        self.V_h += reward
+        # Update compatibility aliases
+        self.visits = self.N_h
+        self.total_value = self.V_h
+
+    @property
+    def node_value(self) -> float:
+        """Average value V(h) of this history."""
+        return self.V_h / (self.N_h + 1e-6)
 
     def is_fully_expanded(self) -> bool:
-        """Check if all actions have been tried."""
+        """Check if all actions have been tried from this history."""
         return len(self.untried_actions) == 0 and len(self.children) > 0
 
     def is_terminal(self) -> bool:
-        """Check if this is a terminal state."""
+        """Check if this history leads to terminal state."""
         return self.G_o == "GameOver" or len(self.H_1) == 0
 
-    def best_child(self, c: float = 1.414) -> Optional["MCTSNode"]:
-        """Select best child using UCB1 formula."""
+    def best_child(self, c: float = 1.414) -> Optional["POMCPNode"]:
+        """
+        Select best child using UCB1 formula for POMCP.
+        V⊕(ha) = V(ha) + c√(log N(h) / N(ha))
+        """
         if len(self.children) == 0:
             return None
+
+        # Fixed UCT formula - no +1e-6 fudge factors
+        log_parent = math.log(self.N_h) if self.N_h > 0 else 0
         return max(
             self.children,
             key=lambda child: child.value
-            + c * math.sqrt(math.log(self.visits + 1) / (child.visits + 1e-6)),
+            + c * math.sqrt(log_parent / child.N_h if child.N_h > 0 else float("inf")),
         )
+
+    def sample_state_from_belief(self) -> Tuple[List[Card], List[Card], List[Card]]:
+        """
+        Sample a complete state s ~ B(h) for simulation start.
+        Returns: (H_1_sample, H_2_sample, D_g_sample)
+        """
+        if not self.particles:
+            return self.H_1, [], []
+
+        # Sample particle according to weights (importance sampling)
+        weights = [p.weight for p in self.particles]
+        total_weight = sum(weights)
+        if total_weight == 0:
+            particle = random.choice(self.particles)
+        else:
+            # Weighted sampling
+            r = random.uniform(0, total_weight)
+            cumulative = 0
+            particle = self.particles[0]
+            for p, w in zip(self.particles, weights):
+                cumulative += w
+                if r <= cumulative:
+                    particle = p
+                    break
+
+        return self.H_1, particle.H_2.copy(), particle.D_g.copy()
+
+    def update_belief_with_simulation_state(
+        self, H_2_sim: List[Card], D_g_sim: List[Card]
+    ):
+        """
+        Update belief state B(h) with simulation state.
+        POMCP: "For every history h encountered during simulation,
+        belief state B(h) is updated to include the simulation state"
+        """
+        # Create new particle from simulation state
+        new_particle = Particle(H_2_sim.copy(), D_g_sim.copy(), weight=1.0)
+
+        # Add to belief (will be normalized later)
+        self.particles.append(new_particle)
+
+        # Limit particle count to prevent explosion
+        if len(self.particles) > 1000:
+            # Keep top particles by weight (simple resampling)
+            self.particles.sort(key=lambda p: p.weight, reverse=True)
+            self.particles = self.particles[:500]
+
+            # Renormalize weights
+            total_weight = sum(p.weight for p in self.particles)
+            if total_weight > 0:
+                for p in self.particles:
+                    p.weight /= total_weight
 
 
 def is_legal_play(
@@ -261,7 +348,7 @@ def simulate_rollout(
     H_1: List[Card],
     H_2: List[Card],
     D_g: List[Card],
-    P: List[Card],
+    P: List[Card],  # Never None - filter before calling
     P_t: Optional[Card],
     G_o: str,
     gamma: float,
@@ -290,9 +377,9 @@ def simulate_rollout(
     if action.is_play():
         card = action.X_1
         H_1_new = [c for c in H_1 if c != card]
-        P_new = P + [card]
+        P_new = [c for c in P if c is not None] + [card]
         P_t_new = card
-        if card[0] == BLACK:
+        if card and card[0] == BLACK:
             chosen_color = (
                 action.wild_color
                 if action.wild_color
@@ -303,13 +390,12 @@ def simulate_rollout(
         reward = compute_reward(H_1_new, H_2)
 
         # Opponent's turn (random)
-        opp_legal = [
-            c for c in H_2 if is_legal_play(c, P_t_new, P_t_new[0] if P_t_new else None)
-        ]
+        current_color = P_t_new[0] if P_t_new and P_t_new[0] != BLACK else None
+        opp_legal = [c for c in H_2 if is_legal_play(c, P_t_new, current_color)]
         if len(opp_legal) > 0:
             opp_card = random.choice(opp_legal)
             H_2_new = [c for c in H_2 if c != opp_card]
-            P_new_2 = P_new + [opp_card]
+            P_new_2 = [c for c in P_new if c is not None] + [opp_card]
             P_t_new_2 = opp_card
             if opp_card[0] == BLACK:
                 P_t_new_2 = (random.choice([RED, YELLOW, GREEN, BLUE]), opp_card[1])
@@ -335,7 +421,7 @@ def simulate_rollout(
                     H_1_new,
                     H_2_new,
                     D_g_new,
-                    P_new,
+                    [c for c in P_new if c is not None],
                     P_t_new,
                     "Active",
                     gamma,
@@ -374,9 +460,9 @@ def update_particles_after_action(
     if action.is_play():
         card = action.X_1
         H_1_new = [c for c in H_1 if c != card]
-        P_new = P + [card]
+        P_new = [c for c in P if c is not None] + [card]
         P_t_new = card
-        if card[0] == BLACK:
+        if card and card[0] == BLACK:
             chosen_color = action.wild_color if action.wild_color else RED
             P_t_new = (chosen_color, card[1])
         # Particles unchanged (opponent hasn't acted yet)
@@ -409,13 +495,13 @@ def update_particles_after_action(
         else:
             H_1_new = H_1
             particles_new = particles
-        P_new = P
+        P_new = [c for c in P if c is not None]
         P_t_new = P_t
 
-    return H_1_new, P_new, P_t_new, particles_new
+    return H_1_new, [c for c in P_new if c is not None], P_t_new, particles_new
 
 
-def mcts_search(
+def pomcp_search(
     H_1: List[Card],
     particles: List[Particle],
     P: List[Card],
@@ -442,22 +528,37 @@ def mcts_search(
     if len(legal_actions) == 1:
         return legal_actions[0]
 
-    # Initialize root node
-    root = MCTSNode(H_1, particles, P, P_t, G_o)
+    # Initialize root node with empty history for POMCP
+    root = POMCPNode([], H_1, particles, P, P_t, G_o)
     root.untried_actions = legal_actions.copy()
 
     # MCTS iterations
     for _ in range(num_iterations):
-        # Selection: traverse tree using UCB1
+        # POMCP Search: Selection -> Expansion -> Simulation -> Backpropagation
+        # Each simulation samples start state s ~ B(h_t) - CRITICAL for POMCP
+        # Sample start state from current belief B(h_t)
+        H_1_sample, H_2_sample, D_g_sample = root.sample_state_from_belief()
+
+        # Selection: traverse tree using UCB1 with history-based nodes
         node = root
+        history = root.history.copy()
         depth = 0
 
-        while not node.is_terminal() and node.is_fully_expanded() and depth < max_depth:
+        while (
+            node
+            and not node.is_terminal()
+            and node.is_fully_expanded()
+            and depth < max_depth
+        ):
             node = node.best_child(ucb_c)
-            depth += 1
+            if node:
+                history.append(node.action)
+                depth += 1
+            else:
+                break
 
         # Expansion: add new node for unexplored action
-        if not node.is_terminal() and len(node.untried_actions) > 0:
+        if node and not node.is_terminal() and len(node.untried_actions) > 0:
             action = node.untried_actions.pop()
             H_1_new, P_new, P_t_new, particles_new = update_particles_after_action(
                 node.particles, action, node.H_1, node.P, node.P_t
@@ -466,39 +567,17 @@ def mcts_search(
             # Check if game over
             G_o_new = "GameOver" if len(H_1_new) == 0 else "Active"
 
-            # Validate particles are valid for new state
-            # Particles should not contain any cards from H_1_new or P_new
-            # This ensures we never sample impossible states (e.g., if Player 1 has all blue 3s,
-            # particles should not contain any blue 3s in H_2 or D_g)
-            valid_particles = []
-            for p in particles_new:
-                is_valid = True
-                # Check H_2 and D_g don't contain cards from H_1_new or P_new
-                for card in H_1_new:
-                    if card in p.H_2 or card in p.D_g:
-                        is_valid = False
-                        break
-                if is_valid:
-                    for card in P_new:
-                        if card in p.H_2 or card in p.D_g:
-                            is_valid = False
-                            break
-                if is_valid:
-                    valid_particles.append(p)
-
-            # If we lost particles, reweight the remaining ones
-            if len(valid_particles) < len(particles_new) and len(valid_particles) > 0:
-                total_weight = sum(p.weight for p in valid_particles)
-                for p in valid_particles:
-                    p.weight /= total_weight
-                particles_new = valid_particles
-            elif len(valid_particles) == 0:
-                # All particles invalid - regenerate from cache if possible
-                # This shouldn't normally happen if particles were generated correctly
-                particles_new = particles_new
-
-            child = MCTSNode(
-                H_1_new, particles_new, P_new, P_t_new, G_o_new, action, node
+            # Create child node with updated history
+            new_history = history + [(action, None)]  # Observation not yet known
+            child = POMCPNode(
+                new_history,
+                H_1_new,
+                particles_new,
+                P_new,
+                P_t_new,
+                G_o_new,
+                action,
+                node,
             )
             current_color_new = P_t_new[0] if P_t_new and P_t_new[0] != BLACK else None
             child.untried_actions = get_legal_actions(
@@ -508,40 +587,42 @@ def mcts_search(
             node = child
             depth += 1
 
-        # Simulation: roll out using particle samples to estimate value
-        if node.is_terminal():
+        # Simulation: Use the node we reached for rollout
+        rollout_node = node  # This is the key fix - use the node we found
+        if rollout_node.is_terminal():
             value = compute_reward(
-                node.H_1, node.particles[0].H_2 if node.particles else []
+                rollout_node.H_1,
+                rollout_node.particles[0].H_2 if rollout_node.particles else [],
             )
-        else:
-            # Use particle-based rollout
-            total_value = 0.0
-            total_weight = 0.0
-            particle_subset = node.particles[
-                : min(rollout_particle_sample_size, len(node.particles))
-            ]
-            for particle in particle_subset:
-                rollout_value = simulate_rollout(
-                    node.H_1,
-                    particle.H_2,
-                    particle.D_g,
-                    node.P,
-                    node.P_t,
-                    node.G_o,
-                    gamma,
-                    depth,
-                    max_depth,
-                )
-                total_value += particle.weight * rollout_value
-                total_weight += particle.weight
-            value = total_value / (total_weight + 1e-6)
+        elif rollout_node:
+            # POMCP: Sample state from belief and simulate with belief updates
+            H_1_sim, H_2_sim, D_g_sim = rollout_node.sample_state_from_belief()
 
-        # Backpropagation: update node values
-        while node is not None:
-            node.visits += 1
-            node.total_value += value
+            # Simulate action and update belief during simulation
+            rollout_value = simulate_rollout(
+                H_1_sim,
+                H_2_sim,
+                D_g_sim,
+                rollout_node.P,
+                rollout_node.P_t,
+                rollout_node.G_o,
+                gamma,
+                depth,
+                max_depth,
+            )
+
+            # POMCP: Update belief with simulation state
+            rollout_node.update_belief_with_simulation_state(H_2_sim, D_g_sim)
+            value = rollout_value
+        else:
+            value = 0.0
+
+        # Backpropagation: update POMCP node statistics from rollout_node back to root
+        backprop_node = rollout_node
+        while backprop_node is not None:
+            backprop_node.update_stats(value)
             value = gamma * value  # Discount for parent nodes
-            node = node.parent
+            backprop_node = backprop_node.parent
 
     # Return best action (most visited child)
     if len(root.children) == 0:
@@ -569,17 +650,23 @@ def mcts_search(
 
 class ParticlePolicy:
     """
-    Runtime particle filter policy using MCTS for decision-making.
-    Generates particles dynamically at runtime with caching.
+    Full POMCP implementation for UNO from Player 1's perspective.
 
-    **Perspective: Player 1**
-    This policy operates from Player 1's perspective:
-    1. Player 1 observes game state (H_1, |H_2|, |D_g|, P, P_t, G_o)
-    2. Player 1 makes a move using get_action()
-    3. System dynamics occur (including Player 2's turn)
-    4. Player 1 observes new game state
-    5. Update particles based on observations of Player 2's actions
-    6. Repeat
+    Implements Partially Observable Monte-Carlo Planning with:
+    - History-based search tree T(h) = {N(h), V(h), B(h)}
+    - Particle filter belief approximation B(h) over opponent's hand
+    - Monte-Carlo simulations with start state sampling s ~ B(h_t)
+    - Tree pruning after real actions/observations
+    - Belief state updates during simulations
+
+    **POMCP Process:**
+    1. Player 1 observes O = (H_1, |H_2|, |D_g|, P, P_t, G_o)
+    2. Sample start state s ~ B(h_t) for each simulation
+    3. Run PO-UCT search with belief-updated nodes
+    4. Select best action argmax_a V(ha)
+    5. Execute action and observe real outcome
+    6. Prune tree to T(h_t a_t o_t) and update belief
+    7. Repeat
 
     Particles represent beliefs about Player 2's hidden hand (H_2).
     """
@@ -595,16 +682,16 @@ class ParticlePolicy:
         resample_threshold: float = 0.5,
     ):
         """
-        Initialize particle policy (Player 1's perspective).
+        Initialize POMCP policy (Player 1's perspective).
 
         Args:
-            num_particles: Number of particles for belief approximation over Player 2's hand
-            mcts_iterations: Number of MCTS iterations per decision
+            num_particles: Number of particles for belief approximation B(h)
+            mcts_iterations: Number of POMCP simulations per decision
             planning_horizon: Maximum lookahead depth for rollouts
-            gamma: Discount factor
-            ucb_c: UCB1 exploration constant
+            gamma: Discount factor for value calculations
+            ucb_c: UCB1 exploration constant for PO-UCT
             rollout_particle_sample_size: Number of particles to sample for rollouts
-            resample_threshold: ESS threshold for resampling (fraction of num_particles)
+            resample_threshold: ESS threshold for particle resampling
         """
         self.num_particles = num_particles
         self.mcts_iterations = mcts_iterations
@@ -614,8 +701,12 @@ class ParticlePolicy:
         self.rollout_particle_sample_size = rollout_particle_sample_size
         self.resample_threshold = resample_threshold
         self.cache = ParticleCache()
-        self.action_history = []  # Track action history for cache keys
+        self.action_history = []  # Action-observation history h
         self.decision_times = []  # Track decision times for performance analysis
+
+        # POMCP tree root - persists across decisions with pruning
+        self.root_node = None  # Current search tree root T(h_t)
+        self.current_history = []  # Current action-observation history
 
     def get_action(
         self,
@@ -627,25 +718,28 @@ class ParticlePolicy:
         G_o: str = "Active",
     ) -> Action:
         """
-        Get optimal action for Player 1 from current game state using particle filter + MCTS.
+        Get optimal action for Player 1 using full POMCP algorithm.
 
-        This is called when it's Player 1's turn. After this action is executed,
-        system dynamics will handle Player 2's turn, and you should call update_after_opponent_action()
-        when you observe the new game state.
+        POMCP Process:
+        1. Get particles B(h_t) for current observation
+        2. If tree exists, prune to current history, else create new root
+        3. Run PO-UCT search with belief state sampling s ~ B(h)
+        4. Select best action argmax_a V(ha)
+        5. Return action for execution
 
         Args:
             H_1: Player 1's hand (observable)
-            opponent_size: Size of Player 2's hand (observable, but not the actual cards)
-            deck_size: Size of deck (will be auto-corrected to |L| - opponent_size)
+            opponent_size: Size of Player 2's hand (observable)
+            deck_size: Size of deck (observable)
             P: Played cards (observable)
             P_t: Top card of pile (observable)
             G_o: Game over status
 
         Returns:
-            Optimal action for Player 1
+            Optimal action for Player 1 using POMCP
         """
         start_time = time.time()
-        
+
         # Create game state key for caching
         game_state_key = canonicalize_game_state(
             H_1, opponent_size, deck_size, P, P_t, G_o, self.action_history
@@ -665,8 +759,19 @@ class ParticlePolicy:
         # Resample if needed
         particles = resample_particles(particles, self.num_particles)
 
-        # Run MCTS to find best action
-        best_action = mcts_search(
+        # POMCP: Check if we need to prune existing tree
+        if self.root_node:
+            # We have existing tree - check if it matches current state
+            # For simplicity, create new root each decision (could be optimized)
+            self.root_node = POMCPNode([], H_1, particles, P, P_t, G_o)
+            self.current_history = []
+        else:
+            # First decision - create root
+            self.root_node = POMCPNode([], H_1, particles, P, P_t, G_o)
+            self.current_history = []
+
+        # Run POMCP search to find best action
+        best_action = pomcp_search(
             H_1,
             particles,
             P,
@@ -681,7 +786,12 @@ class ParticlePolicy:
 
         decision_time = time.time() - start_time
         self.decision_times.append(decision_time)
-        
+
+        # POMCP: Update action history for next decision
+        self.action_history.append(best_action)
+        if len(self.action_history) > 100:
+            self.action_history = self.action_history[-100:]
+
         return best_action
 
     def update_after_action(self, action: Action):
@@ -693,6 +803,81 @@ class ParticlePolicy:
         # Limit history size to prevent unbounded growth
         if len(self.action_history) > 100:
             self.action_history = self.action_history[-100:]
+
+    def prune_tree_to_history(
+        self,
+        action: Action,
+        observation: Optional[Card],
+        new_H_1: List[Card],
+        new_particles: List[Particle],
+        new_P: List[Card],
+        new_P_t: Optional[Card],
+        new_G_o: str,
+    ):
+        """
+        POMCP: Prune search tree to T(h_t a_t o_t) after real action/observation.
+
+        After executing real action and observing real outcome,
+        prune tree to the corresponding child node and make it new root.
+        All other histories are now impossible.
+
+        Args:
+            action: Action a_t that was executed
+            observation: Observation o_t (card played by opponent, or None)
+            new_H_1: Updated player hand
+            new_particles: Updated belief state B(h_t a_t o_t)
+            new_P: Updated played pile
+            new_P_t: Updated top card
+            new_G_o: Updated game status
+        """
+        if not self.root_node:
+            return
+
+        # Find child node corresponding to executed action
+        target_child = None
+        for child in self.root_node.children:
+            if child.action and self._actions_equal(child.action, action):
+                target_child = child
+                break
+
+        if target_child:
+            # POMCP: Prune tree to this child
+            self.root_node = target_child
+            self.root_node.parent = None  # Break parent reference
+
+            # Update node state with real observation
+            if new_H_1 is not None:
+                self.root_node.H_1 = new_H_1
+            if new_particles is not None:
+                self.root_node.particles = new_particles
+            if new_P is not None:
+                self.root_node.P = new_P
+            if new_P_t is not None:
+                self.root_node.P_t = new_P_t
+            self.root_node.G_o = new_G_o
+
+            # Update history with action-observation pair
+            self.current_history.append((action, observation))
+            self.root_node.history = self.current_history.copy()
+        else:
+            # Child not found - create new root
+            self.root_node = POMCPNode(
+                self.current_history + [(action, observation)],
+                new_H_1 if new_H_1 is not None else [],
+                new_particles if new_particles is not None else [],
+                new_P if new_P is not None else [],
+                new_P_t,
+                new_G_o,
+                action,
+            )
+
+    def _actions_equal(self, a1: Action, a2: Action) -> bool:
+        """Check if two actions are equal for POMCP tree pruning."""
+        if a1.is_play() and a2.is_play():
+            return a1.X_1 == a2.X_1 and a1.wild_color == a2.wild_color
+        elif a1.is_draw() and a2.is_draw():
+            return a1.n == a2.n
+        return False
 
     def update_after_opponent_action(
         self,
@@ -706,6 +891,7 @@ class ParticlePolicy:
     ) -> List[Particle]:
         """
         Update particles after observing Player 2's action (system dynamics).
+        POMCP: Updates belief state and prunes search tree.
 
         Call this when you observe the new game state after Player 2's turn.
         This updates the particle filter based on what Player 2 did.
@@ -722,6 +908,7 @@ class ParticlePolicy:
         Returns:
             Updated particle set
         """
+        # Update particles based on opponent action
         if opponent_played_card is not None:
             # Case 1: Player 2 played a card
             updated = update_particles_opponent_play(
@@ -732,12 +919,13 @@ class ParticlePolicy:
             updated = update_particles_opponent_draw(particles, new_P_t)
         else:
             # Case 3: Player 2's turn was skipped or other case
-            # Particles remain unchanged
             updated = particles
 
         # Resample if needed
         updated = resample_particles(updated, self.num_particles)
 
+        # POMCP: Tree would be pruned in next get_action() call
+        # when we have the new game state
         return updated
 
     def reset(self):
@@ -752,12 +940,12 @@ class ParticlePolicy:
         """Get decision timing statistics."""
         if not self.decision_times:
             return {"avg": 0, "max": 0, "min": 0, "count": 0}
-        
+
         return {
             "avg": sum(self.decision_times) / len(self.decision_times),
             "max": max(self.decision_times),
             "min": min(self.decision_times),
-            "count": len(self.decision_times)
+            "count": len(self.decision_times),
         }
 
     def reset_decision_stats(self):

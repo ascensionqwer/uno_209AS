@@ -2,7 +2,7 @@
 
 import time
 import random
-from typing import Optional, List
+from typing import Optional
 from src.uno import Uno, Action, card_to_string
 from src.uno.cards import RED, YELLOW, GREEN, BLUE
 from src.policy.particle_policy import ParticlePolicy
@@ -70,7 +70,7 @@ def choose_action_naive(game: Uno, player: int) -> Optional[Action]:
     - If no legal play, draw 1
     """
     start_time = time.time()
-    
+
     legal_actions = game.get_legal_actions(player)
 
     if not legal_actions:
@@ -80,32 +80,34 @@ def choose_action_naive(game: Uno, player: int) -> Optional[Action]:
     play_actions = [a for a in legal_actions if a.is_play()]
     if play_actions:
         action = play_actions[0]  # Play first legal card found
-        
+
         # If Wild card, choose most frequent color in hand
         if action.X_1 and game._is_wild(action.X_1):
             hand = game.H_1 if player == 1 else game.H_2
             color_counts = {}
             for card in hand:
-                if card[0] != 'Black':  # Don't count wild cards
+                if card[0] != "Black":  # Don't count wild cards
                     color_counts[card[0]] = color_counts.get(card[0], 0) + 1
-            
+
             if color_counts:
                 max_count = max(color_counts.values())
-                most_frequent_colors = [color for color, count in color_counts.items() if count == max_count]
+                most_frequent_colors = [
+                    color for color, count in color_counts.items() if count == max_count
+                ]
                 chosen_color = random.choice(most_frequent_colors)
             else:
                 # No colored cards in hand, pick randomly from 4 viable colors
                 colors = [RED, YELLOW, GREEN, BLUE]
                 chosen_color = random.choice(colors)
-            
+
             action.wild_color = chosen_color
     else:
         # Must draw
         action = legal_actions[0]
-    
+
     decision_time = time.time() - start_time
     _naive_decision_times.append(decision_time)
-    
+
     return action
 
 
@@ -113,12 +115,12 @@ def get_naive_decision_stats() -> dict:
     """Get naive decision timing statistics."""
     if not _naive_decision_times:
         return {"avg": 0, "max": 0, "min": 0, "count": 0}
-    
+
     return {
         "avg": sum(_naive_decision_times) / len(_naive_decision_times),
         "max": max(_naive_decision_times),
         "min": min(_naive_decision_times),
-        "count": len(_naive_decision_times)
+        "count": len(_naive_decision_times),
     }
 
 
@@ -311,7 +313,7 @@ def run_naive_vs_naive_game(
 ) -> tuple[int, int]:
     """
     Run a single UNO game with both players using naive policies.
-    
+
     Args:
         seed: Random seed for game initialization (None for random)
         show_output: Whether to show game state output (default False for batch runs)
@@ -349,7 +351,9 @@ def run_naive_vs_naive_game(
                 consecutive_no_progress += 1
                 if consecutive_no_progress >= max_no_progress:
                     if show_output:
-                        print(f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!")
+                        print(
+                            f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                        )
                         print(f">>> Breaking at turn {turn_count}")
                     break
             else:
@@ -360,12 +364,16 @@ def run_naive_vs_naive_game(
         # Check if player needs to draw cards (from Draw 2 or Wild Draw 4)
         if game.draw_pending > 0:
             if show_output:
-                print(f"\n>>> Player {current_player} must draw {game.draw_pending} cards!")
+                print(
+                    f"\n>>> Player {current_player} must draw {game.draw_pending} cards!"
+                )
             action = Action(n=game.draw_pending)
             success = game.execute_action(action, current_player)
             if not success:
                 if show_output:
-                    print(f">>> Failed to execute draw action for player {current_player}")
+                    print(
+                        f">>> Failed to execute draw action for player {current_player}"
+                    )
                 break
             # After drawing, skip this player's turn
             game.skip_next = True
@@ -379,7 +387,9 @@ def run_naive_vs_naive_game(
                 consecutive_no_progress += 1
                 if consecutive_no_progress >= max_no_progress:
                     if show_output:
-                        print(f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!")
+                        print(
+                            f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                        )
                         print(f">>> Breaking at turn {turn_count}")
                     break
             else:
@@ -400,9 +410,13 @@ def run_naive_vs_naive_game(
 
         if show_output:
             if action.is_play():
-                card_str = card_to_string(action.X_1) if action.X_1 is not None else "Unknown"
+                card_str = (
+                    card_to_string(action.X_1) if action.X_1 is not None else "Unknown"
+                )
                 if action.wild_color:
-                    print(f"Player {current_player} plays {card_str} and chooses color {action.wild_color}")
+                    print(
+                        f"Player {current_player} plays {card_str} and chooses color {action.wild_color}"
+                    )
                 else:
                     print(f"Player {current_player} plays {card_str}")
             else:
@@ -421,7 +435,9 @@ def run_naive_vs_naive_game(
             consecutive_no_progress += 1
             if consecutive_no_progress >= max_no_progress:
                 if show_output:
-                    print(f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!")
+                    print(
+                        f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                    )
                     print(f">>> Breaking at turn {turn_count}")
                 break
         else:
