@@ -31,7 +31,6 @@ def run_matchup_batch(matchup: Matchup, num_simulations: int, config: dict):
 
     # Calculate starting player distribution
     player1_starts = (num_simulations + 1) // 2  # First player gets extra if odd
-    player2_starts = num_simulations // 2
 
     # Run simulations
     for i in range(num_simulations):

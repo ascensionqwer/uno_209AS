@@ -148,8 +148,11 @@ def get_action_for_player(game: Uno, player: int, player_type: PlayerType,
     if player_type == PlayerType.PARTICLE_POLICY:
         if policy is None or state is None:
             raise ValueError("ParticlePolicy requires policy and state")
+        # Use correct hand for the current player
+        player_hand = state[0] if player == 1 else state[1]
+        opponent_hand_size = len(state[1]) if player == 1 else len(state[0])
         return policy.get_action(
-            state[0], len(state[1]), len(state[2]), state[3], state[4], state[5]
+            player_hand, opponent_hand_size, len(state[2]), state[3], state[4], state[5]
         )
     elif player_type == PlayerType.NAIVE:
         return choose_action_naive(game, player)
@@ -184,9 +187,6 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
     current_player = 1
     turn_count = 0
     max_turns = 5000000
-    consecutive_no_progress = 0
-    max_no_progress = 50
-    prev_state = None
 
     # Track decision times
     decision_times = {1: [], 2: []}
