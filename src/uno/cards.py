@@ -59,8 +59,10 @@ def build_full_deck() -> list[Card]:
     return deck
 
 
-def card_to_string(card: Card) -> str:
+def card_to_string(card: Optional[Card]) -> str:
     """Convert card to readable string."""
+    if card is None:
+        return "None"
     color, value = card
     if color is None:
         return str(value)

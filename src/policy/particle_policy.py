@@ -15,6 +15,7 @@ This module implements decision-making from Player 1's perspective:
 
 import random
 import math
+import time
 from typing import List, Optional, Tuple
 
 from ..uno.cards import (
@@ -71,7 +72,7 @@ class MCTSNode:
         """Check if this is a terminal state."""
         return self.G_o == "GameOver" or len(self.H_1) == 0
 
-    def best_child(self, c: float = 1.414) -> "MCTSNode":
+    def best_child(self, c: float = 1.414) -> Optional["MCTSNode"]:
         """Select best child using UCB1 formula."""
         if len(self.children) == 0:
             return None
@@ -614,6 +615,7 @@ class ParticlePolicy:
         self.resample_threshold = resample_threshold
         self.cache = ParticleCache()
         self.action_history = []  # Track action history for cache keys
+        self.decision_times = []  # Track decision times for performance analysis
 
     def get_action(
         self,
@@ -642,6 +644,8 @@ class ParticlePolicy:
         Returns:
             Optimal action for Player 1
         """
+        start_time = time.time()
+        
         # Create game state key for caching
         game_state_key = canonicalize_game_state(
             H_1, opponent_size, deck_size, P, P_t, G_o, self.action_history
@@ -654,6 +658,8 @@ class ParticlePolicy:
 
         if len(particles) == 0:
             # Fallback: return draw action
+            decision_time = time.time() - start_time
+            self.decision_times.append(decision_time)
             return Action(n=1)
 
         # Resample if needed
@@ -673,6 +679,9 @@ class ParticlePolicy:
             self.rollout_particle_sample_size,
         )
 
+        decision_time = time.time() - start_time
+        self.decision_times.append(decision_time)
+        
         return best_action
 
     def update_after_action(self, action: Action):
@@ -738,3 +747,19 @@ class ParticlePolicy:
     def clear_cache(self):
         """Clear particle cache."""
         self.cache.clear()
+
+    def get_decision_stats(self) -> dict:
+        """Get decision timing statistics."""
+        if not self.decision_times:
+            return {"avg": 0, "max": 0, "min": 0, "count": 0}
+        
+        return {
+            "avg": sum(self.decision_times) / len(self.decision_times),
+            "max": max(self.decision_times),
+            "min": min(self.decision_times),
+            "count": len(self.decision_times)
+        }
+
+    def reset_decision_stats(self):
+        """Reset decision timing statistics."""
+        self.decision_times = []
