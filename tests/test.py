@@ -113,7 +113,7 @@ def run_naive_vs_naive_game(seed=None, show_output=True):
 
     current_player = 1
     turn_count = 0
-    max_turns = 10000
+    max_turns = 5000000
 
     if show_output:
         print(f"\n{'=' * 60}")

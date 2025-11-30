@@ -46,16 +46,16 @@
   - Faster convergence through valid state sampling only
 
 ## Phase 2: Multi-Matchup Framework
-- [ ] Create enum in `src/utils/matchup_types.py`: NAIVE, PARTICLE_POLICY
-- [ ] Extend `src/utils/game_runner.py` to accept matchup types
-- [ ] Unified interface for different player types
-- [ ] Naive vs Naive, Naive vs Particle, Particle vs Particle matchups in `src/utils/game_runner.py`
-- [ ] Ensure independent particle caches and policies for particle agents
-- [ ] Handle symmetric decision timing for particle vs particle
-- [ ] Modify `batch_run.py` to run all three matchups sequentially
-- [ ] JSON logging for each configuration
-- [ ] Progress reporting every 10 runs
-- [ ] Maintain full game console output as currently implemented
+- [x] Create enum in `src/utils/matchup_types.py`: NAIVE, PARTICLE_POLICY
+- [x] Extend `src/utils/game_runner.py` to accept matchup types
+- [x] Unified interface for different player types
+- [x] Naive vs Naive, Naive vs Particle, Particle vs Particle matchups in `src/utils/game_runner.py`
+- [x] Ensure independent particle caches and policies for particle agents
+- [x] Handle symmetric decision timing for particle vs particle
+- [x] Modify `batch_run.py` to run all three matchups sequentially
+- [x] JSON logging for each configuration
+- [x] Progress reporting every 10 runs
+- [x] Maintain full game console output as currently implemented
 
 ## Phase 3: Parameter Sensitivity Analysis
 - [ ] Create `src/utils/config_variator.py`
@@ -76,22 +76,22 @@
 ## File Structure Plan CAN CHANGE AND UPDATE AS NECESSARY
 ```
 Root:
-- batch_run.py (modified for comprehensive simulations)
+- batch_run.py (modified for comprehensive simulations) ✅
 - results.py (new analysis script)
 - main.py (unchanged)
 - test.py (unchanged)
 
 src/utils:
 - simulation_logger.py (new)
-- matchup_types.py (new) 
+- matchup_types.py (new) ✅
 - config_variator.py (new)
-- game_runner.py (modified)
+- game_runner.py (modified) ✅
 - config_loader.py (unchanged)
 
 src/policy:
 - particle_policy.py (modified for timing and cache stats)
 
-results/ (new directory):
+results/ (new directory): ✅
 - timestamped JSON files
 ```
 

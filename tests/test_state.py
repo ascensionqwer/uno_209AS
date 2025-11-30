@@ -1,8 +1,8 @@
 """Tests for UNO state and Action class."""
 
 import pytest
-from .state import Action
-from .cards import RED, YELLOW, BLACK, WILD
+from src.uno.state import Action
+from src.uno.cards import RED, YELLOW, BLACK, WILD
 
 
 def test_action_validation_must_specify_one():

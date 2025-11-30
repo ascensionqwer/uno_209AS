@@ -1,7 +1,7 @@
 """Tests for UNO game logic and rules."""
 
-from .game import Uno
-from .cards import (
+from src.uno.game import Uno
+from src.uno.cards import (
     RED,
     YELLOW,
     GREEN,
@@ -13,7 +13,7 @@ from .cards import (
     WILD_DRAW_4,
     BLACK,
 )
-from .state import Action
+from src.uno.state import Action
 
 
 # Helper functions for test setup
