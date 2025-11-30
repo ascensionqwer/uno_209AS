@@ -131,13 +131,159 @@ def reset_naive_decision_stats():
     _naive_decision_times = []
 
 
-def create_player_policy(player_type: PlayerType):
-    """Create policy instance for given player type."""
-    if player_type == PlayerType.PARTICLE_POLICY:
-        config = get_particle_policy_config()
+def create_player_policy(player_type: PlayerType, config: Optional[Dict] = None):
+    """Create policy instance for player type."""
+    if player_type == PlayerType.NAIVE:
+        return None
+    elif player_type == PlayerType.PARTICLE_POLICY:
+        if config is None:
+            config = get_particle_policy_config()
         return ParticlePolicy(**config)
-    elif player_type == PlayerType.NAIVE:
-        return None  # Naive doesn't need policy instance
+    else:
+        raise ValueError(f"Unknown player type: {player_type}")
+
+
+def run_matchup_game_with_configs(
+    matchup: Matchup, configs: tuple, seed: Optional[int] = None, show_output: bool = False
+) -> tuple[int, int, Dict[str, Any]]:
+    """
+    Run a single game with different configs for each player.
+
+    Args:
+        matchup: Matchup configuration
+        configs: Tuple of (config1, config2) for player 1 and 2
+        seed: Random seed for game initialization
+        show_output: Whether to show game state output
+
+    Returns:
+        Tuple of (turn_count, winner, stats) where winner is 1, 2, or 0
+    """
+    # Initialize game
+    game = Uno()
+    if seed is not None:
+        game.new_game(seed=seed)
+    else:
+        game.new_game()
+
+    # Create policies for each player with their respective configs
+    player1_policy = create_player_policy(matchup.player1_type, configs[0])
+    player2_policy = create_player_policy(matchup.player2_type, configs[1])
+
+    current_player = 1
+    turn_count = 0
+    max_turns = 5000000
+    consecutive_no_progress = 0
+    max_no_progress = 50  # Safety check for infinite loops
+    consecutive_draws = 0
+    max_consecutive_draws = 20  # Safety check for draw loops
+    prev_state = None
+
+    # Track decision times
+    decision_times = {1: [], 2: []}
+
+    while game.G_o == "Active" and turn_count < max_turns:
+        turn_count += 1
+
+        # Handle skip logic
+        if game.skip_next:
+            if show_output:
+                print(f"\n>>> Player {current_player} is skipped!")
+            game.skip_next = False
+            current_player = 3 - current_player
+            # Track state after skip
+            game.create_S()
+            current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+            if prev_state == current_state:
+                consecutive_no_progress += 1
+            else:
+                consecutive_no_progress = 0
+            prev_state = current_state
+            continue
+
+        # Get current policy
+        policy = player1_policy if current_player == 1 else player2_policy
+
+        if show_output:
+            display_game_state(game, current_player, policy)
+
+        # Track decision time
+        start_time = time.time()
+
+        # Get action based on player type
+        if current_player == 1:
+            action = get_action_for_player(game, current_player, matchup.player1_type, player1_policy)
+        else:
+            action = get_action_for_player(game, current_player, matchup.player2_type, player2_policy)
+
+        decision_time = time.time() - start_time
+        decision_times[current_player].append(decision_time)
+
+        # Track consecutive draws
+        if action is None:
+            consecutive_draws += 1
+        else:
+            consecutive_draws = 0
+
+        # Safety checks
+        if consecutive_no_progress >= max_no_progress:
+            if show_output:
+                print(f"\n>>> Game terminated: No progress for {max_no_progress} turns")
+            break
+        if consecutive_draws >= max_consecutive_draws:
+            if show_output:
+                print(f"\n>>> Game terminated: {max_consecutive_draws} consecutive draws")
+            break
+
+        # Execute action
+        if action is None:
+            game.draw(current_player, 1)
+            if show_output:
+                print(f">>> Player {current_player} draws 1 card")
+        else:
+            if show_output:
+                print(f">>> Player {current_player} plays: {card_to_string(action.card) if action.card else 'Draw'}")
+            game.execute_action(current_player, action)
+
+        # Track state after action
+        game.create_S()
+        current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+        if prev_state == current_state:
+            consecutive_no_progress += 1
+        else:
+            consecutive_no_progress = 0
+        prev_state = current_state
+
+        # Switch players
+        current_player = 3 - current_player
+
+    # Determine winner
+    winner = 0
+    if game.G_o == "P1_Win":
+        winner = 1
+    elif game.G_o == "P2_Win":
+        winner = 2
+
+    # Collect cache stats
+    cache_stats = {}
+    if player1_policy and hasattr(player1_policy, 'cache'):
+        cache_stats["player1"] = player1_policy.cache.size()
+    if player2_policy and hasattr(player2_policy, 'cache'):
+        cache_stats["player2"] = player2_policy.cache.size()
+
+    stats = {
+        "decision_times": decision_times,
+        "cache_stats": cache_stats,
+    }
+
+    return turn_count, winner, stats
+
+
+def get_action_for_player(game: Uno, player: int, player_type: PlayerType, policy):
+    """Get action for specific player type."""
+    if player_type == PlayerType.NAIVE:
+        return choose_action_naive(game, player)
+    elif player_type == PlayerType.PARTICLE_POLICY:
+        return policy.get_action(game, player, game.current_color)
     else:
         raise ValueError(f"Unknown player type: {player_type}")
 

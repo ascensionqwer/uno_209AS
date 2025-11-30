@@ -11,10 +11,11 @@ class SimulationResult:
     config: Dict[str, Any]
     matchup: str
     total_games: int
-    player_wins: Dict[str, int]
-    win_rates: Dict[str, float]
-    avg_decision_times: Dict[str, float]
+    player_wins: Dict[str, Any]
+    win_rates: Dict[str, Any]
+    avg_decision_times: Dict[str, Any]
     cache_stats: Optional[Dict[str, Any]] = None
+    parameter_variants: Optional[Dict[str, Any]] = None
 
 
 class SimulationLogger:

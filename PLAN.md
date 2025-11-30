@@ -70,20 +70,32 @@
 - [x] Maintain full game console output as currently implemented
 
 ## Phase 3: Parameter Sensitivity Analysis
-- [ ] Create `src/utils/config_variator.py`
-- [ ] Generate +/- 25% variants for each parameter in config.jsonc
-- [ ] Maintain parameter combinations and metadata
-- [ ] Integrate config variator with modified `batch_run.py`
-- [ ] Test each variant vs random opponent
-- [ ] Log parameter impact on win rates and decision times
+- [x] Create `src/utils/config_variator.py`
+- [x] Generate +/- 25% variants for each parameter in config.jsonc
+- [x] Maintain parameter combinations and metadata
+- [x] Integrate config variator with modified `batch_run.py`
+- [x] Test each variant vs random opponent
+- [x] Log parameter impact on win rates and decision times
+- [x] Add sensitivity_simulations parameter to config.jsonc (10 sims per variant)
+- [x] Implement three matchup types: Particle vs Naive, Particle vs Particle (same config), Particle vs Particle (mixed config)
+- [x] Add run_matchup_game_with_configs() for mixed config testing
 
 ## Phase 4: Results Analysis
-- [ ] Create `results.py` in root directory
-- [ ] Parse JSON logs from `results/` directory
-- [ ] Print formatted summaries with win rates, decision times, cache statistics
-- [ ] Support running 100+ games per configuration in `batch_run.py`
-- [ ] Comprehensively test true win rate across all parameter variants
-- [ ] No confidence intervals or statistical significance testing
+- [x] Create `results.py` in root directory
+- [x] Parse JSON logs from `results/` directory
+- [x] Print formatted summaries with win rates, decision times, cache statistics
+- [x] Support running 100+ games per configuration in `batch_run.py`
+- [x] Comprehensively test true win rate across all parameter variants
+- [x] No confidence intervals or statistical significance testing
+- [x] Add comprehensive_simulations parameter to config.jsonc (100 sims)
+- [x] Add --comprehensive flag to batch_run.py for true win rate testing
+- [x] Enhanced results.py with parameter impact analysis and variant comparison
+- [x] Add matplotlib dependency via uv
+- [x] Create visualization functions in results.py
+- [x] Add parameter impact charts (bar charts showing win rate, decision time, cache size changes)
+- [x] Add win rate comparison plots (scatter plots and distributions)
+- [x] Add decision time and cache size visualizations (performance metrics analysis)
+- [x] Save plots to results/plots/ directory with --plots flag
 
 ## File Structure Plan CAN CHANGE AND UPDATE AS NECESSARY
 ```

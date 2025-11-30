@@ -24,6 +24,10 @@
   },
   "batch_run": {
     // Number of simulations to run in batch mode
-    "num_simulations": 20
+    "num_simulations": 5,
+    // Number of simulations per variant for sensitivity analysis
+    "sensitivity_simulations": 10,
+    // Number of simulations for comprehensive win rate testing
+    "comprehensive_simulations": 100
   }
 }

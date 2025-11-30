@@ -4,9 +4,10 @@ Runs multiple simulations and outputs win statistics.
 """
 
 from src.utils.config_loader import load_config
-from src.utils.game_runner import run_matchup_game
+from src.utils.game_runner import run_matchup_game, run_matchup_game_with_configs
 from src.utils.matchup_types import PlayerType, Matchup
 from src.utils.simulation_logger import SimulationLogger, SimulationResult
+from src.utils.config_variator import ConfigVariator
 
 
 def run_matchup_batch(matchup: Matchup, num_simulations: int, config: dict):
@@ -178,6 +179,292 @@ def run_matchup_batch(matchup: Matchup, num_simulations: int, config: dict):
     }
 
 
+def run_comprehensive_analysis():
+    """Run comprehensive analysis with 100+ games per configuration."""
+    config = load_config()
+    batch_config = config.get("batch_run", {})
+    num_simulations = batch_config.get("comprehensive_simulations", 100)
+    
+    print("=" * 80)
+    print("UNO COMPREHENSIVE WIN RATE ANALYSIS")
+    print("=" * 80)
+    print(f"Running {num_simulations} simulations per configuration...")
+    
+    variator = ConfigVariator("config.jsonc")
+    variants = variator.generate_variants(0.25)
+    
+    logger = SimulationLogger()
+    all_results = {}
+    total_games = 0
+    
+    # Test each variant with comprehensive simulations
+    for i, (variant_config, variant_info) in enumerate(variants):
+        print(f"\n{'=' * 80}")
+        print(f"COMPREHENSIVE TESTING VARIANT {i+1}/{len(variants)}")
+        print(f"{'=' * 80}")
+        
+        variant_desc = variant_info[0]
+        print(f"Parameter: {variant_desc.parameter_path}")
+        print(f"Change: {variant_desc.variation_type} {variant_desc.percentage_change*100:.0f}%")
+        print(f"Original: {variant_desc.original_value}")
+        print(f"Variant: {variant_desc.variant_value}")
+        
+        # Run Particle vs Naive with comprehensive simulations
+        matchup = Matchup(PlayerType.PARTICLE_POLICY, PlayerType.NAIVE)
+        result = run_matchup_batch(matchup, num_simulations, variant_config)
+        total_games += num_simulations
+        
+        variant_key = f"comprehensive_variant_{i+1}_{variant_desc.parameter_path.replace('.', '_')}_{variant_desc.variation_type}"
+        all_results[variant_key] = {
+            "result": result,
+            "variant_info": {
+                "parameter_path": variant_desc.parameter_path,
+                "original_value": variant_desc.original_value,
+                "variant_value": variant_desc.variant_value,
+                "variation_type": variant_desc.variation_type,
+                "percentage_change": variant_desc.percentage_change
+            }
+        }
+        
+        print(f"Win Rate: {result['win_rates']['player1']:.2%}")
+        print(f"Avg Decision Time: {result['avg_decision_times']['player1']:.6f}s")
+    
+    # Log comprehensive results
+    simulation_result = SimulationResult(
+        timestamp=logger.get_timestamp_filename().split("/")[-1].replace(".json", ""),
+        config=config,
+        matchup="comprehensive_win_rate_analysis",
+        total_games=total_games,
+        player_wins={k: v["result"]["player_wins"] for k, v in all_results.items()},
+        win_rates={k: v["result"]["win_rates"] for k, v in all_results.items()},
+        avg_decision_times={k: v["result"]["avg_decision_times"] for k, v in all_results.items()},
+        cache_stats={k: v["result"]["cache_stats"] for k, v in all_results.items()},
+        parameter_variants={k: v["variant_info"] for k, v in all_results.items()}
+    )
+    
+    filename = logger.log_results(simulation_result)
+    print(f"\n{'=' * 80}")
+    print(f"COMPREHENSIVE RESULTS LOGGED TO: {filename}")
+    print(f"TOTAL GAMES PLAYED: {total_games}")
+    print(f"{'=' * 80}")
+    
+    return all_results
+
+
+def run_parameter_sensitivity_analysis():
+    """Run parameter sensitivity analysis with config variants."""
+    config = load_config()
+    batch_config = config.get("batch_run", {})
+    num_simulations = batch_config.get("sensitivity_simulations", 10)
+    
+    print("=" * 80)
+    print("UNO PARAMETER SENSITIVITY ANALYSIS")
+    print("=" * 80)
+    
+    variator = ConfigVariator("config.jsonc")
+    variants = variator.generate_variants(0.25)
+    
+    logger = SimulationLogger()
+    all_results = {}
+    total_games = 0
+    
+    # Test each variant across three matchup types
+    for i, (variant_config, variant_info) in enumerate(variants):
+        print(f"\n{'=' * 80}")
+        print(f"TESTING VARIANT {i+1}/{len(variants)}")
+        print(f"{'=' * 80}")
+        
+        variant_desc = variant_info[0]
+        print(f"Parameter: {variant_desc.parameter_path}")
+        print(f"Change: {variant_desc.variation_type} {variant_desc.percentage_change*100:.0f}%")
+        print(f"Original: {variant_desc.original_value}")
+        print(f"Variant: {variant_desc.variant_value}")
+        
+        # Test three matchup types
+        matchups = [
+            ("particle_vs_naive", Matchup(PlayerType.PARTICLE_POLICY, PlayerType.NAIVE), variant_config),
+            ("particle_vs_particle_same", Matchup(PlayerType.PARTICLE_POLICY, PlayerType.PARTICLE_POLICY), variant_config),
+            ("particle_vs_particle_mixed", Matchup(PlayerType.PARTICLE_POLICY, PlayerType.PARTICLE_POLICY), "mixed")
+        ]
+        
+        variant_results = {}
+        
+        for matchup_name, matchup, config_to_use in matchups:
+            print(f"\n--- {matchup_name.upper().replace('_', ' ')} ---")
+            
+            if config_to_use == "mixed":
+                # For mixed config, we need to modify game_runner to handle different configs per player
+                # For now, use variant config for player 1 and base config for player 2
+                result = run_mixed_config_matchup(matchup, num_simulations, variant_config, config)
+            else:
+                result = run_matchup_batch(matchup, num_simulations, config_to_use)
+            
+            variant_results[matchup_name] = result
+            total_games += num_simulations
+        
+        variant_key = f"variant_{i+1}_{variant_desc.parameter_path.replace('.', '_')}_{variant_desc.variation_type}"
+        all_results[variant_key] = {
+            "results": variant_results,
+            "variant_info": {
+                "parameter_path": variant_desc.parameter_path,
+                "original_value": variant_desc.original_value,
+                "variant_value": variant_desc.variant_value,
+                "variation_type": variant_desc.variation_type,
+                "percentage_change": variant_desc.percentage_change
+            }
+        }
+    
+    # Log all results to JSON
+    simulation_result = SimulationResult(
+        timestamp=logger.get_timestamp_filename().split("/")[-1].replace(".json", ""),
+        config=config,
+        matchup="parameter_sensitivity_analysis",
+        total_games=total_games,
+        player_wins={k: v["results"]["particle_vs_naive"]["player_wins"] for k, v in all_results.items()},
+        win_rates={k: f"particle_vs_naive: {v['results']['particle_vs_naive']['win_rates']}" for k, v in all_results.items()},
+        avg_decision_times={k: f"particle_vs_naive: {v['results']['particle_vs_naive']['avg_decision_times']}" for k, v in all_results.items()},
+        cache_stats={k: f"particle_vs_naive: {v['results']['particle_vs_naive']['cache_stats']}" for k, v in all_results.items()},
+        parameter_variants={k: v["variant_info"] for k, v in all_results.items()}
+    )
+    
+    filename = logger.log_results(simulation_result)
+    print(f"\n{'=' * 80}")
+    print(f"PARAMETER SENSITIVITY RESULTS LOGGED TO: {filename}")
+    print(f"TOTAL GAMES PLAYED: {total_games}")
+    print(f"{'=' * 80}")
+    
+    return all_results
+
+
+def run_mixed_config_matchup(matchup: Matchup, num_simulations: int, config1: dict, config2: dict):
+    """Run matchup with different configs for each player."""
+    print(f"\n{'=' * 80}")
+    print(f"RUNNING MIXED CONFIG {matchup.player1_type.value.upper()} VS {matchup.player2_type.value.upper()}")
+    print(f"{'=' * 80}")
+    print(f"Running {num_simulations} simulations...")
+    print(f"Player 1: {matchup.player1_type.value} (Variant Config)")
+    print(f"Player 2: {matchup.player2_type.value} (Base Config)")
+    print(f"{'=' * 80}")
+
+    player1_wins = 0
+    player2_wins = 0
+    no_winner = 0
+    total_turns = 0
+    min_turns = float("inf")
+    max_turns = 0
+    games_with_issues = []
+    all_decision_times = {1: [], 2: []}
+    cache_stats = {"player1": [], "player2": []}
+
+    # Calculate starting player distribution
+    player1_starts = (num_simulations + 1) // 2
+
+    # Run simulations
+    for i in range(num_simulations):
+        if (i + 1) % 10 == 0:
+            print(f"Progress: {i + 1}/{num_simulations} games completed")
+
+        try:
+            # Determine starting player and create matchup accordingly
+            if i < player1_starts:
+                current_matchup = matchup
+                configs = (config1, config2)  # Player 1 gets variant config
+            else:
+                current_matchup = Matchup(matchup.player2_type, matchup.player1_type)
+                configs = (config2, config1)  # Player 2 gets variant config (swapped position)
+
+            turn_count, winner, stats = run_matchup_game_with_configs(
+                current_matchup, configs, seed=i, show_output=False
+            )
+
+            # Map winner back to original player positions
+            if i < player1_starts:
+                if winner == 1:
+                    player1_wins += 1
+                elif winner == 2:
+                    player2_wins += 1
+                else:
+                    no_winner += 1
+                    games_with_issues.append((i + 1, turn_count, "no_winner"))
+            else:
+                if winner == 1:
+                    player2_wins += 1
+                elif winner == 2:
+                    player1_wins += 1
+                else:
+                    no_winner += 1
+                    games_with_issues.append((i + 1, turn_count, "no_winner"))
+
+            total_turns += turn_count
+            min_turns = min(min_turns, turn_count)
+            max_turns = max(max_turns, turn_count)
+
+            # Collect decision times
+            for player in [1, 2]:
+                all_decision_times[player].extend(
+                    stats["decision_times"].get(player, [])
+                )
+
+            # Collect cache stats
+            if "cache_stats" in stats:
+                if "player1" in stats["cache_stats"]:
+                    cache_stats["player1"].append(stats["cache_stats"]["player1"])
+                if "player2" in stats["cache_stats"]:
+                    cache_stats["player2"].append(stats["cache_stats"]["player2"])
+
+        except Exception as e:
+            print(f"\nERROR in simulation {i + 1}: {e}")
+            no_winner += 1
+            games_with_issues.append((i + 1, 0, f"error: {str(e)}"))
+
+    # Calculate averages
+    avg_decision_times = {}
+    for player in [1, 2]:
+        if all_decision_times[player]:
+            avg_decision_times[f"player{player}"] = sum(
+                all_decision_times[player]
+            ) / len(all_decision_times[player])
+        else:
+            avg_decision_times[f"player{player}"] = 0
+
+    avg_cache_sizes = {}
+    for player in ["player1", "player2"]:
+        if cache_stats[player]:
+            avg_cache_sizes[player] = sum(cache_stats[player]) / len(
+                cache_stats[player]
+            )
+        else:
+            avg_cache_sizes[player] = 0
+
+    # Print results
+    print(f"\n{'=' * 80}")
+    print(f"MIXED CONFIG RESULTS")
+    print(f"{'=' * 80}")
+    print(f"Total simulations: {num_simulations}")
+    print()
+    print("Win Statistics:")
+    print(
+        f"  Player 1 (Variant): {player1_wins} ({100.0 * player1_wins / num_simulations:.2f}%)"
+    )
+    print(
+        f"  Player 2 (Base): {player2_wins} ({100.0 * player2_wins / num_simulations:.2f}%)"
+    )
+    if no_winner > 0:
+        print(
+            f"  No winner (safety limit/errors): {no_winner} ({100.0 * no_winner / num_simulations:.2f}%)"
+        )
+
+    return {
+        "player_wins": {"player1": player1_wins, "player2": player2_wins},
+        "win_rates": {
+            "player1": player1_wins / num_simulations,
+            "player2": player2_wins / num_simulations,
+        },
+        "avg_decision_times": avg_decision_times,
+        "cache_stats": avg_cache_sizes if any(avg_cache_sizes.values()) else None,
+    }
+
+
 def main():
     """Run batch simulations for all matchups."""
     config = load_config()
@@ -229,4 +516,13 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "--sensitivity":
+            run_parameter_sensitivity_analysis()
+        elif sys.argv[1] == "--comprehensive":
+            run_comprehensive_analysis()
+        else:
+            print("Usage: python batch_run.py [--sensitivity|--comprehensive]")
+    else:
+        main()
