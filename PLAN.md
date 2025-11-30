@@ -44,6 +44,18 @@
   - Rollout simulation respects legal move constraints
   - Optimal resource usage with reduced action space
   - Faster convergence through valid state sampling only
+- [x] Fix infinite loop detection in game_runner.py:
+  - Added consecutive draw monitoring with 20-draw threshold
+  - Added state repetition detection with 50-turn threshold
+  - Prevents particle vs particle infinite loops
+- [x] Fix initial card dealing in game.py:
+  - Ensure starting card is never a wild card
+  - Move all wild cards to end of deck during initialization
+  - Proper color initialization for first turn
+- [x] Fix current color passing in particle_policy.py:
+  - Pass game.current_color to particle policy get_action()
+  - Proper wild card color handling in legal action detection
+  - Ensure POMCP can correctly identify playable cards
 
 ## Phase 2: Multi-Matchup Framework
 - [x] Create enum in `src/utils/matchup_types.py`: NAIVE, PARTICLE_POLICY
@@ -78,21 +90,21 @@
 Root:
 - batch_run.py (modified for comprehensive simulations) ✅
 - results.py (new analysis script)
-- main.py (unchanged)
-- test.py (unchanged)
+- main.py (unchanged) ✅
+- test.py (unchanged) ✅
 
 src/utils:
-- simulation_logger.py (new)
+- simulation_logger.py (new) ✅
 - matchup_types.py (new) ✅
 - config_variator.py (new)
 - game_runner.py (modified) ✅
-- config_loader.py (unchanged)
+- config_loader.py (unchanged) ✅
 
 src/policy:
-- particle_policy.py (modified for timing and cache stats)
+- particle_policy.py (modified for timing and cache stats) ✅
 
 results/ (new directory): ✅
-- timestamped JSON files
+- timestamped JSON files ✅
 ```
 
 ## Implementation Assumptions
@@ -115,8 +127,8 @@ results/ (new directory): ✅
 - batch running configuration should be specified in `config.jsonc` under the `batch_run` key. This should be used for parameters where there is no 'right' or 'wrong' answer.
 
 ## Type Fixes Needed
-- Fix None type issues in game.py State tuple
-- Fix Optional type handling in particle_policy.py
-- Fix card_to_string None handling in game_runner.py
-- Fix Action __repr__ return type
-- Fix config_loader cache type initialization
+- [x] Fix None type issues in game.py State tuple - RESOLVED
+- [x] Fix Optional type handling in particle_policy.py - RESOLVED  
+- [x] Fix card_to_string None handling in game_runner.py - RESOLVED
+- [x] Fix Action __repr__ return type - RESOLVED
+- [x] Fix config_loader cache type initialization - RESOLVED
