@@ -75,7 +75,7 @@ class Uno:
                 wild_cards.append(card)
             else:
                 non_wild_cards.append(card)
-        
+
         # Shuffle each group separately
         rng.shuffle(non_wild_cards)
         rng.shuffle(wild_cards)

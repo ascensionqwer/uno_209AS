@@ -344,15 +344,17 @@ def resample_particles(particles: List[Particle], num_particles: int) -> List[Pa
     return particles
 
 
-def default_rollout_policy(H_1: List[Card], P_t: Optional[Card], current_color: Optional[str]) -> Action:
+def default_rollout_policy(
+    H_1: List[Card], P_t: Optional[Card], current_color: Optional[str]
+) -> Action:
     """
     Simple rollout policy for POMCP - uniform random as per paper.
     """
     legal_actions = get_legal_actions(H_1, P_t, current_color)
-    
+
     if len(legal_actions) == 0:
         return Action(n=1)
-    
+
     # Uniform random action selection (as suggested in POMCP paper)
     return random.choice(legal_actions)
 
@@ -534,7 +536,11 @@ def pomcp_search(
     """
     # Get legal actions
     # Use passed current_color, fall back to top card color if not provided
-    effective_color = current_color if current_color is not None else (P_t[0] if P_t and P_t[0] != BLACK else None)
+    effective_color = (
+        current_color
+        if current_color is not None
+        else (P_t[0] if P_t and P_t[0] != BLACK else None)
+    )
     legal_actions = get_legal_actions(H_1, P_t, effective_color)
 
     if len(legal_actions) == 0:
@@ -542,8 +548,6 @@ def pomcp_search(
 
     if len(legal_actions) == 1:
         return legal_actions[0]
-    
-
 
     # Initialize root node with empty history for POMCP
     root = POMCPNode([], H_1, particles, P, P_t, G_o)

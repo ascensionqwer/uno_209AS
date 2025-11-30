@@ -142,8 +142,9 @@ def create_player_policy(player_type: PlayerType):
         raise ValueError(f"Unknown player type: {player_type}")
 
 
-def get_action_for_player(game: Uno, player: int, player_type: PlayerType, 
-                         policy = None, state = None) -> Optional[Action]:
+def get_action_for_player(
+    game: Uno, player: int, player_type: PlayerType, policy=None, state=None
+) -> Optional[Action]:
     """Get action for player based on their type."""
     if player_type == PlayerType.PARTICLE_POLICY:
         if policy is None or state is None:
@@ -152,7 +153,13 @@ def get_action_for_player(game: Uno, player: int, player_type: PlayerType,
         player_hand = state[0] if player == 1 else state[1]
         opponent_hand_size = len(state[1]) if player == 1 else len(state[0])
         return policy.get_action(
-            player_hand, opponent_hand_size, len(state[2]), state[3], state[4], state[5], game.current_color
+            player_hand,
+            opponent_hand_size,
+            len(state[2]),
+            state[3],
+            state[4],
+            state[5],
+            game.current_color,
         )
     elif player_type == PlayerType.NAIVE:
         return choose_action_naive(game, player)
@@ -160,16 +167,17 @@ def get_action_for_player(game: Uno, player: int, player_type: PlayerType,
         raise ValueError(f"Unknown player type: {player_type}")
 
 
-def run_matchup_game(matchup: Matchup, seed: Optional[int] = None, 
-                    show_output: bool = False) -> tuple[int, int, Dict[str, Any]]:
+def run_matchup_game(
+    matchup: Matchup, seed: Optional[int] = None, show_output: bool = False
+) -> tuple[int, int, Dict[str, Any]]:
     """
     Run a single game for any matchup combination.
-    
+
     Args:
         matchup: Matchup configuration
         seed: Random seed for game initialization
         show_output: Whether to show game state output
-        
+
     Returns:
         Tuple of (turn_count, winner, stats) where winner is 1, 2, or 0
     """
@@ -212,7 +220,9 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
                 consecutive_no_progress += 1
                 if consecutive_no_progress >= max_no_progress:
                     if show_output:
-                        print(f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!")
+                        print(
+                            f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                        )
                         print(f">>> Breaking at turn {turn_count}")
                     break
             else:
@@ -223,7 +233,9 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
         # Handle pending draws
         if game.draw_pending > 0:
             if show_output:
-                print(f"\n>>> Player {current_player} must draw {game.draw_pending} cards!")
+                print(
+                    f"\n>>> Player {current_player} must draw {game.draw_pending} cards!"
+                )
             action = Action(n=game.draw_pending)
             success = game.execute_action(action, current_player)
             if not success:
@@ -237,7 +249,9 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
                 consecutive_no_progress += 1
                 if consecutive_no_progress >= max_no_progress:
                     if show_output:
-                        print(f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!")
+                        print(
+                            f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                        )
                         print(f">>> Breaking at turn {turn_count}")
                     break
             else:
@@ -246,8 +260,11 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
             continue
 
         if show_output:
-            display_game_state(game, current_player, 
-                              player1_policy if current_player == 1 else player2_policy)
+            display_game_state(
+                game,
+                current_player,
+                player1_policy if current_player == 1 else player2_policy,
+            )
 
         # Get current state for particle policies
         game.create_S()
@@ -256,16 +273,26 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
         # Choose action based on player type
         start_time = time.time()
         if current_player == 1:
-            action = get_action_for_player(game, current_player, matchup.player1_type, 
-                                         player1_policy, state)
-            if matchup.player1_type == PlayerType.PARTICLE_POLICY and player1_policy is not None and action is not None:
+            action = get_action_for_player(
+                game, current_player, matchup.player1_type, player1_policy, state
+            )
+            if (
+                matchup.player1_type == PlayerType.PARTICLE_POLICY
+                and player1_policy is not None
+                and action is not None
+            ):
                 player1_policy.update_after_action(action)
         else:
-            action = get_action_for_player(game, current_player, matchup.player2_type, 
-                                         player2_policy, state)
-            if matchup.player2_type == PlayerType.PARTICLE_POLICY and player2_policy is not None and action is not None:
+            action = get_action_for_player(
+                game, current_player, matchup.player2_type, player2_policy, state
+            )
+            if (
+                matchup.player2_type == PlayerType.PARTICLE_POLICY
+                and player2_policy is not None
+                and action is not None
+            ):
                 player2_policy.update_after_action(action)
-        
+
         decision_time = time.time() - start_time
         decision_times[current_player].append(decision_time)
 
@@ -278,7 +305,9 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
             if action.is_play():
                 card_str = card_to_string(action.X_1) if action.X_1 else "Unknown"
                 if action.wild_color:
-                    print(f"Player {current_player} plays {card_str} and chooses color {action.wild_color}")
+                    print(
+                        f"Player {current_player} plays {card_str} and chooses color {action.wild_color}"
+                    )
                 else:
                     print(f"Player {current_player} plays {card_str}")
             else:
@@ -294,7 +323,9 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
         # Check for too many consecutive draws
         if consecutive_draws >= max_consecutive_draws:
             if show_output:
-                print(f"\n>>> INFINITE LOOP DETECTED: {max_consecutive_draws} consecutive draws!")
+                print(
+                    f"\n>>> INFINITE LOOP DETECTED: {max_consecutive_draws} consecutive draws!"
+                )
                 print(f">>> Breaking at turn {turn_count}")
             break
 
@@ -311,7 +342,9 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
             consecutive_no_progress += 1
             if consecutive_no_progress >= max_no_progress:
                 if show_output:
-                    print(f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!")
+                    print(
+                        f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                    )
                     print(f">>> Breaking at turn {turn_count}")
                 break
         else:
@@ -356,14 +389,11 @@ def run_matchup_game(matchup: Matchup, seed: Optional[int] = None,
         winner = 0
 
     # Compile stats
-    stats = {
-        "decision_times": decision_times,
-        "cache_stats": {}
-    }
-    
-    if player1_policy is not None and hasattr(player1_policy, 'cache'):
+    stats = {"decision_times": decision_times, "cache_stats": {}}
+
+    if player1_policy is not None and hasattr(player1_policy, "cache"):
         stats["cache_stats"]["player1"] = player1_policy.cache.size()
-    if player2_policy is not None and hasattr(player2_policy, 'cache'):
+    if player2_policy is not None and hasattr(player2_policy, "cache"):
         stats["cache_stats"]["player2"] = player2_policy.cache.size()
 
     return turn_count, winner, stats
