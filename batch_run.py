@@ -263,7 +263,9 @@ def run_comprehensive_analysis():
 
         # Run Particle vs Naive with comprehensive simulations
         matchup = Matchup(PlayerType.PARTICLE_POLICY, PlayerType.NAIVE)
-        print(f"\n--- COMPREHENSIVE VARIANT {i + 1}/{len(variants)} - Particle Policy vs Naive ---")
+        print(
+            f"\n--- COMPREHENSIVE VARIANT {i + 1}/{len(variants)} - Particle Policy vs Naive ---"
+        )
         result = run_matchup_batch(matchup, num_simulations, variant_config)
         total_games += num_simulations
 
@@ -360,7 +362,9 @@ def run_parameter_sensitivity_analysis():
         variant_results = {}
 
         for matchup_name, matchup, config_to_use in matchups:
-            print(f"\n--- VARIANT {i + 1}/{len(variants)} - {matchup_name.upper().replace('_', ' ')} ---")
+            print(
+                f"\n--- VARIANT {i + 1}/{len(variants)} - {matchup_name.upper().replace('_', ' ')} ---"
+            )
 
             if config_to_use == "mixed":
                 # For mixed config, we need to modify game_runner to handle different configs per player
@@ -449,7 +453,9 @@ def run_mixed_config_matchup(
     # Run simulations
     for i in range(num_simulations):
         if (i + 1) % 10 == 0:
-            print(f"Progress: {i + 1}/{num_simulations} games completed (Mixed Config - {matchup.player1_type.value} vs {matchup.player2_type.value})")
+            print(
+                f"Progress: {i + 1}/{num_simulations} games completed (Mixed Config - {matchup.player1_type.value} vs {matchup.player2_type.value})"
+            )
 
         try:
             # Determine starting player and create matchup accordingly
