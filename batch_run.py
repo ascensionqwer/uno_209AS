@@ -3,6 +3,8 @@
 Runs multiple simulations and outputs win statistics.
 """
 
+import concurrent.futures
+from typing import Tuple, Dict, Any
 from src.utils.config_loader import load_config
 from src.utils.game_runner import run_matchup_game, run_matchup_game_with_configs
 from src.utils.matchup_types import PlayerType, Matchup
@@ -10,18 +12,87 @@ from src.utils.simulation_logger import SimulationLogger, SimulationResult
 from src.utils.config_variator import ConfigVariator
 
 
-def run_matchup_batch(matchup: Matchup, num_simulations: int, config: dict):
-    """Run batch simulations for a specific matchup."""
+def run_single_simulation(args: Tuple[int, Matchup, int]) -> Tuple[int, int, int, Dict[str, Any]]:
+    """Run a single simulation for multithreaded execution.
+    
+    Args:
+        args: Tuple of (simulation_id, matchup, player1_starts)
+        
+    Returns:
+        Tuple of (simulation_id, winner, turn_count, stats)
+    """
+    simulation_id, matchup, player1_starts = args
+    
+    try:
+        # Determine starting player and create matchup accordingly
+        if simulation_id < player1_starts:
+            # Player 1 starts
+            current_matchup = matchup
+        else:
+            # Player 2 starts - swap players
+            current_matchup = Matchup(matchup.player2_type, matchup.player1_type)
+
+        turn_count, winner, stats = run_matchup_game(
+            current_matchup, seed=simulation_id, show_output=False
+        )
+        
+        return simulation_id, winner, turn_count, stats
+        
+    except Exception as e:
+        # Return error result
+        return simulation_id, 0, 0, {"error": str(e)}
+
+
+def run_matchup_batch(matchup: Matchup, num_simulations: int, config: dict, max_workers: int = 8):
+    """Run batch simulations for a specific matchup using multithreading."""
     print(f"\n{'=' * 80}")
     print(
         f"RUNNING {matchup.player1_type.value.upper()} VS {matchup.player2_type.value.upper()}"
     )
     print(f"{'=' * 80}")
-    print(f"Running {num_simulations} simulations...")
+    print(f"Running {num_simulations} simulations with multithreading...")
     print(f"Player 1: {matchup.player1_type.value}")
     print(f"Player 2: {matchup.player2_type.value}")
+    if max_workers:
+        print(f"Using {max_workers} worker threads")
     print(f"{'=' * 80}")
 
+    # Calculate starting player distribution
+    player1_starts = (num_simulations + 1) // 2  # First player gets extra if odd
+
+    # Prepare arguments for each simulation
+    simulation_args = [
+        (i, matchup, player1_starts) for i in range(num_simulations)
+    ]
+
+    # Run simulations in parallel
+    results = []
+    completed_count = 0
+    
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Submit all simulations
+        future_to_sim = {
+            executor.submit(run_single_simulation, args): args[0] 
+            for args in simulation_args
+        }
+        
+        # Collect results as they complete
+        for future in concurrent.futures.as_completed(future_to_sim):
+            sim_id = future_to_sim[future]
+            try:
+                result = future.result()
+                results.append(result)
+                completed_count += 1
+                
+                # Progress reporting
+                if completed_count % 10 == 0 or completed_count == num_simulations:
+                    print(f"Progress: {completed_count}/{num_simulations} games completed")
+                    
+            except Exception as e:
+                print(f"\nERROR in simulation {sim_id}: {e}")
+                results.append((sim_id, 0, 0, {"error": str(e)}))
+
+    # Process results
     player1_wins = 0
     player2_wins = 0
     no_winner = 0
@@ -32,68 +103,43 @@ def run_matchup_batch(matchup: Matchup, num_simulations: int, config: dict):
     all_decision_times = {1: [], 2: []}
     cache_stats = {"player1": [], "player2": []}
 
-    # Calculate starting player distribution
-    player1_starts = (num_simulations + 1) // 2  # First player gets extra if odd
-
-    # Run simulations
-    for i in range(num_simulations):
-        if (i + 1) % 10 == 0:
-            print(f"Progress: {i + 1}/{num_simulations} games completed")
-
-        try:
-            # Determine starting player and create matchup accordingly
-            if i < player1_starts:
-                # Player 1 starts
-                current_matchup = matchup
+    for simulation_id, winner, turn_count, stats in results:
+        # Map winner back to original player positions
+        if simulation_id < player1_starts:
+            # Original orientation
+            if winner == 1:
+                player1_wins += 1
+            elif winner == 2:
+                player2_wins += 1
             else:
-                # Player 2 starts - swap players
-                current_matchup = Matchup(matchup.player2_type, matchup.player1_type)
+                no_winner += 1
+                games_with_issues.append((simulation_id + 1, turn_count, "no_winner"))
+        else:
+            # Swapped orientation - map back
+            if winner == 1:
+                player2_wins += 1  # Player 2 was position 1 in swapped game
+            elif winner == 2:
+                player1_wins += 1  # Player 1 was position 2 in swapped game
+            else:
+                no_winner += 1
+                games_with_issues.append((simulation_id + 1, turn_count, "no_winner"))
 
-            turn_count, winner, stats = run_matchup_game(
-                current_matchup, seed=i, show_output=False
+        total_turns += turn_count
+        min_turns = min(min_turns, turn_count)
+        max_turns = max(max_turns, turn_count)
+
+        # Collect decision times
+        for player in [1, 2]:
+            all_decision_times[player].extend(
+                stats.get("decision_times", {}).get(player, [])
             )
 
-            # Map winner back to original player positions
-            if i < player1_starts:
-                # Original orientation
-                if winner == 1:
-                    player1_wins += 1
-                elif winner == 2:
-                    player2_wins += 1
-                else:
-                    no_winner += 1
-                    games_with_issues.append((i + 1, turn_count, "no_winner"))
-            else:
-                # Swapped orientation - map back
-                if winner == 1:
-                    player2_wins += 1  # Player 2 was position 1 in swapped game
-                elif winner == 2:
-                    player1_wins += 1  # Player 1 was position 2 in swapped game
-                else:
-                    no_winner += 1
-                    games_with_issues.append((i + 1, turn_count, "no_winner"))
-
-            total_turns += turn_count
-            min_turns = min(min_turns, turn_count)
-            max_turns = max(max_turns, turn_count)
-
-            # Collect decision times
-            for player in [1, 2]:
-                all_decision_times[player].extend(
-                    stats["decision_times"].get(player, [])
-                )
-
-            # Collect cache stats
-            if "cache_stats" in stats:
-                if "player1" in stats["cache_stats"]:
-                    cache_stats["player1"].append(stats["cache_stats"]["player1"])
-                if "player2" in stats["cache_stats"]:
-                    cache_stats["player2"].append(stats["cache_stats"]["player2"])
-
-        except Exception as e:
-            print(f"\nERROR in simulation {i + 1}: {e}")
-            no_winner += 1
-            games_with_issues.append((i + 1, 0, f"error: {str(e)}"))
+        # Collect cache stats
+        if "cache_stats" in stats:
+            if "player1" in stats["cache_stats"]:
+                cache_stats["player1"].append(stats["cache_stats"]["player1"])
+            if "player2" in stats["cache_stats"]:
+                cache_stats["player2"].append(stats["cache_stats"]["player2"])
 
     # Calculate averages
     avg_decision_times = {}
