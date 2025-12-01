@@ -54,11 +54,11 @@ def run_matchup_batch(
         f"RUNNING {matchup.player1_type.value.upper()} VS {matchup.player2_type.value.upper()}"
     )
     print(f"{'=' * 80}")
-    print(f"Running {num_simulations} simulations with multithreading...")
+    print(f"Running {num_simulations} simulations with multiprocessing...")
     print(f"Player 1: {matchup.player1_type.value}")
     print(f"Player 2: {matchup.player2_type.value}")
     if max_workers:
-        print(f"Using {max_workers} worker threads")
+        print(f"Using {max_workers} worker processes")
     print(f"{'=' * 80}")
 
     # Calculate starting player distribution
@@ -71,7 +71,7 @@ def run_matchup_batch(
     results = []
     completed_count = 0
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+    with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as executor:
         # Submit all simulations
         future_to_sim = {
             executor.submit(run_single_simulation, args): args[0]
