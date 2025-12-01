@@ -46,7 +46,7 @@ def run_single_simulation(
 
 
 def run_matchup_batch(
-    matchup: Matchup, num_simulations: int, config: dict, max_workers: int = 50
+    matchup: Matchup, num_simulations: int, config: dict, max_workers: int = 100
 ):
     """Run batch simulations for a specific matchup using multithreading."""
     print(f"\n{'=' * 80}")
