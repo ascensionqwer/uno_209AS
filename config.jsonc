@@ -24,7 +24,7 @@
   },
   "batch_run": {
     // Number of simulations to run per variant
-    "num_simulations": 600,
+    "num_simulations": 300,
     // Number of variants to generate for analysis
     "num_variants": 30
   }
