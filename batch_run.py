@@ -51,10 +51,9 @@ def run_matchup_batch(
     """Run batch simulations for a specific matchup using multithreading."""
     print(f"\n{'=' * 80}")
     print(
-        f"RUNNING {matchup.player1_type.value.upper()} VS {matchup.player2_type.value.upper()}"
+        f"RUNNING {matchup.player1_type.value.upper()} VS {matchup.player2_type.value.upper()} - {num_simulations} GAMES"
     )
     print(f"{'=' * 80}")
-    print(f"Running {num_simulations} simulations with multiprocessing...")
     print(f"Player 1: {matchup.player1_type.value}")
     print(f"Player 2: {matchup.player2_type.value}")
     if max_workers:
@@ -86,10 +85,10 @@ def run_matchup_batch(
                 results.append(result)
                 completed_count += 1
 
-                # Progress reporting
+                # Progress reporting with context
                 if completed_count % 10 == 0 or completed_count == num_simulations:
                     print(
-                        f"Progress: {completed_count}/{num_simulations} games completed"
+                        f"Progress: {completed_count}/{num_simulations} games completed ({matchup.player1_type.value} vs {matchup.player2_type.value})"
                     )
 
             except Exception as e:
@@ -264,6 +263,7 @@ def run_comprehensive_analysis():
 
         # Run Particle vs Naive with comprehensive simulations
         matchup = Matchup(PlayerType.PARTICLE_POLICY, PlayerType.NAIVE)
+        print(f"\n--- COMPREHENSIVE VARIANT {i + 1}/{len(variants)} - Particle Policy vs Naive ---")
         result = run_matchup_batch(matchup, num_simulations, variant_config)
         total_games += num_simulations
 
@@ -360,7 +360,7 @@ def run_parameter_sensitivity_analysis():
         variant_results = {}
 
         for matchup_name, matchup, config_to_use in matchups:
-            print(f"\n--- {matchup_name.upper().replace('_', ' ')} ---")
+            print(f"\n--- VARIANT {i + 1}/{len(variants)} - {matchup_name.upper().replace('_', ' ')} ---")
 
             if config_to_use == "mixed":
                 # For mixed config, we need to modify game_runner to handle different configs per player
@@ -426,10 +426,9 @@ def run_mixed_config_matchup(
     """Run matchup with different configs for each player."""
     print(f"\n{'=' * 80}")
     print(
-        f"RUNNING MIXED CONFIG {matchup.player1_type.value.upper()} VS {matchup.player2_type.value.upper()}"
+        f"RUNNING MIXED CONFIG {matchup.player1_type.value.upper()} VS {matchup.player2_type.value.upper()} - {num_simulations} GAMES"
     )
     print(f"{'=' * 80}")
-    print(f"Running {num_simulations} simulations...")
     print(f"Player 1: {matchup.player1_type.value} (Variant Config)")
     print(f"Player 2: {matchup.player2_type.value} (Base Config)")
     print(f"{'=' * 80}")
@@ -450,7 +449,7 @@ def run_mixed_config_matchup(
     # Run simulations
     for i in range(num_simulations):
         if (i + 1) % 10 == 0:
-            print(f"Progress: {i + 1}/{num_simulations} games completed")
+            print(f"Progress: {i + 1}/{num_simulations} games completed (Mixed Config - {matchup.player1_type.value} vs {matchup.player2_type.value})")
 
         try:
             # Determine starting player and create matchup accordingly
@@ -563,12 +562,6 @@ def main():
     num_simulations = batch_config.get("num_simulations", 100)
     num_variants = batch_config.get("num_variants", 5)
 
-    print("=" * 80)
-    print("UNO BATCH SIMULATION RUNNER - ALL MATCHUPS WITH VARIANTS")
-    print("=" * 80)
-    print(f"Running {num_simulations} simulations per variant")
-    print(f"Testing {num_variants} variants per parameter")
-
     # Generate variants
     variator = ConfigVariator("config.jsonc")
     variants = variator.generate_variants(0.25)[:num_variants]
@@ -579,6 +572,16 @@ def main():
         Matchup(PlayerType.NAIVE, PlayerType.PARTICLE_POLICY),
         Matchup(PlayerType.PARTICLE_POLICY, PlayerType.PARTICLE_POLICY),
     ]
+
+    print("=" * 80)
+    print("UNO BATCH SIMULATION RUNNER - ALL MATCHUPS WITH VARIANTS")
+    print("=" * 80)
+    print(f"Configuration: {num_simulations} simulations per variant")
+    print(f"Testing {num_variants} variants per parameter")
+    print(f"Total variants to test: {len(variants)}")
+    print(f"Matchups per variant: {len(matchups)}")
+    print(f"Estimated total games: {len(variants) * len(matchups) * num_simulations}")
+    print("=" * 80)
 
     logger = SimulationLogger()
     all_results = {}
@@ -603,7 +606,7 @@ def main():
         # Run each matchup with this variant
         for matchup in matchups:
             print(
-                f"\n--- {matchup.player1_type.value} vs {matchup.player2_type.value} ---"
+                f"\n--- VARIANT {i + 1}/{len(variants)} - {matchup.player1_type.value} vs {matchup.player2_type.value} ---"
             )
             result = run_matchup_batch(matchup, num_simulations, variant_config)
             variant_results[str(matchup)] = result
