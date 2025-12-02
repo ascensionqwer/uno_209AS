@@ -1,16 +1,12 @@
 pre-commit:
   parallel: false
-  jobs:
-    - name: ruff check
-      run: |
-        python_files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$' || true)
-        if [ -n "$python_files" ]; then
-          uvx ruff check --fix $python_files
-        fi
+  commands:
+    ruff check:
+      glob: '*.py'
+      run: uvx ruff check --fix {staged_files}
+      stage_fixed: true
 
-    - name: ruff format
-      run: |
-        python_files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$' || true)
-        if [ -n "$python_files" ]; then
-          uvx ruff format $python_files
-        fi
+    ruff format:
+      glob: '*.py'
+      run: uvx ruff format {staged_files}
+      stage_fixed: true
