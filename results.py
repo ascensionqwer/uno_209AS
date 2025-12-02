@@ -58,12 +58,20 @@ class ResultsAnalyzer:
         # Group logs by type
         matchup_logs = []
         sensitivity_logs = []
+        baseline_logs = []
 
         for log in self.logs:
-            if log.get("matchup") == "parameter_sensitivity_analysis":
+            matchup_type = log.get("matchup", "")
+            if matchup_type == "parameter_sensitivity_analysis":
                 sensitivity_logs.append(log)
+            elif matchup_type == "baseline":
+                baseline_logs.append(log)
             else:
                 matchup_logs.append(log)
+
+        # Print baseline results first (for comparison reference)
+        if baseline_logs:
+            self._print_baseline_results(baseline_logs)
 
         # Print matchup results
         if matchup_logs:
@@ -72,6 +80,53 @@ class ResultsAnalyzer:
         # Print sensitivity analysis results
         if sensitivity_logs:
             self._print_sensitivity_results(sensitivity_logs)
+
+    def _print_baseline_results(self, logs: List[Dict[str, Any]]):
+        """Print results for baseline simulations."""
+        print("BASELINE RESULTS (0% Change - Default Config)")
+        print("=" * 50)
+
+        for log in logs:
+            timestamp = log.get("timestamp", "Unknown")
+            total_games = log.get("total_games", 0)
+
+            print(f"\nTimestamp: {timestamp}")
+            print(f"Total Games: {total_games}")
+            print("-" * 40)
+
+            # Print win rates
+            win_rates = log.get("win_rates", {})
+            if win_rates:
+                print("Win Rates:")
+                for matchup_key, rates in win_rates.items():
+                    if isinstance(rates, dict):
+                        for player, rate in rates.items():
+                            print(f"  {matchup_key} - {player}: {rate:.2%}")
+                    else:
+                        print(f"  {matchup_key}: {rates:.2%}")
+
+            # Print decision times
+            decision_times = log.get("avg_decision_times", {})
+            if decision_times:
+                print("\nDecision Times (seconds):")
+                for matchup_key, times in decision_times.items():
+                    if isinstance(times, dict):
+                        for player, time_val in times.items():
+                            print(f"  {matchup_key} - {player}: {time_val:.6f}")
+                    else:
+                        print(f"  {matchup_key}: {times:.6f}")
+
+            # Print cache stats
+            cache_stats = log.get("cache_stats", {})
+            if cache_stats:
+                print("\nCache Statistics:")
+                for matchup_key, stats in cache_stats.items():
+                    if isinstance(stats, dict):
+                        for player, cache_size in stats.items():
+                            if cache_size and cache_size != "N/A (no cache)":
+                                print(f"  {matchup_key} - {player}: {cache_size:.1f}")
+                    elif stats and stats != "N/A (no cache)":
+                        print(f"  {matchup_key}: {stats}")
 
     def _print_matchup_results(self, logs: List[Dict[str, Any]]):
         """Print results for standard matchup simulations."""
