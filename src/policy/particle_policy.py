@@ -701,6 +701,7 @@ class ParticlePolicy:
         ucb_c: float = 1.414,
         rollout_particle_sample_size: int = 10,
         resample_threshold: float = 0.5,
+        deck_builder=None,
     ):
         """
         Initialize POMCP policy (Player 1's perspective).
@@ -713,6 +714,8 @@ class ParticlePolicy:
             ucb_c: UCB1 exploration constant for PO-UCT
             rollout_particle_sample_size: Number of particles to sample for rollouts
             resample_threshold: ESS threshold for particle resampling
+            deck_builder: Function that returns full deck (default: standard UNO 108 cards)
+                         For simplified game, pass lambda: build_simplified_deck(max_number, max_colors)
         """
         self.num_particles = num_particles
         self.mcts_iterations = mcts_iterations
@@ -721,7 +724,7 @@ class ParticlePolicy:
         self.ucb_c = ucb_c
         self.rollout_particle_sample_size = rollout_particle_sample_size
         self.resample_threshold = resample_threshold
-        self.cache = ParticleCache()
+        self.cache = ParticleCache(deck_builder=deck_builder)
         self.action_history = []  # Action-observation history h
         self.decision_times = []  # Track decision times for performance analysis
 

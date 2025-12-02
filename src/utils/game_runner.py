@@ -5,6 +5,8 @@ import random
 from typing import Optional, Dict, Any
 from src.uno import Uno, Action, card_to_string
 from src.uno.cards import RED, YELLOW, GREEN, BLUE
+from src.uno.simplified_game import UnoSimplified
+from src.uno.simplified_cards import build_simplified_deck
 from src.policy.particle_policy import ParticlePolicy
 from src.utils.config_loader import get_particle_policy_config
 from src.utils.matchup_types import PlayerType, Matchup
@@ -131,20 +133,35 @@ def reset_naive_decision_stats():
     _naive_decision_times = []
 
 
-def create_player_policy(player_type: PlayerType, config: Optional[Dict] = None):
-    """Create policy instance for player type."""
+def create_player_policy(
+    player_type: PlayerType, config: Optional[Dict] = None, deck_builder=None
+):
+    """
+    Create policy instance for player type.
+
+    Args:
+        player_type: Type of player (NAIVE or PARTICLE_POLICY)
+        config: Optional config dict for particle policy
+        deck_builder: Optional deck builder function for particle policy (for simplified games)
+    """
     if player_type == PlayerType.NAIVE:
         return None
     elif player_type == PlayerType.PARTICLE_POLICY:
         if config is None:
             config = get_particle_policy_config()
+        # Add deck_builder to config if provided
+        if deck_builder is not None:
+            config = {**config, "deck_builder": deck_builder}
         return ParticlePolicy(**config)
     else:
         raise ValueError(f"Unknown player type: {player_type}")
 
 
 def run_matchup_game_with_configs(
-    matchup: Matchup, configs: tuple, seed: Optional[int] = None, show_output: bool = False
+    matchup: Matchup,
+    configs: tuple,
+    seed: Optional[int] = None,
+    show_output: bool = False,
 ) -> tuple[int, int, Dict[str, Any]]:
     """
     Run a single game with different configs for each player.
@@ -206,14 +223,22 @@ def run_matchup_game_with_configs(
         if show_output:
             display_game_state(game, current_player, policy)
 
+        # Get current state for particle policies
+        game.create_S()
+        state = game.State
+
         # Track decision time
         start_time = time.time()
 
         # Get action based on player type
         if current_player == 1:
-            action = get_action_for_player(game, current_player, matchup.player1_type, player1_policy)
+            action = get_action_for_player(
+                game, current_player, matchup.player1_type, player1_policy, state
+            )
         else:
-            action = get_action_for_player(game, current_player, matchup.player2_type, player2_policy)
+            action = get_action_for_player(
+                game, current_player, matchup.player2_type, player2_policy, state
+            )
 
         decision_time = time.time() - start_time
         decision_times[current_player].append(decision_time)
@@ -231,7 +256,9 @@ def run_matchup_game_with_configs(
             break
         if consecutive_draws >= max_consecutive_draws:
             if show_output:
-                print(f"\n>>> Game terminated: {max_consecutive_draws} consecutive draws")
+                print(
+                    f"\n>>> Game terminated: {max_consecutive_draws} consecutive draws"
+                )
             break
 
         # Execute action
@@ -241,7 +268,9 @@ def run_matchup_game_with_configs(
                 print(f">>> Player {current_player} draws 1 card")
         else:
             if show_output:
-                print(f">>> Player {current_player} plays: {card_to_string(action.card) if action.card else 'Draw'}")
+                print(
+                    f">>> Player {current_player} plays: {card_to_string(action.card) if action.card else 'Draw'}"
+                )
             game.execute_action(current_player, action)
 
         # Track state after action
@@ -265,9 +294,9 @@ def run_matchup_game_with_configs(
 
     # Collect cache stats
     cache_stats = {}
-    if player1_policy and hasattr(player1_policy, 'cache'):
+    if player1_policy and hasattr(player1_policy, "cache"):
         cache_stats["player1"] = player1_policy.cache.size()
-    if player2_policy and hasattr(player2_policy, 'cache'):
+    if player2_policy and hasattr(player2_policy, "cache"):
         cache_stats["player2"] = player2_policy.cache.size()
 
     stats = {
@@ -276,16 +305,6 @@ def run_matchup_game_with_configs(
     }
 
     return turn_count, winner, stats
-
-
-def get_action_for_player(game: Uno, player: int, player_type: PlayerType, policy):
-    """Get action for specific player type."""
-    if player_type == PlayerType.NAIVE:
-        return choose_action_naive(game, player)
-    elif player_type == PlayerType.PARTICLE_POLICY:
-        return policy.get_action(game, player, game.current_color)
-    else:
-        raise ValueError(f"Unknown player type: {player_type}")
 
 
 def get_action_for_player(
@@ -543,6 +562,240 @@ def run_matchup_game(
         stats["cache_stats"]["player2"] = player2_policy.cache.size()
 
     return turn_count, winner, stats
+
+
+def run_simplified_matchup_game(
+    matchup: Matchup,
+    max_number: int = 9,
+    max_colors: int = 4,
+    seed: Optional[int] = None,
+    show_output: bool = False,
+) -> tuple[int, int, Dict[str, Any]]:
+    """
+    Run a single game with simplified UNO (numbered cards only).
+
+    Args:
+        matchup: Matchup configuration
+        max_number: Maximum card number (default 9)
+        max_colors: Number of colors (default 4)
+        seed: Random seed for game initialization
+        show_output: Whether to show game state output
+
+    Returns:
+        Tuple of (turn_count, winner, stats) where winner is 1, 2, or 0
+    """
+    # Initialize simplified game
+    game = UnoSimplified(max_number=max_number, max_colors=max_colors)
+    if seed is not None:
+        game.new_game(seed=seed)
+    else:
+        game.new_game()
+
+    # Create deck builder for particle policy (captures max_number and max_colors)
+    def simplified_deck_builder():
+        return build_simplified_deck(max_number, max_colors)
+
+    # Create policies for each player with simplified deck builder
+    player1_policy = create_player_policy(
+        matchup.player1_type, deck_builder=simplified_deck_builder
+    )
+    player2_policy = create_player_policy(
+        matchup.player2_type, deck_builder=simplified_deck_builder
+    )
+
+    current_player = 1
+    turn_count = 0
+    max_turns = 5000000
+    consecutive_no_progress = 0
+    max_no_progress = 50  # Safety check for infinite loops
+    consecutive_draws = 0
+    max_consecutive_draws = 20  # Safety check for draw loops
+    prev_state = None
+
+    # Track decision times
+    decision_times = {1: [], 2: []}
+
+    while game.G_o == "Active" and turn_count < max_turns:
+        turn_count += 1
+
+        # Get current state for particle policies
+        game.create_S()
+        state = game.State
+
+        # Choose action based on player type
+        start_time = time.time()
+        if current_player == 1:
+            action = get_action_for_player_simplified(
+                game, current_player, matchup.player1_type, player1_policy, state
+            )
+            if (
+                matchup.player1_type == PlayerType.PARTICLE_POLICY
+                and player1_policy is not None
+                and action is not None
+            ):
+                player1_policy.update_after_action(action)
+        else:
+            action = get_action_for_player_simplified(
+                game, current_player, matchup.player2_type, player2_policy, state
+            )
+            if (
+                matchup.player2_type == PlayerType.PARTICLE_POLICY
+                and player2_policy is not None
+                and action is not None
+            ):
+                player2_policy.update_after_action(action)
+
+        decision_time = time.time() - start_time
+        decision_times[current_player].append(decision_time)
+
+        if action is None:
+            if show_output:
+                print(f"Player {current_player} has no actions available!")
+            break
+
+        if show_output:
+            if action.is_play():
+                card_str = card_to_string(action.X_1) if action.X_1 else "Unknown"
+                print(f"Player {current_player} plays {card_str}")
+            else:
+                print(f"Player {current_player} draws {action.n} card(s)")
+
+        # Track if this is a draw action for infinite loop detection
+        is_draw_action = not action.is_play()
+        if is_draw_action:
+            consecutive_draws += 1
+        else:
+            consecutive_draws = 0
+
+        # Check for too many consecutive draws
+        if consecutive_draws >= max_consecutive_draws:
+            if show_output:
+                print(
+                    f"\n>>> INFINITE LOOP DETECTED: {max_consecutive_draws} consecutive draws!"
+                )
+                print(f">>> Breaking at turn {turn_count}")
+            break
+
+        success = game.execute_action(action, current_player)
+        if not success:
+            if show_output:
+                print(f"Action failed for player {current_player}")
+            break
+
+        # Track state after action for infinite loop detection
+        game.create_S()
+        current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+        if prev_state == current_state:
+            consecutive_no_progress += 1
+            if consecutive_no_progress >= max_no_progress:
+                if show_output:
+                    print(
+                        f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                    )
+                    print(f">>> Breaking at turn {turn_count}")
+                break
+        else:
+            consecutive_no_progress = 0
+        prev_state = current_state
+
+        # Check game over
+        if game.G_o == "GameOver":
+            break
+
+        # Switch players (simplified - no player_plays_again or skip_next)
+        current_player = 3 - current_player
+
+    # Game over
+    if show_output:
+        print("\n" + "=" * 60)
+        print("GAME OVER")
+        print("=" * 60)
+        game.create_S()
+        state = game.State
+        print(f"Total turns: {turn_count}")
+        print(f"Player 1 final hand size: {len(state[0])}")
+        print(f"Player 2 final hand size: {len(state[1])}")
+
+    # Determine winner
+    game.create_S()
+    state = game.State
+    if len(state[0]) == 0:
+        if show_output:
+            print(f"\n🎉 Player 1 ({matchup.player1_type.value}) WINS!")
+        winner = 1
+    elif len(state[1]) == 0:
+        if show_output:
+            print(f"\n🎉 Player 2 ({matchup.player2_type.value}) WINS!")
+        winner = 2
+    else:
+        if show_output:
+            print("\nGame ended without a winner (safety limit reached)")
+        winner = 0
+
+    # Compile stats
+    stats = {"decision_times": decision_times, "cache_stats": {}}
+
+    if player1_policy is not None and hasattr(player1_policy, "cache"):
+        stats["cache_stats"]["player1"] = player1_policy.cache.size()
+    if player2_policy is not None and hasattr(player2_policy, "cache"):
+        stats["cache_stats"]["player2"] = player2_policy.cache.size()
+
+    return turn_count, winner, stats
+
+
+def get_action_for_player_simplified(
+    game: UnoSimplified, player: int, player_type: PlayerType, policy=None, state=None
+) -> Optional[Action]:
+    """Get action for player based on their type (simplified game - no current_color)."""
+    if player_type == PlayerType.PARTICLE_POLICY:
+        if policy is None or state is None:
+            raise ValueError("ParticlePolicy requires policy and state")
+        # Use correct hand for the current player
+        player_hand = state[0] if player == 1 else state[1]
+        opponent_hand_size = len(state[1]) if player == 1 else len(state[0])
+        # No current_color for simplified game (pass None)
+        return policy.get_action(
+            player_hand,
+            opponent_hand_size,
+            len(state[2]),
+            state[3],
+            state[4],
+            state[5],
+            None,  # No current_color in simplified game
+        )
+    elif player_type == PlayerType.NAIVE:
+        return choose_action_naive_simplified(game, player)
+    else:
+        raise ValueError(f"Unknown player type: {player_type}")
+
+
+def choose_action_naive_simplified(
+    game: UnoSimplified, player: int
+) -> Optional[Action]:
+    """
+    Naive action selection for simplified game (no wild cards).
+    - Play first legal card found (if multiple, randomly pick one)
+    - If no legal play, draw 1
+    """
+    start_time = time.time()
+
+    legal_actions = game.get_legal_actions(player)
+
+    if not legal_actions:
+        return None
+
+    # Prefer playing over drawing
+    play_actions = [a for a in legal_actions if a.is_play()]
+    if play_actions:
+        action = play_actions[0]  # Play first legal card found
+    else:
+        # Must draw
+        action = legal_actions[0]
+
+    decision_time = time.time() - start_time
+    _naive_decision_times.append(decision_time)
+
+    return action
 
 
 def run_single_game(

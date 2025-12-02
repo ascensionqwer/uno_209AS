@@ -27,5 +27,12 @@
     "num_simulations": 300,
     // Number of variants to generate for analysis
     "num_variants": 30
+  },
+  "batch_black": {
+    // Simplified game parameters (numbered cards only, no special cards)
+    "max_number": 9,
+    "max_colors": 4,
+    // Number of simulations to run
+    "num_simulations": 300
   }
 }

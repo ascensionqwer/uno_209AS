@@ -1,7 +1,7 @@
 """Particle cache for dynamic particle filter generation (Player 1 perspective)."""
 
 import random
-from typing import List
+from typing import List, Callable
 from ..uno.cards import Card, build_full_deck
 from .particle import Particle
 
@@ -15,9 +15,18 @@ class ParticleCache:
     Each particle contains a sampled H_2 and corresponding D_g.
     """
 
-    def __init__(self):
-        """Initialize empty cache."""
+    def __init__(self, deck_builder: Callable[[], List[Card]] = None):
+        """
+        Initialize empty cache.
+
+        Args:
+            deck_builder: Function that returns full deck (default: build_full_deck for standard UNO)
+                         For simplified game, pass build_simplified_deck with params
+        """
         self.cache = {}  # game_state_key -> List[Particle]
+        self.deck_builder = (
+            deck_builder if deck_builder is not None else build_full_deck
+        )
 
     def get_particles(
         self,
@@ -65,7 +74,7 @@ class ParticleCache:
         Filtering: Only sample from L = D minus (H_1 union P) to ensure legally possible states.
         This means if Player 1 has all blue 3s, no particle will contain blue 3s in H_2 or D_g.
         """
-        full_deck = build_full_deck()
+        full_deck = self.deck_builder()
 
         # Filter: only cards NOT in Player 1's hand or played pile
         # This is the key constraint - we can only sample from available cards
