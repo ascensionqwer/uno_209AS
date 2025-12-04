@@ -24,9 +24,9 @@
   },
   "batch_run": {
     // Number of simulations to run per variant
-    "num_simulations": 300,
+    "num_simulations": 50,
     // Number of variants to generate for analysis
-    "num_variants": 30
+    "num_variants": 5
   },
   "batch_black": {
     // Simplified game parameters (numbered cards only, no special cards)

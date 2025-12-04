@@ -272,6 +272,7 @@ def run_baseline_black_simulations():
         win_rates={k: v["win_rates"] for k, v in all_results.items()},
         avg_decision_times={k: v["avg_decision_times"] for k, v in all_results.items()},
         cache_stats={k: v["cache_stats"] for k, v in all_results.items()},
+        turn_stats={k: v["turn_stats"] for k, v in all_results.items()},
         parameter_variants={
             "simplified_game": {
                 "max_number": max_number,

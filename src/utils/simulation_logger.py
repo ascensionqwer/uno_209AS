@@ -16,6 +16,7 @@ class SimulationResult:
     avg_decision_times: Dict[str, Any]
     cache_stats: Optional[Dict[str, Any]] = None
     parameter_variants: Optional[Dict[str, Any]] = None
+    turn_stats: Optional[Dict[str, Any]] = None
 
 
 class SimulationLogger:

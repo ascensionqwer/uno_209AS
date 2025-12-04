@@ -225,6 +225,12 @@ def run_matchup_batch(
         },
         "avg_decision_times": avg_decision_times,
         "cache_stats": avg_cache_sizes if any(avg_cache_sizes.values()) else None,
+        "turn_stats": {
+            "total": total_turns,
+            "average": total_turns / num_simulations,
+            "min": min_turns,
+            "max": max_turns,
+        },
     }
 
 
