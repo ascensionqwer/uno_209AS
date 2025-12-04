@@ -1,0 +1,4 @@
+Experiment,P1_Wins,P2_Wins,Draws,Avg_Turns
+Optimal (P1) vs Random (P2),547,453,0,4.02
+Random (P1) vs Random (P2),476,524,0,4.03
+Optimal (P1) vs Optimal (P2),483,517,0,4.01

@@ -160,8 +160,8 @@ class OfflineSolver:
                     best_action = action
 
         self.memo[state] = best_value
-        if turn == 0:
-            self.policy[state] = best_action
+        self.memo[state] = best_value
+        self.policy[state] = best_action
             
         return best_value
 
