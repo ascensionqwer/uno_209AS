@@ -1,0 +1,42 @@
+
+=== Experiment: Optimal (P1) vs Random (P2) ===
+Games: 5000 (2500 P1 start, 2500 P2 start)
+Deck empty - reshuffled 5 cards from pile
+Deck empty - reshuffled 5 cards from pile
+Deck empty - reshuffled 5 cards from pile
+Deck empty - reshuffled 6 cards from pile
+Time: 0.87s
+Overall P1 Wins: 2853 (57.1%)
+Overall P2 Wins: 2147 (42.9%)
+Draws: 0
+Avg Turns: 4.08
+  When P1 Starts (2500 games): P1 Wins 1914 (76.6%)
+  When P2 Starts (2500 games): P2 Wins 1561 (62.4%)
+
+=== Experiment: Random (P1) vs Random (P2) ===
+Games: 5000 (2500 P1 start, 2500 P2 start)
+Deck empty - reshuffled 6 cards from pile
+Deck empty - reshuffled 5 cards from pile
+Time: 0.38s
+Overall P1 Wins: 2496 (49.9%)
+Overall P2 Wins: 2504 (50.1%)
+Draws: 0
+Avg Turns: 4.02
+  When P1 Starts (2500 games): P1 Wins 1728 (69.1%)
+  When P2 Starts (2500 games): P2 Wins 1732 (69.3%)
+
+=== Experiment: Optimal (P1) vs Optimal (P2) ===
+Games: 5000 (2500 P1 start, 2500 P2 start)
+Deck empty - reshuffled 6 cards from pile
+Deck empty - reshuffled 5 cards from pile
+Deck empty - reshuffled 5 cards from pile
+Deck empty - reshuffled 6 cards from pile
+Deck empty - reshuffled 5 cards from pile
+Deck empty - reshuffled 6 cards from pile
+Time: 0.38s
+Overall P1 Wins: 2498 (50.0%)
+Overall P2 Wins: 2502 (50.0%)
+Draws: 0
+Avg Turns: 4.07
+  When P1 Starts (2500 games): P1 Wins 1818 (72.7%)
+  When P2 Starts (2500 games): P2 Wins 1820 (72.8%)
