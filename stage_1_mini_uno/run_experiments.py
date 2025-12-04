@@ -80,7 +80,7 @@ def simulate_game(game_id: int, p1: Player, p2: Player, start_turn: int) -> Tupl
         
     return 0, current_turn
 
-def run_experiment(name: str, p1: Player, p2: Player, num_games: int = 1000):
+def run_experiment(name: str, p1: Player, p2: Player, num_games: int = 5000):
     print(f"\n=== Experiment: {name} ===")
     print(f"Games: {num_games} ({num_games//2} P1 start, {num_games//2} P2 start)")
     
@@ -156,7 +156,7 @@ def main():
     results.append(res3)
     
     # Save Summary CSV
-    with open("stage_1_mini_uno/experiment_results.csv", "w") as f:
+    with open("stage_1_mini_uno/experiment_results_5000.csv", "w") as f:
         f.write("Experiment,P1_Wins,P2_Wins,Draws,Avg_Turns\n")
         for r in results:
             f.write(f"{r['name']},{r['p1_wins']},{r['p2_wins']},{r['draws']},{r['avg_turns']:.2f}\n")
