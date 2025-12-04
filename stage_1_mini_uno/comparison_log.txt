@@ -1,0 +1,16 @@
+Initializing solvers...
+Scenario     | Offline Action            | Online Action             | Match | Offline Val
+------------------------------------------------------------------------------------------
+Scenario 1   | Action(X_1=('B', 2))      | Action(X_1=('B', 2))      | YES   | 1.0   
+Scenario 2   | Action(X_1=('R', 0))      | Action(X_1=('R', 0))      | YES   | 0.0   
+Scenario 3   | Action(Y_1=[])            | Action(Y_1=[])            | YES   | -1.0  
+Scenario 4   | Action(X_1=('B', 1))      | Action(X_1=('B', 1))      | YES   | 1.0   
+Scenario 5   | Action(X_1=('R', 1))      | Action(X_1=('R', 1))      | YES   | -0.7  
+Scenario 6   | Action(X_1=('B', 2))      | Action(X_1=('B', 2))      | YES   | 1.0   
+
+==========================================================================================
+Running Random State Tests (N=50)...
+==========================================================================================
+------------------------------------------------------------------------------------------
+Random Tests Summary:
+Exact Matches: 32/50 (64.0%)

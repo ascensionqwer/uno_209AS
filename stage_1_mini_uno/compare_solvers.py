@@ -116,11 +116,6 @@ def compare_solvers():
         off_action = offline_solver.policy.get(state)
         
         # Online Solution
-        # We need to construct a Game object that matches the state
-        # But wait, Online Solver only sees OBSERVATION.
-        # It doesn't know H2.
-        # We must give it the observation derived from the state.
-        
         h1, h2, dg, pt, turn = state
         
         # Create game instance
@@ -131,16 +126,9 @@ def compare_solvers():
         online_solver.init_belief(game)
         
         # Choose action
-        # Note: Online solver uses sampling. It might vary.
-        # We might want to run it multiple times?
-        start_time = time.time()
         on_action = online_solver.choose_action()
-        elapsed = time.time() - start_time
         
         # Compare
-        # Action equality check
-        # Action objects might be different instances.
-        # We check string repr or attributes.
         match = False
         if off_action is None and on_action is None:
             match = True
@@ -162,11 +150,74 @@ def compare_solvers():
             "Offline Value": off_val
         })
 
-    # Save results
+    # Save manual results
     with open("stage_1_mini_uno/comparison_results.csv", "w") as f:
         f.write("Scenario,Offline Action,Online Action,Match,Offline Value\n")
         for row in results:
             f.write(f"{row['Scenario']},{row['Offline Action']},{row['Online Action']},{row['Match']},{row['Offline Value']}\n")
+
+    # --- Random State Testing ---
+    print("\n" + "="*90)
+    print("Running Random State Tests (N=50)...")
+    print("="*90)
+    
+    num_random_tests = 50
+    matches = 0
+    
+    # Re-seed for reproducibility
+    import random
+    random.seed(42)
+    
+    for i in range(num_random_tests):
+        # Generate random game state
+        game = MiniUno()
+        game.new_game(seed=i + 1000) # Different seeds
+        
+        # Fast forward a few turns to get interesting states
+        turns_to_sim = random.randint(0, 5)
+        for _ in range(turns_to_sim):
+            if game.G_o != "Active": break
+            actions = game.get_legal_actions()
+            if actions:
+                a = random.choice(actions)
+                game.execute_action(a)
+        
+        if game.G_o != "Active":
+            continue # Skip finished games
+            
+        # Construct state for Offline Solver (Assume Turn=0 / P1 perspective for test)
+        state = offline_solver.get_canonical_state(game, turn=0)
+        
+        # Offline Solution
+        off_val = offline_solver.solve(state)
+        off_action = offline_solver.policy.get(state)
+        
+        # Online Solution
+        online_solver.init_belief(game)
+        on_action = online_solver.choose_action()
+        
+        # Check Match
+        match = False
+        if off_action is None and on_action is None:
+            match = True
+        elif off_action and on_action:
+            if off_action.is_play() and on_action.is_play():
+                match = (off_action.X_1 == on_action.X_1)
+            elif off_action.is_draw() and on_action.is_draw():
+                match = (off_action.n == on_action.n)
+                
+        if match:
+            matches += 1
+        else:
+            print(f"Mismatch in Test {i}: Offline={off_action}, Online={on_action}, Val={off_val:.2f}")
+            
+    print("-" * 90)
+    print(f"Random Tests Summary:")
+    print(f"Exact Matches: {matches}/{num_random_tests} ({matches/num_random_tests*100:.1f}%)")
+    
+    # Append random results
+    with open("stage_1_mini_uno/comparison_results.csv", "a") as f:
+        f.write(f"\nRandom Tests (N={num_random_tests}),Exact Matches: {matches},,\n")
 
 if __name__ == "__main__":
     compare_solvers()
