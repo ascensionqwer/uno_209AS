@@ -1,0 +1,30 @@
+
+=== Experiment: Optimal (P1) vs Random (P2) ===
+Games: 1000 (500 P1 start, 500 P2 start)
+Time: 0.19s
+Overall P1 Wins: 547 (54.7%)
+Overall P2 Wins: 453 (45.3%)
+Draws: 0
+Avg Turns: 4.02
+  When P1 Starts (500 games): P1 Wins 376 (75.2%)
+  When P2 Starts (500 games): P2 Wins 329 (65.8%)
+
+=== Experiment: Random (P1) vs Random (P2) ===
+Games: 1000 (500 P1 start, 500 P2 start)
+Time: 0.03s
+Overall P1 Wins: 476 (47.6%)
+Overall P2 Wins: 524 (52.4%)
+Draws: 0
+Avg Turns: 4.03
+  When P1 Starts (500 games): P1 Wins 331 (66.2%)
+  When P2 Starts (500 games): P2 Wins 355 (71.0%)
+
+=== Experiment: Optimal (P1) vs Optimal (P2) ===
+Games: 1000 (500 P1 start, 500 P2 start)
+Time: 0.07s
+Overall P1 Wins: 483 (48.3%)
+Overall P2 Wins: 517 (51.7%)
+Draws: 0
+Avg Turns: 4.01
+  When P1 Starts (500 games): P1 Wins 354 (70.8%)
+  When P2 Starts (500 games): P2 Wins 371 (74.2%)
