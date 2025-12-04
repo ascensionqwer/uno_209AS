@@ -1,3 +1,3 @@
 # uno_209AS
 
-by Samyak Kakatur & others
+by Alex Chang, Wesley Gunawan, Samyak Kakatur, Chen Yi-Shan

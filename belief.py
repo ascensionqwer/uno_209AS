@@ -1,11 +1,9 @@
-from typing import List, Dict, Tuple, Set, Optional
+from typing import List, Dict, Tuple, Set
 import random
 from collections import Counter
-from itertools import combinations
 import math
 from cards import Card, RED, YELLOW, GREEN, BLUE
 from pomdp import State
-from uno import Uno
 
 
 class Belief:
@@ -408,72 +406,3 @@ class BeliefUpdater:
     def get_history(self) -> Tuple[List[Tuple], List]:
         """Returns observation and action history"""
         return self.observation_history, self.action_history
-
-
-# Example usage demonstrating Bayesian updates
-if __name__ == "__main__":
-    from pomdp import Action
-
-    # Create a game
-    uno = Uno()
-    uno.new_game(seed=42)
-    uno.create_S()
-
-    print("=" * 60)
-    print("INITIAL STATE")
-    print("=" * 60)
-
-    # Get Player 1's observation
-    observation = uno.get_O_space()
-    print(f"H_1: {observation[0]}")
-    print(f"|H_2|: {observation[1]}")
-    print(f"P_t: {observation[4]}")
-
-    # Create belief
-    belief = Belief(observation)
-    print(f"\n{belief}")
-    print(f"Legal unknown cards N(P_t): {belief.N_Pt}")
-
-    # Sample states under prior
-    print("\n" + "=" * 60)
-    print("SAMPLING UNDER PRIOR BELIEF")
-    print("=" * 60)
-    samples = belief.sample_states(3)
-    for i, state in enumerate(samples):
-        print(f"\nSample {i + 1} - Opponent hand H_2: {state[1]}")
-
-    # Simulate Case 2: Opponent draws (no legal play)
-    print("\n" + "=" * 60)
-    print("CASE 2: OPPONENT DRAWS (NO LEGAL CARDS)")
-    print("=" * 60)
-    print(f"Before draw: P(no_legal) = {belief._prob_no_legal():.4f}")
-
-    belief.update_opponent_drew()
-    print(f"\nAfter observing draw:")
-    print(belief)
-    print(f"Opponent hand size now: {belief.h2_size}")
-
-    # Sample states under posterior (should exclude legal cards)
-    print("\nSampling under posterior (H_2 must exclude legal cards):")
-    samples = belief.sample_states(3)
-    for i, state in enumerate(samples):
-        h2 = state[1]
-        print(f"\nSample {i + 1} - H_2: {h2}")
-        has_legal = any(c in belief.N_Pt for c in h2)
-        print(f"  Contains legal card: {has_legal} (should be False)")
-
-    # Simulate Case 1: Opponent plays a card
-    print("\n" + "=" * 60)
-    print("CASE 1: OPPONENT PLAYS A CARD")
-    print("=" * 60)
-
-    # Pick a card from opponent's likely hand
-    if len(belief.L) > 0:
-        played_card = belief.L[0]
-        print(f"Opponent plays: {played_card}")
-
-        belief.update_opponent_played(played_card)
-        print(f"\nAfter opponent play:")
-        print(belief)
-        print(f"New P_t: {belief.P_t}")
-        print(f"New |L|: {len(belief.L)}")
