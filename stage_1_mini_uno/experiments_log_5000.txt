@@ -1,42 +1,42 @@
 
-=== Experiment: Optimal (P1) vs Random (P2) ===
+=== Experiment: Expectiminimax (P1) vs Naive (P2) ===
 Games: 5000 (2500 P1 start, 2500 P2 start)
+Deck empty - reshuffled 6 cards from pile
 Deck empty - reshuffled 5 cards from pile
-Deck empty - reshuffled 5 cards from pile
+Deck empty - reshuffled 4 cards from pile
 Deck empty - reshuffled 5 cards from pile
 Deck empty - reshuffled 6 cards from pile
-Time: 0.87s
-Overall P1 Wins: 2853 (57.1%)
-Overall P2 Wins: 2147 (42.9%)
+Deck empty - reshuffled 6 cards from pile
+Time: 0.64s
+Overall P1 Wins: 2843 (56.9%)
+Overall P2 Wins: 2157 (43.1%)
 Draws: 0
-Avg Turns: 4.08
-  When P1 Starts (2500 games): P1 Wins 1914 (76.6%)
-  When P2 Starts (2500 games): P2 Wins 1561 (62.4%)
+Avg Turns: 4.12
+  When P1 Starts (2500 games): P1 Wins 1926 (77.0%)
+  When P2 Starts (2500 games): P2 Wins 1583 (63.3%)
 
-=== Experiment: Random (P1) vs Random (P2) ===
+=== Experiment: Naive (P1) vs Naive (P2) ===
 Games: 5000 (2500 P1 start, 2500 P2 start)
 Deck empty - reshuffled 6 cards from pile
-Deck empty - reshuffled 5 cards from pile
-Time: 0.38s
-Overall P1 Wins: 2496 (49.9%)
-Overall P2 Wins: 2504 (50.1%)
+Time: 0.19s
+Overall P1 Wins: 2447 (48.9%)
+Overall P2 Wins: 2553 (51.1%)
 Draws: 0
-Avg Turns: 4.02
-  When P1 Starts (2500 games): P1 Wins 1728 (69.1%)
-  When P2 Starts (2500 games): P2 Wins 1732 (69.3%)
+Avg Turns: 4.05
+  When P1 Starts (2500 games): P1 Wins 1702 (68.1%)
+  When P2 Starts (2500 games): P2 Wins 1755 (70.2%)
 
-=== Experiment: Optimal (P1) vs Optimal (P2) ===
+=== Experiment: Expectiminimax (P1) vs Expectiminimax (P2) ===
 Games: 5000 (2500 P1 start, 2500 P2 start)
-Deck empty - reshuffled 6 cards from pile
-Deck empty - reshuffled 5 cards from pile
 Deck empty - reshuffled 5 cards from pile
 Deck empty - reshuffled 6 cards from pile
 Deck empty - reshuffled 5 cards from pile
 Deck empty - reshuffled 6 cards from pile
-Time: 0.38s
-Overall P1 Wins: 2498 (50.0%)
-Overall P2 Wins: 2502 (50.0%)
+Deck empty - reshuffled 6 cards from pile
+Time: 0.46s
+Overall P1 Wins: 2452 (49.0%)
+Overall P2 Wins: 2548 (51.0%)
 Draws: 0
-Avg Turns: 4.07
-  When P1 Starts (2500 games): P1 Wins 1818 (72.7%)
-  When P2 Starts (2500 games): P2 Wins 1820 (72.8%)
+Avg Turns: 4.09
+  When P1 Starts (2500 games): P1 Wins 1795 (71.8%)
+  When P2 Starts (2500 games): P2 Wins 1843 (73.7%)

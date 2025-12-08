@@ -143,16 +143,16 @@ def main():
     
     results = []
     
-    # 1. Optimal (P1) vs Random (P2)
-    res1 = run_experiment("Optimal (P1) vs Random (P2)", optimal_p, random_p)
+    # 1. Expectiminimax (P1) vs Naive (P2)
+    res1 = run_experiment("Expectiminimax (P1) vs Naive (P2)", optimal_p, random_p)
     results.append(res1)
     
-    # 2. Random (P1) vs Random (P2)
-    res2 = run_experiment("Random (P1) vs Random (P2)", random_p, random_p)
+    # 2. Naive (P1) vs Naive (P2)
+    res2 = run_experiment("Naive (P1) vs Naive (P2)", random_p, random_p)
     results.append(res2)
     
-    # 3. Optimal (P1) vs Optimal (P2)
-    res3 = run_experiment("Optimal (P1) vs Optimal (P2)", optimal_p, optimal_p)
+    # 3. Expectiminimax (P1) vs Expectiminimax (P2)
+    res3 = run_experiment("Expectiminimax (P1) vs Expectiminimax (P2)", optimal_p, optimal_p)
     results.append(res3)
     
     # Save Summary CSV
