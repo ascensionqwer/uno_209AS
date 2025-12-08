@@ -1,0 +1,235 @@
+:root {
+    --bg-color: #1a1a2e;
+    --card-red: #ff4757;
+    --card-blue: #2ed573;
+    --card-yellow: #f1c40f;
+    --card-green: #2ecc71;
+    --text-color: #ffffff;
+    --accent-color: #3742fa;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Modals */
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #16213e;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.options {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.btn.active {
+    background: #ffa502;
+    /* Highlight color */
+    color: black;
+    transform: scale(1.05);
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-small {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+}
+
+.btn-action {
+    background: #ffa502;
+    color: black;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Game Board */
+#game-board {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.status-bar {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.opponent-area,
+.player-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-area {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.hand {
+    display: flex;
+    gap: 0.5rem;
+    min-height: 120px;
+    align-items: center;
+}
+
+.avatar {
+    margin: 0.5rem;
+    font-weight: bold;
+    opacity: 0.7;
+}
+
+/* Cards */
+.card {
+    width: 80px;
+    height: 120px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    user-select: none;
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.card.red {
+    background: var(--card-red);
+}
+
+.card.blue {
+    background: var(--card-blue);
+}
+
+.card.yellow {
+    background: var(--card-yellow);
+    color: black;
+    /* Better contrast for yellow */
+}
+
+.card.green {
+    background: var(--card-green);
+}
+
+.card-back {
+    width: 80px;
+    height: 120px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2c3e50, #000000);
+    border: 2px solid #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.player-area .card {
+    cursor: pointer;
+}
+
+.player-area .card:hover {
+    transform: translateY(-10px);
+    z-index: 10;
+}
+
+.deck {
+    position: relative;
+    cursor: pointer;
+}
+
+#deck-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--accent-color);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+}

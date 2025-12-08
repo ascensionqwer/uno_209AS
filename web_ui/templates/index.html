@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Uno Simulator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Setup Modal -->
+        <div id="setup-modal" class="modal">
+            <div class="modal-content">
+                <h1>Mini Uno Simulator</h1>
+                <p>Choose Game Mode:</p>
+                <div class="options" style="margin-bottom: 2rem;">
+                    <button class="btn mode-btn active" id="mode-mini" onclick="selectMode('mini')">Mini Uno</button>
+                    <button class="btn mode-btn" id="mode-full" onclick="selectMode('full')">Full Uno</button>
+                </div>
+
+                <p>Choose Opponent:</p>
+                <div class="options">
+                    <button class="btn opponent-btn" id="opp-offline" onclick="startGame('offline')">
+                        <strong>Offline Solver</strong><br>
+                        <small>Perfect Information</small>
+                    </button>
+                    <button class="btn opponent-btn" id="opp-online" onclick="startGame('online')">
+                        <strong>Online Solver</strong><br>
+                        <small>Belief Based</small>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Board -->
+        <div id="game-board" class="hidden">
+            <div class="header">
+                <div class="status-bar" id="status-message">Player 1's Turn</div>
+                <button class="btn-small" onclick="location.reload()">New Game</button>
+            </div>
+
+            <!-- Opponent Area -->
+            <div class="opponent-area">
+                <div class="avatar">AI</div>
+                <div class="hand" id="opponent-hand">
+                    <!-- Cards will be injected here -->
+                </div>
+            </div>
+
+            <!-- Center Area -->
+            <div class="center-area">
+                <div class="deck" id="deck">
+                    <div class="card-back"></div>
+                    <span id="deck-count">10</span>
+                </div>
+                <div class="discard-pile" id="discard-pile">
+                    <!-- Top card injected here -->
+                </div>
+            </div>
+
+            <!-- Player Area -->
+            <div class="player-area">
+                <div class="hand" id="player-hand">
+                    <!-- Cards injected here -->
+                </div>
+                <div class="avatar">You</div>
+                <div class="controls">
+                    <button class="btn-action" onclick="drawCard()">Draw Card</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div id="game-over-modal" class="modal hidden">
+            <div class="modal-content">
+                <h1 id="winner-text">You Win!</h1>
+                <button class="btn" onclick="location.reload()">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
