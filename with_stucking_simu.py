@@ -87,12 +87,9 @@ class Uno_AI:
 
         score = hand_term * 3.0 + small_stuck_bonus
         if my_stuck:
-            score -= 6.0   # 這個數字可以之後拿去調
-        # (b) 對手快要贏（只剩一張牌）的 penalty
+            score -= 6.0  
         if len(opp_hand) == 1:
-            score -= 20.0  # 對手 UNO → 強烈扣分，提醒 search 避免這種局面
-
-        # 你之後如果還想加其他 penalty，也是在這裡繼續改 score
+            score -= 20.0 
 
         return score
 
@@ -132,7 +129,7 @@ class Uno_AI:
         """
         H_1, H_2, D_g, P, P_t, G_o = state
 
-        # Terminal conditions 直接打分不做分支
+        # Terminal conditions
         if depth == 0 or G_o == 'GameOver':
             return self.evaluate_state(state)
 
