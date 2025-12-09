@@ -10,7 +10,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from stage_1_mini_uno.flexible_uno import FlexibleUno, generate_deck
 from stage_1_mini_uno.offline_solver import OfflineSolver
 from stage_1_mini_uno.exact_belief_solver import ExactBeliefSolver
-from stage_1_mini_uno.online_solver_adapter import MiniUnoAI
+from uno_ai import Uno_AI
 from uno import Uno
 
 class TestingPipeline:
@@ -69,33 +69,8 @@ class TestingPipeline:
                 time_exact = time.time() - start_time
                 
                 # 3. Particle Solver (Online)
-                # We need to adapt MiniUnoAI to use FlexibleUno logic?
-                # MiniUnoAI uses MiniUno class internally for simulation.
-                # We need to inject the correct deck/game class.
-                # MiniUnoAI.init_belief uses MiniUno().build_number_deck().
-                # We need a FlexibleUnoAI.
-                
-                # Let's subclass or configure MiniUnoAI
-                particle_solver = MiniUnoAI(player_id=player_id, num_samples=100, lookahead=2)
-                # Inject custom belief logic that uses FlexibleUno
-                # This is tricky without modifying MiniUnoAI.
-                # But MiniUnoAI uses `game.get_O_space()` which is fine.
-                # But `MiniBelief` uses `MiniUno().build_number_deck()`.
-                # We need to patch `MiniBelief` or pass the deck.
-                
-                # Hack: We can monkey-patch MiniUno.build_number_deck for this process?
-                # Or better, update MiniBelief to take deck as arg.
-                # For now, let's assume MiniUnoAI might fail if deck is different.
-                # Wait, `MiniBelief` is hardcoded to `MiniUno`.
-                # I should update `MiniBelief` in `online_solver_adapter.py` to be more flexible?
-                # Or just create a `FlexibleBelief` here.
-                
-                # Let's skip Particle for a moment if it's hard, or fix it.
-                # User wants "Particle based solver to be used".
-                # I will assume I need to fix/adapt it.
-                # I'll do a quick fix: Create a `FlexibleAI` here.
-                
-                # ... (Implementation of FlexibleAI inside pipeline or imported)
+                # Use Uno_AI from uno_ai.py
+                particle_solver = Uno_AI(player_id=player_id, num_samples=100, lookahead=2)
                 
                 start_time = time.time()
                 particle_solver.init_belief(game) 
