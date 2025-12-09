@@ -80,6 +80,7 @@ Each particle represents a possible complete state:
 $$s^{(i)} = (H_1^{(i)}, H_2^{(i)}, D_g^{(i)}, P^{(i)}, P_t^{(i)}, G_o^{(i)})$$
 
 Only hidden components are stored:
+
 - $H_2^{(i)}$: Opponent's hand (7 cards)
 - $D_g^{(i)}$: Deck composition (remaining cards)
 
@@ -108,10 +109,12 @@ $$B'(h) = \{s^{(i)} : H_2^{(i)} \cap \text{LEGAL}(P_t) = \emptyset\}$$
 
 Simple randomized policy for simulation:
 
-$$\pi_{\text{rollout}}(h,a) = \begin{cases}
+$$
+\pi_{\text{rollout}}(h,a) = \begin{cases}
 \text{Random legal action} & \text{if } H_1 \cap \text{LEGAL}(P_t) \neq \emptyset \\
 \text{Draw 1 card} & \text{otherwise}
-\end{cases}$$
+\end{cases}
+$$
 
 ## Computational Complexity
 
@@ -161,20 +164,5 @@ $$\text{LEGAL}(P_t) = \{c \in D : c(\text{COLOR}) = P_t(\text{COLOR}) \lor c(\te
 - **Rollout Depth**: 5-10 moves lookahead typical
 - **Simulations**: 1000-10000 simulations per decision for convergence
 - **Discount Factor**: $\gamma = 0.95$ for future value discounting
-
-### Convergence Properties
-
-Under mild conditions:
-- **Value Function Convergence**: $V(h) \to V^*(h)$ as $N(h) \to \infty$
-- **Belief Consistency**: $\hat{b}(s|h) \to b(s|h)$ as $K \to \infty$
-- **Optimal Action Selection**: $\arg\max_a V^{\oplus}(ha) \to \pi^*(h)$ as search expands
-
-## Advantages Over Alternative Methods
-
-1. **Scalability**: Handles large state spaces intractable for exact methods
-2. **Anytime**: Can improve with more computation time
-3. **Theoretically Sound**: Converges to optimal policy given sufficient samples
-4. **Model-Free**: Works with black-box simulators, no explicit model needed
-5. **Memory Efficient**: Particle representation scales linearly with state size
 
 This mathematical foundation enables POMCP to effectively solve large partially observable sequential decision problems like UNO.

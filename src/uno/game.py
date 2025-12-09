@@ -248,15 +248,17 @@ class Uno:
                 if value == WILD_DRAW_4:
                     # Next player draws 4 and skips turn
                     self.draw_pending = 4
+                    self.skip_next = True
             elif value == SKIP:
-                # Player who played Skip gets another turn
-                self.player_plays_again = True
+                # Skip next player's turn
+                self.skip_next = True
             elif value == REVERSE:
-                # In 2-player, Reverse acts like Skip - player gets another turn
-                self.player_plays_again = True
+                # In 2-player, Reverse acts like Skip - skip next player
+                self.skip_next = True
             elif value == DRAW_2:
                 # Next player draws 2 and skips turn
                 self.draw_pending = 2
+                self.skip_next = True
             else:
                 # Number card: update current color
                 self.current_color, _ = card

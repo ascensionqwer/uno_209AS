@@ -1180,7 +1180,7 @@ def get_player_action(game: Uno, player: int) -> Optional[Action]:
     play_actions = [a for a in legal_actions if a.is_play()]
     draw_actions = [a for a in legal_actions if not a.is_play()]
 
-    print(f"\nLegal actions:")
+    print("\nLegal actions:")
     action_map = {}
     counter = 1
 
@@ -1200,7 +1200,7 @@ def get_player_action(game: Uno, player: int) -> Optional[Action]:
 
     while True:
         try:
-            choice = input(f"\nSelect action (1-{counter}): ").strip()
+            choice = input(f"\nSelect action (1-{counter - 1}): ").strip()
             action_num = int(choice)
 
             if action_num in action_map:
@@ -1208,7 +1208,7 @@ def get_player_action(game: Uno, player: int) -> Optional[Action]:
 
                 # Handle wild card color selection
                 if action.is_play() and action.X_1 and game._is_wild(action.X_1):
-                    print(f"\nChoose a color for the wild card:")
+                    print("\nChoose a color for the wild card:")
                     print("  1. Red")
                     print("  2. Yellow")
                     print("  3. Green")
@@ -1254,7 +1254,7 @@ def run_player_vs_pomcp_game(seed: Optional[int] = None, human_player: int = 1):
         seed: Random seed for game initialization
         human_player: Which player number the human controls (1 or 2)
     """
-    from src.utils.matchup_types import Matchup, PlayerType
+    from src.utils.matchup_types import PlayerType
 
     print("=" * 60)
     print(f"UNO: Human (Player {human_player}) vs POMCP AI (Player {3 - human_player})")
@@ -1281,6 +1281,11 @@ def run_player_vs_pomcp_game(seed: Optional[int] = None, human_player: int = 1):
         # Handle skip logic
         if game.skip_next:
             print(f"\n>>> Player {current_player} is skipped!")
+            # If there are pending draws, the skipped player must draw first
+            if game.draw_pending > 0:
+                print(f"Player {current_player} draws {game.draw_pending} card(s)")
+                draw_action = Action(None, game.draw_pending)
+                game.execute_action(draw_action, current_player)
             game.skip_next = False
             current_player = 3 - current_player
             continue
@@ -1310,7 +1315,7 @@ def run_player_vs_pomcp_game(seed: Optional[int] = None, human_player: int = 1):
             print(f"\nYou chose: {action}")
         else:
             # AI player's turn
-            print(f"\nPOMCP AI is thinking...")
+            print("\nPOMCP AI is thinking...")
             start_time = time.time()
             action = get_action_for_player(
                 game, current_player, PlayerType.PARTICLE_POLICY, ai_policy, state
