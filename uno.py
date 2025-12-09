@@ -61,7 +61,7 @@ class Uno:
         self.P = [remaining.pop(0)]
         self.D_g = remaining
         self.G_o = "Active"
-
+        
         self.create_S()
 
     def create_S(self) -> State:
@@ -91,7 +91,7 @@ class Uno:
             self.G_o = "GameOver"
         self.create_S()  # Recompute P_t and State with updated G_o
 
-
+            
     def print_S(self):
         if self.State is None:
             self.create_S()
@@ -216,31 +216,31 @@ class Uno:
             self.create_S()
         self.O = (self.H_1, len(self.H_2), len(self.D_g), self.P, self.P_t, self.G_o)
         return self.O
-
+        
     def T(self, s_prime: State, action: Action, player: int = 1) -> float:
         """
         Transition probability function T(s' | s, a).
-
+        
         Given current state s (self), action a, and next state s_prime,
         returns the probability of transitioning to s_prime.
-
+        
         Args:
             s_prime: Next state (H_1', H_2', D_g', P', P_t', G_o')
             action: Action taken (X_1 or Y_n)
             player: Which player (1 or 2)
-
+        
         Returns:
             Probability in [0, 1]
         """
         if self.State is None:
             self.create_S()
-
+        
         # Unpack current state from self
         H_1, H_2, D_g, P, P_t, G_o = self.State
-
+        
         # Unpack next state
         H_1_prime, H_2_prime, D_g_prime, P_prime, P_t_prime, G_o_prime = s_prime
-
+        
         # Select current and next hand based on player
         if player == 1:
             H_curr, H_curr_prime = H_1, H_1_prime
@@ -248,78 +248,78 @@ class Uno:
         else:
             H_curr, H_curr_prime = H_2, H_2_prime
             H_other, H_other_prime = H_1, H_1_prime
-
+        
         # Case 0: Game over - no transitions allowed
         if G_o == "GameOver":
             return 0.0
-
+        
         # Common checks
         if G_o_prime != "Active" and G_o_prime != "GameOver":
             return 0.0
-
+        
         # Check other hand unchanged (multiset equality)
         if Counter(H_other_prime) != Counter(H_other):
             return 0.0
-
+        
         # Case 1: Play action (deterministic, prob = 1 if valid)
         if action.is_play():
             X_1 = action.X_1
-
+            
             # Check if X_1 is in current hand (multiset)
             H_curr_counter = Counter(H_curr)
             if H_curr_counter[X_1] == 0:
                 return 0.0
-
+            
             # Check legality
             if not self.is_legal_play(X_1):
                 return 0.0
-
+            
             # Check hand update: H' = H \ {X_1} (multiset)
             expected_h_counter = H_curr_counter - Counter([X_1])
             if Counter(H_curr_prime) != expected_h_counter:
                 return 0.0
-
+            
             # Check pile update: P' = P + [X_1] (exact list, assuming order matters for played pile)
             if P_prime != P + [X_1]:
                 return 0.0
-
+            
             # Check top card update
             if P_t_prime != X_1:
                 return 0.0
-
+            
             # Check deck unchanged
             if Counter(D_g_prime) != Counter(D_g):
                 return 0.0
-
+            
             # Check game over condition
             expected_g_o = "GameOver" if len(H_curr_prime) == 0 else "Active"
             if G_o_prime != expected_g_o:
                 return 0.0
-
+            
             return 1.0
-
+        
         # Case 2: Draw action
         elif action.is_draw():
             n = action.n
-
+            
             # Deck size check (no reshuffle handling; assume sufficient cards)
             if len(D_g) < n:
                 return 0.0
-
+            
             # Compute added multiset: cards added to hand
             added_counter = Counter(H_curr_prime) - Counter(H_curr)
             total_added = sum(added_counter.values())
-
+            
             # Must add exactly n cards, no removals
             if total_added != n or any(v < 0 for v in added_counter.values()):
                 return 0.0
-
+            
             # For Y_1: must have no legal moves
             if n == 1:
                 has_legal_move = any(self.is_legal_play(card) for card in H_curr)
                 if has_legal_move:
                     return 0.0
-
+            
             # For Y_n (n>1): in simplified number-card UNO, no +2/+4 specials exist.
             # Assuming Y_2/Y_4 invalid unless P_t value is 2 or 4 (heuristic match to math).
             # Adjust this condition based on your exact rules; here returning 0 for n>1.
@@ -327,26 +327,26 @@ class Uno:
                 # Example condition: if P_t and P_t[1] in [2, 4] (treating numbers 2/4 as draw triggers)
                 if self.P_t is None or self.P_t[1] not in [2, 4]:
                     return 0.0
-
+            
             # Validate added cards were available in deck
             dg_counter = Counter(D_g)
             for t, cnt in added_counter.items():
                 if cnt > dg_counter[t]:
                     return 0.0
-
+            
             # Check deck update: D_g' = D_g \ added cards (multiset)
             expected_dg_counter = dg_counter - added_counter
             if Counter(D_g_prime) != expected_dg_counter:
                 return 0.0
-
+            
             # Check pile and top unchanged
             if P_prime != P or P_t_prime != P_t:
                 return 0.0
-
+            
             # Check game over (draw can't cause win)
             if G_o_prime != "Active":
                 return 0.0
-
+            
             # Calculate probability
             if n == 1:
                 # For Y_1: added_counter has one type with count 1
@@ -362,7 +362,7 @@ class Uno:
                     ways *= comb(dg_counter[t], cnt)
                 total_ways = comb(len(D_g), n)
                 return ways / total_ways if total_ways > 0 else 0.0
-
+        
         # Invalid action
         return 0.0
 
@@ -371,16 +371,16 @@ if __name__ == "__main__":
     # Initialize game
     uno = Uno()
     uno.new_game(seed=1)
-
+    
     # Print initial state
     uno.print_S()
-
+    
     # Player 1 action
     actions = uno.get_legal_actions(1)
     if actions:
         uno.execute_action(actions[0], 1)
         uno.print_S()
-
+    
     # Basic T test (play)
     print("\nT Play Test:")
     uno_t = Uno(H_1=[('R', 7), ('Y', 7)], H_2=[('B', 2)], D_g=[('G', 3)], P=[('Y', 7)])
@@ -388,7 +388,7 @@ if __name__ == "__main__":
     act = Action(X_1=('Y', 7))
     s_prime = ([('R', 7)], [('B', 2)], [('G', 3)], [('Y', 7), ('Y', 7)], ('Y', 7), "Active")
     print(uno_t.T(s_prime, act, 1))  # 1.0
-
+    
     # Basic T test (draw sum)
     print("\nT Draw Sum:")
     uno_d = Uno(H_1=[('R', 1)], H_2=[('B', 2)], D_g=[('R', 1), ('G', 4)], P=[('Y', 5)])
