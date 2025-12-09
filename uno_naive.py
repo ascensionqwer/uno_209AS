@@ -2,9 +2,9 @@ from typing import Optional
 from pomdp import Action
 from uno import Uno
 
-class Uno_Heuristic:
+class Uno_Naive:
     """
-    Simple heuristic player: plays first legal card, otherwise draws.
+    Simple naive player: plays first legal card, otherwise draws.
 
     This implements the baseline strategy:
     - Check hand for legal cards
@@ -14,7 +14,7 @@ class Uno_Heuristic:
 
     def __init__(self, player_id: int = 2):
         """
-        Initialize heuristic player.
+        Initialize naive player.
 
         Args:
             player_id: Player number (1 or 2)

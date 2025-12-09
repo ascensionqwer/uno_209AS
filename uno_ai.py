@@ -3,7 +3,6 @@ from pomdp import State, Action
 from belief import Belief
 from uno import Uno
 
-
 class Uno_AI:
     """
     Optimal AI player using belief states and expectiminimax search.
@@ -193,7 +192,6 @@ class Uno_AI:
 
         # Get legal actions
         actions = self.game.get_legal_actions(self.player_id)
-
         if len(actions) == 0:
             return None
 
