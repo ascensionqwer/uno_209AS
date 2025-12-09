@@ -61,9 +61,19 @@ Edit `config.jsonc` to adjust parameters:
 
 ### Running the Game
 
+#### Simulation Mode
 ```bash
 python main.py
 ```
+
+#### Interactive Mode (Human vs POMCP AI)
+```bash
+python interactive.py
+```
+
+Options:
+- `--seed N`: Set random seed for reproducible games
+- `--player {1,2}`: Choose which player number you want to be (default: 1)
 
 ## Implementation Details
 

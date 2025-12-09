@@ -1151,3 +1151,214 @@ def run_naive_vs_naive_game(
         winner = 0
 
     return turn_count, winner
+
+
+def get_player_action(game: Uno, player: int) -> Optional[Action]:
+    """
+    Get action from human player via terminal input.
+
+    Args:
+        game: Uno game instance
+        player: Player number (1 or 2)
+
+    Returns:
+        Action chosen by player or None for draw
+    """
+    legal_actions = game.get_legal_actions(player)
+
+    if not legal_actions:
+        print("No legal actions available. Must draw a card.")
+        return None
+
+    hand = game.H_1 if player == 1 else game.H_2
+
+    print(f"\nYour hand ({len(hand)} cards):")
+    for i, card in enumerate(hand, 1):
+        print(f"  {i}. {card_to_string(card)}")
+
+    # Separate play and draw actions
+    play_actions = [a for a in legal_actions if a.is_play()]
+    draw_actions = [a for a in legal_actions if not a.is_play()]
+
+    print(f"\nLegal actions:")
+    action_map = {}
+    counter = 1
+
+    # Show play actions
+    if play_actions:
+        print("  Play cards:")
+        for action in play_actions:
+            card_str = card_to_string(action.X_1)
+            print(f"    {counter}. Play {card_str}")
+            action_map[counter] = action
+            counter += 1
+
+    # Show draw action
+    if draw_actions:
+        print(f"    {counter}. Draw card")
+        action_map[counter] = draw_actions[0]
+
+    while True:
+        try:
+            choice = input(f"\nSelect action (1-{counter}): ").strip()
+            action_num = int(choice)
+
+            if action_num in action_map:
+                action = action_map[action_num]
+
+                # Handle wild card color selection
+                if action.is_play() and action.X_1 and game._is_wild(action.X_1):
+                    print(f"\nChoose a color for the wild card:")
+                    print("  1. Red")
+                    print("  2. Yellow")
+                    print("  3. Green")
+                    print("  4. Blue")
+
+                    while True:
+                        try:
+                            color_choice = input("Select color (1-4): ").strip()
+                            color_num = int(color_choice)
+
+                            if color_num == 1:
+                                action.wild_color = RED
+                                break
+                            elif color_num == 2:
+                                action.wild_color = YELLOW
+                                break
+                            elif color_num == 3:
+                                action.wild_color = GREEN
+                                break
+                            elif color_num == 4:
+                                action.wild_color = BLUE
+                                break
+                            else:
+                                print("Invalid choice. Please enter 1-4.")
+                        except ValueError:
+                            print("Invalid input. Please enter a number 1-4.")
+
+                return action
+            else:
+                print(f"Invalid choice. Please enter a number between 1 and {counter}.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+        except KeyboardInterrupt:
+            print("\nGame interrupted by user.")
+            exit(0)
+
+
+def run_player_vs_pomcp_game(seed: Optional[int] = None, human_player: int = 1):
+    """
+    Run interactive game where human player plays against POMCP AI.
+
+    Args:
+        seed: Random seed for game initialization
+        human_player: Which player number the human controls (1 or 2)
+    """
+    from src.utils.matchup_types import Matchup, PlayerType
+
+    print("=" * 60)
+    print(f"UNO: Human (Player {human_player}) vs POMCP AI (Player {3 - human_player})")
+    print("=" * 60)
+
+    # Initialize game
+    game = Uno()
+    if seed is not None:
+        game.new_game(seed=seed)
+    else:
+        game.new_game()
+
+    # Create POMCP policy for AI player
+    ai_player = 3 - human_player
+    ai_policy = create_player_policy(PlayerType.PARTICLE_POLICY)
+
+    current_player = 1
+    turn_count = 0
+    max_turns = 10000
+
+    while game.G_o == "Active" and turn_count < max_turns:
+        turn_count += 1
+
+        # Handle skip logic
+        if game.skip_next:
+            print(f"\n>>> Player {current_player} is skipped!")
+            game.skip_next = False
+            current_player = 3 - current_player
+            continue
+
+        # Display game state
+        game.create_S()
+        state = game.State
+
+        print(f"\n{'=' * 60}")
+        print(f"Turn {turn_count} - Player {current_player}'s Turn")
+        print(
+            f"Top Card: {card_to_string(state[4]) if state[4] is not None else 'None'}"
+        )
+        if game.current_color:
+            print(f"Current Color: {game.current_color}")
+        print(f"Deck: {len(state[2])} cards remaining")
+
+        # Show opponent hand size
+        if current_player == 1:
+            print(f"Opponent (Player 2) has {len(state[1])} cards")
+        else:
+            print(f"Opponent (Player 1) has {len(state[0])} cards")
+
+        if current_player == human_player:
+            # Human player's turn
+            action = get_player_action(game, current_player)
+            print(f"\nYou chose: {action}")
+        else:
+            # AI player's turn
+            print(f"\nPOMCP AI is thinking...")
+            start_time = time.time()
+            action = get_action_for_player(
+                game, current_player, PlayerType.PARTICLE_POLICY, ai_policy, state
+            )
+            decision_time = time.time() - start_time
+            print(f"POMCP AI chose: {action} (took {decision_time:.2f}s)")
+            if ai_policy:
+                print(f"POMCP Cache Size: {ai_policy.cache.size()}")
+
+        # Execute action
+        if action is None:
+            print(f"Player {current_player} draws a card")
+            draw_action = Action(None, 1)  # Draw 1 card
+            game.execute_action(draw_action, current_player)
+        else:
+            print(
+                f"Player {current_player} plays: {card_to_string(action.X_1) if action.X_1 else 'Draw'}"
+            )
+            game.execute_action(action, current_player)
+
+        # Check for winner
+        if game.G_o != "Active":
+            break
+
+        # Switch players (unless player gets another turn)
+        if not game.player_plays_again:
+            current_player = 3 - current_player
+        else:
+            game.player_plays_again = False
+            print(f"Player {current_player} plays again!")
+
+    # Game over
+    print(f"\n{'=' * 60}")
+    print("GAME OVER")
+
+    if game.G_o == "Player 1":
+        winner = 1
+    elif game.G_o == "Player 2":
+        winner = 2
+    else:
+        winner = 0  # Draw
+
+    if winner == human_player:
+        print("🎉 Congratulations! You won!")
+    elif winner == ai_player:
+        print("🤖 POMCP AI wins!")
+    else:
+        print("🤝 Game ended in a draw!")
+
+    print(f"Total Turns: {turn_count}")
+    print(f"{'=' * 60}")
