@@ -40,40 +40,52 @@ async function startGame(opponentType) {
     checkTurn();
 }
 
+let isProcessing = false;
+
 async function playCard(index) {
-    if (isAiTurn) return;
+    if (isAiTurn || isProcessing) return;
+    isProcessing = true;
 
-    const response = await fetch('/api/play_card', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ card_index: index })
-    });
-    const result = await response.json();
+    try {
+        const response = await fetch('/api/play_card', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ card_index: index })
+        });
+        const result = await response.json();
 
-    if (result.success) {
-        gameState = result;
-        updateUI();
-        checkTurn();
-    } else {
-        alert(result.message);
+        if (result.success) {
+            gameState = result;
+            updateUI();
+            checkTurn();
+        } else {
+            alert(result.message);
+        }
+    } finally {
+        isProcessing = false;
     }
 }
 
 async function drawCard() {
-    if (isAiTurn) return;
+    if (isAiTurn || isProcessing) return;
+    isProcessing = true;
 
-    const response = await fetch('/api/draw_card', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-    });
-    const result = await response.json();
+    try {
+        const response = await fetch('/api/draw_card', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const result = await response.json();
 
-    if (result.success) {
-        gameState = result;
-        updateUI();
-        checkTurn();
-    } else {
-        alert(result.message);
+        if (result.success) {
+            gameState = result;
+            updateUI();
+            checkTurn();
+        } else {
+            alert(result.message);
+        }
+    } finally {
+        isProcessing = false;
     }
 }
 
