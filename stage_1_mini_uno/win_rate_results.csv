@@ -1,0 +1,3 @@
+Solver,Wins,Losses,Draws,WinRate
+POMDP,79,0,21,0.79
+Naive,76,0,24,0.76

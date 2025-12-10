@@ -1,165 +1,130 @@
 import sys
 import os
 import random
-import time
-from typing import List, Tuple, Optional
-
 # Add parent directory to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from stage_1_mini_uno.mini_uno import MiniUno
-from stage_1_mini_uno.offline_solver import OfflineSolver
-from pomdp import Action
+from cards import RED, BLUE, GREEN, YELLOW
 
-# --- Player Classes ---
+from stage_1_mini_uno.flexible_uno import FlexibleUno
+from stage_1_mini_uno.online_solver_adapter import MiniUnoAI
+from stage_1_mini_uno.naive_mdp_solver import NaiveMiniUnoAI
 
-class Player:
-    def get_action(self, game: MiniUno, player_num: int) -> Optional[Action]:
-        raise NotImplementedError
-
-class RandomPlayer(Player):
-    def get_action(self, game: MiniUno, player_num: int) -> Optional[Action]:
-        actions = game.get_legal_actions(player_num)
-        if not actions:
-            return None # Should not happen
-        return random.choice(actions)
-
-class OptimalPlayer(Player):
-    def __init__(self, solver: OfflineSolver):
-        self.solver = solver
-
-    def get_action(self, game: MiniUno, player_num: int) -> Optional[Action]:
-        # Optimal player needs canonical state
-        # Turn: 0 for P1, 1 for P2
-        turn = player_num - 1
-        state = self.solver.get_canonical_state(game, turn)
-        
-        # Ensure solved
-        self.solver.solve(state)
-        
-        return self.solver.policy.get(state)
-
-# --- Simulation Logic ---
-
-def simulate_game(game_id: int, p1: Player, p2: Player, start_turn: int) -> Tuple[int, int]:
+def run_game(game_config, solver_type, seed, log_file=None):
     """
-    Returns (winner, turns)
-    winner: 1 or 2
+    Runs a single game with specific configuration.
     """
-    game = MiniUno()
-    game.new_game(seed=game_id + int(time.time()))
+    # Initialize game with config
+    game = FlexibleUno(
+        colors=game_config['colors'],
+        ranks=game_config['ranks'],
+        copies=game_config['copies']
+    )
+    game.new_game(seed=seed, deal=game_config['deal'])
     
-    turn = start_turn
-    max_turns = 100
-    current_turn = 0
+    # Initialize solver for Player 1
+    if solver_type == 'POMDP':
+        solver = MiniUnoAI(player_id=1, num_samples=50, lookahead=2)
+    else:
+        solver = NaiveMiniUnoAI(player_id=1, num_samples=50, lookahead=2)
+        
+    solver.init_belief(game)
     
-    while game.G_o == "Active" and current_turn < max_turns:
-        player_num = turn + 1
+    max_turns = 200
+    turns = 0
+    
+    while game.G_o == 'Active' and turns < max_turns:
+        turns += 1
         
-        if player_num == 1:
-            action = p1.get_action(game, 1)
-        else:
-            action = p2.get_action(game, 2)
+        if turns % 2 != 0: # Player 1 Turn
+            action = solver.choose_action()
+            if action is None:
+                break
+                
+            success = game.execute_action(action)
+            if not success:
+                turns -= 1 # Retry
+                continue
             
-        if action is None:
-            print(f"Error: No action for player {player_num}")
-            break
+            if len(game.H_1) == 0:
+                return 1 # P1 Win
+                
+        else: # Player 2 Turn (Random)
+            actions = game.get_legal_actions(player=2)
+            if not actions:
+                break
             
-        success = game.execute_action(action, player=player_num)
-        if not success:
-            print(f"Error: Invalid action {action} by player {player_num}")
-            break
+            action = random.choice(actions)
+            success = game.execute_action(action, player=2)
+            if not success:
+                turns -= 1 # Retry
+                continue
             
-        if len(game.H_1) == 0:
-            return 1, current_turn + 1
-        if len(game.H_2) == 0:
-            return 2, current_turn + 1
+            solver.update_belief(action)
             
-        turn = 1 - turn
-        current_turn += 1
-        
-    return 0, current_turn
+            if len(game.H_2) == 0:
+                return -1 # P2 Win
+                
+    return 0 # Draw
 
-def run_experiment(name: str, p1: Player, p2: Player, num_games: int = 5000):
-    print(f"\n=== Experiment: {name} ===")
-    print(f"Games: {num_games} ({num_games//2} P1 start, {num_games//2} P2 start)")
+def run_experiment(config_name, config, num_games=50):
+    print(f"\nRunning Experiment: {config_name}")
+    print(f"Config: {config}")
     
-    p1_wins = 0
-    p2_wins = 0
-    p1_start_wins = 0
-    p1_start_games = 0
-    p2_start_wins = 0
-    p2_start_games = 0
-    draws = 0
-    total_turns = 0
+    results = {}
     
-    start_time = time.time()
-    
-    for i in range(num_games):
-        start_turn = 0 if i < (num_games // 2) else 1
-        winner, turns = simulate_game(i, p1, p2, start_turn)
+    for solver_type in ['POMDP', 'Naive']:
+        print(f"  Testing {solver_type}...")
+        wins = 0
+        losses = 0
+        draws = 0
         
-        total_turns += turns
-        if winner == 1:
-            p1_wins += 1
-            if start_turn == 0: p1_start_wins += 1
-        elif winner == 2:
-            p2_wins += 1
-            if start_turn == 1: p2_start_wins += 1
-        else:
-            draws += 1
+        for i in range(num_games):
+            res = run_game(config, solver_type, seed=i)
+            if res == 1: wins += 1
+            elif res == -1: losses += 1
+            else: draws += 1
             
-        if start_turn == 0: p1_start_games += 1
-        else: p2_start_games += 1
-            
-    elapsed = time.time() - start_time
-    avg_turns = total_turns / num_games
-    
-    print(f"Time: {elapsed:.2f}s")
-    print(f"Overall P1 Wins: {p1_wins} ({p1_wins/num_games*100:.1f}%)")
-    print(f"Overall P2 Wins: {p2_wins} ({p2_wins/num_games*100:.1f}%)")
-    print(f"Draws: {draws}")
-    print(f"Avg Turns: {avg_turns:.2f}")
-    
-    if p1_start_games > 0:
-        print(f"  When P1 Starts ({p1_start_games} games): P1 Wins {p1_start_wins} ({p1_start_wins/p1_start_games*100:.1f}%)")
-    if p2_start_games > 0:
-        # P2 Wins when P2 starts
-        print(f"  When P2 Starts ({p2_start_games} games): P2 Wins {p2_start_wins} ({p2_start_wins/p2_start_games*100:.1f}%)")
-    
-    return {
-        "name": name,
-        "p1_wins": p1_wins,
-        "p2_wins": p2_wins,
-        "draws": draws,
-        "avg_turns": avg_turns
-    }
-
-def main():
-    solver = OfflineSolver()
-    
-    optimal_p = OptimalPlayer(solver)
-    random_p = RandomPlayer()
-    
-    results = []
-    
-    # 1. Expectiminimax (P1) vs Naive (P2)
-    res1 = run_experiment("Expectiminimax (P1) vs Naive (P2)", optimal_p, random_p)
-    results.append(res1)
-    
-    # 2. Naive (P1) vs Naive (P2)
-    res2 = run_experiment("Naive (P1) vs Naive (P2)", random_p, random_p)
-    results.append(res2)
-    
-    # 3. Expectiminimax (P1) vs Expectiminimax (P2)
-    res3 = run_experiment("Expectiminimax (P1) vs Expectiminimax (P2)", optimal_p, optimal_p)
-    results.append(res3)
-    
-    # Save Summary CSV
-    with open("stage_1_mini_uno/experiment_results_5000.csv", "w") as f:
-        f.write("Experiment,P1_Wins,P2_Wins,Draws,Avg_Turns\n")
-        for r in results:
-            f.write(f"{r['name']},{r['p1_wins']},{r['p2_wins']},{r['draws']},{r['avg_turns']:.2f}\n")
+        win_rate = wins / num_games if num_games > 0 else 0
+        results[solver_type] = {'Wins': wins, 'Losses': losses, 'Draws': draws, 'WinRate': win_rate}
+        print(f"    {solver_type}: {wins}W - {losses}L - {draws}D ({win_rate:.1%})")
+        
+    return results
 
 if __name__ == "__main__":
-    main()
+    experiments = {
+        'Micro': {
+            'colors': [RED, BLUE],
+            'ranks': [0, 1],
+            'copies': 1,
+            'deal': 1 # Very small hands for very small deck (4 cards total)
+        },
+        'Mini': {
+            'colors': [RED, BLUE],
+            'ranks': [0, 1, 2],
+            'copies': 2,
+            'deal': 2 # Standard Mini Uno deal (12 cards total)
+        },
+        'Small': {
+            'colors': [RED, BLUE, GREEN],
+            'ranks': [0, 1, 2, 3],
+            'copies': 2,
+            'deal': 3 # Slightly larger hands (24 cards total)
+        },
+        'Medium': {
+            'colors': [RED, BLUE, GREEN, YELLOW],
+            'ranks': [0, 1, 2, 3, 4],
+            'copies': 2,
+            'deal': 4 # Larger hands (40 cards total)
+        }
+    }
+    
+    with open("stage_1_mini_uno/experiment_results.txt", "w") as f:
+        for name, config in experiments.items():
+            f.write(f"=== {name} ===\n")
+            results = run_experiment(name, config, num_games=50)
+            f.write(f"POMDP: {results['POMDP']['WinRate']:.1%}\n")
+            f.write(f"Naive: {results['Naive']['WinRate']:.1%}\n")
+            f.write("\n")
+            
+    print("\nExperiments completed. Results saved to stage_1_mini_uno/experiment_results.txt")

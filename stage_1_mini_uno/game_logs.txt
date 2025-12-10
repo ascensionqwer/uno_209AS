@@ -1,0 +1,1591 @@
+
+=== Game Seed 0 (POMDP) ===
+Initial State: H1=[('B', 1), ('B', 2)], H2=[('R', 1), ('B', 0)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 1 (POMDP) ===
+Initial State: H1=[('B', 1), ('B', 2)], H2=[('B', 2), ('B', 1)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 2 (POMDP) ===
+Initial State: H1=[('B', 0), ('B', 2)], H2=[('R', 2), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 3 (POMDP) ===
+Initial State: H1=[('R', 1), ('B', 0)], H2=[('B', 1), ('R', 0)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 4 (POMDP) ===
+Initial State: H1=[('B', 2), ('R', 1)], H2=[('R', 0), ('B', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 5 (POMDP) ===
+Initial State: H1=[('R', 1), ('R', 2)], H2=[('R', 1), ('R', 0)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 6 (POMDP) ===
+Initial State: H1=[('B', 0), ('B', 2)], H2=[('R', 2), ('R', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 7 (POMDP) ===
+Initial State: H1=[('B', 2), ('R', 2)], H2=[('R', 1), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 8 (POMDP) ===
+Initial State: H1=[('B', 2), ('R', 1)], H2=[('B', 2), ('R', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 9 (POMDP) ===
+Initial State: H1=[('B', 2), ('B', 2)], H2=[('R', 2), ('R', 1)], Pt=('R', 0)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 2))
+Turn 6 (P2): Action(X_1=('B', 0))
+Turn 7 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 10 (POMDP) ===
+Initial State: H1=[('B', 0), ('R', 1)], H2=[('B', 1), ('R', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 11 (POMDP) ===
+Initial State: H1=[('R', 1), ('B', 1)], H2=[('R', 0), ('R', 1)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 12 (POMDP) ===
+Initial State: H1=[('B', 2), ('B', 2)], H2=[('B', 1), ('R', 1)], Pt=('R', 0)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Turn 4 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 13 (POMDP) ===
+Initial State: H1=[('R', 2), ('R', 0)], H2=[('B', 1), ('B', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('R', 2))
+Turn 6 (P2): Action(X_1=('B', 2))
+Turn 7 (P1): Action(Y_1=[])
+Turn 8 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 14 (POMDP) ===
+Initial State: H1=[('B', 2), ('R', 0)], H2=[('B', 1), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 0))
+Winner: P1 (POMDP)
+
+=== Game Seed 15 (POMDP) ===
+Initial State: H1=[('B', 0), ('B', 2)], H2=[('R', 1), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 16 (POMDP) ===
+Initial State: H1=[('B', 1), ('R', 2)], H2=[('R', 0), ('B', 2)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 17 (POMDP) ===
+Initial State: H1=[('B', 1), ('R', 2)], H2=[('R', 0), ('B', 0)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('R', 0))
+Winner: P2 (Random)
+
+=== Game Seed 18 (POMDP) ===
+Initial State: H1=[('R', 0), ('R', 2)], H2=[('B', 1), ('R', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 19 (POMDP) ===
+Initial State: H1=[('B', 2), ('B', 0)], H2=[('B', 1), ('R', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 0))
+Winner: P1 (POMDP)
+
+=== Game Seed 20 (POMDP) ===
+Initial State: H1=[('B', 0), ('R', 2)], H2=[('R', 0), ('B', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('R', 1))
+Turn 6 (P2): Action(X_1=('R', 0))
+Turn 7 (P1): Action(X_1=('R', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 21 (POMDP) ===
+Initial State: H1=[('B', 1), ('R', 0)], H2=[('R', 2), ('R', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('R', 1))
+Winner: P2 (Random)
+
+=== Game Seed 22 (POMDP) ===
+Initial State: H1=[('B', 0), ('B', 1)], H2=[('B', 2), ('B', 1)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 0))
+Winner: P1 (POMDP)
+
+=== Game Seed 23 (POMDP) ===
+Initial State: H1=[('B', 1), ('B', 2)], H2=[('B', 0), ('B', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 24 (POMDP) ===
+Initial State: H1=[('R', 2), ('B', 1)], H2=[('B', 2), ('R', 0)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 25 (POMDP) ===
+Initial State: H1=[('B', 0), ('R', 2)], H2=[('R', 1), ('B', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 26 (POMDP) ===
+Initial State: H1=[('R', 1), ('B', 0)], H2=[('B', 2), ('R', 1)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('R', 2))
+Turn 6 (P2): Action(X_1=('R', 1))
+Turn 7 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 27 (POMDP) ===
+Initial State: H1=[('B', 2), ('B', 1)], H2=[('R', 2), ('R', 1)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('R', 1))
+Winner: P2 (Random)
+
+=== Game Seed 28 (POMDP) ===
+Initial State: H1=[('B', 0), ('B', 1)], H2=[('R', 0), ('R', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('B', 0))
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 1))
+Turn 6 (P2): Action(X_1=('R', 1))
+Turn 7 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 29 (POMDP) ===
+Initial State: H1=[('R', 2), ('B', 2)], H2=[('B', 1), ('R', 0)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(Y_1=[])
+Turn 6 (P2): Action(X_1=('R', 1))
+Turn 7 (P1): Action(Y_1=[])
+Turn 8 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 30 (POMDP) ===
+Initial State: H1=[('R', 2), ('B', 1)], H2=[('B', 1), ('R', 1)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('R', 1))
+Winner: P2 (Random)
+
+=== Game Seed 31 (POMDP) ===
+Initial State: H1=[('R', 2), ('R', 1)], H2=[('B', 0), ('B', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 0))
+Winner: P2 (Random)
+
+=== Game Seed 32 (POMDP) ===
+Initial State: H1=[('R', 2), ('B', 1)], H2=[('R', 0), ('B', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('R', 1))
+Turn 6 (P2): Action(X_1=('R', 2))
+Turn 7 (P1): Action(Y_1=[])
+Turn 8 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 33 (POMDP) ===
+Initial State: H1=[('R', 0), ('R', 2)], H2=[('B', 0), ('R', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('R', 0))
+Turn 4 (P2): Action(X_1=('B', 0))
+Winner: P2 (Random)
+
+=== Game Seed 34 (POMDP) ===
+Initial State: H1=[('R', 1), ('R', 2)], H2=[('B', 2), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 35 (POMDP) ===
+Initial State: H1=[('R', 0), ('R', 2)], H2=[('R', 2), ('B', 1)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 36 (POMDP) ===
+Initial State: H1=[('R', 1), ('R', 2)], H2=[('B', 2), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 37 (POMDP) ===
+Initial State: H1=[('R', 2), ('B', 2)], H2=[('B', 1), ('B', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 38 (POMDP) ===
+Initial State: H1=[('B', 1), ('R', 2)], H2=[('B', 2), ('B', 0)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 39 (POMDP) ===
+Initial State: H1=[('B', 2), ('B', 1)], H2=[('R', 1), ('B', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 40 (POMDP) ===
+Initial State: H1=[('B', 2), ('B', 0)], H2=[('R', 2), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 41 (POMDP) ===
+Initial State: H1=[('R', 0), ('B', 2)], H2=[('B', 2), ('R', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 1))
+Turn 6 (P2): Action(X_1=('B', 0))
+Turn 7 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 42 (POMDP) ===
+Initial State: H1=[('B', 1), ('R', 2)], H2=[('R', 1), ('B', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 43 (POMDP) ===
+Initial State: H1=[('B', 2), ('R', 1)], H2=[('B', 0), ('B', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 44 (POMDP) ===
+Initial State: H1=[('R', 2), ('B', 0)], H2=[('R', 0), ('R', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('B', 0))
+Winner: P1 (POMDP)
+
+=== Game Seed 45 (POMDP) ===
+Initial State: H1=[('R', 1), ('R', 2)], H2=[('B', 0), ('B', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 0))
+Winner: P2 (Random)
+
+=== Game Seed 46 (POMDP) ===
+Initial State: H1=[('R', 2), ('B', 1)], H2=[('R', 1), ('B', 0)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 47 (POMDP) ===
+Initial State: H1=[('R', 0), ('B', 2)], H2=[('B', 2), ('R', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 0))
+Turn 6 (P2): Action(Y_1=[])
+Turn 7 (P1): Action(X_1=('R', 0))
+Winner: P1 (POMDP)
+
+=== Game Seed 48 (POMDP) ===
+Initial State: H1=[('R', 1), ('R', 0)], H2=[('R', 2), ('B', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 2))
+Turn 6 (P2): Action(X_1=('R', 2))
+Turn 7 (P1): Action(X_1=('R', 0))
+Winner: P1 (POMDP)
+
+=== Game Seed 49 (POMDP) ===
+Initial State: H1=[('B', 2), ('R', 2)], H2=[('B', 2), ('B', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 50 (POMDP) ===
+Initial State: H1=[('B', 2), ('B', 1)], H2=[('R', 0), ('R', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 51 (POMDP) ===
+Initial State: H1=[('R', 0), ('B', 2)], H2=[('B', 0), ('B', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 52 (POMDP) ===
+Initial State: H1=[('R', 1), ('B', 0)], H2=[('B', 2), ('B', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('R', 2))
+Turn 5 (P1): Action(X_1=('R', 0))
+Turn 6 (P2): Action(Y_1=[])
+Turn 7 (P1): Action(X_1=('B', 0))
+Winner: P1 (POMDP)
+
+=== Game Seed 53 (POMDP) ===
+Initial State: H1=[('R', 0), ('R', 1)], H2=[('B', 1), ('R', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('R', 1))
+Turn 4 (P2): Action(X_1=('R', 1))
+Winner: P2 (Random)
+
+=== Game Seed 54 (POMDP) ===
+Initial State: H1=[('R', 0), ('B', 2)], H2=[('B', 2), ('R', 1)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('R', 1))
+Turn 6 (P2): Action(X_1=('B', 1))
+Turn 7 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 55 (POMDP) ===
+Initial State: H1=[('B', 1), ('R', 2)], H2=[('B', 2), ('B', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 56 (POMDP) ===
+Initial State: H1=[('R', 1), ('B', 2)], H2=[('B', 1), ('R', 2)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 57 (POMDP) ===
+Initial State: H1=[('B', 1), ('B', 2)], H2=[('B', 1), ('R', 2)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 58 (POMDP) ===
+Initial State: H1=[('R', 1), ('R', 2)], H2=[('B', 1), ('R', 0)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 59 (POMDP) ===
+Initial State: H1=[('B', 0), ('B', 2)], H2=[('R', 2), ('B', 1)], Pt=('R', 1)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Turn 4 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 60 (POMDP) ===
+Initial State: H1=[('B', 1), ('R', 0)], H2=[('B', 0), ('B', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 61 (POMDP) ===
+Initial State: H1=[('R', 1), ('R', 0)], H2=[('B', 2), ('R', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 62 (POMDP) ===
+Initial State: H1=[('R', 0), ('B', 0)], H2=[('R', 2), ('B', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 63 (POMDP) ===
+Initial State: H1=[('R', 1), ('B', 2)], H2=[('B', 1), ('B', 0)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 64 (POMDP) ===
+Initial State: H1=[('R', 1), ('B', 2)], H2=[('R', 2), ('B', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 65 (POMDP) ===
+Initial State: H1=[('R', 0), ('B', 0)], H2=[('R', 1), ('B', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 1))
+Turn 6 (P2): Action(X_1=('B', 2))
+Turn 7 (P1): Action(X_1=('B', 0))
+Winner: P1 (POMDP)
+
+=== Game Seed 66 (POMDP) ===
+Initial State: H1=[('B', 1), ('R', 0)], H2=[('B', 0), ('B', 2)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 67 (POMDP) ===
+Initial State: H1=[('R', 0), ('R', 2)], H2=[('B', 2), ('B', 0)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 68 (POMDP) ===
+Initial State: H1=[('R', 0), ('R', 1)], H2=[('B', 0), ('R', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('R', 0))
+Turn 4 (P2): Action(X_1=('R', 2))
+Winner: P2 (Random)
+
+=== Game Seed 69 (POMDP) ===
+Initial State: H1=[('B', 1), ('B', 2)], H2=[('R', 2), ('B', 0)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('R', 0))
+Turn 6 (P2): Action(X_1=('B', 0))
+Turn 7 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 70 (POMDP) ===
+Initial State: H1=[('B', 0), ('B', 2)], H2=[('B', 1), ('R', 0)], Pt=('R', 1)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 0))
+Turn 4 (P2): Action(X_1=('R', 0))
+Winner: P2 (Random)
+
+=== Game Seed 71 (POMDP) ===
+Initial State: H1=[('R', 2), ('R', 2)], H2=[('B', 1), ('B', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 72 (POMDP) ===
+Initial State: H1=[('R', 2), ('R', 0)], H2=[('B', 2), ('B', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Turn 4 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 73 (POMDP) ===
+Initial State: H1=[('B', 0), ('R', 0)], H2=[('B', 1), ('R', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 74 (POMDP) ===
+Initial State: H1=[('R', 2), ('R', 2)], H2=[('B', 0), ('B', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 2))
+Turn 4 (P2): Action(X_1=('B', 0))
+Winner: P2 (Random)
+
+=== Game Seed 75 (POMDP) ===
+Initial State: H1=[('B', 2), ('R', 1)], H2=[('R', 1), ('R', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 76 (POMDP) ===
+Initial State: H1=[('B', 2), ('B', 2)], H2=[('R', 2), ('R', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Turn 4 (P2): Action(X_1=('R', 2))
+Winner: P2 (Random)
+
+=== Game Seed 77 (POMDP) ===
+Initial State: H1=[('B', 1), ('B', 2)], H2=[('B', 2), ('R', 1)], Pt=('R', 0)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('R', 2))
+Turn 4 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 78 (POMDP) ===
+Initial State: H1=[('B', 2), ('B', 1)], H2=[('R', 0), ('B', 2)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 79 (POMDP) ===
+Initial State: H1=[('R', 0), ('R', 2)], H2=[('B', 2), ('B', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 80 (POMDP) ===
+Initial State: H1=[('B', 0), ('R', 0)], H2=[('R', 1), ('R', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('R', 0))
+Winner: P1 (POMDP)
+
+=== Game Seed 81 (POMDP) ===
+Initial State: H1=[('R', 1), ('R', 1)], H2=[('R', 0), ('B', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 82 (POMDP) ===
+Initial State: H1=[('B', 2), ('R', 2)], H2=[('R', 0), ('B', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 83 (POMDP) ===
+Initial State: H1=[('B', 1), ('B', 0)], H2=[('R', 1), ('R', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 84 (POMDP) ===
+Initial State: H1=[('B', 1), ('B', 0)], H2=[('R', 2), ('R', 1)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('R', 2))
+Winner: P2 (Random)
+
+=== Game Seed 85 (POMDP) ===
+Initial State: H1=[('B', 1), ('R', 0)], H2=[('R', 2), ('R', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('R', 0))
+Winner: P1 (POMDP)
+
+=== Game Seed 86 (POMDP) ===
+Initial State: H1=[('R', 2), ('R', 1)], H2=[('R', 2), ('R', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 87 (POMDP) ===
+Initial State: H1=[('B', 1), ('R', 0)], H2=[('B', 2), ('B', 0)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 88 (POMDP) ===
+Initial State: H1=[('B', 2), ('R', 1)], H2=[('B', 2), ('R', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 89 (POMDP) ===
+Initial State: H1=[('B', 1), ('B', 0)], H2=[('B', 2), ('R', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 90 (POMDP) ===
+Initial State: H1=[('R', 0), ('B', 2)], H2=[('B', 2), ('R', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('R', 2))
+Turn 6 (P2): Action(X_1=('R', 1))
+Turn 7 (P1): Action(X_1=('R', 0))
+Winner: P1 (POMDP)
+
+=== Game Seed 91 (POMDP) ===
+Initial State: H1=[('R', 0), ('B', 1)], H2=[('B', 2), ('R', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 92 (POMDP) ===
+Initial State: H1=[('R', 1), ('R', 1)], H2=[('B', 1), ('R', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 93 (POMDP) ===
+Initial State: H1=[('B', 2), ('B', 1)], H2=[('R', 2), ('R', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 94 (POMDP) ===
+Initial State: H1=[('R', 2), ('B', 1)], H2=[('R', 0), ('R', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 2))
+Turn 5 (P1): Action(X_1=('R', 2))
+Turn 6 (P2): Action(X_1=('R', 0))
+Turn 7 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 95 (POMDP) ===
+Initial State: H1=[('R', 2), ('B', 1)], H2=[('B', 1), ('B', 0)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 2))
+Turn 5 (P1): Action(X_1=('B', 1))
+Turn 6 (P2): Action(X_1=('B', 1))
+Turn 7 (P1): Action(X_1=('B', 2))
+Winner: P1 (POMDP)
+
+=== Game Seed 96 (POMDP) ===
+Initial State: H1=[('B', 1), ('R', 2)], H2=[('R', 2), ('B', 2)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 97 (POMDP) ===
+Initial State: H1=[('R', 1), ('B', 2)], H2=[('R', 1), ('B', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 98 (POMDP) ===
+Initial State: H1=[('R', 1), ('B', 1)], H2=[('R', 2), ('R', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 99 (POMDP) ===
+Initial State: H1=[('B', 1), ('R', 1)], H2=[('R', 0), ('B', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 1))
+Turn 6 (P2): Action(X_1=('B', 2))
+Turn 7 (P1): Action(Y_1=[])
+Turn 8 (P2): Action(Y_1=[])
+Turn 9 (P1): Action(X_1=('R', 2))
+Turn 10 (P2): Action(X_1=('R', 2))
+Turn 11 (P1): Action(X_1=('R', 1))
+Winner: P1 (POMDP)
+
+=== Game Seed 0 (Naive) ===
+Initial State: H1=[('B', 1), ('B', 2)], H2=[('R', 1), ('B', 0)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 1 (Naive) ===
+Initial State: H1=[('B', 1), ('B', 2)], H2=[('B', 2), ('B', 1)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 2 (Naive) ===
+Initial State: H1=[('B', 0), ('B', 2)], H2=[('R', 2), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 3 (Naive) ===
+Initial State: H1=[('R', 1), ('B', 0)], H2=[('B', 1), ('R', 0)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 4 (Naive) ===
+Initial State: H1=[('B', 2), ('R', 1)], H2=[('R', 0), ('B', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 5 (Naive) ===
+Initial State: H1=[('R', 1), ('R', 2)], H2=[('R', 1), ('R', 0)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 6 (Naive) ===
+Initial State: H1=[('B', 0), ('B', 2)], H2=[('R', 2), ('R', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 7 (Naive) ===
+Initial State: H1=[('B', 2), ('R', 2)], H2=[('R', 1), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 8 (Naive) ===
+Initial State: H1=[('B', 2), ('R', 1)], H2=[('B', 2), ('R', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 9 (Naive) ===
+Initial State: H1=[('B', 2), ('B', 2)], H2=[('R', 2), ('R', 1)], Pt=('R', 0)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 2))
+Turn 6 (P2): Action(X_1=('R', 2))
+Turn 7 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 10 (Naive) ===
+Initial State: H1=[('B', 0), ('R', 1)], H2=[('B', 1), ('R', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 11 (Naive) ===
+Initial State: H1=[('R', 1), ('B', 1)], H2=[('R', 0), ('R', 1)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 12 (Naive) ===
+Initial State: H1=[('B', 2), ('B', 2)], H2=[('B', 1), ('R', 1)], Pt=('R', 0)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Turn 4 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 13 (Naive) ===
+Initial State: H1=[('R', 2), ('R', 0)], H2=[('B', 1), ('B', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 14 (Naive) ===
+Initial State: H1=[('B', 2), ('R', 0)], H2=[('B', 1), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('R', 1))
+Turn 6 (P2): Action(X_1=('R', 2))
+Turn 7 (P1): Action(X_1=('R', 0))
+Winner: P1 (Naive)
+
+=== Game Seed 15 (Naive) ===
+Initial State: H1=[('B', 0), ('B', 2)], H2=[('R', 1), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 16 (Naive) ===
+Initial State: H1=[('B', 1), ('R', 2)], H2=[('R', 0), ('B', 2)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 0))
+Turn 6 (P2): Action(X_1=('B', 1))
+Turn 7 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 17 (Naive) ===
+Initial State: H1=[('B', 1), ('R', 2)], H2=[('R', 0), ('B', 0)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 0))
+Winner: P2 (Random)
+
+=== Game Seed 18 (Naive) ===
+Initial State: H1=[('R', 0), ('R', 2)], H2=[('B', 1), ('R', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 19 (Naive) ===
+Initial State: H1=[('B', 2), ('B', 0)], H2=[('B', 1), ('R', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 0))
+Winner: P1 (Naive)
+
+=== Game Seed 20 (Naive) ===
+Initial State: H1=[('B', 0), ('R', 2)], H2=[('R', 0), ('B', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('B', 0))
+Winner: P1 (Naive)
+
+=== Game Seed 21 (Naive) ===
+Initial State: H1=[('B', 1), ('R', 0)], H2=[('R', 2), ('R', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 22 (Naive) ===
+Initial State: H1=[('B', 0), ('B', 1)], H2=[('B', 2), ('B', 1)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 0))
+Winner: P1 (Naive)
+
+=== Game Seed 23 (Naive) ===
+Initial State: H1=[('B', 1), ('B', 2)], H2=[('B', 0), ('B', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 24 (Naive) ===
+Initial State: H1=[('R', 2), ('B', 1)], H2=[('B', 2), ('R', 0)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 25 (Naive) ===
+Initial State: H1=[('B', 0), ('R', 2)], H2=[('R', 1), ('B', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 26 (Naive) ===
+Initial State: H1=[('R', 1), ('B', 0)], H2=[('B', 2), ('R', 1)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('R', 2))
+Turn 6 (P2): Action(X_1=('B', 2))
+Turn 7 (P1): Action(X_1=('B', 0))
+Winner: P1 (Naive)
+
+=== Game Seed 27 (Naive) ===
+Initial State: H1=[('B', 2), ('B', 1)], H2=[('R', 2), ('R', 1)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('R', 1))
+Winner: P2 (Random)
+
+=== Game Seed 28 (Naive) ===
+Initial State: H1=[('B', 0), ('B', 1)], H2=[('R', 0), ('R', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('B', 0))
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 1))
+Turn 6 (P2): Action(X_1=('R', 1))
+Turn 7 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 29 (Naive) ===
+Initial State: H1=[('R', 2), ('B', 2)], H2=[('B', 1), ('R', 0)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(Y_1=[])
+Turn 6 (P2): Action(X_1=('R', 1))
+Turn 7 (P1): Action(Y_1=[])
+Turn 8 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 30 (Naive) ===
+Initial State: H1=[('R', 2), ('B', 1)], H2=[('B', 1), ('R', 1)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 31 (Naive) ===
+Initial State: H1=[('R', 2), ('R', 1)], H2=[('B', 0), ('B', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 0))
+Winner: P2 (Random)
+
+=== Game Seed 32 (Naive) ===
+Initial State: H1=[('R', 2), ('B', 1)], H2=[('R', 0), ('B', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 33 (Naive) ===
+Initial State: H1=[('R', 0), ('R', 2)], H2=[('B', 0), ('R', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('R', 2))
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('R', 0))
+Turn 6 (P2): Action(X_1=('B', 0))
+Turn 7 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 34 (Naive) ===
+Initial State: H1=[('R', 1), ('R', 2)], H2=[('B', 2), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 35 (Naive) ===
+Initial State: H1=[('R', 0), ('R', 2)], H2=[('R', 2), ('B', 1)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 36 (Naive) ===
+Initial State: H1=[('R', 1), ('R', 2)], H2=[('B', 2), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 37 (Naive) ===
+Initial State: H1=[('R', 2), ('B', 2)], H2=[('B', 1), ('B', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 38 (Naive) ===
+Initial State: H1=[('B', 1), ('R', 2)], H2=[('B', 2), ('B', 0)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 39 (Naive) ===
+Initial State: H1=[('B', 2), ('B', 1)], H2=[('R', 1), ('B', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 40 (Naive) ===
+Initial State: H1=[('B', 2), ('B', 0)], H2=[('R', 2), ('R', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 41 (Naive) ===
+Initial State: H1=[('R', 0), ('B', 2)], H2=[('B', 2), ('R', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 1))
+Turn 6 (P2): Action(X_1=('B', 0))
+Turn 7 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 42 (Naive) ===
+Initial State: H1=[('B', 1), ('R', 2)], H2=[('R', 1), ('B', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 43 (Naive) ===
+Initial State: H1=[('B', 2), ('R', 1)], H2=[('B', 0), ('B', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 44 (Naive) ===
+Initial State: H1=[('R', 2), ('B', 0)], H2=[('R', 0), ('R', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 45 (Naive) ===
+Initial State: H1=[('R', 1), ('R', 2)], H2=[('B', 0), ('B', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 0))
+Winner: P2 (Random)
+
+=== Game Seed 46 (Naive) ===
+Initial State: H1=[('R', 2), ('B', 1)], H2=[('R', 1), ('B', 0)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 47 (Naive) ===
+Initial State: H1=[('R', 0), ('B', 2)], H2=[('B', 2), ('R', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 0))
+Turn 6 (P2): Action(Y_1=[])
+Turn 7 (P1): Action(X_1=('R', 0))
+Winner: P1 (Naive)
+
+=== Game Seed 48 (Naive) ===
+Initial State: H1=[('R', 1), ('R', 0)], H2=[('R', 2), ('B', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 0))
+Winner: P1 (Naive)
+
+=== Game Seed 49 (Naive) ===
+Initial State: H1=[('B', 2), ('R', 2)], H2=[('B', 2), ('B', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 50 (Naive) ===
+Initial State: H1=[('B', 2), ('B', 1)], H2=[('R', 0), ('R', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 51 (Naive) ===
+Initial State: H1=[('R', 0), ('B', 2)], H2=[('B', 0), ('B', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 52 (Naive) ===
+Initial State: H1=[('R', 1), ('B', 0)], H2=[('B', 2), ('B', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('R', 2))
+Turn 5 (P1): Action(X_1=('R', 0))
+Turn 6 (P2): Action(Y_1=[])
+Turn 7 (P1): Action(X_1=('B', 0))
+Winner: P1 (Naive)
+
+=== Game Seed 53 (Naive) ===
+Initial State: H1=[('R', 0), ('R', 1)], H2=[('B', 1), ('R', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('R', 1))
+Turn 4 (P2): Action(X_1=('R', 1))
+Winner: P2 (Random)
+
+=== Game Seed 54 (Naive) ===
+Initial State: H1=[('R', 0), ('B', 2)], H2=[('B', 2), ('R', 1)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('R', 1))
+Turn 6 (P2): Action(X_1=('B', 1))
+Turn 7 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 55 (Naive) ===
+Initial State: H1=[('B', 1), ('R', 2)], H2=[('B', 2), ('B', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 56 (Naive) ===
+Initial State: H1=[('R', 1), ('B', 2)], H2=[('B', 1), ('R', 2)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 57 (Naive) ===
+Initial State: H1=[('B', 1), ('B', 2)], H2=[('B', 1), ('R', 2)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 58 (Naive) ===
+Initial State: H1=[('R', 1), ('R', 2)], H2=[('B', 1), ('R', 0)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 59 (Naive) ===
+Initial State: H1=[('B', 0), ('B', 2)], H2=[('R', 2), ('B', 1)], Pt=('R', 1)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Turn 4 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 60 (Naive) ===
+Initial State: H1=[('B', 1), ('R', 0)], H2=[('B', 0), ('B', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 61 (Naive) ===
+Initial State: H1=[('R', 1), ('R', 0)], H2=[('B', 2), ('R', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 62 (Naive) ===
+Initial State: H1=[('R', 0), ('B', 0)], H2=[('R', 2), ('B', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 63 (Naive) ===
+Initial State: H1=[('R', 1), ('B', 2)], H2=[('B', 1), ('B', 0)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 64 (Naive) ===
+Initial State: H1=[('R', 1), ('B', 2)], H2=[('R', 2), ('B', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 65 (Naive) ===
+Initial State: H1=[('R', 0), ('B', 0)], H2=[('R', 1), ('B', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 1))
+Turn 6 (P2): Action(X_1=('B', 2))
+Turn 7 (P1): Action(X_1=('B', 0))
+Winner: P1 (Naive)
+
+=== Game Seed 66 (Naive) ===
+Initial State: H1=[('B', 1), ('R', 0)], H2=[('B', 0), ('B', 2)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 67 (Naive) ===
+Initial State: H1=[('R', 0), ('R', 2)], H2=[('B', 2), ('B', 0)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 68 (Naive) ===
+Initial State: H1=[('R', 0), ('R', 1)], H2=[('B', 0), ('R', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('R', 0))
+Turn 4 (P2): Action(X_1=('R', 2))
+Winner: P2 (Random)
+
+=== Game Seed 69 (Naive) ===
+Initial State: H1=[('B', 1), ('B', 2)], H2=[('R', 2), ('B', 0)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 70 (Naive) ===
+Initial State: H1=[('B', 0), ('B', 2)], H2=[('B', 1), ('R', 0)], Pt=('R', 1)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('B', 0))
+Turn 4 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 71 (Naive) ===
+Initial State: H1=[('R', 2), ('R', 2)], H2=[('B', 1), ('B', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 72 (Naive) ===
+Initial State: H1=[('R', 2), ('R', 0)], H2=[('B', 2), ('B', 2)], Pt=('B', 1)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Turn 4 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 73 (Naive) ===
+Initial State: H1=[('B', 0), ('R', 0)], H2=[('B', 1), ('R', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 74 (Naive) ===
+Initial State: H1=[('R', 2), ('R', 2)], H2=[('B', 0), ('B', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('B', 2))
+Turn 4 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 75 (Naive) ===
+Initial State: H1=[('B', 2), ('R', 1)], H2=[('R', 1), ('R', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('R', 2))
+Winner: P2 (Random)
+
+=== Game Seed 76 (Naive) ===
+Initial State: H1=[('B', 2), ('B', 2)], H2=[('R', 2), ('R', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Turn 4 (P2): Action(X_1=('R', 2))
+Winner: P2 (Random)
+
+=== Game Seed 77 (Naive) ===
+Initial State: H1=[('B', 1), ('B', 2)], H2=[('B', 2), ('R', 1)], Pt=('R', 0)
+Turn 1 (P1): Action(Y_1=[])
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('R', 2))
+Turn 4 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 78 (Naive) ===
+Initial State: H1=[('B', 2), ('B', 1)], H2=[('R', 0), ('B', 2)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 79 (Naive) ===
+Initial State: H1=[('R', 0), ('R', 2)], H2=[('B', 2), ('B', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('R', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 1))
+Winner: P2 (Random)
+
+=== Game Seed 80 (Naive) ===
+Initial State: H1=[('B', 0), ('R', 0)], H2=[('R', 1), ('R', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('R', 0))
+Winner: P1 (Naive)
+
+=== Game Seed 81 (Naive) ===
+Initial State: H1=[('R', 1), ('R', 1)], H2=[('R', 0), ('B', 2)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 0))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 82 (Naive) ===
+Initial State: H1=[('B', 2), ('R', 2)], H2=[('R', 0), ('B', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 83 (Naive) ===
+Initial State: H1=[('B', 1), ('B', 0)], H2=[('R', 1), ('R', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 84 (Naive) ===
+Initial State: H1=[('B', 1), ('B', 0)], H2=[('R', 2), ('R', 1)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('R', 2))
+Winner: P2 (Random)
+
+=== Game Seed 85 (Naive) ===
+Initial State: H1=[('B', 1), ('R', 0)], H2=[('R', 2), ('R', 1)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('R', 0))
+Winner: P1 (Naive)
+
+=== Game Seed 86 (Naive) ===
+Initial State: H1=[('R', 2), ('R', 1)], H2=[('R', 2), ('R', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 87 (Naive) ===
+Initial State: H1=[('B', 1), ('R', 0)], H2=[('B', 2), ('B', 0)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('B', 0))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 88 (Naive) ===
+Initial State: H1=[('B', 2), ('R', 1)], H2=[('B', 2), ('R', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('B', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 89 (Naive) ===
+Initial State: H1=[('B', 1), ('B', 0)], H2=[('B', 2), ('R', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 0))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 90 (Naive) ===
+Initial State: H1=[('R', 0), ('B', 2)], H2=[('B', 2), ('R', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('R', 2))
+Turn 6 (P2): Action(X_1=('R', 1))
+Turn 7 (P1): Action(X_1=('R', 0))
+Winner: P1 (Naive)
+
+=== Game Seed 91 (Naive) ===
+Initial State: H1=[('R', 0), ('B', 1)], H2=[('B', 2), ('R', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('R', 0))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 2))
+Winner: P2 (Random)
+
+=== Game Seed 92 (Naive) ===
+Initial State: H1=[('R', 1), ('R', 1)], H2=[('B', 1), ('R', 2)], Pt=('R', 0)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 93 (Naive) ===
+Initial State: H1=[('B', 2), ('B', 1)], H2=[('R', 2), ('R', 2)], Pt=('B', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('R', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('R', 2))
+Winner: P2 (Random)
+
+=== Game Seed 94 (Naive) ===
+Initial State: H1=[('R', 2), ('B', 1)], H2=[('R', 0), ('R', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(Y_1=[])
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 2))
+Turn 5 (P1): Action(X_1=('R', 2))
+Turn 6 (P2): Action(X_1=('R', 0))
+Turn 7 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 95 (Naive) ===
+Initial State: H1=[('R', 2), ('B', 1)], H2=[('B', 1), ('B', 0)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(X_1=('B', 0))
+Winner: P2 (Random)
+
+=== Game Seed 96 (Naive) ===
+Initial State: H1=[('B', 1), ('R', 2)], H2=[('R', 2), ('B', 2)], Pt=('R', 1)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(X_1=('R', 2))
+Winner: P1 (Naive)
+
+=== Game Seed 97 (Naive) ===
+Initial State: H1=[('R', 1), ('B', 2)], H2=[('R', 1), ('B', 1)], Pt=('R', 2)
+Turn 1 (P1): Action(X_1=('B', 2))
+Turn 2 (P2): Action(X_1=('B', 1))
+Turn 3 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 98 (Naive) ===
+Initial State: H1=[('R', 1), ('B', 1)], H2=[('R', 2), ('R', 1)], Pt=('B', 1)
+Turn 1 (P1): Action(X_1=('R', 1))
+Turn 2 (P2): Action(X_1=('R', 1))
+Turn 3 (P1): Action(X_1=('B', 1))
+Winner: P1 (Naive)
+
+=== Game Seed 99 (Naive) ===
+Initial State: H1=[('B', 1), ('R', 1)], H2=[('R', 0), ('B', 2)], Pt=('B', 0)
+Turn 1 (P1): Action(X_1=('B', 1))
+Turn 2 (P2): Action(X_1=('B', 2))
+Turn 3 (P1): Action(Y_1=[])
+Turn 4 (P2): Action(Y_1=[])
+Turn 5 (P1): Action(X_1=('B', 1))
+Turn 6 (P2): Action(X_1=('B', 2))
+Turn 7 (P1): Action(Y_1=[])
+Turn 8 (P2): Action(Y_1=[])
+Turn 9 (P1): Action(X_1=('R', 2))
+Turn 10 (P2): Action(X_1=('R', 2))
+Turn 11 (P1): Action(X_1=('R', 1))
+Winner: P1 (Naive)
