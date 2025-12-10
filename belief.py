@@ -211,25 +211,65 @@ class Belief:
 
         # Determine valid cards for H_2 based on belief state
         if self.posterior_mode == "draw":
-            # Opponent had no legal cards: H_2 ⊆ L \ N(P_t)
-            valid_for_h2 = [c for c in self.L if c not in self.N_Pt]
+            # Opponent had no legal cards: H_old ⊆ L \ N(P_t) with |H_old| = k-1
+            # Then drew 1 card: d ∈ L \ H_old
+            
+            # 1. Identify non-legal cards
+            non_legal = [c for c in self.L if c not in self.N_Pt]
+            
+            # Check if we have enough non-legal cards for H_old
+            needed_non_legal = self.h2_size - 1
+            if len(non_legal) < needed_non_legal:
+                print(f"Warning: Not enough non-legal cards for H_old. Need {needed_non_legal}, have {len(non_legal)}")
+                # Fallback: just sample from L
+                valid_for_h2 = self.L.copy()
+                rng.shuffle(valid_for_h2)
+                H_2_sample = valid_for_h2[: self.h2_size]
+            else:
+                # Sample H_old
+                rng.shuffle(non_legal)
+                H_old = non_legal[:needed_non_legal]
+                
+                # 2. Sample drawn card from remaining L
+                # Construct remaining L by removing H_old
+                remaining_L = list(self.L)
+                for card in H_old:
+                    remaining_L.remove(card)
+                    
+                rng.shuffle(remaining_L)
+                drawn_card = remaining_L[0]
+                
+                H_2_sample = H_old + [drawn_card]
+                
+                # Remaining for D_g are those not in H_2
+                # We can just continue using remaining_L and remove drawn_card
+                remaining_L.remove(drawn_card)
+                D_g_sample = remaining_L[:self.dg_size]
+
         else:
             # Prior belief: H_2 can be any k-subset of L
             valid_for_h2 = self.L.copy()
+            
+            # Check if sampling is possible
+            if len(valid_for_h2) < self.h2_size:
+                print(
+                    f"Warning: Cannot sample - need {self.h2_size} cards but only {len(valid_for_h2)} valid"
+                )
+                valid_for_h2 = self.L.copy()  # Fall back to prior
 
-        # Check if sampling is possible
-        if len(valid_for_h2) < self.h2_size:
-            print(
-                f"Warning: Cannot sample - need {self.h2_size} cards but only {len(valid_for_h2)} valid"
-            )
-            valid_for_h2 = self.L.copy()  # Fall back to prior
+            # Sample H_2: randomly choose k cards from valid set
+            rng.shuffle(valid_for_h2)
+            H_2_sample = valid_for_h2[: self.h2_size]
+            
+            # Remaining cards go to D_g (up to observed size)
+        remaining = list(self.L)
+        for card in H_2_sample:
+            if card in remaining:
+                remaining.remove(card)
+            else:
+                # This should theoretically not happen if H_2_sample is a subset of L
+                print(f"Warning: Sampled card {card} not found in L during remaining calculation")
 
-        # Sample H_2: randomly choose k cards from valid set
-        rng.shuffle(valid_for_h2)
-        H_2_sample = valid_for_h2[: self.h2_size]
-
-        # Remaining cards go to D_g (up to observed size)
-        remaining = [c for c in self.L if c not in H_2_sample]
         rng.shuffle(remaining)
         D_g_sample = remaining[: self.dg_size]
 
@@ -276,27 +316,77 @@ class Belief:
 
         # Determine valid cards based on belief
         if self.posterior_mode == "draw" and location == "H_2":
-            valid_cards = [c for c in self.L if c not in self.N_Pt]
+            # Complex case: H_2 = H_old (non-legal) + {drawn}
+            # P(c in H_2) depends on whether c is legal or not
+            
+            non_legal = [c for c in self.L if c not in self.N_Pt]
+            L_size = len(self.L)
+            V_size = len(non_legal)
+            k = self.h2_size
+            
+            # Probability of being the drawn card (for any card in L)
+            # P(drawn = c) = 1 / (|L| - (k-1))
+            # Because we picked k-1 cards for H_old, leaving |L|-(k-1) cards.
+            # The drawn card is picked uniformly from these.
+            p_drawn = 1.0 / (L_size - k + 1) if (L_size - k + 1) > 0 else 0
+            
+            probabilities = {}
+            for card in set(self.L):
+                if card in self.N_Pt:
+                    # Legal card: Can ONLY be the drawn card
+                    # P(c in H_2) = P(c = drawn)
+                    probabilities[card] = p_drawn * self.L.count(card)
+                else:
+                    # Non-legal card: Can be in H_old OR be the drawn card
+                    # P(c in H_old) = (k-1) / |V|
+                    # P(c = drawn) = P(c not in H_old) * p_drawn
+                    #              = (1 - (k-1)/|V|) * p_drawn
+                    
+                    count_in_L = self.L.count(card)
+                    
+                    # We need to be careful with counts. 
+                    # If there are multiple copies, the probability is for "at least one copy"?
+                    # Or expected number?
+                    # The standard get_card_probabilities usually returns P(specific instance is in H_2) * count?
+                    # Let's look at the original implementation:
+                    # probabilities[card] = (count * self.h2_size) / len(valid_cards)
+                    # This is Expected Number of copies of 'card' in H_2.
+                    
+                    # Expected count in H_old:
+                    exp_in_hold = (count_in_L * (k - 1)) / V_size if V_size > 0 else 0
+                    
+                    # Expected count as drawn card:
+                    # We have 'count_in_L' copies.
+                    # For each copy i: P(i is drawn) = P(i not in H_old) * p_drawn
+                    # P(i in H_old) = (k-1)/V_size
+                    
+                    prob_one_copy_in_hold = (k - 1) / V_size if V_size > 0 else 0
+                    prob_one_copy_drawn = (1.0 - prob_one_copy_in_hold) * p_drawn
+                    
+                    exp_drawn = count_in_L * prob_one_copy_drawn
+                    
+                    probabilities[card] = exp_in_hold + exp_drawn
+
         else:
             valid_cards = self.L
+            
+            if len(valid_cards) == 0:
+                return {}
 
-        if len(valid_cards) == 0:
-            return {}
+            # Compute probabilities
+            probabilities = {}
 
-        # Compute probabilities
-        probabilities = {}
-
-        if location == "H_2":
-            # P(card in H_2) = k / |valid_cards| for uniform sampling
-            for card in set(valid_cards):
-                count = valid_cards.count(card)
-                # Probability this card is in H_2
-                probabilities[card] = (count * self.h2_size) / len(valid_cards)
-        else:  # D_g
-            # P(card in D_g) = |D_g| / |valid_cards|
-            for card in set(valid_cards):
-                count = valid_cards.count(card)
-                probabilities[card] = (count * self.dg_size) / len(valid_cards)
+            if location == "H_2":
+                # P(card in H_2) = k / |valid_cards| for uniform sampling
+                for card in set(valid_cards):
+                    count = valid_cards.count(card)
+                    # Probability this card is in H_2
+                    probabilities[card] = (count * self.h2_size) / len(valid_cards)
+            else:  # D_g
+                # P(card in D_g) = |D_g| / |valid_cards|
+                for card in set(valid_cards):
+                    count = valid_cards.count(card)
+                    probabilities[card] = (count * self.dg_size) / len(valid_cards)
 
         return probabilities
 
