@@ -7,6 +7,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from stage_1_mini_uno.offline_solver import OfflineSolver
 from stage_1_mini_uno.online_solver_adapter import MiniUnoAI
+from stage_1_mini_uno.naive_mdp_solver import NaiveMiniUnoAI
 from stage_1_mini_uno.mini_uno import MiniUno
 from cards import Card
 
@@ -17,6 +18,7 @@ def compare_solvers():
     # Online solver needs to be initialized per state usually, or reset
     # We'll create a new one per scenario or re-init belief
     online_solver = MiniUnoAI(player_id=1, num_samples=100, lookahead=2)
+    naive_solver = NaiveMiniUnoAI(player_id=1, num_samples=100, lookahead=2)
     
     scenarios = []
     
@@ -107,8 +109,8 @@ def compare_solvers():
 
     results = []
     
-    print(f"{'Scenario':<12} | {'Offline Action':<25} | {'Online Action':<25} | {'Match':<5} | {'Offline Val':<6}")
-    print("-" * 90)
+    print(f"{'Scenario':<12} | {'Offline':<15} | {'POMDP':<15} | {'Naive':<15} | {'Match(P)':<8} | {'Match(N)':<8} | {'Val':<5}")
+    print("-" * 110)
     
     for name, state in scenarios:
         # Offline Solution
@@ -124,37 +126,52 @@ def compare_solvers():
         
         # Init belief
         online_solver.init_belief(game)
+        naive_solver.init_belief(game)
         
         # Choose action
         on_action = online_solver.choose_action()
+        naive_action = naive_solver.choose_action()
         
-        # Compare
-        match = False
+        # Compare POMDP
+        match_p = False
         if off_action is None and on_action is None:
-            match = True
+            match_p = True
         elif off_action and on_action:
             if off_action.is_play() and on_action.is_play():
-                match = (off_action.X_1 == on_action.X_1)
+                match_p = (off_action.X_1 == on_action.X_1)
             elif off_action.is_draw() and on_action.is_draw():
-                match = (off_action.n == on_action.n)
+                match_p = (off_action.n == on_action.n)
+
+        # Compare Naive
+        match_n = False
+        if off_action is None and naive_action is None:
+            match_n = True
+        elif off_action and naive_action:
+            if off_action.is_play() and naive_action.is_play():
+                match_n = (off_action.X_1 == naive_action.X_1)
+            elif off_action.is_draw() and naive_action.is_draw():
+                match_n = (off_action.n == naive_action.n)
         
-        match_str = "YES" if match else "NO"
+        match_p_str = "YES" if match_p else "NO"
+        match_n_str = "YES" if match_n else "NO"
         
-        print(f"{name:<12} | {str(off_action):<25} | {str(on_action):<25} | {match_str:<5} | {off_val:<6.1f}")
+        print(f"{name:<12} | {str(off_action):<15} | {str(on_action):<15} | {str(naive_action):<15} | {match_p_str:<8} | {match_n_str:<8} | {off_val:<5.1f}")
         
         results.append({
             "Scenario": name,
             "Offline Action": str(off_action),
             "Online Action": str(on_action),
-            "Match": match,
+            "Naive Action": str(naive_action),
+            "Match POMDP": match_p,
+            "Match Naive": match_n,
             "Offline Value": off_val
         })
 
     # Save manual results
     with open("stage_1_mini_uno/comparison_results.csv", "w") as f:
-        f.write("Scenario,Offline Action,Online Action,Match,Offline Value\n")
+        f.write("Scenario,Offline Action,Online Action,Naive Action,Match POMDP,Match Naive,Offline Value\n")
         for row in results:
-            f.write(f"{row['Scenario']},{row['Offline Action']},{row['Online Action']},{row['Match']},{row['Offline Value']}\n")
+            f.write(f"{row['Scenario']},{row['Offline Action']},{row['Online Action']},{row['Naive Action']},{row['Match POMDP']},{row['Match Naive']},{row['Offline Value']}\n")
 
     # --- Random State Testing ---
     print("\n" + "="*90)
@@ -162,7 +179,8 @@ def compare_solvers():
     print("="*90)
     
     num_random_tests = 50
-    matches = 0
+    matches_p = 0
+    matches_n = 0
     
     # Re-seed for reproducibility
     import random
@@ -195,29 +213,47 @@ def compare_solvers():
         # Online Solution
         online_solver.init_belief(game)
         on_action = online_solver.choose_action()
+
+        # Naive Solution
+        naive_solver.init_belief(game)
+        naive_action = naive_solver.choose_action()
         
-        # Check Match
-        match = False
+        # Check Match POMDP
+        match_p = False
         if off_action is None and on_action is None:
-            match = True
+            match_p = True
         elif off_action and on_action:
             if off_action.is_play() and on_action.is_play():
-                match = (off_action.X_1 == on_action.X_1)
+                match_p = (off_action.X_1 == on_action.X_1)
             elif off_action.is_draw() and on_action.is_draw():
-                match = (off_action.n == on_action.n)
+                match_p = (off_action.n == on_action.n)
+
+        # Check Match Naive
+        match_n = False
+        if off_action is None and naive_action is None:
+            match_n = True
+        elif off_action and naive_action:
+            if off_action.is_play() and naive_action.is_play():
+                match_n = (off_action.X_1 == naive_action.X_1)
+            elif off_action.is_draw() and naive_action.is_draw():
+                match_n = (off_action.n == naive_action.n)
                 
-        if match:
-            matches += 1
-        else:
-            print(f"Mismatch in Test {i}: Offline={off_action}, Online={on_action}, Val={off_val:.2f}")
+        if match_p: matches_p += 1
+        if match_n: matches_n += 1
+        
+        if not match_p:
+            print(f"POMDP Mismatch in Test {i}: Offline={off_action}, POMDP={on_action}, Val={off_val:.2f}")
+        if not match_n:
+            print(f"Naive Mismatch in Test {i}: Offline={off_action}, Naive={naive_action}, Val={off_val:.2f}")
             
-    print("-" * 90)
+    print("-" * 110)
     print(f"Random Tests Summary:")
-    print(f"Exact Matches: {matches}/{num_random_tests} ({matches/num_random_tests*100:.1f}%)")
+    print(f"POMDP Exact Matches: {matches_p}/{num_random_tests} ({matches_p/num_random_tests*100:.1f}%)")
+    print(f"Naive Exact Matches: {matches_n}/{num_random_tests} ({matches_n/num_random_tests*100:.1f}%)")
     
     # Append random results
     with open("stage_1_mini_uno/comparison_results.csv", "a") as f:
-        f.write(f"\nRandom Tests (N={num_random_tests}),Exact Matches: {matches},,\n")
+        f.write(f"\nRandom Tests (N={num_random_tests}),POMDP Matches: {matches_p},Naive Matches: {matches_n},,\n")
 
 if __name__ == "__main__":
     compare_solvers()

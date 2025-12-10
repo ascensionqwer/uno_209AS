@@ -1,0 +1,16 @@
+=== Micro ===
+POMDP: 54.0%
+Naive: 54.0%
+
+=== Mini ===
+POMDP: 62.0%
+Naive: 62.0%
+
+=== Small ===
+POMDP: 56.0%
+Naive: 60.0%
+
+=== Medium ===
+POMDP: 56.0%
+Naive: 50.0%
+
