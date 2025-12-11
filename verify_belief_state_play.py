@@ -1,139 +1,111 @@
-# verify_belief_state_play_verbose.py
-
 import itertools
+from typing import List, Tuple
+from cards import RED, GREEN, Card
 from belief import Belief
-from cards import RED, GREEN
 
-# State type: S = (H_1, H_2, D_g, P, P_t, G_o)
-
-def is_legal(card, top_card):
+# --- HELPER: Simulation Logic ---
+def is_legal(card: Card, top_card: Card) -> bool:
+    """UNO rule: Match Color or Match Value."""
     return card[0] == top_card[0] or card[1] == top_card[1]
 
-def apply_play_action(state, play_card):
-    H_1, H_2, D_g, P, P_t, G_o = state
-    H_1p = list(H_1)
-    H_1p.remove(play_card)
-    Pp = list(P) + [play_card]
-    P_tp = play_card
-    H_2p = list(H_2)
-    D_gp = list(D_g)
-    G_op = "GameOver" if len(H_1p) == 0 else "Active"
-    return (H_1p, H_2p, D_gp, Pp, P_tp, G_op)
+def calculate_q_value(belief: Belief, move: Card) -> float:
+    """
+    Calculates the 'Trapping Value' of a move.
+    1.0 = Opponent is forced to DRAW (Good).
+    0.0 = Opponent can PLAY (Bad).
+    """
+    new_top_card = move
+    # The opponent holds a card from the Unknown Set L.
+    # We check if ANY card in L is legal on the new top card.
+    # (In this deterministic scenario, L has only 1 card, so it's exact).
+    
+    can_play = False
+    for card in belief.L:
+        if is_legal(card, new_top_card):
+            can_play = True
+            break
+            
+    return 0.0 if can_play else 1.0
 
-def value_keep_green(state):
-    H_1, H_2, D_g, P, P_t, G_o = state
-    return 1.0 if P_t[0] == GREEN else 0.0
-
-
-def verify_color_preference_verbose():
-    # Full tiny deck
-    full_deck = [
+# --- MAIN SCENARIO ---
+def run_formatted_analysis():
+    # 1. SETUP: The Micro-Deck (6 Cards)
+    micro_deck = [
         (RED, 1), (RED, 2), (RED, 3),
         (GREEN, 1), (GREEN, 2), (GREEN, 3),
     ]
 
-    # Scenario:
-    # H1 = {R1, G2}, P_t = G1, opponent size 1, opponent previously played G3.
+    # 2. STATE DEFINITION
+    # H1: We hold R1, G2
+    # P: R2, R3, G1 (Top) are played
+    # Truth: Opponent holds G3 (the only card left)
     H_1 = [(RED, 1), (GREEN, 2)]
-    h2_size = 1
-    P = [(GREEN, 3)]
+    H_2_truth = [(GREEN, 3)]
+    D_g_truth = [] # Deck is empty
+    
     P_t = (GREEN, 1)
-    dg_size = 2
-    G_o = "Active"
+    # Note: P includes the top card for calculation
+    P = [(RED, 2), (RED, 3), P_t] 
+    
+    h2_size = 1
+    dg_size = 0
+    
+    # 3. OBSERVATION
+    observation = (H_1, h2_size, dg_size, P, P_t, "Active")
+    
+    # 4. INITIALIZE BELIEF
+    b = Belief(observation, deck_template=micro_deck)
+    
+    # --- PRINTING THE FORMATTED OUTPUT ---
+    print(f"Scenario #ColorTrap_01")
+    
+    # [God] View (The Ground Truth)
+    print(f"  [God] H1_truth: {H_1}")
+    print(f"  [God] H2_truth: {H_2_truth}")
+    print(f"  [God] Dg_truth: {D_g_truth}")
+    print(f"  [God] P: {P}")
+    print(f"  [God] P_t: {P_t}")
+    
+    # [Obs] View (What the Agent Sees)
+    print(f"  [Obs] H1: {H_1}")
+    print(f"  [Obs] |H2|: {h2_size} |D_g|: {dg_size}")
+    print(f"  [Obs] P: {P}")
+    print(f"  [Obs] P_t: {P_t}")
+    
+    legal_plays = [c for c in H_1 if is_legal(c, P_t)]
+    print(f"  [Obs] Legal plays: {legal_plays}")
+    
+    # [Belief] Internals
+    # Using the __repr__ from your class, plus custom details
+    print(f"  [Belief] {b}") 
+    print(f"  [Belief] L (unknown cards): {b.L}")
+    
+    # N(P_t) is the subset of L that matches the CURRENT top card (G1)
+    # G3 matches G1, so N(P_t) should contain G3.
+    print(f"  [Belief] N(P_t) (legal unknown on current top): {b.N_Pt}")
+    
+    # Generate Consistent Worlds based on L
+    # Since L has 1 card and H2 needs 1 card, there is only 1 world.
+    print(f"  [Belief] Number of consistent worlds: 1")
+    print(f"    World #1: H2={b.L}, D_g=[]")
 
-    observation = (H_1, h2_size, dg_size, P, P_t, G_o)
-
-    b = Belief(observation, deck_template=full_deck)
-    print("=== Belief Object Summary ===")
-    print(b)
-
-    # Step 1: Show known vs unknown cards
-    known = set(H_1 + P)
-    L = b.L
-    print("\nKnown cards (H1 ∪ P):", known)
-    print("Unknown L (from Belief):", L)
-    print(f"|L| = {len(L)}")
-
-    # Sanity: manual L = D \ (H1 ∪ P)
-    manual_L = [c for c in full_deck if c not in known]
-    print("Manual L (for cross-check):", manual_L)
-
-    # Step 2: show LEGAL(P_t) ∩ L
-    N_Pt = b.N_Pt
-    print("\nLEGAL(P_t) ∩ L (Belief.N_Pt):", N_Pt)
-    print(f"|N(P_t)| = {len(N_Pt)}")
-
-    # Step 3: show all possible assignments (H2, Dg) consistent with L and sizes
-    print("\nAll possible (H2, D_g) partitions consistent with L and sizes:")
-    all_assignments = []
-    for h2_card in set(L):
-        # H2 must be a single card; Dg is the rest but truncated to dg_size
-        H2 = [h2_card]
-        remaining = list(L)
-        remaining.remove(h2_card)
-        # D_g must be any 2-card subset of remaining
-        for Dg in itertools.combinations(remaining, dg_size):
-            all_assignments.append((tuple(H2), tuple(Dg)))
-
-    # Because prior is uniform over 1-card subsets of L, H2 is uniform over L.
-    print(f"Total distinct (H2,D_g) assignments: {len(all_assignments)}")
-    for i, (H2, Dg) in enumerate(all_assignments, 1):
-        print(f"  #{i}: H2 = {H2}, D_g = {Dg}")
-
-    # Step 4: verify probability mass for each opponent card
-    print("\n=== Analytic probabilities for H2 ===")
-    print("Prior: uniform over 1-card subsets of L")
-    for c in set(L):
-        # P(H2 = {c}) = 1/|L|
-        p = 1.0 / len(L)
-        print(f"  P(H2 = {{{c}}}) = {p:.3f}")
-    print(f"Sum over c ∈ L: {len(L)} * (1/{len(L)}) = 1.0")
-
-    # Step 5: compare with Belief.get_card_probabilities
-    probs_h2 = b.get_card_probabilities("H_2")
-    print("\nBelief.get_card_probabilities('H_2') output:")
-    for c, p in sorted(probs_h2.items(), key=lambda x: x[0]):
-        print(f"  {c}: {p:.3f}")
-    print(f"Sum P(c in H2) = {sum(probs_h2.values()):.3f} (expected {h2_size})")
-
-    # Step 6: legal actions from H1
-    legal = [c for c in H_1 if is_legal(c, P_t)]
-    print("\nHand:", H_1)
-    print("Top:", P_t)
-    print("Legal plays:", legal)
-
-    # Step 7: analytic Q-values under value_keep_green
-    print("\n=== Analytic Q-values for 'keep green' ===")
-
-    # For this one-step, top card after play is exactly the card you play.
-    # So:
-    # - If you play G2: top is green → reward 1 ALWAYS.
-    # - If you play R1: top is red → reward 0 ALWAYS.
-    for card in legal:
-        if card[0] == GREEN:
-            q_analytic = 1.0
-        else:
-            q_analytic = 0.0
-        print(f"  Analytic Q(play {card}) = {q_analytic:.3f}")
-
-    # Step 8: Monte Carlo estimate via samples
-    n_samples = 50
-    samples = b.sample_states(n_samples)
-    q_mc = {card: 0.0 for card in legal}
-    for card in legal:
-        total = 0.0
-        for s in samples:
-            s_prime = apply_play_action(s, card)
-            total += value_keep_green(s_prime)
-        q_mc[card] = total / n_samples
-
-    print("\nMonte Carlo estimated Q-values (from sampled worlds):")
-    for card, val in q_mc.items():
-        print(f"  Q_MC(play {card}) ≈ {val:.3f}")
-
-    best = max(q_mc.items(), key=lambda x: x[1])[0]
-    print(f"\nBest action under this value (MC): play {best}")
-
+    # Q-Values Calculation
+    print(f"  [Belief] Exact Q-values under Trapping_Strategy:")
+    
+    best_move = None
+    best_val = -1.0
+    
+    for move in legal_plays:
+        val = calculate_q_value(b, move)
+        print(f"    {move} -> {val:.1f}")
+        
+        if val > best_val:
+            best_val = val
+            best_move = move
+            
+    # Final Verdict
+    has_optimal = "YES" if best_val == 1.0 else "NO"
+    print(f"  [Obs] Has optimal play: {has_optimal}, best = {best_move}")
 
 if __name__ == "__main__":
-    verify_color_preference_verbose()
+    run_formatted_analysis()
