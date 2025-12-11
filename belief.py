@@ -20,13 +20,14 @@ class Belief:
     O = (H_1, |H_2|, |D_g|, P, P_t, G_o) - Player 1's observation
     """
 
-    def __init__(self, observation: Tuple):
+    def __init__(self, observation: Tuple, deck_template: List[Card] = None):
         """
         Initialize belief from an observation.
 
         Args:
             observation: O = (H_1, |H_2|, |D_g|, P, P_t, G_o)
         """
+        self.deck_template = deck_template
         self.H_1 = observation[0]  # Player 1's hand (known)
         self.h2_size = observation[1]  # k = |H_2| (known)
         self.dg_size = observation[2]  # |D_g| (known)
@@ -56,14 +57,16 @@ class Belief:
         Returns:
             List of cards that could be in H_2 or D_g
         """
-        # Build full deck
-        full_deck = []
-        colors = [RED, YELLOW, GREEN, BLUE]
-        for color in colors:
-            full_deck.append((color, 0))
-            for number in range(1, 10):
-                full_deck.append((color, number))
-                full_deck.append((color, number))
+        if self.deck_template:
+            full_deck = list(self.deck_template)
+        else:
+            full_deck = []
+            colors = [RED, YELLOW, GREEN, BLUE]
+            for color in colors:
+                full_deck.append((color, 0))
+                for number in range(1, 10):
+                    full_deck.append((color, number))
+                    full_deck.append((color, number))
 
         # Count known cards: H_1 ∪ P
         known_cards = list(self.H_1) + list(self.P)
