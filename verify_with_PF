@@ -1,0 +1,349 @@
+import random
+import itertools
+from typing import List, Tuple
+from belief2 import Belief
+from cards import RED, GREEN, Card
+from uno import Uno
+
+# Tiny deck
+FULL_DECK: List[Card] = [
+    (RED, 1), (RED, 2), (RED, 3), (RED, 4), (RED, 5)
+    ,(GREEN, 1), (GREEN, 2), (GREEN, 3), (GREEN, 4),(GREEN, 5)
+]
+
+LOG_FILE = "belief_random_small_log.txt"
+
+def is_legal(card: Card, top_card: Card) -> bool:
+    return card[0] == top_card[0] or card[1] == top_card[1]
+
+def evaluate_state_toy(state, ai_player: int = 1) -> float:
+    H_1, H_2, D_g, P, P_t, G_o = state
+
+    ai_hand = H_1 if ai_player == 1 else H_2
+    opp_hand = H_2 if ai_player == 1 else H_1
+
+    if G_o == "GameOver":
+        if len(ai_hand) == 0:
+            return 100.0
+        elif len(opp_hand) == 0:
+            return -100.0
+
+    return float(len(opp_hand) - len(ai_hand))
+
+
+def get_legal_moves_toy(state, player: int):
+    H_1, H_2, D_g, P, P_t, G_o = state
+
+    if G_o == "GameOver":
+        return []
+
+    hand = H_1 if player == 1 else H_2
+    legal_cards = [c for c in hand if is_legal(c, P_t)]
+
+    moves = [("play", c) for c in legal_cards]
+
+    if not moves and len(D_g) > 0:
+        moves.append(("draw", 1))
+
+    return moves
+
+
+def simulate_move_toy(state, move, player: int):
+    H_1, H_2, D_g, P, P_t, G_o = state
+
+    H_1 = list(H_1)
+    H_2 = list(H_2)
+    D_g = list(D_g)
+    P = list(P)
+    P_t = P_t
+    G_o = G_o
+
+    if G_o == "GameOver":
+        return (H_1, H_2, D_g, P, P_t, G_o)
+
+    hand = H_1 if player == 1 else H_2
+
+    if move[0] == "play":
+        card = move[1]
+        if card in hand:
+            hand.remove(card)
+            P.append(card)
+            P_t = card
+            if len(hand) == 0:
+                G_o = "GameOver"
+
+    elif move[0] == "draw":
+        n = move[1]
+        for _ in range(n):
+            if len(D_g) == 0:
+                break
+            card = D_g.pop()
+            hand.append(card)
+
+    return (H_1, H_2, D_g, P, P_t, G_o)
+
+
+def expectiminimax_toy(state, depth: int, player: int, ai_player: int) -> float:
+    H_1, H_2, D_g, P, P_t, G_o = state
+
+    if depth == 0 or G_o == "GameOver":
+        return evaluate_state_toy(state, ai_player)
+
+    moves = get_legal_moves_toy(state, player)
+    if not moves:
+        return evaluate_state_toy(state, ai_player)
+
+    is_max = (player == ai_player)
+
+    if is_max:
+        best = float("-inf")
+        for mv in moves:
+            nxt = simulate_move_toy(state, mv, player)
+            val = expectiminimax_toy(nxt, depth - 1, 3 - player, ai_player)
+            best = max(best, val)
+        return best
+    else:
+        best = float("inf")
+        for mv in moves:
+            nxt = simulate_move_toy(state, mv, player)
+            val = expectiminimax_toy(nxt, depth - 1, 3 - player, ai_player)
+            best = min(best, val)
+        return best
+
+
+def value_fn_world_via_expectiminimax(world_state, play_card: Card,
+                                      depth: int = 4, ai_player: int = 1) -> float:
+    first_move = ("play", play_card)
+    after_ai = simulate_move_toy(world_state, first_move, ai_player)
+
+    H_1, H_2, D_g, P, P_t, G_o = after_ai
+    if G_o == "GameOver":
+        return evaluate_state_toy(after_ai, ai_player)
+
+    opp = 3 - ai_player
+    return expectiminimax_toy(after_ai, depth - 1, opp, ai_player)
+
+
+# ---------- small scenarios ----------
+
+def generate_random_scenario(rng: random.Random):
+    full_deck = list(FULL_DECK)
+    rng.shuffle(full_deck)
+
+    H1_truth = full_deck[:2]
+    rest = full_deck[2:]
+
+    h2_size = 1
+    H2_truth = rest[:h2_size]
+    rest = rest[h2_size:]
+
+    if len(rest) < 2:
+        return None, None, None
+
+    P_t = rest.pop(0)
+    P = [rest.pop(0)]
+
+    Dg_truth = rest
+    dg_size = len(Dg_truth)
+    G_o = "Active"
+
+    observation = (H1_truth, h2_size, dg_size, P, P_t, G_o)
+    return full_deck, (H1_truth, H2_truth, Dg_truth, P, P_t, G_o), observation
+
+
+def enumerate_belief_worlds(full_deck: List[Card], observation) -> List[Tuple]:
+    H_1, h2_size, dg_size, P, P_t, G_o = observation
+
+    known = set(H_1 + P + [P_t])
+    L = [c for c in full_deck if c not in known]
+
+    worlds = []
+    for H2_tuple in itertools.combinations(L, h2_size):
+        remaining = [c for c in L if c not in H2_tuple]
+        for Dg_tuple in itertools.combinations(remaining, dg_size):
+            H_2 = list(H2_tuple)
+            D_g = list(Dg_tuple)
+            worlds.append((list(H_1), H_2, D_g, list(P), P_t, G_o))
+    return worlds
+
+
+def analyze_and_log_scenarios(num_trials: int = 1000, search_depth: int = 4):
+    rng = random.Random(123)
+
+    num_optimal = 0
+    num_no_optimal = 0
+
+    optimal_scenarios = []
+
+    with open(LOG_FILE, "w") as f:
+        f.write("=== Belief state random scenario log (enumerate all worlds + expectiminimax) ===\n")
+        f.write(f"Deck used: {FULL_DECK}\n")
+        f.write(f"Total trials requested: {num_trials}\n\n")
+
+    for t in range(num_trials):
+        full_deck, god_state, observation = generate_random_scenario(rng)
+        if observation is None:
+            continue
+
+        H1_truth, H2_truth, Dg_truth, P, P_t, G_o = god_state
+        H_1, h2_size, dg_size, P_obs, P_t_obs, G_o_obs = observation
+
+        legal_cards = [c for c in H_1 if is_legal(c, P_t)]
+
+        has_optimal = False
+        best_card = None
+        q = {}
+
+        b = Belief(observation, deck_template=full_deck)
+
+        if len(legal_cards) > 1:
+            worlds = enumerate_belief_worlds(full_deck, observation)
+            n_worlds = len(worlds)
+            if n_worlds > 0:
+                for card in legal_cards:
+                    total = 0.0
+                    for s in worlds:
+                        val = value_fn_world_via_expectiminimax(
+                            s,
+                            play_card=card,
+                            depth=search_depth,
+                            ai_player=1,
+                        )
+                        total += val
+                    q[card] = total / n_worlds
+
+                best_card, best_val = max(q.items(), key=lambda x: x[1])
+                vals_sorted = sorted(q.values(), reverse=True)
+                second_best_val = vals_sorted[1] if len(vals_sorted) > 1 else best_val
+                eps = 1e-6
+                has_optimal = (best_val - second_best_val) > eps
+
+        if has_optimal:
+            num_optimal += 1
+            optimal_scenarios.append({
+                "full_deck": full_deck,
+                "god_state": god_state,
+                "observation": observation,
+                "best_card": best_card,
+                "q_values": q,
+            })
+        else:
+            num_no_optimal += 1
+
+        log_lines = []
+        log_lines.append("Scenario #" + str(t + 1))
+
+        log_lines.append("  [God] H1_truth: " + str(H1_truth))
+        log_lines.append("  [God] H2_truth: " + str(H2_truth))
+        log_lines.append("  [God] Dg_truth: " + str(Dg_truth))
+        log_lines.append("  [God] P: " + str(P))
+        log_lines.append("  [God] P_t: " + str(P_t))
+
+        log_lines.append("  [Obs] H1: " + str(H_1))
+        log_lines.append("  [Obs] |H2|: " + str(h2_size) + " |D_g|: " + str(dg_size))
+        log_lines.append("  [Obs] P: " + str(P_obs))
+        log_lines.append("  [Obs] P_t: " + str(P_t_obs))
+        log_lines.append("  [Obs] Legal plays: " + str(legal_cards))
+
+        log_lines.append("  [Belief] " + repr(b))
+        log_lines.append("  [Belief] L (unknown cards): " + str(b.L))
+        log_lines.append("  [Belief] N(P_t) (legal unknown): " + str(b.N_Pt))
+
+        worlds = enumerate_belief_worlds(full_deck, observation)
+        log_lines.append(f"  [Belief] Number of consistent worlds: {len(worlds)}")
+        for i, s in enumerate(worlds, 1):
+            H1w, H2w, Dgw, Pw, Pt_w, Go_w = s
+            log_lines.append(f"    World #{i}: H2={H2w}, D_g={Dgw}")
+
+        if q:
+            log_lines.append("  [Belief] Exact Bayes Q-values (expectiminimax):")
+            for card, val in q.items():
+                log_lines.append(f"    {card} -> {round(val, 3)}")
+        else:
+            log_lines.append("  [Belief] Exact Bayes Q-values: N/A (≤1 legal play)")
+
+        if has_optimal:
+            log_lines.append(f"  [Obs] Has optimal play: YES, best = {best_card}")
+        else:
+            log_lines.append("  [Obs] Has optimal play: NO")
+
+        log_lines.append("")
+
+        with open(LOG_FILE, "a") as f:
+            f.write("\n".join(log_lines) + "\n")
+
+    summary_lines = [
+        "=== Summary over random scenarios ===",
+        "Deck used: " + str(FULL_DECK),
+        "Total trials: " + str(num_trials),
+        "Scenarios with optimal play: " + str(num_optimal),
+        "Scenarios with no optimal play: " + str(num_no_optimal),
+    ]
+    summary_text = "\n".join(summary_lines)
+
+    print(summary_text)
+    print(f"\nAll scenarios logged to {LOG_FILE}")
+
+    with open(LOG_FILE, "a") as f:
+        f.write("\n" + summary_text + "\n")
+
+    return optimal_scenarios
+
+
+# ---------- Tester：用 Uno_AI 在 optimal_scenarios 上做決策 ----------
+
+def test_uno_ai_on_optimal_scenarios(optimal_scenarios,
+                                     num_samples=200,
+                                     lookahead=2):
+    # 避免 circular import，這裡才 import Uno_AI
+    from simulate_games import Uno_AI
+
+    correct = 0
+    total = 0
+
+    for idx, sc in enumerate(optimal_scenarios, 1):
+        full_deck = sc["full_deck"]
+        H1_truth, H2_truth, Dg_truth, P, P_t, G_o = sc["god_state"]
+        observation = sc["observation"]
+        best_card = sc["best_card"]
+
+        game = Uno(H_1=list(H1_truth),
+                   H_2=list(H2_truth),
+                   D_g=list(Dg_truth),
+                   P=list(P))
+        game.P_t = P_t
+        game.G_o = G_o
+
+        ai = Uno_AI(player_id=1, num_samples=num_samples, lookahead=lookahead)
+        ai.game = game
+        ai.belief = Belief(observation, deck_template=full_deck)
+
+        action = ai.choose_action()
+
+        if action is None:
+            print(f"[Scenario {idx}] AI returned None, skip.")
+            continue
+        if not action.is_play():
+            print(f"[Scenario {idx}] AI chose to draw, skip optimal-play check.")
+            continue
+
+        chosen_card = action.X_1
+        total += 1
+        is_correct = (chosen_card == best_card)
+        if is_correct:
+            correct += 1
+
+        print(f"[Scenario {idx}] best = {best_card}, AI chose = {chosen_card}, correct = {is_correct}")
+
+    if total > 0:
+        acc = (correct / total)*100
+        print(f"\nAI accuracy on optimal scenarios: {correct}/{total} = {acc:.3f}%")
+    else:
+        print("\nNo comparable scenarios (AI never played).")
+
+
+# ---------- main ----------
+
+if __name__ == "__main__":
+    optimal_scenarios = analyze_and_log_scenarios(num_trials=1000, search_depth=4)
+    test_uno_ai_on_optimal_scenarios(optimal_scenarios, num_samples=200, lookahead=2)
