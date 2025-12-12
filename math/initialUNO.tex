@@ -1,0 +1,774 @@
+%% bare_jrnl_transmag.tex
+%% V1.4b
+%% 2015/08/26
+%% by Michael Shell
+%% see http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8b or later) with an IEEE 
+%% Transactions on Magnetics journal paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/pkg/ieeetran
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall the IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%*************************************************************************
+
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. The IEEE's font choices and paper sizes can   ***
+% *** trigger bugs that do not appear when using other class files.       ***                          ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
+\documentclass[journal,transmag]{IEEEtran}
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[journal]{../sty/IEEEtran}
+
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/pkg/ifpdf
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+%\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of the IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off
+% such as if a citation ever needs to be enclosed in parenthesis.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 5.0 (2009-03-20) and later if using hyperref.sty.
+% The latest version can be obtained at:
+% http://www.ctan.org/pkg/cite
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at: 
+% http://www.ctan.org/pkg/graphicx
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found at:
+% http://www.ctan.org/pkg/epslatex
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+% *** MATH PACKAGES ***
+%
+\usepackage{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics.
+%
+% Note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/pkg/algorithms
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/pkg/algorithmicx
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/array
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's "caption=false" package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a larger sans serif font
+% than the serif footnote size font used in traditional IEEE formatting
+% and thus the need to invoke different subfig.sty package options depending
+% on whether compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/pkg/subfig
+
+\usepackage{enumitem}  
+\usepackage{graphicx}
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure.
+% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
+% corrections already built into the system in which case a warning will
+% be issued if an attempt is made to load fixltx2e.sty as it is no longer
+% needed.
+% The latest version and documentation can be found at:
+% http://www.ctan.org/pkg/fixltx2e
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/stfloats
+% Do not use the stfloats baselinefloat ability as the IEEE does not allow
+% \baselineskip to stretch. Authors submitting work to the IEEE should note
+% that the IEEE rarely uses double column equations and that authors should try
+% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
+% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
+% such ways.
+% Do not attempt to use stfloats with fixltx2e as they are incompatible.
+% Instead, use Morten Hogholm'a dblfloatfix which combines the features
+% of both fixltx2e and stfloats:
+%
+% \usepackage{dblfloatfix}
+% The latest version can be found at:
+% http://www.ctan.org/pkg/dblfloatfix
+
+
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and 
+% Axel Sommerfeldt. This package may be useful when used in conjunction with 
+% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
+% submissions have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.4.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/pkg/endfloat
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+
+\title{2-Player UNO Game}
+
+\author{\IEEEauthorblockN{Wesley Gunawan, Chen Yi-Shan, Alex Chang, Samyak Kakatur}}
+
+\markboth{Final Report of ECE209AS, December~2025}%
+{Gunawan \MakeLowercase{\textit{et al.}}: 2-Player UNO Game}
+
+\IEEEtitleabstractindextext{%
+\begin{abstract}
+\textbf{\textit{Abstract}}: We model two-player UNO as a partially observable Markov decision process (POMDP) and study whether a unique Bayes-optimal move typically exists from the perspective of Player~1. For small reduced UNO decks, we enumerate all latent world states consistent with a given observation and compute exact action values for all legal plays. We show that scenarios with a strictly dominant action are surprisingly rare, even under perfect-information evaluation. Most belief states admit multiple actions with nearly identical expected value, implying that UNO optimality is structurally ambiguous. We further test a Monte Carlo belief-based agent and find that it reliably selects the Bayes-optimal move in those rare states where a unique optimum exists. These results highlight an inherent limitation of deriving deterministic “best play'' strategies in hidden-information games such as UNO.
+\end{abstract}
+
+\begin{IEEEkeywords}
+UNO, POMDP, partially observable games, belief state, Monte Carlo planning.
+\end{IEEEkeywords}}
+
+\maketitle
+\IEEEdisplaynontitleabstractindextext
+
+\section{Introduction}
+
+\IEEEPARstart{U}{NO} is a partially observable, stochastic card game in which determining optimal play is challenging due to hidden information and uncertain outcomes. In this project we investigate a fundamental question: \emph{even in highly simplified versions of UNO, does a unique Bayes-optimal action typically exist for a rational agent?}
+
+Our approach is to formalize two-player UNO as a POMDP from the perspective of Player~1. Given an observation (own hand, opponent hand size, deck size, and public cards), we enumerate all latent world states that are consistent with that observation. Under a given value function we then compute the exact expected return of every legal action by averaging over all such worlds.
+
+Experiments on reduced decks reveal that states with a strictly dominant action are uncommon: most belief states admit several actions with nearly identical expected value. In other words, even when actions are evaluated under a God’s-eye view of the underlying hidden state, UNO rarely exhibits a clearly optimal play. 
+
+
+
+\section{POMDP Formulation of Two-Player UNO}
+
+We formalize a modified two-player UNO environment as a partially observable
+Markov decision process (POMDP). This section defines the latent state,
+the player observation, the transition model, legal actions, and reward
+structure.
+
+\subsection{{State Space}}
+
+Let the full card deck be
+\[
+D = H_1 \cup H_2 \cup D_g \cup P.
+\]
+
+The underlying environment state is
+\[
+S = (H_1, H_2, D_g, P, P_t, G_o),
+\]
+where
+\begin{itemize}
+    \item $H_1, H_2$: hands of Player~1 and Player~2,
+    \item $D_g$: remaining draw deck (unordered set),
+    \item $P$: previously played cards,
+    \item $P_t = (\text{COLOR}, \text{VALUE})$: the top card,
+    \item $G_o \in \{\text{Active}, \text{GameOver}\}$: terminal flag.
+\end{itemize}
+
+Wild and +4 cards are represented as
+\[
+P_t = (\text{CHOSEN\_COLOR},\ \text{VALUE}).
+\]
+
+\subsection{Action Space}
+
+Player~1’s action space is
+\[
+A = \{X_1\} \cup \{Y_n : n \in \{1,2,4\}\}.
+\]
+
+\subsubsection{Play Action}
+
+A play action is defined as
+\[
+X_1 = (\text{COLOR},\ \text{VALUE}),
+\]
+with special cases:
+\[
+(\text{BLACK},\ \text{WILD},\ \text{CHOSEN\_COLOR}),
+\]
+\[
+(\text{BLACK},\ +4,\ \text{CHOSEN\_COLOR}).
+\]
+
+\subsubsection{Draw Action}
+
+Drawing is represented as
+\[
+Y_n = \text{draw } n \text{ cards},
+\]
+where
+\begin{itemize}
+    \item $n = 1$ if no legal action exists,
+    \item $n = 2$ or $n = 4$ if forced by +2 or +4 cards.
+\end{itemize}
+
+
+In this version of UNO, a player may not immediately play their turn after drawing any cards.
+
+\subsection{Observation Model}
+
+Player~1 observes
+\[
+O = (H_1,\ |H_2|,\ |D_g|,\ P,\ P_t,\ G_o),
+\]
+which includes its own hand, public card information, and deck size.
+Opponent hand contents and the deck order remain hidden.
+
+The observation function is deterministic:
+\[
+O(o \mid s', a) =
+\begin{cases}
+1, & o = (H_1', |H_2'|, |D_g'|, P', P_t', G_o'), \\
+0, & \text{otherwise}.
+\end{cases}
+\]
+
+Special events such as chosen colors for WILD/+4 and turn-skips induced
+by SKIP/REVERSE are directly observable.
+
+\subsection{Legal Moves}
+
+A card $c$ is legally playable if
+\[
+\text{LEGAL}(P_t)
+=
+\left\{
+c \in D :
+\begin{array}{l}
+c(\text{COLOR}) = P_t(\text{COLOR})\ \lor\\
+c(\text{VALUE}) = P_t(\text{VALUE})\ \lor\\
+c(\text{COLOR}) = \text{BLACK}
+\end{array}
+\right\}.
+\]
+
+\subsection{Transition Function}
+
+State transitions follow:
+\[
+\resizebox{0.88\linewidth}{!}{$
+T(s' \mid s, a) =
+\begin{cases}
+1,
+&
+\begin{aligned}
+&a = X_1,\ X_1 \in H_1 \cap \text{LEGAL}(P_t), \\
+&H_1' = H_1 \setminus \{X_1\}, \\
+&P' = P \cup \{X_1\}, \\
+&P_t' =
+  \begin{cases}
+  (\text{CHOSEN\_COLOR},\ \text{VALUE}), & \text{wild or +4},\\
+  X_1, & \text{otherwise},
+  \end{cases} \\
+&G_o' =
+  \begin{cases}
+  \text{GameOver}, & |H_1'| = 0,\\
+  \text{Active}, & \text{otherwise},
+  \end{cases}
+\end{aligned}
+\\[1.2em]
+
+\dfrac{1}{|D_g|},
+&
+\begin{aligned}
+&a = Y_1,\ \text{no legal plays},\\
+&H_1' = H_1 \cup \{c\},\ c \in D_g,\\
+&D_g' = D_g \setminus \{c\};
+\end{aligned}
+\\[1.2em]
+
+\dfrac{1}{\binom{|D_g|}{n}},
+&
+\begin{aligned}
+&a = Y_n,\ P_t(\text{VALUE}) \in \{+2,+4\},\\
+&H_1' = H_1 \cup J_n,\ |J_n| = n,\ J_n \subset D_g,\\
+&D_g' = D_g \setminus J_n,\ P_t' = P_t;
+\end{aligned}
+\\[1.2em]
+
+0,
+&\text{otherwise or } G_o = \text{GameOver}.
+\end{cases}
+$}
+\]
+
+
+\subsection{Reward Function}
+
+\[
+R(s', s, a) =
+\begin{cases}
++100, & |H_1'| = 0,\\
+-100, & |H_2'| = 0,\\
+0, & \text{otherwise}.
+\end{cases}
+\]
+
+\subsection{Heuristic Value Function}
+
+For reduced UNO experiments we additionally use the heuristic
+\[
+V(s) = |H_2| - |H_1|.
+\]
+
+\section{Particle Filtering for Belief State Approximation}
+
+Since the state space is too large to enumerate all possible states, we use
+particle filtering (a form of Bayesian filtering) to maintain an approximate
+belief distribution. This approach generates particles dynamically at runtime,
+caching them per game state for efficiency.
+
+\subsection{Player 1's Perspective}
+
+Player~1 observes:
+\[
+O = (H_1, |H_2|, |D_g|, P, P_t, G_o)
+\]
+
+Player~1 maintains beliefs about Player~2’s hidden hand $H_2$ using particles.
+Each particle represents a possible full game state:
+\[
+s^{(i)} = (H_1, H_2^{(i)}, D_g^{(i)}, P, P_t, G_o).
+\]
+
+After Player~1 acts, environment dynamics propagate Player~2’s turn. Player~1
+then observes the new public state and updates particles according to the
+opponent’s behavior.
+
+\subsection{Particle-Based Belief Representation}
+
+Instead of maintaining a full belief distribution
+\[
+b(s) = \Pr(s \mid o, \text{history}),
+\]
+we use a particle set:
+\[
+\mathcal{P} = \{ (s^{(i)}, w^{(i)}) \}_{i=1}^{N},
+\]
+where:
+\begin{itemize}
+    \item $N$ is the number of particles (e.g., 1000–5000),
+    \item $s^{(i)}$ is a sampled game state,
+    \item $w^{(i)} \ge 0$ are importance weights,
+    \item $\sum_i w^{(i)} = 1$.
+\end{itemize}
+
+Key insight: Only $H_2^{(i)}$ needs to be sampled, as $H_1$, $P$, $P_t$, and
+$G_o$ are fully observed.
+
+\subsection{Dynamic Particle Generation}
+
+Given an observation
+\[
+O = (H_1, |H_2|, |D_g|, P, P_t, G_o),
+\]
+we compute the unknown card pool:
+\[
+L = D \setminus H_1 \setminus P.
+\]
+
+We enforce:
+\[
+|L| = |H_2| + |D_g|.
+\]
+
+For each particle $i = 1,\ldots,N$:
+\begin{enumerate}
+    \item Sample $H_2^{(i)}$ uniformly from all $\binom{|L|}{|H_2|}$ subsets.
+    \item Set $D_g^{(i)} = L \setminus H_2^{(i)}$.
+    \item Assign weight $w^{(i)} = 1/N$.
+\end{enumerate}
+
+If a user-provided deck size does not match $|L|-|H_2|$, it is automatically corrected.
+
+\subsection{Bayesian Filtering Update}
+
+When observation $o$ is received after action $a$, we apply:
+
+\textit{1) Prediction step:}
+\[
+s'^{(i)} \sim T(\cdot \mid s^{(i)}, a).
+\]
+
+\textit{2) Observation update:}
+\[
+w'^{(i)} = w^{(i)} \cdot O(o \mid s'^{(i)}, a).
+\]
+
+\textit{3) Weight normalization:}
+\[
+w^{(i)} = \frac{w'^{(i)}}{\sum_j w'^{(j)}}.
+\]
+
+\textit{4) Resampling:  }
+
+Define effective sample size:
+\[
+\text{ESS} = \frac{1}{\sum_i (w^{(i)})^2}.
+\]
+If $\text{ESS} < N/2$, resample $N$ particles and reset
+$w^{(i)} = 1/N$.
+
+\subsection{Specific Update Cases}
+
+\subsubsection{Case 1: Opponent Plays a Card $z$}
+
+Observation: opponent plays $z$, so $|H_2'| = |H_2| - 1$.
+
+For each particle:
+\begin{itemize}
+    \item If $z \notin H_2^{(i)}$, set $w^{(i)} = 0$.
+    \item If $z \in H_2^{(i)}$:
+    \[
+    H_2'^{(i)} = H_2^{(i)} \setminus \{z\},
+    \]
+    update $P$, $P_t$ accordingly, keep $D_g^{(i)}$ unchanged.
+\end{itemize}
+
+Normalize and resample afterward.
+
+\subsubsection{Case 2: Opponent Draws a Card}
+
+Observation: opponent has no legal moves and draws one card, so  
+$|H_2'| = |H_2| + 1$.
+
+For each particle:
+\begin{itemize}
+    \item If $H_2^{(i)}$ contains a legal move, set $w^{(i)} = 0$.
+    \item Otherwise:
+    \[
+    c^{(i)} \sim \text{Uniform}(D_g^{(i)}),
+    \]
+    \[
+    H_2'^{(i)} = H_2^{(i)} \cup \{c^{(i)}\},
+    \]
+    \[
+    D_g'^{(i)} = D_g^{(i)} \setminus \{c^{(i)}\},
+    \]
+    \[
+    w^{(i)} \leftarrow w^{(i)} \cdot \frac{1}{|D_g^{(i)}|}.
+    \]
+\end{itemize}
+
+Normalize and resample.
+
+\section{Experiment Setup}
+
+
+Our project originally attempted to plan optimally in full two-player
+UNO using POMDP methods. We first implemented two approximate planning
+approaches:
+
+\begin{itemize}
+    \item \textbf{Particle Filter + Expectiminimax} on a simplified UNO
+          deck containing only colored number cards.
+    \item \textbf{Monte Carlo Tree Search (MCTS)} on the full UNO deck,
+          using particle filtering to represent belief over hidden cards.
+\end{itemize}
+
+Both approaches yielded measurable but limited improvements over a
+random baseline. Increasing particle counts or search depth produced
+only marginal gains, suggesting that approximation quality alone did not
+explain the difficulty of achieving consistently strong play.
+
+\subsection{Reduced UNO Environment}
+
+To enable exact analysis of belief states, we construct a drastically
+reduced UNO deck in which all possible world states can be enumerated.
+For example, the small deck contains only two colors and three numeric values:
+
+\[
+D_{\text{small}} =
+\{(R,1), (R,2), (R,3),\ (G,1), (G,2), (G,3)\}.
+\]
+
+There are no action cards (SKIP, REVERSE, +2, +4, WILD), and card effects
+are purely based on matching color or value. A typical scenario used in
+our experiments is:
+
+\[
+H_1 = \{(R,1), (G,2)\},\quad |H_2| = 1,
+\]
+\[
+P = \{(G,3)\},\quad P_t = (G,1),\quad |D_g| = 2.
+\]
+
+Given the player's observation
+\[
+O = (H_1,\ |H_2|,\ |D_g|,\ P,\ P_t,\ G_o),
+\]
+all hidden states \((H_2, D_g)\) consistent with the observation can be
+enumerated exactly. For each legal action, its expected value is computed
+by averaging over all such belief-consistent worlds.
+
+This environment is small enough to evaluate the \emph{true}
+Bayes-optimal Q-values, allowing us to determine whether a unique
+optimal action exists in each scenario.
+
+<ALEX AAND WESLY INSERT YOUR FINDINGS HERE>
+
+
+\subsection{Full UNO with Monte Carlo Tree Search}
+
+
+
+
+
+\section{Conclusion}
+
+The conclusion goes here.
+
+\bibliographystyle{IEEEtran}
+\begin{thebibliography}{1}
+\bibitem{IEEEhowto:kopka}
+H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+\end{thebibliography}
+
+\end{document}
+
+
+
