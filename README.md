@@ -24,6 +24,10 @@ This script verifies the belief state update logic on a larger, more realistic U
 
 This script verfies the belief state update logic with duplicate cards, and shows the probability of each card being present in the opponents hand after change in the game state (such as a draw or a play).
 
+### `belief_probability_harness.py`
+
+This script is an extended harness to test the robustness of our belief state update by testing against 900 random scenarios and recording its performance.
+
 ## Supporting Modules
 
 *   `belief.py`: Contains the `Belief` class, which is used to represent the belief state of the agent.
