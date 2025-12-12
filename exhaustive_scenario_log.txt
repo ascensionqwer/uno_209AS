@@ -3,3746 +3,2342 @@ Deck: R1, R2, R3, G1, G2, G3
 Criteria: H1 must have >= 2 choices. Finding TRAPS (Q=1.0).
 
 Scenario #1
-  [God] H1: [('R', 1), ('R', 2), ('R', 3), ('G', 1)] | H2: [('G', 2)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #2
-  [God] H1: [('R', 1), ('R', 2), ('R', 3), ('G', 1)] | H2: [('G', 3)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #3
-  [God] H1: [('R', 1), ('R', 2), ('R', 3), ('G', 2)] | H2: [('G', 1)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #4
-  [God] H1: [('R', 1), ('R', 2), ('R', 3), ('G', 2)] | H2: [('G', 3)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #5
-  [God] H1: [('R', 1), ('R', 2), ('R', 3), ('G', 3)] | H2: [('G', 1)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #6
-  [God] H1: [('R', 1), ('R', 2), ('R', 3), ('G', 3)] | H2: [('G', 2)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #7
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 1)] | P: [('R', 3)] | Dg: [('G', 2), ('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #8
-  [God] H1: [('R', 1), ('R', 2), ('G', 1)] | H2: [('R', 3)] | P: [('G', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #9
-  [God] H1: [('R', 1), ('R', 2), ('G', 1)] | H2: [('R', 3)] | P: [('G', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #10
-  [God] H1: [('R', 1), ('R', 2), ('G', 1)] | H2: [('R', 3), ('G', 3)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #11
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 1)] | P: [('G', 2), ('R', 3)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #12
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 1), ('G', 2)] | P: [('R', 3)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #13
-  [God] H1: [('R', 1), ('R', 2), ('G', 1)] | H2: [('G', 2)] | P: [('R', 3)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #14
-  [God] H1: [('R', 1), ('R', 2), ('G', 1), ('G', 2)] | H2: [('R', 3)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #15
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 1)] | P: [('G', 2), ('G', 3), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #16
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 1), ('G', 2)] | P: [('G', 3), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #17
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 1), ('G', 2), ('G', 3)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #18
-  [God] H1: [('R', 1), ('R', 2), ('G', 1)] | H2: [('G', 2)] | P: [('G', 3), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #19
-  [God] H1: [('R', 1), ('R', 2), ('G', 1)] | H2: [('G', 2), ('G', 3)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #20
-  [God] H1: [('R', 1), ('R', 2), ('G', 1), ('G', 2)] | H2: [('G', 3)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #21
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 1)] | P: [('G', 3), ('R', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #22
-  [God] H1: [('R', 1), ('R', 2), ('G', 1)] | H2: [('G', 3)] | P: [('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #23
-  [God] H1: [('R', 1), ('R', 2), ('G', 1), ('G', 3)] | H2: [('R', 3)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #24
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 1)] | P: [('G', 3), ('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #25
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 1), ('G', 3)] | P: [('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #26
-  [God] H1: [('R', 1), ('R', 2), ('G', 1)] | H2: [('G', 3)] | P: [('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #27
-  [God] H1: [('R', 1), ('R', 2), ('G', 1), ('G', 3)] | H2: [('G', 2)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #28
-  [God] H1: [('R', 1), ('R', 2), ('G', 2)] | H2: [('R', 3)] | P: [('G', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #29
-  [God] H1: [('R', 1), ('R', 2), ('G', 2)] | H2: [('R', 3)] | P: [('G', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #30
-  [God] H1: [('R', 1), ('R', 2), ('G', 2)] | H2: [('R', 3), ('G', 3)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #31
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 2)] | P: [('G', 1), ('R', 3)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #32
-  [God] H1: [('R', 1), ('R', 2), ('G', 2)] | H2: [('G', 1)] | P: [('R', 3)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #33
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 2)] | P: [('G', 1), ('G', 3), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #34
-  [God] H1: [('R', 1), ('R', 2), ('G', 2)] | H2: [('G', 1)] | P: [('G', 3), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #35
-  [God] H1: [('R', 1), ('R', 2), ('G', 2)] | H2: [('G', 1), ('G', 3)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #36
-  [God] H1: [('R', 1), ('R', 2), ('G', 2)] | H2: [('G', 3)] | P: [('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #37
-  [God] H1: [('R', 1), ('R', 2), ('G', 2), ('G', 3)] | H2: [('R', 3)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #38
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 2)] | P: [('G', 3), ('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #39
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 2), ('G', 3)] | P: [('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #40
-  [God] H1: [('R', 1), ('R', 2), ('G', 2)] | H2: [('G', 3)] | P: [('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #41
-  [God] H1: [('R', 1), ('R', 2), ('G', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #42
-  [God] H1: [('R', 1), ('R', 2), ('G', 3)] | H2: [('R', 3)] | P: [('G', 1)] | Dg: [('G', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #43
-  [God] H1: [('R', 1), ('R', 2), ('G', 3)] | H2: [('R', 3)] | P: [('G', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #44
-  [God] H1: [('R', 1), ('R', 2), ('G', 3)] | H2: [('R', 3), ('G', 1)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #45
-  [God] H1: [('R', 1), ('R', 2), ('G', 3)] | H2: [('R', 3)] | P: [('G', 2)] | Dg: [('G', 1)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #46
-  [God] H1: [('R', 1), ('R', 2), ('G', 3)] | H2: [('R', 3)] | P: [('G', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #47
-  [God] H1: [('R', 1), ('R', 2), ('G', 3)] | H2: [('R', 3), ('G', 2)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #48
-  [God] H1: [('R', 1), ('R', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #49
-  [God] H1: [('R', 1), ('R', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #50
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 3)] | P: [('G', 1), ('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #51
-  [God] H1: [('R', 1), ('R', 2), ('G', 3)] | H2: [('G', 1)] | P: [('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #52
-  [God] H1: [('R', 1), ('R', 2), ('G', 3)] | H2: [('G', 1), ('G', 2)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #53
-  [God] H1: [('R', 1), ('R', 2), ('G', 3)] | H2: [('G', 2)] | P: [('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #54
-  [God] H1: [('R', 1), ('R', 2)] | H2: [('G', 3)] | P: [('G', 2), ('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #55
-  [God] H1: [('R', 1), ('R', 2), ('G', 3)] | H2: [('G', 2)] | P: [('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #56
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 1)] | P: [('R', 2)] | Dg: [('G', 2), ('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #57
-  [God] H1: [('R', 1), ('R', 3), ('G', 1)] | H2: [('R', 2)] | P: [('G', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #58
-  [God] H1: [('R', 1), ('R', 3), ('G', 1)] | H2: [('R', 2), ('G', 2)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #59
-  [God] H1: [('R', 1), ('R', 3), ('G', 1)] | H2: [('R', 2)] | P: [('G', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #60
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 1)] | P: [('G', 2), ('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #61
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 1), ('G', 2)] | P: [('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #62
-  [God] H1: [('R', 1), ('R', 3), ('G', 1)] | H2: [('G', 2)] | P: [('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #63
-  [God] H1: [('R', 1), ('R', 3), ('G', 1)] | H2: [('G', 2)] | P: [('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #64
-  [God] H1: [('R', 1), ('R', 3), ('G', 1), ('G', 2)] | H2: [('R', 2)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #65
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 1)] | P: [('G', 2), ('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #66
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 1), ('G', 2)] | P: [('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #67
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 1), ('G', 2), ('G', 3)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #68
-  [God] H1: [('R', 1), ('R', 3), ('G', 1)] | H2: [('G', 2)] | P: [('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #69
-  [God] H1: [('R', 1), ('R', 3), ('G', 1)] | H2: [('G', 2), ('G', 3)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #70
-  [God] H1: [('R', 1), ('R', 3), ('G', 1), ('G', 2)] | H2: [('G', 3)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #71
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 1)] | P: [('G', 3), ('R', 2)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #72
-  [God] H1: [('R', 1), ('R', 3), ('G', 1), ('G', 3)] | H2: [('R', 2)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #73
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 1)] | P: [('G', 3), ('G', 2), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #74
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 1), ('G', 3)] | P: [('G', 2), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #75
-  [God] H1: [('R', 1), ('R', 3), ('G', 1)] | H2: [('G', 3)] | P: [('G', 2), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #76
-  [God] H1: [('R', 1), ('R', 3), ('G', 1), ('G', 3)] | H2: [('G', 2)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #77
-  [God] H1: [('R', 1), ('R', 3), ('G', 2)] | H2: [('R', 2)] | P: [('G', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #78
-  [God] H1: [('R', 1), ('R', 3), ('G', 2)] | H2: [('R', 2)] | P: [('G', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #79
-  [God] H1: [('R', 1), ('R', 3), ('G', 2)] | H2: [('R', 2), ('G', 1)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #80
-  [God] H1: [('R', 1), ('R', 3), ('G', 2)] | H2: [('R', 2)] | P: [('G', 3)] | Dg: [('G', 1)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #81
-  [God] H1: [('R', 1), ('R', 3), ('G', 2)] | H2: [('R', 2)] | P: [('G', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #82
-  [God] H1: [('R', 1), ('R', 3), ('G', 2)] | H2: [('R', 2), ('G', 3)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #83
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 2)] | P: [('G', 1), ('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #84
-  [God] H1: [('R', 1), ('R', 3), ('G', 2)] | H2: [('G', 1)] | P: [('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #85
-  [God] H1: [('R', 1), ('R', 3), ('G', 2)] | H2: [('G', 1)] | P: [('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #86
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 2)] | P: [('G', 1), ('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #87
-  [God] H1: [('R', 1), ('R', 3), ('G', 2)] | H2: [('G', 1)] | P: [('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #88
-  [God] H1: [('R', 1), ('R', 3), ('G', 2)] | H2: [('G', 1), ('G', 3)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #89
-  [God] H1: [('R', 1), ('R', 3), ('G', 2)] | H2: [('G', 3)] | P: [('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #90
-  [God] H1: [('R', 1), ('R', 3), ('G', 2), ('G', 3)] | H2: [('R', 2)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #91
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 2)] | P: [('G', 3), ('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #92
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 2), ('G', 3)] | P: [('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #93
-  [God] H1: [('R', 1), ('R', 3), ('G', 2)] | H2: [('G', 3)] | P: [('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #94
-  [God] H1: [('R', 1), ('R', 3), ('G', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #95
-  [God] H1: [('R', 1), ('R', 3), ('G', 3)] | H2: [('R', 2)] | P: [('G', 1)] | Dg: [('G', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #96
-  [God] H1: [('R', 1), ('R', 3), ('G', 3)] | H2: [('R', 2)] | P: [('G', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #97
-  [God] H1: [('R', 1), ('R', 3), ('G', 3)] | H2: [('R', 2), ('G', 2)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #98
-  [God] H1: [('R', 1), ('R', 3), ('G', 3)] | H2: [('G', 1)] | P: [('R', 2)] | Dg: [('G', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #99
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 3)] | P: [('G', 1), ('G', 2), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #100
-  [God] H1: [('R', 1), ('R', 3), ('G', 3)] | H2: [('G', 1)] | P: [('G', 2), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #101
-  [God] H1: [('R', 1), ('R', 3), ('G', 3)] | H2: [('G', 1), ('G', 2)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #102
-  [God] H1: [('R', 1), ('R', 3), ('G', 3)] | H2: [('G', 2)] | P: [('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #103
-  [God] H1: [('R', 1), ('R', 3)] | H2: [('G', 3)] | P: [('G', 2), ('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #104
-  [God] H1: [('R', 1), ('R', 3), ('G', 3)] | H2: [('G', 2)] | P: [('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #105
-  [God] H1: [('R', 1), ('G', 1), ('G', 2)] | H2: [('R', 2)] | P: [('R', 3), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #106
-  [God] H1: [('R', 1), ('G', 1), ('G', 2)] | H2: [('R', 2), ('R', 3)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #107
-  [God] H1: [('R', 1), ('G', 1), ('G', 2)] | H2: [('R', 2)] | P: [('G', 3)] | Dg: [('R', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #108
-  [God] H1: [('R', 1), ('G', 1), ('G', 2)] | H2: [('R', 3)] | P: [('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #109
-  [God] H1: [('R', 1), ('G', 1), ('G', 2)] | H2: [('R', 3)] | P: [('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #110
-  [God] H1: [('R', 1), ('G', 1), ('G', 2)] | H2: [('R', 3)] | P: [('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #111
-  [God] H1: [('R', 1), ('G', 1), ('G', 2)] | H2: [('R', 3), ('G', 3)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #112
-  [God] H1: [('R', 1), ('G', 1), ('G', 2), ('G', 3)] | H2: [('R', 2)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #113
-  [God] H1: [('R', 1), ('G', 1), ('G', 2)] | H2: [('G', 3)] | P: [('R', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #114
-  [God] H1: [('R', 1), ('G', 1), ('G', 2), ('G', 3)] | H2: [('R', 3)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #115
-  [God] H1: [('R', 1), ('G', 1), ('G', 3)] | H2: [('R', 2)] | P: [('R', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #116
-  [God] H1: [('R', 1), ('G', 1), ('G', 3)] | H2: [('R', 2)] | P: [('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #117
-  [God] H1: [('R', 1), ('G', 1), ('G', 3)] | H2: [('R', 2), ('R', 3)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #118
-  [God] H1: [('R', 1), ('G', 1), ('G', 3)] | H2: [('R', 2)] | P: [('G', 2)] | Dg: [('R', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #119
-  [God] H1: [('R', 1), ('G', 1), ('G', 3)] | H2: [('R', 2)] | P: [('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #120
-  [God] H1: [('R', 1), ('G', 1), ('G', 3)] | H2: [('R', 2), ('G', 2)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #121
-  [God] H1: [('R', 1), ('G', 1), ('G', 3)] | H2: [('R', 3)] | P: [('R', 2), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #122
-  [God] H1: [('R', 1), ('G', 1), ('G', 3)] | H2: [('G', 2)] | P: [('R', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #123
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 2)] | P: [('R', 3), ('G', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #124
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 2), ('R', 3)] | P: [('G', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #125
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 2)] | P: [('R', 3), ('G', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #126
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 2), ('R', 3)] | P: [('G', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #127
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 2), ('R', 3), ('G', 3)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #128
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 2)] | P: [('G', 1)] | Dg: [('R', 3), ('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #129
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 2)] | P: [('G', 3), ('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #130
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 2), ('G', 3)] | P: [('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #131
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 2)] | P: [('G', 3), ('G', 1)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #132
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3)] | P: [('R', 2)] | Dg: [('G', 1), ('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #133
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3)] | P: [('R', 2), ('G', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #134
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3)] | P: [('R', 2), ('G', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #135
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3)] | P: [('G', 1), ('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #136
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3), ('G', 1)] | P: [('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #137
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3)] | P: [('G', 1), ('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #138
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3), ('G', 1)] | P: [('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #139
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3), ('G', 1), ('G', 3)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #140
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3)] | P: [('G', 3), ('R', 2)] | Dg: [('G', 1)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #141
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3)] | P: [('G', 3), ('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #142
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3), ('G', 3)] | P: [('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #143
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3)] | P: [('G', 3), ('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #144
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('R', 3), ('G', 3)] | P: [('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #145
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('G', 1)] | P: [('R', 3), ('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #146
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('G', 1)] | P: [('R', 3), ('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #147
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('G', 1)] | P: [('G', 3), ('R', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #148
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('G', 1), ('G', 3)] | P: [('R', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #149
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('G', 3)] | P: [('R', 2), ('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #150
-  [God] H1: [('R', 1), ('G', 2), ('G', 3)] | H2: [('R', 2)] | P: [('R', 3)] | Dg: [('G', 1)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #151
-  [God] H1: [('R', 1), ('G', 2), ('G', 3)] | H2: [('R', 2)] | P: [('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #152
-  [God] H1: [('R', 1), ('G', 2), ('G', 3)] | H2: [('R', 2), ('R', 3)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #153
-  [God] H1: [('R', 1), ('G', 2), ('G', 3)] | H2: [('R', 2)] | P: [('G', 1)] | Dg: [('R', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #154
-  [God] H1: [('R', 1), ('G', 2), ('G', 3)] | H2: [('R', 2)] | P: [('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #155
-  [God] H1: [('R', 1), ('G', 2), ('G', 3)] | H2: [('R', 2), ('G', 1)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #156
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('G', 3)] | P: [('R', 3), ('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #157
-  [God] H1: [('R', 1), ('G', 2), ('G', 3)] | H2: [('R', 3)] | P: [('R', 2)] | Dg: [('G', 1)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #158
-  [God] H1: [('R', 1), ('G', 2), ('G', 3)] | H2: [('R', 3)] | P: [('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #159
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('G', 3)] | P: [('R', 3), ('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #160
-  [God] H1: [('R', 1), ('G', 2), ('G', 3)] | H2: [('R', 3)] | P: [('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #161
-  [God] H1: [('R', 1), ('G', 2), ('G', 3)] | H2: [('R', 3), ('G', 1)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #162
-  [God] H1: [('R', 1), ('G', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #163
-  [God] H1: [('R', 1), ('G', 2)] | H2: [('G', 3)] | P: [('G', 1), ('R', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #164
-  [God] H1: [('R', 1), ('G', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #165
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2)] | P: [('R', 3)] | Dg: [('G', 1), ('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #166
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2)] | P: [('R', 3), ('G', 1)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #167
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2), ('R', 3)] | P: [('G', 1)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #168
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2)] | P: [('R', 3), ('G', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #169
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2), ('R', 3)] | P: [('G', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #170
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2), ('R', 3), ('G', 2)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #171
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2)] | P: [('G', 1)] | Dg: [('R', 3), ('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #172
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2)] | P: [('G', 1), ('R', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #173
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2), ('G', 1)] | P: [('R', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #174
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2)] | P: [('G', 1), ('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #175
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2), ('G', 1)] | P: [('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #176
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2), ('G', 1), ('G', 2)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #177
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2)] | P: [('G', 2), ('R', 3)] | Dg: [('G', 1)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #178
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2)] | P: [('G', 2), ('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #179
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2), ('G', 2)] | P: [('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #180
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2)] | P: [('G', 2), ('G', 1)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #181
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2)] | P: [('G', 2), ('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #182
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 2), ('G', 2)] | P: [('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #183
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 3)] | P: [('R', 2), ('G', 1)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #184
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 3)] | P: [('R', 2), ('G', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #185
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 3)] | P: [('G', 2), ('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #186
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('R', 3), ('G', 2)] | P: [('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #187
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('G', 1)] | P: [('R', 2), ('R', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #188
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('G', 1)] | P: [('R', 2), ('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #189
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('G', 1)] | P: [('G', 2), ('R', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #190
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('G', 1), ('G', 2)] | P: [('R', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #191
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('G', 2)] | P: [('R', 2), ('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #192
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('G', 2)] | P: [('R', 2), ('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #193
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('G', 2)] | P: [('R', 3), ('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #194
-  [God] H1: [('R', 1), ('G', 3)] | H2: [('G', 2)] | P: [('G', 1), ('R', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 1))
+  [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #195
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 1)] | P: [('R', 1)] | Dg: [('G', 2), ('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #196
-  [God] H1: [('R', 2), ('R', 3), ('G', 1)] | H2: [('R', 1)] | P: [('G', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #197
-  [God] H1: [('R', 2), ('R', 3), ('G', 1)] | H2: [('R', 1)] | P: [('G', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #198
-  [God] H1: [('R', 2), ('R', 3), ('G', 1)] | H2: [('R', 1), ('G', 2)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #199
-  [God] H1: [('R', 2), ('R', 3), ('G', 1)] | H2: [('R', 1)] | P: [('G', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #200
-  [God] H1: [('R', 2), ('R', 3), ('G', 1)] | H2: [('R', 1)] | P: [('G', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #201
-  [God] H1: [('R', 2), ('R', 3), ('G', 1)] | H2: [('R', 1), ('G', 3)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #202
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 1)] | P: [('G', 2), ('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #203
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 1), ('G', 2)] | P: [('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #204
-  [God] H1: [('R', 2), ('R', 3), ('G', 1)] | H2: [('G', 2)] | P: [('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #205
-  [God] H1: [('R', 2), ('R', 3), ('G', 1)] | H2: [('G', 2)] | P: [('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #206
-  [God] H1: [('R', 2), ('R', 3), ('G', 1), ('G', 2)] | H2: [('R', 1)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #207
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 1)] | P: [('G', 2), ('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #208
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 1), ('G', 2)] | P: [('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #209
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 1), ('G', 2), ('G', 3)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #210
-  [God] H1: [('R', 2), ('R', 3), ('G', 1)] | H2: [('G', 2)] | P: [('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #211
-  [God] H1: [('R', 2), ('R', 3), ('G', 1)] | H2: [('G', 2), ('G', 3)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #212
-  [God] H1: [('R', 2), ('R', 3), ('G', 1), ('G', 2)] | H2: [('G', 3)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #213
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 1)] | P: [('G', 3), ('R', 1)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #214
-  [God] H1: [('R', 2), ('R', 3), ('G', 1)] | H2: [('G', 3)] | P: [('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #215
-  [God] H1: [('R', 2), ('R', 3), ('G', 1), ('G', 3)] | H2: [('R', 1)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #216
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 1)] | P: [('G', 3), ('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #217
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 1), ('G', 3)] | P: [('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #218
-  [God] H1: [('R', 2), ('R', 3), ('G', 1)] | H2: [('G', 3)] | P: [('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #219
-  [God] H1: [('R', 2), ('R', 3), ('G', 1), ('G', 3)] | H2: [('G', 2)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #220
-  [God] H1: [('R', 2), ('R', 3), ('G', 2)] | H2: [('R', 1)] | P: [('G', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #221
-  [God] H1: [('R', 2), ('R', 3), ('G', 2)] | H2: [('R', 1), ('G', 1)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #222
-  [God] H1: [('R', 2), ('R', 3), ('G', 2)] | H2: [('R', 1)] | P: [('G', 3)] | Dg: [('G', 1)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #223
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 2)] | P: [('G', 1), ('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #224
-  [God] H1: [('R', 2), ('R', 3), ('G', 2)] | H2: [('G', 1)] | P: [('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #225
-  [God] H1: [('R', 2), ('R', 3), ('G', 2)] | H2: [('G', 1)] | P: [('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #226
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 2)] | P: [('G', 1), ('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #227
-  [God] H1: [('R', 2), ('R', 3), ('G', 2)] | H2: [('G', 1)] | P: [('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #228
-  [God] H1: [('R', 2), ('R', 3), ('G', 2)] | H2: [('G', 1), ('G', 3)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #229
-  [God] H1: [('R', 2), ('R', 3), ('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #230
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 2)] | P: [('G', 3), ('G', 1), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #231
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 2), ('G', 3)] | P: [('G', 1), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #232
-  [God] H1: [('R', 2), ('R', 3), ('G', 2)] | H2: [('G', 3)] | P: [('G', 1), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #233
-  [God] H1: [('R', 2), ('R', 3), ('G', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #234
-  [God] H1: [('R', 2), ('R', 3), ('G', 3)] | H2: [('R', 1)] | P: [('G', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #235
-  [God] H1: [('R', 2), ('R', 3), ('G', 3)] | H2: [('R', 1), ('G', 1)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #236
-  [God] H1: [('R', 2), ('R', 3), ('G', 3)] | H2: [('R', 1)] | P: [('G', 2)] | Dg: [('G', 1)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #237
-  [God] H1: [('R', 2), ('R', 3), ('G', 3)] | H2: [('G', 1)] | P: [('R', 1)] | Dg: [('G', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #238
-  [God] H1: [('R', 2), ('R', 3), ('G', 3)] | H2: [('G', 1)] | P: [('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #239
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 3)] | P: [('G', 1), ('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #240
-  [God] H1: [('R', 2), ('R', 3), ('G', 3)] | H2: [('G', 1)] | P: [('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #241
-  [God] H1: [('R', 2), ('R', 3), ('G', 3)] | H2: [('G', 1), ('G', 2)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #242
-  [God] H1: [('R', 2), ('R', 3)] | H2: [('G', 3)] | P: [('G', 2), ('G', 1), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #243
-  [God] H1: [('R', 2), ('R', 3), ('G', 3)] | H2: [('G', 2)] | P: [('G', 1), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #244
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 1)] | P: [('R', 3), ('G', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #245
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 1), ('R', 3)] | P: [('G', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #246
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 1)] | P: [('R', 3), ('G', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #247
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 1), ('R', 3)] | P: [('G', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #248
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 1), ('R', 3), ('G', 3)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #249
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 1)] | P: [('G', 2)] | Dg: [('R', 3), ('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #250
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 1)] | P: [('G', 3), ('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #251
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 1), ('G', 3)] | P: [('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #252
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 1)] | P: [('G', 3), ('G', 2)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #253
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3)] | P: [('R', 1)] | Dg: [('G', 2), ('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #254
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3)] | P: [('R', 1), ('G', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #255
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3)] | P: [('R', 1), ('G', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #256
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3)] | P: [('G', 2), ('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #257
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3), ('G', 2)] | P: [('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #258
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3)] | P: [('G', 2), ('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #259
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3), ('G', 2)] | P: [('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #260
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3), ('G', 2), ('G', 3)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #261
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3)] | P: [('G', 3), ('R', 1)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #262
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3)] | P: [('G', 3), ('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #263
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3), ('G', 3)] | P: [('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #264
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3)] | P: [('G', 3), ('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #265
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('R', 3), ('G', 3)] | P: [('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #266
-  [God] H1: [('R', 2), ('G', 1), ('G', 2)] | H2: [('R', 1)] | P: [('R', 3), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #267
-  [God] H1: [('R', 2), ('G', 1), ('G', 2)] | H2: [('R', 1), ('R', 3)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #268
-  [God] H1: [('R', 2), ('G', 1), ('G', 2)] | H2: [('R', 1)] | P: [('G', 3)] | Dg: [('R', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #269
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('G', 2)] | P: [('R', 3), ('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #270
-  [God] H1: [('R', 2), ('G', 1), ('G', 2)] | H2: [('R', 3)] | P: [('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #271
-  [God] H1: [('R', 2), ('G', 1), ('G', 2)] | H2: [('R', 3)] | P: [('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #272
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('G', 2)] | P: [('R', 3), ('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #273
-  [God] H1: [('R', 2), ('G', 1), ('G', 2)] | H2: [('R', 3)] | P: [('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #274
-  [God] H1: [('R', 2), ('G', 1), ('G', 2)] | H2: [('R', 3), ('G', 3)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #275
-  [God] H1: [('R', 2), ('G', 1), ('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #276
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('G', 2)] | P: [('G', 3), ('R', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #277
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('G', 2), ('G', 3)] | P: [('R', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #278
-  [God] H1: [('R', 2), ('G', 1), ('G', 2)] | H2: [('G', 3)] | P: [('R', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #279
-  [God] H1: [('R', 2), ('G', 1), ('G', 2), ('G', 3)] | H2: [('R', 3)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #280
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('G', 3)] | P: [('R', 1), ('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #281
-  [God] H1: [('R', 2), ('G', 1), ('G', 3)] | H2: [('R', 1)] | P: [('R', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #282
-  [God] H1: [('R', 2), ('G', 1), ('G', 3)] | H2: [('R', 1)] | P: [('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #283
-  [God] H1: [('R', 2), ('G', 1), ('G', 3)] | H2: [('R', 1), ('R', 3)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #284
-  [God] H1: [('R', 2), ('G', 1), ('G', 3)] | H2: [('R', 1)] | P: [('G', 2)] | Dg: [('R', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #285
-  [God] H1: [('R', 2), ('G', 1), ('G', 3)] | H2: [('R', 1)] | P: [('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #286
-  [God] H1: [('R', 2), ('G', 1), ('G', 3)] | H2: [('R', 1), ('G', 2)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #287
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('G', 3)] | P: [('R', 3), ('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #288
-  [God] H1: [('R', 2), ('G', 1), ('G', 3)] | H2: [('R', 3)] | P: [('R', 1)] | Dg: [('G', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #289
-  [God] H1: [('R', 2), ('G', 1), ('G', 3)] | H2: [('R', 3)] | P: [('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #290
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('G', 3)] | P: [('R', 3), ('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #291
-  [God] H1: [('R', 2), ('G', 1), ('G', 3)] | H2: [('R', 3)] | P: [('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #292
-  [God] H1: [('R', 2), ('G', 1), ('G', 3)] | H2: [('R', 3), ('G', 2)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #293
-  [God] H1: [('R', 2), ('G', 1), ('G', 3)] | H2: [('G', 2)] | P: [('R', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #294
-  [God] H1: [('R', 2), ('G', 1)] | H2: [('G', 3)] | P: [('G', 2), ('R', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #295
-  [God] H1: [('R', 2), ('G', 1), ('G', 3)] | H2: [('G', 2)] | P: [('R', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #296
-  [God] H1: [('R', 2), ('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 3)] | Dg: [('G', 1)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #297
-  [God] H1: [('R', 2), ('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #298
-  [God] H1: [('R', 2), ('G', 2), ('G', 3)] | H2: [('R', 1), ('R', 3)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #299
-  [God] H1: [('R', 2), ('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 1)] | Dg: [('R', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #300
-  [God] H1: [('R', 2), ('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #301
-  [God] H1: [('R', 2), ('G', 2), ('G', 3)] | H2: [('R', 1), ('G', 1)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #302
-  [God] H1: [('R', 2), ('G', 2), ('G', 3)] | H2: [('R', 3)] | P: [('R', 1), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #303
-  [God] H1: [('R', 2), ('G', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #304
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 3)] | Dg: [('G', 1), ('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #305
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 3), ('G', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #306
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1), ('R', 3)] | P: [('G', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #307
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1), ('R', 3), ('G', 1)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #308
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 3), ('G', 2)] | Dg: [('G', 1)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #309
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1), ('R', 3)] | P: [('G', 2)] | Dg: [('G', 1)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #310
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 1), ('R', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #311
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 1), ('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #312
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1), ('G', 1)] | P: [('R', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #313
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1), ('G', 1)] | P: [('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #314
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 1), ('G', 2)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #315
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 1), ('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #316
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1), ('G', 1)] | P: [('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #317
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1), ('G', 1), ('G', 2)] | P: [('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #318
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 2)] | Dg: [('R', 3), ('G', 1)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #319
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 2), ('R', 3)] | Dg: [('G', 1)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #320
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 2), ('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #321
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 1), ('G', 2)] | P: [('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #322
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 3)] | P: [('R', 1), ('G', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #323
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 3)] | P: [('R', 1), ('G', 2)] | Dg: [('G', 1)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #324
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 3)] | P: [('G', 1), ('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #325
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('R', 3), ('G', 1)] | P: [('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3), ('G', 1)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #326
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 1), ('R', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #327
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 1), ('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #328
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 1), ('G', 2), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #329
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 3), ('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #330
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('G', 1)] | P: [('G', 2), ('R', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('R', 2))
+  [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #331
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('G', 1), ('G', 2)] | P: [('R', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #332
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('G', 2)] | P: [('R', 1), ('G', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #333
-  [God] H1: [('R', 2), ('G', 3)] | H2: [('G', 2)] | P: [('G', 1), ('R', 1), ('R', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 3)
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #334
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 1)] | P: [('R', 2), ('G', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #335
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 1), ('R', 2)] | P: [('G', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #336
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 1), ('R', 2), ('G', 2)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #337
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 1)] | P: [('R', 2), ('G', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #338
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 1), ('R', 2)] | P: [('G', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #339
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 1)] | P: [('G', 2), ('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #340
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 1), ('G', 2)] | P: [('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #341
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 1)] | P: [('G', 2), ('G', 3)] | Dg: [('R', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #342
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 1)] | P: [('G', 3)] | Dg: [('R', 2), ('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #343
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2)] | P: [('R', 1)] | Dg: [('G', 2), ('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #344
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2)] | P: [('R', 1), ('G', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #345
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2)] | P: [('R', 1), ('G', 3)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #346
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2)] | P: [('G', 2), ('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #347
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2)] | P: [('G', 2), ('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #348
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2), ('G', 2)] | P: [('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #349
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2), ('G', 2)] | P: [('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #350
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2)] | P: [('G', 2), ('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #351
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2), ('G', 2)] | P: [('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #352
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2), ('G', 2), ('G', 3)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #353
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2)] | P: [('G', 3), ('R', 1)] | Dg: [('G', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #354
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2)] | P: [('G', 3), ('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #355
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('R', 2), ('G', 3)] | P: [('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #356
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('G', 2)] | P: [('R', 1), ('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #357
-  [God] H1: [('R', 3), ('G', 1), ('G', 2)] | H2: [('R', 1)] | P: [('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #358
-  [God] H1: [('R', 3), ('G', 1), ('G', 2)] | H2: [('R', 1)] | P: [('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #359
-  [God] H1: [('R', 3), ('G', 1), ('G', 2)] | H2: [('R', 1), ('R', 2)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #360
-  [God] H1: [('R', 3), ('G', 1), ('G', 2)] | H2: [('R', 1)] | P: [('G', 3)] | Dg: [('R', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #361
-  [God] H1: [('R', 3), ('G', 1), ('G', 2)] | H2: [('R', 1)] | P: [('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #362
-  [God] H1: [('R', 3), ('G', 1), ('G', 2)] | H2: [('R', 1), ('G', 3)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #363
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('G', 2)] | P: [('R', 2), ('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #364
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('G', 2)] | P: [('R', 2), ('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #365
-  [God] H1: [('R', 3), ('G', 1), ('G', 2)] | H2: [('R', 2)] | P: [('R', 1)] | Dg: [('G', 3)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #366
-  [God] H1: [('R', 3), ('G', 1), ('G', 2)] | H2: [('R', 2)] | P: [('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #367
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('G', 2)] | P: [('R', 2), ('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #368
-  [God] H1: [('R', 3), ('G', 1), ('G', 2)] | H2: [('R', 2)] | P: [('G', 3), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #369
-  [God] H1: [('R', 3), ('G', 1), ('G', 2)] | H2: [('R', 2), ('G', 3)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #370
-  [God] H1: [('R', 3), ('G', 1), ('G', 2)] | H2: [('G', 3)] | P: [('R', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #371
-  [God] H1: [('R', 3), ('G', 1), ('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #372
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('G', 2)] | P: [('G', 3), ('R', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #373
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('G', 2), ('G', 3)] | P: [('R', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #374
-  [God] H1: [('R', 3), ('G', 1), ('G', 2)] | H2: [('G', 3)] | P: [('R', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #375
-  [God] H1: [('R', 3), ('G', 1), ('G', 2), ('G', 3)] | H2: [('R', 2)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 4 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #376
-  [God] H1: [('R', 3), ('G', 1), ('G', 3)] | H2: [('R', 1)] | P: [('R', 2), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #377
-  [God] H1: [('R', 3), ('G', 1), ('G', 3)] | H2: [('R', 1), ('R', 2)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #378
-  [God] H1: [('R', 3), ('G', 1), ('G', 3)] | H2: [('R', 1)] | P: [('G', 2)] | Dg: [('R', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #379
-  [God] H1: [('R', 3), ('G', 1), ('G', 3)] | H2: [('R', 2)] | P: [('R', 1)] | Dg: [('G', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #380
-  [God] H1: [('R', 3), ('G', 1), ('G', 3)] | H2: [('R', 2)] | P: [('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #381
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('G', 3)] | P: [('R', 2), ('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #382
-  [God] H1: [('R', 3), ('G', 1), ('G', 3)] | H2: [('R', 2)] | P: [('G', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #383
-  [God] H1: [('R', 3), ('G', 1), ('G', 3)] | H2: [('R', 2), ('G', 2)] | P: [('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #384
-  [God] H1: [('R', 3), ('G', 1)] | H2: [('G', 3)] | P: [('G', 2), ('R', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #385
-  [God] H1: [('R', 3), ('G', 1), ('G', 3)] | H2: [('G', 2)] | P: [('R', 2), ('R', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 1)
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
-  [Belief] L (Unknowns): [('G', 2)]
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #386
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1)] | P: [('R', 2)] | Dg: [('G', 1), ('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #387
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1)] | P: [('R', 2), ('G', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #388
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1), ('R', 2)] | P: [('G', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #389
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1), ('R', 2), ('G', 1)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #390
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1)] | P: [('R', 2), ('G', 3)] | Dg: [('G', 1)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #391
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1), ('R', 2)] | P: [('G', 3)] | Dg: [('G', 1)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #392
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1)] | P: [('G', 1), ('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #393
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1)] | P: [('G', 1), ('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #394
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1), ('G', 1)] | P: [('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #395
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1), ('G', 1)] | P: [('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #396
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1)] | P: [('G', 1), ('G', 3)] | Dg: [('R', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #397
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1)] | P: [('G', 1), ('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #398
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1), ('G', 1)] | P: [('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #399
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1), ('G', 1), ('G', 3)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #400
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1)] | P: [('G', 3)] | Dg: [('R', 2), ('G', 1)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #401
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1)] | P: [('G', 3), ('R', 2)] | Dg: [('G', 1)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #402
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1)] | P: [('G', 3), ('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #403
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 1), ('G', 3)] | P: [('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #404
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 2)] | P: [('R', 1), ('G', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #405
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 2)] | P: [('R', 1), ('G', 3)] | Dg: [('G', 1)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #406
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 2)] | P: [('G', 1), ('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #407
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('R', 2), ('G', 1)] | P: [('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #408
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('G', 1)] | P: [('R', 1), ('R', 2)] | Dg: [('G', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #409
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('G', 1)] | P: [('R', 1), ('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #410
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('G', 1)] | P: [('R', 1), ('G', 3), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #411
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('G', 1)] | P: [('R', 2), ('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #412
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('G', 1)] | P: [('G', 3), ('R', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #413
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('G', 1), ('G', 3)] | P: [('R', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1), ('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #414
-  [God] H1: [('R', 3), ('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 2)] | Dg: [('G', 1)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #415
-  [God] H1: [('R', 3), ('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #416
-  [God] H1: [('R', 3), ('G', 2), ('G', 3)] | H2: [('R', 1), ('R', 2)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #417
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('G', 3)] | P: [('R', 1), ('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #418
-  [God] H1: [('R', 3), ('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 1)] | Dg: [('R', 2)]
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #419
-  [God] H1: [('R', 3), ('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #420
-  [God] H1: [('R', 3), ('G', 2), ('G', 3)] | H2: [('R', 1), ('G', 1)] | P: [('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 2 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('G', 1)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #421
-  [God] H1: [('R', 3), ('G', 2), ('G', 3)] | H2: [('R', 2)] | P: [('R', 1), ('G', 1)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #422
-  [God] H1: [('R', 3), ('G', 2)] | H2: [('G', 3)] | P: [('G', 1), ('R', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 3)]
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #423
-  [God] H1: [('R', 3), ('G', 2), ('G', 3)] | H2: [('G', 1)] | P: [('R', 1), ('R', 2)] | Dg: []
-  [Obs] |H1|: 3 | |H2|: 1 | |Dg|: 0 | P_t: ('R', 2)
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
-  [Belief] L (Unknowns): [('G', 1)]
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('R', 3))
+  [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #424
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 1)] | P: [('R', 2), ('R', 3), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #425
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 1), ('R', 2)] | P: [('R', 3), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #426
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 1), ('R', 2), ('R', 3)] | P: [('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #427
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 1)] | P: [('R', 2), ('G', 3)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #428
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 1), ('R', 2)] | P: [('G', 3)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #429
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 1)] | P: [('R', 3), ('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #430
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 1), ('R', 3)] | P: [('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #431
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 1)] | P: [('R', 3), ('G', 3)] | Dg: [('R', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #432
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 1)] | P: [('G', 3)] | Dg: [('R', 2), ('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #433
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 2)] | P: [('R', 1), ('R', 3), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #434
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 2)] | P: [('R', 1), ('G', 3)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #435
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 2)] | P: [('R', 3), ('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #436
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 2), ('R', 3)] | P: [('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #437
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 3)] | P: [('R', 1), ('R', 2), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #438
-  [God] H1: [('G', 1), ('G', 2)] | H2: [('R', 3)] | P: [('R', 2), ('R', 1), ('G', 3)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 3)
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #439
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 1)] | P: [('R', 2), ('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #440
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 1), ('R', 2)] | P: [('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #441
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 1), ('R', 2), ('R', 3)] | P: [('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #442
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 1)] | P: [('R', 2), ('G', 2)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #443
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 1), ('R', 2)] | P: [('G', 2)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #444
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 1)] | P: [('R', 3), ('R', 2), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #445
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 1), ('R', 3)] | P: [('R', 2), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #446
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 1)] | P: [('R', 3), ('G', 2)] | Dg: [('R', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #447
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 1)] | P: [('G', 2)] | Dg: [('R', 2), ('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #448
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 2)] | P: [('R', 1), ('R', 3), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #449
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 2)] | P: [('R', 1), ('G', 2)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #450
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 2)] | P: [('R', 3), ('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #451
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 2), ('R', 3)] | P: [('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #452
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 3)] | P: [('R', 1), ('R', 2), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #453
-  [God] H1: [('G', 1), ('G', 3)] | H2: [('R', 3)] | P: [('R', 2), ('R', 1), ('G', 2)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 2)
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 1))
+  [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #454
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 2), ('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #455
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 1), ('R', 2)] | P: [('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #456
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 1), ('R', 2), ('R', 3)] | P: [('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 3 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('R', 3)]
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #457
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 2), ('G', 1)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #458
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 1), ('R', 2)] | P: [('G', 1)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('R', 3)]
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #459
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 3), ('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1)]
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #460
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 1), ('R', 3)] | P: [('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 3)]
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #461
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('R', 3), ('G', 1)] | Dg: [('R', 2)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2)]
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #462
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 1)] | P: [('G', 1)] | Dg: [('R', 2), ('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 2 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 1), ('R', 2), ('R', 3)]
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #463
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 2)] | P: [('R', 1), ('R', 3), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #464
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 2)] | P: [('R', 1), ('G', 1)] | Dg: [('R', 3)]
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 1 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #465
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 2)] | P: [('R', 3), ('R', 1), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2)]
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
-  [Optimal?] YES (Play ('G', 3))
+  [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #466
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 2), ('R', 3)] | P: [('R', 1), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 2 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 2), ('R', 3)]
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 0.0)]
-  [Optimal?] NO (All moves bad)
+  [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #467
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 3)] | P: [('R', 1), ('R', 2), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #468
-  [God] H1: [('G', 2), ('G', 3)] | H2: [('R', 3)] | P: [('R', 2), ('R', 1), ('G', 1)] | Dg: []
-  [Obs] |H1|: 2 | |H2|: 1 | |Dg|: 0 | P_t: ('G', 1)
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
-  [Belief] L (Unknowns): [('R', 3)]
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
-  [Optimal?] YES (Play ('G', 2))
+  [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
