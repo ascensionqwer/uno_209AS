@@ -1,5 +1,4 @@
-import itertools
-from typing import List, Tuple
+from math import comb
 from cards import RED, GREEN, Card
 from belief import Belief
 
@@ -86,9 +85,15 @@ def run_formatted_analysis():
     
     # Generate Consistent Worlds based on L
     # Since L has 1 card and H2 needs 1 card, there is only 1 world.
-    print(f"  [Belief] Number of consistent worlds: 1")
-    print(f"    World #1: H2={b.L}, D_g=[]")
-
+    num_worlds = comb(len(b.L), h2_size)
+    prob_per_world = 1.0 / num_worlds if num_worlds > 0 else 0.0
+    
+    print(f"  [Belief] Number of consistent worlds: {num_worlds}")
+    print(f"  [Belief] Probability per world: {prob_per_world:.6f} (1/{num_worlds})")
+    
+    for world_idx in range(1, num_worlds + 1):
+        print(f"    World #{world_idx}: H2={b.L}, D_g=[] (prob={prob_per_world:.6f})")
+        
     # Q-Values Calculation
     print(f"  [Belief] Exact Q-values under Trapping_Strategy:")
     
