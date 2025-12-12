@@ -172,17 +172,18 @@
 
 % *** SPECIALIZED LIST PACKAGES ***
 %
-%\usepackage{algorithmic}
+\usepackage{algorithmic}
 % algorithmic.sty was written by Peter Williams and Rogerio Brito.
 % This package provides an algorithmic environment fo describing algorithms.
-% You can use the algorithmic environment in-text or within a figure
+% You can use algorithmic environment in-text or within a figure
 % environment to provide for a floating algorithm. Do NOT use the algorithm
 % floating environment provided by algorithm.sty (by the same authors) or
-% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
 % algorithm float types and packages that provide these will not provide
 % correct IEEE style captions. The latest version and documentation of
 % algorithmic.sty can be obtained at:
 % http://www.ctan.org/pkg/algorithms
+% 
 % Also of interest may be the (relatively newer and more customizable)
 % algorithmicx.sty package by Szasz Janos:
 % http://www.ctan.org/pkg/algorithmicx
@@ -753,7 +754,183 @@ optimal action exists in each scenario.
 
 \subsection{Full UNO with Monte Carlo Tree Search}
 
+For the full 108-card UNO game, we implement Partially Observable Monte Carlo Planning (POMCP) \cite{silver2011monte}. POMCP extends UCT to partially observable environments by using a search tree of histories instead of states, combining Monte-Carlo belief state updates with PO-UCT search for efficient planning in large POMDPs.
 
+\subsubsection{POMCP Algorithm Overview}
+
+The POMCP algorithm maintains a history-based search tree $T(h) = \{N(h), V(h), B(h)\}$ where:
+\begin{itemize}
+    \item $N(h)$: Visit count for history $h$
+    \item $V(h)$: Value estimate for history $h$ (mean return of all simulations)
+    \item $B(h)$: Belief state (particle set) for history $h$
+\end{itemize}
+
+\subsubsection{History-Based PO-UCT Selection}
+
+Actions are selected using UCB1 formula adapted for histories:
+\[
+V^{\oplus}(ha) = V(ha) + c\sqrt{\frac{\log N(h)}{N(ha)}}
+\]
+where $c = \sqrt{2} \approx 1.414$ is the exploration constant.
+
+\subsubsection{Monte-Carlo Simulation with Belief Updates}
+
+Each simulation follows this process:
+\begin{enumerate}
+    \item \textbf{Start State Sampling}: Sample $s \sim B(h_t)$ from current belief
+    \item \textbf{Tree Traversal}: Select actions using UCB1 until reaching unexplored node
+    \item \textbf{Rollout}: Simulate to terminal state using rollout policy $\pi_{\text{rollout}}(h,a)$
+    \item \textbf{Belief Update}: For every history $h$ encountered, update $B(h) \leftarrow B(h) \cup \{s\}$
+\end{enumerate}
+
+\subsubsection{Particle Filter Integration}
+
+The belief state $B(h)$ is represented using $K$ particles:
+\[
+\hat{b}(s|h) = \frac{1}{K} \sum_{i=1}^{K} \delta_{s,s^{(i)}}
+\]
+
+Each particle represents a possible complete state:
+\[
+s^{(i)} = (H_1, H_2^{(i)}, D_g^{(i)}, P, P_t, G_o, \text{current\_color}, \text{turn\_direction}, \text{skip\_next}, \text{draw\_pending})
+\]
+
+Only hidden components are stored:
+\begin{itemize}
+    \item $H_2^{(i)}$: Opponent's hand (7 cards initially)
+    \item $D_g^{(i)}$: Deck composition (remaining cards)
+\end{itemize}
+
+\subsubsection{Implementation Details}
+
+The full UNO implementation includes:
+\begin{itemize}
+    \item \textbf{Complete Card Set}: All 108 UNO cards including numbers (0-9), Skip, Reverse, Draw 2, Wild, and Wild Draw 4
+    \item \textbf{Special Card Handling}: Proper implementation of wild card color choices, draw penalties, and turn skipping
+    \item \textbf{Particle Caching}: Dynamic particle generation with caching by game state for efficiency
+    \item \textbf{Importance Sampling}: Weighted particle updates during belief filtering
+    \item \textbf{Tree Pruning}: After executing real action $a_t$ and observing outcome $o_t$, prune tree to child node $T(h_t a_t o_t)$
+\end{itemize}
+
+\subsubsection{Computational Complexity}
+
+Compared to exact POMDP solution ($O(|S|^3 \cdot |A| \cdot H)$), POMCP achieves:
+\begin{itemize}
+    \item \textbf{Time Complexity}: $O(K \cdot |A| \cdot H)$ where $K$ is particle count
+    \item \textbf{Space Complexity}: $O(K \cdot |S|)$ for particle storage
+    \item \textbf{Scalability}: Linear in particle count and planning horizon
+\end{itemize}
+
+Typical parameters for effective performance:
+\begin{itemize}
+    \item Particle count: 1000-5000 particles
+    \item MCTS iterations: 1000-10000 simulations per decision
+    \item Rollout depth: 5-10 moves lookahead
+    \item Discount factor: $\gamma = 0.95$
+\end{itemize}
+
+\subsubsection{POMCP Pseudocode}
+
+\begin{algorithm}[H]
+\caption{POMCP for UNO with Particle Filtering}
+\label{alg:pomcp}
+\begin{algorithmic}[1]
+\REQUIRE $H_1$, particles $B(h_t)$, $P$, $P_t$, $G_o$, $\gamma$, $N_{\text{iter}}$
+\ENSURE Optimal action $a^*$
+\STATE root $\gets$ \text{CreateNode}([], $H_1$, $B(h_t)$, $P$, $P_t$, $G_o$)
+\STATE root.untried\_actions $\gets$ \text{GetLegalActions}($H_1$, $P_t$)
+\FOR{$i = 1$ \TO $N_{\text{iter}}$}
+    \STATE \text{// Sample start state from current belief}
+    \STATE $H_1^{\text{sim}}$, $H_2^{\text{sim}}$, $D_g^{\text{sim}}$ $\gets$ root.\text{SampleStateFromBelief}()
+    \STATE \text{// Tree traversal using UCB1}
+    \STATE node $\gets$ root
+    \STATE history $\gets$ []
+    \STATE depth $\gets$ 0
+    \WHILE{node $\neq$ \text{NULL} $\land$ $\neg$node.\text{IsTerminal}() $\land$ node.\text{IsFullyExpanded}() $\land$ depth $<$ $d_{\max}$}
+        \STATE child $\gets$ node.\text{BestChild}($c = \sqrt{2}$)
+        \IF{child $\neq$ \text{NULL}}
+            \STATE node $\gets$ child
+            \STATE history.\text{append}(node.action)
+            \STATE depth $\gets$ depth + 1
+        \ELSE
+            \STATE \text{BREAK}
+        \ENDIF
+    \ENDWHILE
+    \STATE \text{// Expansion: add new node for unexplored action}
+    \IF{node $\neq$ \text{NULL} $\land$ $\neg$node.\text{IsTerminal}() $\land$ |node.untried\_actions| $> 0$}
+        \STATE action $\gets$ node.untried\_actions.\text{pop}()
+        \STATE $H_1^{\text{new}}$, $P^{\text{new}}$, $P_t^{\text{new}}$, particles$^{\text{new}}$ $\gets$ \text{UpdateParticlesAfterAction}(node.particles, action, node.$H_1$, node.$P$, node.$P_t$)
+        \STATE $G_o^{\text{new}} \gets$ \text{GameOver}$\text{ if }|H_1^{\text{new}}| = 0$\text{ else Active}$
+        \STATE new\_history $\gets$ history $\circ$ [(action, \text{NULL})]
+        \STATE child $\gets$ \text{CreateNode}(new\_history, $H_1^{\text{new}}$, particles$^{\text{new}}$, $P^{\text{new}}$, $P_t^{\text{new}}$, $G_o^{\text{new}}$, action, node)
+        \STATE current\_color $\gets$ $P_t^{\text{new}}[0]$ \text{ if }P_t^{\text{new}}[0] \neq \text{BLACK}$\text{ else NULL}$
+        \STATE child.untried\_actions $\gets$ \text{GetLegalActions}($H_1^{\text{new}}$, $P_t^{\text{new}}$, current\_color)
+        \STATE node.children.\text{append}(child)
+        \STATE node $\gets$ child
+        \STATE depth $\gets$ depth + 1
+    \ENDIF
+    \STATE \text{// Simulation: rollout from reached node}
+    \IF{node.\text{IsTerminal}()}
+        \STATE reward $\gets$ \text{ComputeReward}(node.$H_1$, node.particles[0].$H_2$)
+    \ELSE
+        \STATE $H_1^{\text{roll}}$, $H_2^{\text{roll}}$, $D_g^{\text{roll}}$ $\gets$ node.\text{SampleStateFromBelief}()
+        \STATE reward $\gets$ \text{SimulateRollout}($H_1^{\text{roll}}$, $H_2^{\text{roll}}$, $D_g^{\text{roll}}$, node.$P$, node.$P_t$, node.$G_o$, $\gamma$, depth, $d_{\max}$)
+        \STATE \text{// POMCP: Update belief with simulation state}
+        \STATE node.\text{UpdateBeliefWithSimulationState}($H_2^{\text{roll}}$, $D_g^{\text{roll}}$)
+    \ENDIF
+    \STATE \text{// Backpropagation: update statistics along traversed path}
+    \STATE backprop\_node $\gets$ node
+    \WHILE{backprop\_node $\neq$ \text{NULL}}
+        \STATE backprop\_node.\text{UpdateStats}(reward)
+        \STATE reward $\gets$ $\gamma \times$ reward
+        \STATE backprop\_node $\gets$ backprop\_node.parent
+    \ENDWHILE
+\ENDFOR
+\STATE \text{// Return best action (most visited child)}
+\IF{|root.children| $= 0$}
+    \STATE $a^* \gets$ \text{FallbackAction}($H_1$, particles, $P$, $P_t$, $G_o$)
+\ELSE
+    \STATE $a^* \gets$ \text{argmax}_{c \in \text{root.children}} c.\text{visits}$
+\ENDIF
+\RETURN $a^*$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Particle Filter Update for Opponent Actions}
+\label{alg:particle_update}
+\begin{algorithmic}[1]
+\REQUIRE particles $B(h)$, opponent action $a_{\text{opp}}$, observation $o$, $P_t^{\text{new}}$
+\ENSURE Updated particles $B(h')$
+\IF{$a_{\text{opp}}$ = \text{PlayCard}(z)}
+    \STATE updated $\gets$ []
+    \FOR{each particle $p \in B(h)$}
+        \IF{$z \in p.H_2$}
+            \STATE $H_2^{\text{new}} \gets p.H_2 \setminus \{z\}$
+            \STATE updated.\text{add}(\text{Particle}($H_2^{\text{new}}$, p.$D_g$, p.weight))
+        \ENDIF
+    \ENDFOR
+\ELSE\IF{$a_{\text{opp}}$ = \text{DrawCard}()}
+    \STATE updated $\gets$ []
+    \FOR{each particle $p \in B(h)$}
+        \STATE legal\_cards $\gets \{c \in p.H_2 : c \in \text{LEGAL}(P_t^{\text{new}})\}$
+        \IF{|legal\_cards| $= 0 \land |p.D_g| > 0$}
+            \STATE drawn $\gets$ \text{UniformSample}(p.$D_g$)
+            \STATE $H_2^{\text{new}} \gets p.H_2 $\cup \{drawn\}$
+            \STATE $D_g^{\text{new}} \gets p.D_g \setminus \{drawn\}$
+            \STATE weight $\gets p.weight $\times \frac{1}{|p.D_g|}$
+            \STATE updated.\text{add}(\text{Particle}($H_2^{\text{new}}$, $D_g^{\text{new}}$, weight))
+        \ENDIF
+    \ENDFOR
+\ENDIF
+\STATE \text{// Normalize weights and resample if needed}
+\STATE $B(h') \gets$ \text{NormalizeWeights}(updated)
+\IF{\text{EffectiveSampleSize}(B(h')) $< \frac{|B(h')|}{2}$}
+    \STATE $B(h') \gets$ \text{SystematicResample}(B(h'), N_{\text{particles}})
+\ENDIF
+\RETURN $B(h')$
+\end{algorithmic}
+\end{algorithm}
 
 
 
@@ -762,10 +939,15 @@ optimal action exists in each scenario.
 The conclusion goes here.
 
 \bibliographystyle{IEEEtran}
-\begin{thebibliography}{1}
+\begin{thebibliography}{2}
 \bibitem{IEEEhowto:kopka}
 H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
   0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+
+\bibitem{silver2011monte}
+D.~Silver and J.~Veness, \emph{Monte-Carlo Planning in Large POMDPs}, in
+\emph{Advances in Neural Information Processing Systems}, 2011, pp. 2164--2172.
+\url{https://davidstarsilver.wordpress.com/wp-content/uploads/2025/04/monte-carlo-planning-in-large-pomdps.pdf}
 \end{thebibliography}
 
 \end{document}
