@@ -20,6 +20,10 @@ The output of this script is logged in `exhaustive_scenario_log.txt`.
 
 This script verifies the belief state update logic on a larger, more realistic Uno deck. It runs a series of random scenarios to test the correctness of the belief update mechanism when an opponent plays or draws a card. This script is used for the results section titled "Belief State Verification on Extended Deck."
 
+### `belief_probability_verification.py`
+
+This script verfies the belief state update logic with duplicate cards, and shows the probability of each card being present in the opponents hand after change in the game state (such as a draw or a play).
+
 ## Supporting Modules
 
 *   `belief.py`: Contains the `Belief` class, which is used to represent the belief state of the agent.
