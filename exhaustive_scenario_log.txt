@@ -4,2341 +4,2809 @@ Criteria: H1 must have >= 2 choices. Finding TRAPS (Q=1.0).
 
 Scenario #1
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #2
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #3
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #4
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #5
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #6
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #7
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #8
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #9
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #10
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #11
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #12
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #13
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #14
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #15
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #16
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #17
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #18
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #19
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #20
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #21
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #22
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #23
   [Obs] Legal Plays: [('R', 2), ('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #24
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #25
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #26
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #27
   [Obs] Legal Plays: [('R', 1), ('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #28
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #29
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #30
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #31
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #32
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #33
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #34
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #35
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #36
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #37
   [Obs] Legal Plays: [('R', 1), ('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #38
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #39
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #40
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #41
   [Obs] Legal Plays: [('R', 1), ('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #42
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #43
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #44
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #45
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #46
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #47
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #48
   [Obs] Legal Plays: [('R', 1), ('R', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #49
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #50
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #51
   [Obs] Legal Plays: [('R', 1), ('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #52
   [Obs] Legal Plays: [('R', 1), ('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #53
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #54
   [Obs] Legal Plays: [('R', 1), ('R', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #55
   [Obs] Legal Plays: [('R', 1), ('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #56
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #57
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #58
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #59
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #60
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #61
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #62
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #63
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #64
   [Obs] Legal Plays: [('R', 3), ('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #65
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #66
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #67
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #68
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #69
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #70
   [Obs] Legal Plays: [('R', 1), ('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #71
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #72
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #73
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #74
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #75
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #76
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #77
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #78
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #79
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #80
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #81
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #82
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #83
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #84
   [Obs] Legal Plays: [('R', 1), ('R', 3), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #85
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #86
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #87
   [Obs] Legal Plays: [('R', 1), ('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #88
   [Obs] Legal Plays: [('R', 1), ('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #89
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #90
   [Obs] Legal Plays: [('R', 1), ('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #91
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #92
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #93
   [Obs] Legal Plays: [('R', 1), ('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #94
   [Obs] Legal Plays: [('R', 1), ('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #95
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #96
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #97
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #98
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #99
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #100
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #101
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #102
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #103
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #104
   [Obs] Legal Plays: [('R', 1), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #105
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #106
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #107
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #108
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #109
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #110
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #111
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #112
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #113
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #114
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #115
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #116
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #117
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #118
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #119
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #120
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #121
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #122
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #123
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #124
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #125
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #126
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #127
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #128
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #129
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #130
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #131
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #132
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #133
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #134
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #135
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #136
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #137
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #138
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #139
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #140
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #141
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #142
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #143
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #144
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #145
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #146
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #147
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #148
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #149
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #150
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #151
   [Obs] Legal Plays: [('R', 1), ('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #152
   [Obs] Legal Plays: [('R', 1), ('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #153
   [Obs] Legal Plays: [('R', 1), ('G', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #154
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #155
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #156
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #157
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #158
   [Obs] Legal Plays: [('R', 1), ('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #159
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #160
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #161
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #162
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #163
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #164
   [Obs] Legal Plays: [('R', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #165
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #166
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #167
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #168
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #169
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #170
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #171
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #172
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #173
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #174
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #175
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #176
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #177
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #178
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #179
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #180
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #181
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #182
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #183
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #184
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #185
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #186
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #187
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #188
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #189
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #190
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #191
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #192
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #193
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #194
   [Obs] Legal Plays: [('R', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 1))
 --------------------------------------------------
 Scenario #195
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #196
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #197
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #198
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #199
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #200
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #201
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #202
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #203
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #204
   [Obs] Legal Plays: [('R', 2), ('R', 3), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #205
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #206
   [Obs] Legal Plays: [('R', 3), ('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #207
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #208
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #209
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #210
   [Obs] Legal Plays: [('R', 2), ('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #211
   [Obs] Legal Plays: [('R', 2), ('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #212
   [Obs] Legal Plays: [('R', 2), ('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #213
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #214
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #215
   [Obs] Legal Plays: [('R', 2), ('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #216
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #217
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #218
   [Obs] Legal Plays: [('R', 2), ('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #219
   [Obs] Legal Plays: [('R', 2), ('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #220
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #221
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #222
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #223
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #224
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #225
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #226
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #227
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #228
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #229
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #230
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #231
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #232
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #233
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #234
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #235
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #236
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #237
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #238
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #239
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #240
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #241
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #242
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('R', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #243
   [Obs] Legal Plays: [('R', 2), ('R', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('R', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #244
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #245
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #246
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #247
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #248
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #249
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #250
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #251
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #252
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #253
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #254
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #255
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #256
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #257
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #258
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #259
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #260
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #261
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #262
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #263
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #264
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #265
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #266
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #267
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #268
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #269
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #270
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #271
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #272
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #273
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #274
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #275
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #276
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #277
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #278
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #279
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #280
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #281
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #282
   [Obs] Legal Plays: [('R', 2), ('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #283
   [Obs] Legal Plays: [('R', 2), ('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #284
   [Obs] Legal Plays: [('R', 2), ('G', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #285
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #286
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #287
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #288
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #289
   [Obs] Legal Plays: [('R', 2), ('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #290
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #291
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #292
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #293
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #294
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #295
   [Obs] Legal Plays: [('R', 2), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #296
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #297
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #298
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #299
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #300
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #301
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #302
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #303
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #304
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #305
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #306
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #307
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #308
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #309
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #310
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #311
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #312
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #313
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #314
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #315
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #316
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #317
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #318
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #319
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #320
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #321
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #322
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #323
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #324
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #325
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #326
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #327
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #328
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #329
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #330
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 2))
 --------------------------------------------------
 Scenario #331
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #332
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #333
   [Obs] Legal Plays: [('R', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #334
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #335
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #336
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #337
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #338
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #339
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #340
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #341
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #342
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #343
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #344
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #345
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #346
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #347
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #348
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #349
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #350
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #351
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #352
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #353
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #354
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #355
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #356
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #357
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #358
   [Obs] Legal Plays: [('R', 3), ('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #359
   [Obs] Legal Plays: [('R', 3), ('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #360
   [Obs] Legal Plays: [('R', 3), ('G', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #361
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #362
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #363
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #364
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #365
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #366
   [Obs] Legal Plays: [('R', 3), ('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #367
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #368
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #369
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #370
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #371
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #372
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #373
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #374
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #375
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #376
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #377
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #378
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #379
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #380
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #381
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #382
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #383
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #384
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 1), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #385
   [Obs] Legal Plays: [('R', 3), ('G', 1)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 1), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #386
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #387
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #388
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #389
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #390
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #391
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #392
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #393
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #394
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #395
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #396
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #397
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #398
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #399
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #400
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #401
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #402
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #403
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #404
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #405
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #406
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #407
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #408
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #409
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #410
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #411
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #412
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #413
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #414
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #415
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #416
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #417
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #418
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #419
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #420
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #421
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #422
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #423
   [Obs] Legal Plays: [('R', 3), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('R', 3), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('R', 3))
 --------------------------------------------------
 Scenario #424
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #425
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #426
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #427
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #428
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #429
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #430
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #431
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #432
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('G', 1), 0.0), (('G', 2), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #433
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #434
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #435
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #436
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #437
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #438
   [Obs] Legal Plays: [('G', 1), ('G', 2)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 2), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #439
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #440
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #441
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #442
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #443
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #444
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #445
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #446
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #447
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('G', 1), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #448
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #449
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #450
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #451
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #452
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #453
   [Obs] Legal Plays: [('G', 1), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 1), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 1))
 --------------------------------------------------
 Scenario #454
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #455
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #456
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #457
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #458
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #459
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 1.0)]
   [Optimal?] NO (All moves trap)
 --------------------------------------------------
 Scenario #460
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #461
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #462
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 3 possible world(s), prob per world: 0.333333
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #463
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #464
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 2 possible world(s), prob per world: 0.500000
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #465
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 1.0)]
   [Optimal?] YES (Optimal Play: ('G', 3))
 --------------------------------------------------
 Scenario #466
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 0.0), (('G', 3), 0.0)]
   [Optimal?] NO (All moves allow play)
 --------------------------------------------------
 Scenario #467
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
 Scenario #468
   [Obs] Legal Plays: [('G', 2), ('G', 3)]
+  [Worlds] 1 possible world(s), prob per world: 1.000000
   [Q-Values] [(('G', 2), 1.0), (('G', 3), 0.0)]
   [Optimal?] YES (Optimal Play: ('G', 2))
 --------------------------------------------------
