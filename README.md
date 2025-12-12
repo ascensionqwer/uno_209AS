@@ -1,4 +1,4 @@
-# Belief-Based Trapping in Uno
+# POMDP Based Uno
 
 This project explores the concept of "belief-based trapping" in the card game Uno. The core idea is to use a belief state (a representation of the possible cards an opponent might hold) to make optimal moves that "trap" the opponent, forcing them to draw a card.
 
