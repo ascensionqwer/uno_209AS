@@ -1290,6 +1290,17 @@ def run_player_vs_pomcp_game(seed: Optional[int] = None, human_player: int = 1):
             current_player = 3 - current_player
             continue
 
+        # Handle pending draws
+        if game.draw_pending > 0:
+            print(f"\n>>> Player {current_player} must draw {game.draw_pending} cards!")
+            action = Action(n=game.draw_pending)
+            success = game.execute_action(action, current_player)
+            if not success:
+                break
+            game.skip_next = True
+            current_player = 3 - current_player
+            continue
+
         # Display game state
         game.create_S()
         state = game.State
