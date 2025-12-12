@@ -172,7 +172,7 @@
 
 % *** SPECIALIZED LIST PACKAGES ***
 %
-%\usepackage{algorithmic}
+% \usepackage{algorithmic}
 % algorithmic.sty was written by Peter Williams and Rogerio Brito.
 % This package provides an algorithmic environment fo describing algorithms.
 % You can use the algorithmic environment in-text or within a figure
@@ -186,8 +186,16 @@
 % Also of interest may be the (relatively newer and more customizable)
 % algorithmicx.sty package by Szasz Janos:
 % http://www.ctan.org/pkg/algorithmicx
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
+\algnewcommand\algorithmicinput{\textbf{Input:}}
+\algnewcommand\algorithmicoutput{\textbf{Output:}}
+\algnewcommand\Input{\item[\algorithmicinput]}
+\algnewcommand\Output{\item[\algorithmicoutput]}
 
+% no in and out of math mode!
+\newcommand{\Fun}[1]{\mathrm{#1}}
 
 
 % *** ALIGNMENT PACKAGES ***
@@ -697,7 +705,6 @@ Normalize and resample.
 
 \section{Experiment Setup}
 
-
 Our project originally attempted to plan optimally in full two-player
 UNO using POMDP methods. We first implemented two approximate planning
 approaches:
@@ -709,10 +716,9 @@ approaches:
           using particle filtering to represent belief over hidden cards.
 \end{itemize}
 
-Both approaches yielded measurable but limited improvements over a
-random baseline. Increasing particle counts or search depth produced
-only marginal gains, suggesting that approximation quality alone did not
-explain the difficulty of achieving consistently strong play.
+\subsection{Naive Agent}
+
+The Naive Agent is a simple agent that always plays a random legal move when possible. If a BLACK card is selected, the color chosen is the most frequent color in the player's hand (ties broken randomly). Otherwise, the Naive Agent draws a card.
 
 \subsection{Reduced UNO Environment}
 
@@ -764,6 +770,35 @@ The POMCP algorithm maintains a history-based search tree $T(h) = \{N(h), V(h), 
     \item $B(h)$: Belief state (particle set) for history $h$
 \end{itemize} \\
 
+\subsubsection{POMCP Core Algorithm}
+
+\begin{algorithm}[htp]
+\caption{POMCP Decision Making from Player 1 Perspective}\label{Alg-POMCP-P1}
+\begin{algorithmic}[1]
+  \Input{Current observation $O = (H_1, |H_2|, |D_g|, P, P_t, G_o)$}
+  \Output{Selected action $a_t$}
+
+  \State Generate particle belief state $B(h_t)$ consistent with $O$
+  \State Initialize root node with history $h_t$
+  \State Initialize statistics $T(h_t) \gets \{N(h_t)\gets 0,\; V(h_t)\gets 0,\; B(h_t)\}$
+
+  \For{$i \gets 1$ \textbf{to} $N_{\text{sim}}$}
+    \State Sample a complete game state $s \sim B(h_t)$
+    \State Traverse the tree using PO-UCT selection until an unexplored node is reached
+    \State Expand the tree with a new action--observation history
+    \State Simulate to termination using rollout policy $\pi_{\text{rollout}}$ and obtain reward $R$
+    \State Backpropagate $R$ along the traversed path and update $N(\cdot)$ and $V(\cdot)$
+    \State Update belief states $B(h)$ for all encountered histories
+  \EndFor
+
+  \State Select the root action with the highest visit count
+  \State \Return $a_t \gets \arg\max_a N(h_t a)$
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
 \subsubsection{History-Based PO-UCT Selection}
 Actions are selected using UCB1 formula adapted for histories:
 \[
@@ -781,33 +816,56 @@ Each simulation follows this process:
     \item \textbf{Belief Update}: For every history $h$ encountered, update $B(h) \leftarrow B(h) \cup \{s\}$
 \end{enumerate}
 
+The rollout policy $\pi_{\text{rollout}}$ implements UNO-specific game logic:
+$$
+\pi_{\text{rollout}}(h,a) = \begin{cases}
+\text{Random legal action} & \text{if } H_1 \cap \text{LEGAL}(P_t) \neq \emptyset \\
+\text{Draw 1 card} & \text{otherwise}
+\end{cases}
+$$
+
+where $\text{LEGAL}(P_t) = \{c \in D : c(\text{COLOR}) = P_t(\text{COLOR}) \lor c(\text{VALUE}) = P_t(\text{VALUE}) \lor c(\text{COLOR}) = \text{BLACK}\}$ as defined in Section 2.4.
+
+\subsubsection{Tree Pruning and History Management}
+
+After executing real action $a_t$ and observing real outcome $o_t$:
+\begin{enumerate}
+    \item \textbf{Find Child}: Locate child node $T(h_t a_t o_t)$
+    \item \textbf{Prune Tree}: Make this child the new root
+    \item \textbf{Update History}: $h_{t+1} = h_t \circ (a_t, o_t)$
+\end{enumerate}
+
+All other histories become impossible and are discarded. This pruning eliminates impossible histories and maintains computational efficiency by focusing search on plausible future states. The persistent tree structure allows knowledge transfer between decisions while ensuring consistency with observed game dynamics.
+
 \subsubsection{Particle Filter Integration}
 
-The belief state $B(h)$ is represented using $K$ particles:
-\[
-\hat{b}(s|h) = \frac{1}{K} \sum_{i=1}^{K} \delta_{s,s^{(i)}}
-\]
+Extending Section 4's belief state approximation with POMCP-specific updates:
+
+The belief state $b(s|h)$ represents probability distribution over states given observation history $h$. Since the state space is too large for exact representation, POMCP uses particle filtering:
+$$\hat{b}(s|h) = \frac{1}{K} \sum_{i=1}^{K} \delta_{s,s^{(i)}}$$
+
+where $\{s^{(i)}\}_{i=1}^{K}$ are $K$ particles and $\delta_{s,s'}$ is the Kronecker delta.
 
 Each particle represents a possible complete state:
-\[
-s^{(i)} = (H_1, H_2^{(i)}, D_g^{(i)}, P, P_t, G_o, \text{current\_color}, \text{turn\_direction}, \text{skip\_next}, \text{draw\_pending})
-\]
+$$s^{(i)} = (H_1^{(i)}, H_2^{(i)}, D_g^{(i)}, P^{(i)}, P_t^{(i)}, G_o^{(i)})$$
 
 Only hidden components are stored:
 \begin{itemize}
-    \item $H_2^{(i)}$: Opponent's hand (7 cards initially)
+    \item $H_2^{(i)}$: Opponent's hand (7 cards)
     \item $D_g^{(i)}$: Deck composition (remaining cards)
 \end{itemize}
 
-\subsubsection{Implementation Details}
-
-The full UNO implementation includes:
+POMCP-specific belief updates include:
 \begin{itemize}
-    \item \textbf{Complete Card Set}: All 108 UNO cards including numbers (0-9), Skip, Reverse, Draw 2, Wild, and Wild Draw 4
-    \item \textbf{Special Card Handling}: Proper implementation of wild card color choices, draw penalties, and turn skipping
-    \item \textbf{Particle Caching}: Dynamic particle generation with caching by game state for efficiency
-    \item \textbf{Importance Sampling}: Weighted particle updates during belief filtering
-    \item \textbf{Tree Pruning}: After executing real action $a_t$ and observing outcome $o_t$, prune tree to child node $T(h_t a_t o_t)$
+    \item \textbf{Start State Sampling}: $s \sim B(h_t)$ per simulation (vs. batch processing in Section 4)
+    \item \textbf{Belief Updates During Search}: $B(h) \leftarrow B(h) \cup \{s\}$ for all encountered histories
+    \item \textbf{Particle Reinvigoration}: Prevents particle deprivation during long simulations
+\end{itemize}
+
+After opponent actions, belief updates follow specific cases:
+\begin{itemize}
+    \item \textbf{Case 1}: Opponent plays card $z$: $B'(h) = \{s^{(i)} : z \in H_2^{(i)}\}$
+    \item \textbf{Case 2}: Opponent draws card: $B'(h) = \{s^{(i)} : H_2^{(i)} \cap \text{LEGAL}(P_t) = \emptyset\}$
 \end{itemize}
 
 \subsubsection{Computational Complexity}
@@ -815,19 +873,16 @@ The full UNO implementation includes:
 Compared to exact POMDP solution ($O(|S|^3 \cdot |A| \cdot H)$), POMCP achieves:
 \begin{itemize}
     \item \textbf{Time Complexity}: $O(K \cdot |A| \cdot H)$ where $K$ is particle count
-    \item \textbf{Space Complexity}: $O(K \cdot |S|)$ for particle storage
-    \item \textbf{Scalability}: Linear in particle count and planning horizon
+    \item \textbf{Space Complexity}: $O(K \cdot |S|)$ for particle storage.
 \end{itemize}
 
-Typical parameters for effective performance:
-\begin{itemize}
-    \item Particle count: 1000-5000 particles
-    \item MCTS iterations: 1000-10000 simulations per decision
-    \item Rollout depth: 5-10 moves lookahead
-    \item Discount factor: $\gamma = 0.95$
-\end{itemize}
+The parameters of the simulation can be adjusted to finetune the algorithm's runtime and effectiveness.
 
-\\
+
+\section{Results}
+
+\textbf{[Results section to be filled in with experimental findings, parameter analysis, and performance comparisons]}
+
 \section{Conclusion}
 
 The conclusion goes here.
@@ -845,6 +900,5 @@ D.~Silver and J.~Veness, \emph{Monte-Carlo Planning in Large POMDPs}, in
 \end{thebibliography}
 
 \end{document}
-
 
 
