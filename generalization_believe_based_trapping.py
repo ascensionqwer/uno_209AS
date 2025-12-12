@@ -1,6 +1,5 @@
 import itertools
-import sys
-from typing import List, Tuple, Set
+from math import comb
 
 # --- IMPORT MODULES ---
 # Assumes 'cards.py' and 'belief.py' are in the same directory
@@ -79,7 +78,12 @@ def run_exhaustive_search():
                         observation = (H_1, len(H_2_truth), len(D_g), P, P_t, "Active")
                         b = Belief(observation, deck_template=MICRO_DECK)
                         
+                        # Calculate probability for this scenario
+                        num_worlds = comb(len(b.L), len(H_2_truth))
+                        prob_scenario = 1.0 / num_worlds if num_worlds > 0 else 0.0
+                        
                         moves_data = []
+                        
                         has_trap = False
                         has_bad = False
                         best_move = None
@@ -109,6 +113,7 @@ def run_exhaustive_search():
 
                         f.write(f"Scenario #{total_scenarios}\n")
                         f.write(f"  [Obs] Legal Plays: {legal_plays}\n")
+                        f.write(f"  [Worlds] {num_worlds} possible world(s), prob per world: {prob_scenario:.6f}\n")
                         f.write(f"  [Q-Values] {moves_data}\n")
                         f.write(f"  [Optimal?] {result_str}\n")
                         f.write("-" * 50 + "\n")
