@@ -28,6 +28,12 @@ This script verfies the belief state update logic with duplicate cards, and show
 
 This script is an extended harness to test the robustness of our belief state update by testing against 900 random scenarios and recording its performance.
 
+## POMCP Implementation
+
+The POMCP (Partially Observable Monte Carlo Planning) implementation is located in the `pomcp/` directory. This includes the complete POMCP algorithm implementation, simulation framework, and experimental results.
+
+For detailed information about the POMCP implementation, please `cd pomcp/` and read the README.md file in that directory.
+
 ## Supporting Modules
 
 *   `belief.py`: Contains the `Belief` class, which is used to represent the belief state of the agent.
