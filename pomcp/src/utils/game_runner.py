@@ -1,0 +1,1380 @@
+"""Shared game runner utilities for UNO simulations."""
+
+import time
+import random
+from typing import Optional, Dict, Any
+from src.uno import Uno, Action, card_to_string
+from src.uno.cards import RED, YELLOW, GREEN, BLUE
+from src.uno.simplified_game import UnoSimplified
+from src.uno.simplified_cards import build_simplified_deck
+from src.policy.particle_policy import ParticlePolicy
+from src.utils.config_loader import get_particle_policy_config
+from src.utils.matchup_types import PlayerType, Matchup
+
+
+def display_game_state(game: Uno, current_player: int, policy=None):
+    """Display current game state (full visibility - God mode)."""
+    print("\n" + "=" * 60)
+    print(f"Player {current_player}'s Turn")
+    print("=" * 60)
+    game.create_S()
+    state = game.State
+
+    print(f"\nTop Card: {card_to_string(state[4]) if state[4] is not None else 'None'}")
+    if game.current_color:
+        print(f"Current Color: {game.current_color}")
+    print(f"Deck: {len(state[2])} cards remaining")
+    if policy:
+        print(f"ParticlePolicy Cache Size: {policy.cache.size()}")
+    print(f"\nPlayer 1 Hand ({len(state[0])} cards):")
+    for i, card in enumerate(state[0], 1):
+        print(f"  {i}. {card_to_string(card)}")
+    print(f"\nPlayer 2 Hand ({len(state[1])} cards):")
+    for i, card in enumerate(state[1], 1):
+        print(f"  {i}. {card_to_string(card)}")
+    print()
+
+
+def choose_action_simple(game: Uno, player: int) -> Optional[Action]:
+    """
+    Simple automated action selection:
+    - Play first legal card found (first index)
+    - If Wild, choose most common color in hand
+    - If no legal play, draw 1
+    """
+    legal_actions = game.get_legal_actions(player)
+
+    if not legal_actions:
+        return None
+
+    # Prefer playing over drawing
+    play_actions = [a for a in legal_actions if a.is_play()]
+    if play_actions:
+        action = play_actions[0]
+        # If Wild card, set color
+        if action.X_1 and game._is_wild(action.X_1):
+            hand = game.H_1 if player == 1 else game.H_2
+            action.wild_color = game._choose_wild_color(hand)
+        return action
+
+    # Must draw
+    return legal_actions[0]
+
+
+# Global variable to store naive decision times
+_naive_decision_times = []
+
+
+def choose_action_naive(game: Uno, player: int) -> Optional[Action]:
+    """
+    Naive action selection with timing.
+    - Play first legal card found (if multiple, randomly pick one)
+    - If Wild, choose most frequent color in hand (random if tie)
+    - If no legal play, draw 1
+    """
+    start_time = time.time()
+
+    legal_actions = game.get_legal_actions(player)
+
+    if not legal_actions:
+        return None
+
+    # Prefer playing over drawing
+    play_actions = [a for a in legal_actions if a.is_play()]
+    if play_actions:
+        action = play_actions[0]  # Play first legal card found
+
+        # If Wild card, choose most frequent color in hand
+        if action.X_1 and game._is_wild(action.X_1):
+            hand = game.H_1 if player == 1 else game.H_2
+            color_counts = {}
+            for card in hand:
+                if card[0] != "Black":  # Don't count wild cards
+                    color_counts[card[0]] = color_counts.get(card[0], 0) + 1
+
+            if color_counts:
+                max_count = max(color_counts.values())
+                most_frequent_colors = [
+                    color for color, count in color_counts.items() if count == max_count
+                ]
+                chosen_color = random.choice(most_frequent_colors)
+            else:
+                # No colored cards in hand, pick randomly from 4 viable colors
+                colors = [RED, YELLOW, GREEN, BLUE]
+                chosen_color = random.choice(colors)
+
+            action.wild_color = chosen_color
+    else:
+        # Must draw
+        action = legal_actions[0]
+
+    decision_time = time.time() - start_time
+    _naive_decision_times.append(decision_time)
+
+    return action
+
+
+def get_naive_decision_stats() -> dict:
+    """Get naive decision timing statistics."""
+    if not _naive_decision_times:
+        return {"avg": 0, "max": 0, "min": 0, "count": 0}
+
+    return {
+        "avg": sum(_naive_decision_times) / len(_naive_decision_times),
+        "max": max(_naive_decision_times),
+        "min": min(_naive_decision_times),
+        "count": len(_naive_decision_times),
+    }
+
+
+def reset_naive_decision_stats():
+    """Reset naive decision timing statistics."""
+    global _naive_decision_times
+    _naive_decision_times = []
+
+
+def create_player_policy(
+    player_type: PlayerType, config: Optional[Dict] = None, deck_builder=None
+):
+    """
+    Create policy instance for player type.
+
+    Args:
+        player_type: Type of player (NAIVE or PARTICLE_POLICY)
+        config: Optional config dict for particle policy
+        deck_builder: Optional deck builder function for particle policy (for simplified games)
+    """
+    if player_type == PlayerType.NAIVE:
+        return None
+    elif player_type == PlayerType.PARTICLE_POLICY:
+        if config is None:
+            config = get_particle_policy_config()
+        # Add deck_builder to config if provided
+        if deck_builder is not None:
+            config = {**config, "deck_builder": deck_builder}
+        return ParticlePolicy(**config)
+    else:
+        raise ValueError(f"Unknown player type: {player_type}")
+
+
+def run_matchup_game_with_configs(
+    matchup: Matchup,
+    configs: tuple,
+    seed: Optional[int] = None,
+    show_output: bool = False,
+) -> tuple[int, int, Dict[str, Any]]:
+    """
+    Run a single game with different configs for each player.
+
+    Args:
+        matchup: Matchup configuration
+        configs: Tuple of (config1, config2) for player 1 and 2
+        seed: Random seed for game initialization
+        show_output: Whether to show game state output
+
+    Returns:
+        Tuple of (turn_count, winner, stats) where winner is 1, 2, or 0
+    """
+    # Initialize game
+    game = Uno()
+    if seed is not None:
+        game.new_game(seed=seed)
+    else:
+        game.new_game()
+
+    # Create policies for each player with their respective configs
+    player1_policy = create_player_policy(matchup.player1_type, configs[0])
+    player2_policy = create_player_policy(matchup.player2_type, configs[1])
+
+    current_player = 1
+    turn_count = 0
+    max_turns = 5000000
+    consecutive_no_progress = 0
+    max_no_progress = 50  # Safety check for infinite loops
+    consecutive_draws = 0
+    max_consecutive_draws = 20  # Safety check for draw loops
+    prev_state = None
+
+    # Track decision times
+    decision_times = {1: [], 2: []}
+
+    while game.G_o == "Active" and turn_count < max_turns:
+        turn_count += 1
+
+        # Handle skip logic
+        if game.skip_next:
+            if show_output:
+                print(f"\n>>> Player {current_player} is skipped!")
+            game.skip_next = False
+            current_player = 3 - current_player
+            # Track state after skip
+            game.create_S()
+            current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+            if prev_state == current_state:
+                consecutive_no_progress += 1
+            else:
+                consecutive_no_progress = 0
+            prev_state = current_state
+            continue
+
+        # Get current policy
+        policy = player1_policy if current_player == 1 else player2_policy
+
+        if show_output:
+            display_game_state(game, current_player, policy)
+
+        # Get current state for particle policies
+        game.create_S()
+        state = game.State
+
+        # Track decision time
+        start_time = time.time()
+
+        # Get action based on player type
+        if current_player == 1:
+            action = get_action_for_player(
+                game, current_player, matchup.player1_type, player1_policy, state
+            )
+        else:
+            action = get_action_for_player(
+                game, current_player, matchup.player2_type, player2_policy, state
+            )
+
+        decision_time = time.time() - start_time
+        decision_times[current_player].append(decision_time)
+
+        # Track consecutive draws
+        if action is None:
+            consecutive_draws += 1
+        else:
+            consecutive_draws = 0
+
+        # Safety checks
+        if consecutive_no_progress >= max_no_progress:
+            if show_output:
+                print(f"\n>>> Game terminated: No progress for {max_no_progress} turns")
+            break
+        if consecutive_draws >= max_consecutive_draws:
+            if show_output:
+                print(
+                    f"\n>>> Game terminated: {max_consecutive_draws} consecutive draws"
+                )
+            break
+
+        # Execute action
+        if action is None:
+            game.draw(current_player, 1)
+            if show_output:
+                print(f">>> Player {current_player} draws 1 card")
+        else:
+            if show_output:
+                print(
+                    f">>> Player {current_player} plays: {card_to_string(action.card) if action.card else 'Draw'}"
+                )
+            game.execute_action(current_player, action)
+
+        # Track state after action
+        game.create_S()
+        current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+        if prev_state == current_state:
+            consecutive_no_progress += 1
+        else:
+            consecutive_no_progress = 0
+        prev_state = current_state
+
+        # Switch players
+        current_player = 3 - current_player
+
+    # Determine winner
+    winner = 0
+    if game.G_o == "P1_Win":
+        winner = 1
+    elif game.G_o == "P2_Win":
+        winner = 2
+
+    # Collect cache stats
+    cache_stats = {}
+    if player1_policy and hasattr(player1_policy, "cache"):
+        cache_stats["player1"] = player1_policy.cache.size()
+    if player2_policy and hasattr(player2_policy, "cache"):
+        cache_stats["player2"] = player2_policy.cache.size()
+
+    stats = {
+        "decision_times": decision_times,
+        "cache_stats": cache_stats,
+    }
+
+    return turn_count, winner, stats
+
+
+def get_action_for_player(
+    game: Uno, player: int, player_type: PlayerType, policy=None, state=None
+) -> Optional[Action]:
+    """Get action for player based on their type."""
+    if player_type == PlayerType.PARTICLE_POLICY:
+        if policy is None or state is None:
+            raise ValueError("ParticlePolicy requires policy and state")
+        # Use correct hand for the current player
+        player_hand = state[0] if player == 1 else state[1]
+        opponent_hand_size = len(state[1]) if player == 1 else len(state[0])
+        return policy.get_action(
+            player_hand,
+            opponent_hand_size,
+            len(state[2]),
+            state[3],
+            state[4],
+            state[5],
+            game.current_color,
+        )
+    elif player_type == PlayerType.NAIVE:
+        return choose_action_naive(game, player)
+    else:
+        raise ValueError(f"Unknown player type: {player_type}")
+
+
+def run_matchup_game(
+    matchup: Matchup, seed: Optional[int] = None, show_output: bool = False
+) -> tuple[int, int, Dict[str, Any]]:
+    """
+    Run a single game for any matchup combination.
+
+    Args:
+        matchup: Matchup configuration
+        seed: Random seed for game initialization
+        show_output: Whether to show game state output
+
+    Returns:
+        Tuple of (turn_count, winner, stats) where winner is 1, 2, or 0
+    """
+    # Initialize game
+    game = Uno()
+    if seed is not None:
+        game.new_game(seed=seed)
+    else:
+        game.new_game()
+
+    # Create policies for each player
+    player1_policy = create_player_policy(matchup.player1_type)
+    player2_policy = create_player_policy(matchup.player2_type)
+
+    current_player = 1
+    turn_count = 0
+    max_turns = 5000000
+    consecutive_no_progress = 0
+    max_no_progress = 50  # Safety check for infinite loops
+    consecutive_draws = 0
+    max_consecutive_draws = 20  # Safety check for draw loops
+    prev_state = None
+
+    # Track decision times
+    decision_times = {1: [], 2: []}
+
+    while game.G_o == "Active" and turn_count < max_turns:
+        turn_count += 1
+
+        # Handle skip logic
+        if game.skip_next:
+            if show_output:
+                print(f"\n>>> Player {current_player} is skipped!")
+            game.skip_next = False
+            current_player = 3 - current_player
+            # Track state after skip
+            game.create_S()
+            current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+            if prev_state == current_state:
+                consecutive_no_progress += 1
+                if consecutive_no_progress >= max_no_progress:
+                    if show_output:
+                        print(
+                            f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                        )
+                        print(f">>> Breaking at turn {turn_count}")
+                    break
+            else:
+                consecutive_no_progress = 0
+            prev_state = current_state
+            continue
+
+        # Handle pending draws
+        if game.draw_pending > 0:
+            if show_output:
+                print(
+                    f"\n>>> Player {current_player} must draw {game.draw_pending} cards!"
+                )
+            action = Action(n=game.draw_pending)
+            success = game.execute_action(action, current_player)
+            if not success:
+                break
+            game.skip_next = True
+            current_player = 3 - current_player
+            # Track state after draw
+            game.create_S()
+            current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+            if prev_state == current_state:
+                consecutive_no_progress += 1
+                if consecutive_no_progress >= max_no_progress:
+                    if show_output:
+                        print(
+                            f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                        )
+                        print(f">>> Breaking at turn {turn_count}")
+                    break
+            else:
+                consecutive_no_progress = 0
+            prev_state = current_state
+            continue
+
+        if show_output:
+            display_game_state(
+                game,
+                current_player,
+                player1_policy if current_player == 1 else player2_policy,
+            )
+
+        # Get current state for particle policies
+        game.create_S()
+        state = game.State
+
+        # Choose action based on player type
+        start_time = time.time()
+        if current_player == 1:
+            action = get_action_for_player(
+                game, current_player, matchup.player1_type, player1_policy, state
+            )
+            if (
+                matchup.player1_type == PlayerType.PARTICLE_POLICY
+                and player1_policy is not None
+                and action is not None
+            ):
+                player1_policy.update_after_action(action)
+        else:
+            action = get_action_for_player(
+                game, current_player, matchup.player2_type, player2_policy, state
+            )
+            if (
+                matchup.player2_type == PlayerType.PARTICLE_POLICY
+                and player2_policy is not None
+                and action is not None
+            ):
+                player2_policy.update_after_action(action)
+
+        decision_time = time.time() - start_time
+        decision_times[current_player].append(decision_time)
+
+        if action is None:
+            if show_output:
+                print(f"Player {current_player} has no actions available!")
+            break
+
+        if show_output:
+            if action.is_play():
+                card_str = card_to_string(action.X_1) if action.X_1 else "Unknown"
+                if action.wild_color:
+                    print(
+                        f"Player {current_player} plays {card_str} and chooses color {action.wild_color}"
+                    )
+                else:
+                    print(f"Player {current_player} plays {card_str}")
+            else:
+                print(f"Player {current_player} draws {action.n} card(s)")
+
+        # Track if this is a draw action for infinite loop detection
+        is_draw_action = not action.is_play()
+        if is_draw_action:
+            consecutive_draws += 1
+        else:
+            consecutive_draws = 0
+
+        # Check for too many consecutive draws
+        if consecutive_draws >= max_consecutive_draws:
+            if show_output:
+                print(
+                    f"\n>>> INFINITE LOOP DETECTED: {max_consecutive_draws} consecutive draws!"
+                )
+                print(f">>> Breaking at turn {turn_count}")
+            break
+
+        success = game.execute_action(action, current_player)
+        if not success:
+            if show_output:
+                print(f"Action failed for player {current_player}")
+            break
+
+        # Track state after action for infinite loop detection
+        game.create_S()
+        current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+        if prev_state == current_state:
+            consecutive_no_progress += 1
+            if consecutive_no_progress >= max_no_progress:
+                if show_output:
+                    print(
+                        f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                    )
+                    print(f">>> Breaking at turn {turn_count}")
+                break
+        else:
+            consecutive_no_progress = 0
+        prev_state = current_state
+
+        # Check game over
+        if game.G_o == "GameOver":
+            break
+
+        # Switch players
+        if not game.player_plays_again and not game.skip_next:
+            current_player = 3 - current_player
+        elif game.player_plays_again:
+            game.player_plays_again = False
+
+    # Game over
+    if show_output:
+        print("\n" + "=" * 60)
+        print("GAME OVER")
+        print("=" * 60)
+        game.create_S()
+        state = game.State
+        print(f"Total turns: {turn_count}")
+        print(f"Player 1 final hand size: {len(state[0])}")
+        print(f"Player 2 final hand size: {len(state[1])}")
+
+    # Determine winner
+    game.create_S()
+    state = game.State
+    if len(state[0]) == 0:
+        if show_output:
+            print(f"\n🎉 Player 1 ({matchup.player1_type.value}) WINS!")
+        winner = 1
+    elif len(state[1]) == 0:
+        if show_output:
+            print(f"\n🎉 Player 2 ({matchup.player2_type.value}) WINS!")
+        winner = 2
+    else:
+        if show_output:
+            print("\nGame ended without a winner (safety limit reached)")
+        winner = 0
+
+    # Compile stats
+    stats = {"decision_times": decision_times, "cache_stats": {}}
+
+    if player1_policy is not None and hasattr(player1_policy, "cache"):
+        stats["cache_stats"]["player1"] = player1_policy.cache.size()
+    if player2_policy is not None and hasattr(player2_policy, "cache"):
+        stats["cache_stats"]["player2"] = player2_policy.cache.size()
+
+    return turn_count, winner, stats
+
+
+def run_simplified_matchup_game(
+    matchup: Matchup,
+    max_number: int = 9,
+    max_colors: int = 4,
+    seed: Optional[int] = None,
+    show_output: bool = False,
+) -> tuple[int, int, Dict[str, Any]]:
+    """
+    Run a single game with simplified UNO (numbered cards only).
+
+    Args:
+        matchup: Matchup configuration
+        max_number: Maximum card number (default 9)
+        max_colors: Number of colors (default 4)
+        seed: Random seed for game initialization
+        show_output: Whether to show game state output
+
+    Returns:
+        Tuple of (turn_count, winner, stats) where winner is 1, 2, or 0
+    """
+    # Initialize simplified game
+    game = UnoSimplified(max_number=max_number, max_colors=max_colors)
+    if seed is not None:
+        game.new_game(seed=seed)
+    else:
+        game.new_game()
+
+    # Create deck builder for particle policy (captures max_number and max_colors)
+    def simplified_deck_builder():
+        return build_simplified_deck(max_number, max_colors)
+
+    # Create policies for each player with simplified deck builder
+    player1_policy = create_player_policy(
+        matchup.player1_type, deck_builder=simplified_deck_builder
+    )
+    player2_policy = create_player_policy(
+        matchup.player2_type, deck_builder=simplified_deck_builder
+    )
+
+    current_player = 1
+    turn_count = 0
+    max_turns = 5000000
+    consecutive_no_progress = 0
+    max_no_progress = 50  # Safety check for infinite loops
+    consecutive_draws = 0
+    max_consecutive_draws = 20  # Safety check for draw loops
+    prev_state = None
+
+    # Track decision times
+    decision_times = {1: [], 2: []}
+
+    while game.G_o == "Active" and turn_count < max_turns:
+        turn_count += 1
+
+        # Get current state for particle policies
+        game.create_S()
+        state = game.State
+
+        # Choose action based on player type
+        start_time = time.time()
+        if current_player == 1:
+            action = get_action_for_player_simplified(
+                game, current_player, matchup.player1_type, player1_policy, state
+            )
+            if (
+                matchup.player1_type == PlayerType.PARTICLE_POLICY
+                and player1_policy is not None
+                and action is not None
+            ):
+                player1_policy.update_after_action(action)
+        else:
+            action = get_action_for_player_simplified(
+                game, current_player, matchup.player2_type, player2_policy, state
+            )
+            if (
+                matchup.player2_type == PlayerType.PARTICLE_POLICY
+                and player2_policy is not None
+                and action is not None
+            ):
+                player2_policy.update_after_action(action)
+
+        decision_time = time.time() - start_time
+        decision_times[current_player].append(decision_time)
+
+        if action is None:
+            if show_output:
+                print(f"Player {current_player} has no actions available!")
+            break
+
+        if show_output:
+            if action.is_play():
+                card_str = card_to_string(action.X_1) if action.X_1 else "Unknown"
+                print(f"Player {current_player} plays {card_str}")
+            else:
+                print(f"Player {current_player} draws {action.n} card(s)")
+
+        # Track if this is a draw action for infinite loop detection
+        is_draw_action = not action.is_play()
+        if is_draw_action:
+            consecutive_draws += 1
+        else:
+            consecutive_draws = 0
+
+        # Check for too many consecutive draws
+        if consecutive_draws >= max_consecutive_draws:
+            if show_output:
+                print(
+                    f"\n>>> INFINITE LOOP DETECTED: {max_consecutive_draws} consecutive draws!"
+                )
+                print(f">>> Breaking at turn {turn_count}")
+            break
+
+        success = game.execute_action(action, current_player)
+        if not success:
+            if show_output:
+                print(f"Action failed for player {current_player}")
+            break
+
+        # Track state after action for infinite loop detection
+        game.create_S()
+        current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+        if prev_state == current_state:
+            consecutive_no_progress += 1
+            if consecutive_no_progress >= max_no_progress:
+                if show_output:
+                    print(
+                        f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                    )
+                    print(f">>> Breaking at turn {turn_count}")
+                break
+        else:
+            consecutive_no_progress = 0
+        prev_state = current_state
+
+        # Check game over
+        if game.G_o == "GameOver":
+            break
+
+        # Switch players (simplified - no player_plays_again or skip_next)
+        current_player = 3 - current_player
+
+    # Game over
+    if show_output:
+        print("\n" + "=" * 60)
+        print("GAME OVER")
+        print("=" * 60)
+        game.create_S()
+        state = game.State
+        print(f"Total turns: {turn_count}")
+        print(f"Player 1 final hand size: {len(state[0])}")
+        print(f"Player 2 final hand size: {len(state[1])}")
+
+    # Determine winner
+    game.create_S()
+    state = game.State
+    if len(state[0]) == 0:
+        if show_output:
+            print(f"\n🎉 Player 1 ({matchup.player1_type.value}) WINS!")
+        winner = 1
+    elif len(state[1]) == 0:
+        if show_output:
+            print(f"\n🎉 Player 2 ({matchup.player2_type.value}) WINS!")
+        winner = 2
+    else:
+        if show_output:
+            print("\nGame ended without a winner (safety limit reached)")
+        winner = 0
+
+    # Compile stats
+    stats = {"decision_times": decision_times, "cache_stats": {}}
+
+    if player1_policy is not None and hasattr(player1_policy, "cache"):
+        stats["cache_stats"]["player1"] = player1_policy.cache.size()
+    if player2_policy is not None and hasattr(player2_policy, "cache"):
+        stats["cache_stats"]["player2"] = player2_policy.cache.size()
+
+    return turn_count, winner, stats
+
+
+def get_action_for_player_simplified(
+    game: UnoSimplified, player: int, player_type: PlayerType, policy=None, state=None
+) -> Optional[Action]:
+    """Get action for player based on their type (simplified game - no current_color)."""
+    if player_type == PlayerType.PARTICLE_POLICY:
+        if policy is None or state is None:
+            raise ValueError("ParticlePolicy requires policy and state")
+        # Use correct hand for the current player
+        player_hand = state[0] if player == 1 else state[1]
+        opponent_hand_size = len(state[1]) if player == 1 else len(state[0])
+        # No current_color for simplified game (pass None)
+        return policy.get_action(
+            player_hand,
+            opponent_hand_size,
+            len(state[2]),
+            state[3],
+            state[4],
+            state[5],
+            None,  # No current_color in simplified game
+        )
+    elif player_type == PlayerType.NAIVE:
+        return choose_action_naive_simplified(game, player)
+    else:
+        raise ValueError(f"Unknown player type: {player_type}")
+
+
+def choose_action_naive_simplified(
+    game: UnoSimplified, player: int
+) -> Optional[Action]:
+    """
+    Naive action selection for simplified game (no wild cards).
+    - Play first legal card found (if multiple, randomly pick one)
+    - If no legal play, draw 1
+    """
+    start_time = time.time()
+
+    legal_actions = game.get_legal_actions(player)
+
+    if not legal_actions:
+        return None
+
+    # Prefer playing over drawing
+    play_actions = [a for a in legal_actions if a.is_play()]
+    if play_actions:
+        action = play_actions[0]  # Play first legal card found
+    else:
+        # Must draw
+        action = legal_actions[0]
+
+    decision_time = time.time() - start_time
+    _naive_decision_times.append(decision_time)
+
+    return action
+
+
+def run_single_game(
+    seed: Optional[int] = None, show_config: bool = True
+) -> tuple[int, int]:
+    """
+    Run a single UNO game with full verbose logging (God mode view).
+
+    Args:
+        seed: Random seed for game initialization (None for random)
+        show_config: Whether to show ParticlePolicy configuration at start
+
+    Returns:
+        Tuple of (turn_count, winner) where winner is 1, 2, or 0 (no winner/safety limit)
+    """
+    # Initialize game
+    game = Uno()
+    game.new_game(seed=seed)
+
+    # Initialize ParticlePolicy for Player 1
+    config = get_particle_policy_config()
+    policy = ParticlePolicy(**config)
+
+    if show_config:
+        print("\nParticlePolicy Configuration:")
+        for key, value in config.items():
+            print(f"  {key}: {value}")
+        print()
+
+    current_player = 1
+    turn_count = 0
+    max_turns = 5000000  # Safety limit
+    consecutive_no_progress = 0
+    max_no_progress = 50  # Safety check for infinite loops
+    prev_state = None
+
+    while game.G_o == "Active" and turn_count < max_turns:
+        turn_count += 1
+
+        # Check if we need to skip this player
+        if game.skip_next:
+            print(f"\n>>> Player {current_player} is skipped!")
+            game.skip_next = False
+            current_player = 3 - current_player  # Switch: 1->2, 2->1
+            # Track state after skip
+            game.create_S()
+            current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+            if prev_state == current_state:
+                consecutive_no_progress += 1
+                if consecutive_no_progress >= max_no_progress:
+                    print(
+                        f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                    )
+                    print(f">>> Breaking at turn {turn_count}")
+                    break
+            else:
+                consecutive_no_progress = 0
+            prev_state = current_state
+            continue
+
+        # Check if player needs to draw cards (from Draw 2 or Wild Draw 4)
+        if game.draw_pending > 0:
+            print(f"\n>>> Player {current_player} must draw {game.draw_pending} cards!")
+            action = Action(n=game.draw_pending)
+            success = game.execute_action(action, current_player)
+            if not success:
+                print(f">>> Failed to execute draw action for player {current_player}")
+                break
+            # After drawing, skip this player's turn
+            game.skip_next = True
+            display_game_state(game, current_player)
+            current_player = 3 - current_player
+            # Track state after draw
+            game.create_S()
+            current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+            if prev_state == current_state:
+                consecutive_no_progress += 1
+                if consecutive_no_progress >= max_no_progress:
+                    print(
+                        f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                    )
+                    print(f">>> Breaking at turn {turn_count}")
+                    break
+            else:
+                consecutive_no_progress = 0
+            prev_state = current_state
+            continue
+
+        display_game_state(
+            game, current_player, policy if current_player == 1 else None
+        )
+
+        # Get current state for Player 1's policy
+        game.create_S()
+        state = game.State
+
+        # Choose action based on player
+        if current_player == 1:
+            # Player 1: Use ParticlePolicy
+            print("Player 1 (ParticlePolicy) computing action...")
+            action = policy.get_action(
+                state[0], len(state[1]), len(state[2]), state[3], state[4], state[5]
+            )
+            policy.update_after_action(action)
+        else:
+            # Player 2: Use simple policy
+            action = choose_action_simple(game, current_player)
+
+        if action is None:
+            print(f"Player {current_player} has no actions available!")
+            break
+
+        if action.is_play():
+            card_str = card_to_string(action.X_1)
+            if action.wild_color:
+                print(
+                    f"Player {current_player} plays {card_str} and chooses color {action.wild_color}"
+                )
+            else:
+                print(f"Player {current_player} plays {card_str}")
+        else:
+            print(f"Player {current_player} draws {action.n} card(s)")
+
+        success = game.execute_action(action, current_player)
+        if not success:
+            print(f"Action failed for player {current_player}")
+            break
+
+        # Track state after action for infinite loop detection
+        game.create_S()
+        current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+        if prev_state == current_state:
+            consecutive_no_progress += 1
+            if consecutive_no_progress >= max_no_progress:
+                print(
+                    f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                )
+                print(f">>> Breaking at turn {turn_count}")
+                break
+        else:
+            consecutive_no_progress = 0
+        prev_state = current_state
+
+        # Check game over
+        if game.G_o == "GameOver":
+            break
+
+        # Switch players (unless current player plays again)
+        if not game.player_plays_again and not game.skip_next:
+            current_player = 3 - current_player
+        elif game.player_plays_again:
+            # Reset flag - player will continue their turn
+            game.player_plays_again = False
+
+    # Game over
+    print("\n" + "=" * 60)
+    print("GAME OVER")
+    print("=" * 60)
+    game.create_S()
+    state = game.State
+
+    print(f"Total turns: {turn_count}")
+    print(f"Player 1 final hand size: {len(state[0])}")
+    print(f"Player 2 final hand size: {len(state[1])}")
+    print(f"ParticlePolicy cache size: {policy.cache.size()}")
+
+    # Determine winner
+    if len(state[0]) == 0:
+        print("\n🎉 Player 1 (ParticlePolicy) WINS!")
+        winner = 1
+    elif len(state[1]) == 0:
+        print("\n🎉 Player 2 (Simple Policy) WINS!")
+        winner = 2
+    else:
+        print("\nGame ended without a winner (safety limit reached)")
+        winner = 0
+
+    return turn_count, winner
+
+
+def run_naive_vs_naive_game(
+    seed: Optional[int] = None, show_output: bool = False
+) -> tuple[int, int]:
+    """
+    Run a single UNO game with both players using naive policies.
+
+    Args:
+        seed: Random seed for game initialization (None for random)
+        show_output: Whether to show game state output (default False for batch runs)
+
+    Returns:
+        Tuple of (turn_count, winner) where winner is 1, 2, or 0 (no winner/safety limit)
+    """
+    # Initialize game
+    game = Uno()
+    if seed is not None:
+        game.new_game(seed=seed)
+    else:
+        game.new_game()
+
+    current_player = 1
+    turn_count = 0
+    max_turns = 5000000  # Safety limit
+    consecutive_no_progress = 0
+    max_no_progress = 50  # Safety check for infinite loops
+    prev_state = None
+
+    while game.G_o == "Active" and turn_count < max_turns:
+        turn_count += 1
+
+        # Check if we need to skip this player
+        if game.skip_next:
+            if show_output:
+                print(f"\n>>> Player {current_player} is skipped!")
+            game.skip_next = False
+            current_player = 3 - current_player  # Switch: 1->2, 2->1
+            # Track state after skip
+            game.create_S()
+            current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+            if prev_state == current_state:
+                consecutive_no_progress += 1
+                if consecutive_no_progress >= max_no_progress:
+                    if show_output:
+                        print(
+                            f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                        )
+                        print(f">>> Breaking at turn {turn_count}")
+                    break
+            else:
+                consecutive_no_progress = 0
+            prev_state = current_state
+            continue
+
+        # Check if player needs to draw cards (from Draw 2 or Wild Draw 4)
+        if game.draw_pending > 0:
+            if show_output:
+                print(
+                    f"\n>>> Player {current_player} must draw {game.draw_pending} cards!"
+                )
+            action = Action(n=game.draw_pending)
+            success = game.execute_action(action, current_player)
+            if not success:
+                if show_output:
+                    print(
+                        f">>> Failed to execute draw action for player {current_player}"
+                    )
+                break
+            # After drawing, skip this player's turn
+            game.skip_next = True
+            if show_output:
+                display_game_state(game, current_player)
+            current_player = 3 - current_player
+            # Track state after draw
+            game.create_S()
+            current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+            if prev_state == current_state:
+                consecutive_no_progress += 1
+                if consecutive_no_progress >= max_no_progress:
+                    if show_output:
+                        print(
+                            f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                        )
+                        print(f">>> Breaking at turn {turn_count}")
+                    break
+            else:
+                consecutive_no_progress = 0
+            prev_state = current_state
+            continue
+
+        if show_output:
+            display_game_state(game, current_player)
+
+        # Choose action for both players using naive policy
+        action = choose_action_naive(game, current_player)
+
+        if action is None:
+            if show_output:
+                print(f"Player {current_player} has no actions available!")
+            break
+
+        if show_output:
+            if action.is_play():
+                card_str = (
+                    card_to_string(action.X_1) if action.X_1 is not None else "Unknown"
+                )
+                if action.wild_color:
+                    print(
+                        f"Player {current_player} plays {card_str} and chooses color {action.wild_color}"
+                    )
+                else:
+                    print(f"Player {current_player} plays {card_str}")
+            else:
+                print(f"Player {current_player} draws {action.n} card(s)")
+
+        success = game.execute_action(action, current_player)
+        if not success:
+            if show_output:
+                print(f"Action failed for player {current_player}")
+            break
+
+        # Track state after action for infinite loop detection
+        game.create_S()
+        current_state = (len(game.H_1), len(game.H_2), game.G_o, current_player)
+        if prev_state == current_state:
+            consecutive_no_progress += 1
+            if consecutive_no_progress >= max_no_progress:
+                if show_output:
+                    print(
+                        f"\n>>> INFINITE LOOP DETECTED: No progress for {max_no_progress} consecutive turns!"
+                    )
+                    print(f">>> Breaking at turn {turn_count}")
+                break
+        else:
+            consecutive_no_progress = 0
+        prev_state = current_state
+
+        # Check game over
+        if game.G_o == "GameOver":
+            break
+
+        # Switch players (unless current player plays again)
+        if not game.player_plays_again and not game.skip_next:
+            current_player = 3 - current_player
+        elif game.player_plays_again:
+            # Reset flag - player will continue their turn
+            game.player_plays_again = False
+
+    # Game over
+    if show_output:
+        print("\n" + "=" * 60)
+        print("GAME OVER")
+        print("=" * 60)
+        game.create_S()
+        state = game.State
+        print(f"Total turns: {turn_count}")
+        print(f"Player 1 final hand size: {len(state[0])}")
+        print(f"Player 2 final hand size: {len(state[1])}")
+
+    # Determine winner
+    game.create_S()
+    state = game.State
+    if len(state[0]) == 0:
+        if show_output:
+            print("\n🎉 Player 1 (Naive) WINS!")
+        winner = 1
+    elif len(state[1]) == 0:
+        if show_output:
+            print("\n🎉 Player 2 (Naive) WINS!")
+        winner = 2
+    else:
+        if show_output:
+            print("\nGame ended without a winner (safety limit reached)")
+        winner = 0
+
+    return turn_count, winner
+
+
+def get_player_action(game: Uno, player: int) -> Optional[Action]:
+    """
+    Get action from human player via terminal input.
+
+    Args:
+        game: Uno game instance
+        player: Player number (1 or 2)
+
+    Returns:
+        Action chosen by player or None for draw
+    """
+    legal_actions = game.get_legal_actions(player)
+
+    if not legal_actions:
+        print("No legal actions available. Must draw a card.")
+        return None
+
+    hand = game.H_1 if player == 1 else game.H_2
+
+    print(f"\nYour hand ({len(hand)} cards):")
+    for i, card in enumerate(hand, 1):
+        print(f"  {i}. {card_to_string(card)}")
+
+    # Separate play and draw actions
+    play_actions = [a for a in legal_actions if a.is_play()]
+    draw_actions = [a for a in legal_actions if not a.is_play()]
+
+    print("\nLegal actions:")
+    action_map = {}
+    counter = 1
+
+    # Show play actions
+    if play_actions:
+        print("  Play cards:")
+        for action in play_actions:
+            card_str = card_to_string(action.X_1)
+            print(f"    {counter}. Play {card_str}")
+            action_map[counter] = action
+            counter += 1
+
+    # Show draw action
+    if draw_actions:
+        print(f"    {counter}. Draw card")
+        action_map[counter] = draw_actions[0]
+
+    while True:
+        try:
+            choice = input(f"\nSelect action (1-{counter - 1}): ").strip()
+            action_num = int(choice)
+
+            if action_num in action_map:
+                action = action_map[action_num]
+
+                # Handle wild card color selection
+                if action.is_play() and action.X_1 and game._is_wild(action.X_1):
+                    print("\nChoose a color for the wild card:")
+                    print("  1. Red")
+                    print("  2. Yellow")
+                    print("  3. Green")
+                    print("  4. Blue")
+
+                    while True:
+                        try:
+                            color_choice = input("Select color (1-4): ").strip()
+                            color_num = int(color_choice)
+
+                            if color_num == 1:
+                                action.wild_color = RED
+                                break
+                            elif color_num == 2:
+                                action.wild_color = YELLOW
+                                break
+                            elif color_num == 3:
+                                action.wild_color = GREEN
+                                break
+                            elif color_num == 4:
+                                action.wild_color = BLUE
+                                break
+                            else:
+                                print("Invalid choice. Please enter 1-4.")
+                        except ValueError:
+                            print("Invalid input. Please enter a number 1-4.")
+
+                return action
+            else:
+                print(f"Invalid choice. Please enter a number between 1 and {counter}.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+        except KeyboardInterrupt:
+            print("\nGame interrupted by user.")
+            exit(0)
+
+
+def run_player_vs_pomcp_game(seed: Optional[int] = None, human_player: int = 1):
+    """
+    Run interactive game where human player plays against POMCP AI.
+
+    Args:
+        seed: Random seed for game initialization
+        human_player: Which player number the human controls (1 or 2)
+    """
+    from src.utils.matchup_types import PlayerType
+
+    print("=" * 60)
+    print(f"UNO: Human (Player {human_player}) vs POMCP AI (Player {3 - human_player})")
+    print("=" * 60)
+
+    # Initialize game
+    game = Uno()
+    if seed is not None:
+        game.new_game(seed=seed)
+    else:
+        game.new_game()
+
+    # Create POMCP policy for AI player
+    ai_player = 3 - human_player
+    ai_policy = create_player_policy(PlayerType.PARTICLE_POLICY)
+
+    current_player = 1
+    turn_count = 0
+    max_turns = 10000
+
+    while game.G_o == "Active" and turn_count < max_turns:
+        turn_count += 1
+
+        # Handle skip logic
+        if game.skip_next:
+            print(f"\n>>> Player {current_player} is skipped!")
+            # If there are pending draws, the skipped player must draw first
+            if game.draw_pending > 0:
+                print(f"Player {current_player} draws {game.draw_pending} card(s)")
+                draw_action = Action(None, game.draw_pending)
+                game.execute_action(draw_action, current_player)
+            game.skip_next = False
+            current_player = 3 - current_player
+            continue
+
+        # Handle pending draws
+        if game.draw_pending > 0:
+            print(f"\n>>> Player {current_player} must draw {game.draw_pending} cards!")
+            action = Action(n=game.draw_pending)
+            success = game.execute_action(action, current_player)
+            if not success:
+                break
+            game.skip_next = True
+            current_player = 3 - current_player
+            continue
+
+        # Display game state
+        game.create_S()
+        state = game.State
+
+        print(f"\n{'=' * 60}")
+        print(f"Turn {turn_count} - Player {current_player}'s Turn")
+        print(
+            f"Top Card: {card_to_string(state[4]) if state[4] is not None else 'None'}"
+        )
+        if game.current_color:
+            print(f"Current Color: {game.current_color}")
+        print(f"Deck: {len(state[2])} cards remaining")
+
+        # Show opponent hand size
+        if current_player == 1:
+            print(f"Opponent (Player 2) has {len(state[1])} cards")
+        else:
+            print(f"Opponent (Player 1) has {len(state[0])} cards")
+
+        if current_player == human_player:
+            # Human player's turn
+            action = get_player_action(game, current_player)
+            print(f"\nYou chose: {action}")
+        else:
+            # AI player's turn
+            print("\nPOMCP AI is thinking...")
+            start_time = time.time()
+            action = get_action_for_player(
+                game, current_player, PlayerType.PARTICLE_POLICY, ai_policy, state
+            )
+            decision_time = time.time() - start_time
+            print(f"POMCP AI chose: {action} (took {decision_time:.2f}s)")
+            if ai_policy:
+                print(f"POMCP Cache Size: {ai_policy.cache.size()}")
+
+        # Execute action
+        if action is None:
+            print(f"Player {current_player} draws a card")
+            draw_action = Action(None, 1)  # Draw 1 card
+            game.execute_action(draw_action, current_player)
+        else:
+            print(
+                f"Player {current_player} plays: {card_to_string(action.X_1) if action.X_1 else 'Draw'}"
+            )
+            game.execute_action(action, current_player)
+
+        # Check for winner
+        if game.G_o != "Active":
+            break
+
+        # Switch players (unless player gets another turn)
+        if not game.player_plays_again:
+            current_player = 3 - current_player
+        else:
+            game.player_plays_again = False
+            print(f"Player {current_player} plays again!")
+
+    # Game over
+    print(f"\n{'=' * 60}")
+    print("GAME OVER")
+
+    if game.G_o == "Player 1":
+        winner = 1
+    elif game.G_o == "Player 2":
+        winner = 2
+    else:
+        winner = 0  # Draw
+
+    if winner == human_player:
+        print("🎉 Congratulations! You won!")
+    elif winner == ai_player:
+        print("🤖 POMCP AI wins!")
+    else:
+        print("🤝 Game ended in a draw!")
+
+    print(f"Total Turns: {turn_count}")
+    print(f"{'=' * 60}")

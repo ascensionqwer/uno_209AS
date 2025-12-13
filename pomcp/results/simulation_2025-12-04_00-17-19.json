@@ -1,0 +1,621 @@
+{
+  "timestamp": "simulation_2025-12-04_00-17-19",
+  "config": {
+    "particle_policy": {
+      "num_particles": 800,
+      "mcts_iterations": 700,
+      "planning_horizon": 3,
+      "gamma": 0.97,
+      "ucb_c": 1.2,
+      "rollout_particle_sample_size": 150,
+      "resample_threshold": 0.3
+    },
+    "batch_run": {
+      "num_simulations": 50,
+      "num_variants": 5
+    },
+    "batch_black": {
+      "max_number": 9,
+      "max_colors": 4,
+      "num_simulations": 300
+    }
+  },
+  "matchup": "all_matchups_with_variants",
+  "total_games": 750,
+  "player_wins": {
+    "variant_1_particle_policy_num_particles_increase": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 21,
+          "player2": 29
+        },
+        "win_rates": {
+          "player1": 0.42,
+          "player2": 0.58
+        },
+        "avg_decision_times": {
+          "player1": 4.562154992834314e-06,
+          "player2": 4.973616184586821e-06
+        },
+        "cache_stats": null,
+        "turn_stats": {
+          "total": 3730,
+          "average": 74.6,
+          "min": 13,
+          "max": 218
+        }
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 22,
+          "player2": 28
+        },
+        "win_rates": {
+          "player1": 0.44,
+          "player2": 0.56
+        },
+        "avg_decision_times": {
+          "player1": 0.3107532606384185,
+          "player2": 0.2972300956003386
+        },
+        "cache_stats": {
+          "player1": 36.84,
+          "player2": 29.84
+        },
+        "turn_stats": {
+          "total": 4005,
+          "average": 80.1,
+          "min": 13,
+          "max": 250
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 25,
+          "player2": 22
+        },
+        "win_rates": {
+          "player1": 0.5,
+          "player2": 0.44
+        },
+        "avg_decision_times": {
+          "player1": 0.3289623676065626,
+          "player2": 0.33901146022581025
+        },
+        "cache_stats": {
+          "player1": 35.8,
+          "player2": 35.74
+        },
+        "turn_stats": {
+          "total": 4325,
+          "average": 86.5,
+          "min": 29,
+          "max": 248
+        }
+      }
+    },
+    "variant_2_particle_policy_num_particles_decrease": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 23,
+          "player2": 27
+        },
+        "win_rates": {
+          "player1": 0.46,
+          "player2": 0.54
+        },
+        "avg_decision_times": {
+          "player1": 5.686436977280967e-06,
+          "player2": 5.472018380609142e-06
+        },
+        "cache_stats": null,
+        "turn_stats": {
+          "total": 3940,
+          "average": 78.8,
+          "min": 13,
+          "max": 245
+        }
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 23,
+          "player2": 27
+        },
+        "win_rates": {
+          "player1": 0.46,
+          "player2": 0.54
+        },
+        "avg_decision_times": {
+          "player1": 0.1272828876206072,
+          "player2": 0.1457181941710592
+        },
+        "cache_stats": {
+          "player1": 26.04,
+          "player2": 35.88
+        },
+        "turn_stats": {
+          "total": 3753,
+          "average": 75.06,
+          "min": 13,
+          "max": 249
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 28,
+          "player2": 22
+        },
+        "win_rates": {
+          "player1": 0.56,
+          "player2": 0.44
+        },
+        "avg_decision_times": {
+          "player1": 0.3604388403908881,
+          "player2": 0.36335926082271003
+        },
+        "cache_stats": {
+          "player1": 29.14,
+          "player2": 28.94
+        },
+        "turn_stats": {
+          "total": 3596,
+          "average": 71.92,
+          "min": 20,
+          "max": 240
+        }
+      }
+    },
+    "variant_3_particle_policy_mcts_iterations_increase": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 26,
+          "player2": 24
+        },
+        "win_rates": {
+          "player1": 0.52,
+          "player2": 0.48
+        },
+        "avg_decision_times": {
+          "player1": 1.1143704752430384e-05,
+          "player2": 4.6460309550029585e-06
+        },
+        "cache_stats": null,
+        "turn_stats": {
+          "total": 3948,
+          "average": 78.96,
+          "min": 13,
+          "max": 240
+        }
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 24,
+          "player2": 26
+        },
+        "win_rates": {
+          "player1": 0.48,
+          "player2": 0.52
+        },
+        "avg_decision_times": {
+          "player1": 0.11753399663039509,
+          "player2": 0.11966955117034102
+        },
+        "cache_stats": {
+          "player1": 40.08,
+          "player2": 35.32
+        },
+        "turn_stats": {
+          "total": 4519,
+          "average": 90.38,
+          "min": 14,
+          "max": 383
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 23,
+          "player2": 25
+        },
+        "win_rates": {
+          "player1": 0.46,
+          "player2": 0.5
+        },
+        "avg_decision_times": {
+          "player1": 0.35001703757480995,
+          "player2": 0.37643140616215914
+        },
+        "cache_stats": {
+          "player1": 29.16,
+          "player2": 28.94
+        },
+        "turn_stats": {
+          "total": 3547,
+          "average": 70.94,
+          "min": 13,
+          "max": 166
+        }
+      }
+    },
+    "variant_4_particle_policy_mcts_iterations_decrease": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 20,
+          "player2": 30
+        },
+        "win_rates": {
+          "player1": 0.4,
+          "player2": 0.6
+        },
+        "avg_decision_times": {
+          "player1": 5.561964852469308e-06,
+          "player2": 5.8079478009264885e-06
+        },
+        "cache_stats": null,
+        "turn_stats": {
+          "total": 3875,
+          "average": 77.5,
+          "min": 13,
+          "max": 223
+        }
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 24,
+          "player2": 26
+        },
+        "win_rates": {
+          "player1": 0.48,
+          "player2": 0.52
+        },
+        "avg_decision_times": {
+          "player1": 0.1318034617650326,
+          "player2": 0.12975275404838543
+        },
+        "cache_stats": {
+          "player1": 39.76,
+          "player2": 28.76
+        },
+        "turn_stats": {
+          "total": 4098,
+          "average": 81.96,
+          "min": 14,
+          "max": 293
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 22,
+          "player2": 27
+        },
+        "win_rates": {
+          "player1": 0.44,
+          "player2": 0.54
+        },
+        "avg_decision_times": {
+          "player1": 0.3998983514514141,
+          "player2": 0.3872645141968477
+        },
+        "cache_stats": {
+          "player1": 25.56,
+          "player2": 25.16
+        },
+        "turn_stats": {
+          "total": 3144,
+          "average": 62.88,
+          "min": 12,
+          "max": 210
+        }
+      }
+    },
+    "variant_5_particle_policy_planning_horizon_increase": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 22,
+          "player2": 28
+        },
+        "win_rates": {
+          "player1": 0.44,
+          "player2": 0.56
+        },
+        "avg_decision_times": {
+          "player1": 5.563823975572893e-06,
+          "player2": 3.987779984107385e-06
+        },
+        "cache_stats": null,
+        "turn_stats": {
+          "total": 3983,
+          "average": 79.66,
+          "min": 13,
+          "max": 247
+        }
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 20,
+          "player2": 29
+        },
+        "win_rates": {
+          "player1": 0.4,
+          "player2": 0.58
+        },
+        "avg_decision_times": {
+          "player1": 0.141664175983888,
+          "player2": 0.1483133339358086
+        },
+        "cache_stats": {
+          "player1": 26.12,
+          "player2": 30.84
+        },
+        "turn_stats": {
+          "total": 3460,
+          "average": 69.2,
+          "min": 13,
+          "max": 213
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 26,
+          "player2": 22
+        },
+        "win_rates": {
+          "player1": 0.52,
+          "player2": 0.44
+        },
+        "avg_decision_times": {
+          "player1": 0.35408642989203387,
+          "player2": 0.3962685629000418
+        },
+        "cache_stats": {
+          "player1": 27.7,
+          "player2": 27.54
+        },
+        "turn_stats": {
+          "total": 3416,
+          "average": 68.32,
+          "min": 14,
+          "max": 161
+        }
+      }
+    }
+  },
+  "win_rates": {
+    "variant_1_particle_policy_num_particles_increase": {
+      "naive_vs_naive": {
+        "player1": 0.42,
+        "player2": 0.58
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.44,
+        "player2": 0.56
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.5,
+        "player2": 0.44
+      }
+    },
+    "variant_2_particle_policy_num_particles_decrease": {
+      "naive_vs_naive": {
+        "player1": 0.46,
+        "player2": 0.54
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.46,
+        "player2": 0.54
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.56,
+        "player2": 0.44
+      }
+    },
+    "variant_3_particle_policy_mcts_iterations_increase": {
+      "naive_vs_naive": {
+        "player1": 0.52,
+        "player2": 0.48
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.48,
+        "player2": 0.52
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.46,
+        "player2": 0.5
+      }
+    },
+    "variant_4_particle_policy_mcts_iterations_decrease": {
+      "naive_vs_naive": {
+        "player1": 0.4,
+        "player2": 0.6
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.48,
+        "player2": 0.52
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.44,
+        "player2": 0.54
+      }
+    },
+    "variant_5_particle_policy_planning_horizon_increase": {
+      "naive_vs_naive": {
+        "player1": 0.44,
+        "player2": 0.56
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.4,
+        "player2": 0.58
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.52,
+        "player2": 0.44
+      }
+    }
+  },
+  "avg_decision_times": {
+    "variant_1_particle_policy_num_particles_increase": {
+      "naive_vs_naive": {
+        "player1": 4.562154992834314e-06,
+        "player2": 4.973616184586821e-06
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.3107532606384185,
+        "player2": 0.2972300956003386
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.3289623676065626,
+        "player2": 0.33901146022581025
+      }
+    },
+    "variant_2_particle_policy_num_particles_decrease": {
+      "naive_vs_naive": {
+        "player1": 5.686436977280967e-06,
+        "player2": 5.472018380609142e-06
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.1272828876206072,
+        "player2": 0.1457181941710592
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.3604388403908881,
+        "player2": 0.36335926082271003
+      }
+    },
+    "variant_3_particle_policy_mcts_iterations_increase": {
+      "naive_vs_naive": {
+        "player1": 1.1143704752430384e-05,
+        "player2": 4.6460309550029585e-06
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.11753399663039509,
+        "player2": 0.11966955117034102
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.35001703757480995,
+        "player2": 0.37643140616215914
+      }
+    },
+    "variant_4_particle_policy_mcts_iterations_decrease": {
+      "naive_vs_naive": {
+        "player1": 5.561964852469308e-06,
+        "player2": 5.8079478009264885e-06
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.1318034617650326,
+        "player2": 0.12975275404838543
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.3998983514514141,
+        "player2": 0.3872645141968477
+      }
+    },
+    "variant_5_particle_policy_planning_horizon_increase": {
+      "naive_vs_naive": {
+        "player1": 5.563823975572893e-06,
+        "player2": 3.987779984107385e-06
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.141664175983888,
+        "player2": 0.1483133339358086
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.35408642989203387,
+        "player2": 0.3962685629000418
+      }
+    }
+  },
+  "cache_stats": {
+    "variant_1_particle_policy_num_particles_increase": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 36.84,
+        "player2": 29.84
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 35.8,
+        "player2": 35.74
+      }
+    },
+    "variant_2_particle_policy_num_particles_decrease": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 26.04,
+        "player2": 35.88
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 29.14,
+        "player2": 28.94
+      }
+    },
+    "variant_3_particle_policy_mcts_iterations_increase": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 40.08,
+        "player2": 35.32
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 29.16,
+        "player2": 28.94
+      }
+    },
+    "variant_4_particle_policy_mcts_iterations_decrease": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 39.76,
+        "player2": 28.76
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 25.56,
+        "player2": 25.16
+      }
+    },
+    "variant_5_particle_policy_planning_horizon_increase": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 26.12,
+        "player2": 30.84
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 27.7,
+        "player2": 27.54
+      }
+    }
+  },
+  "parameter_variants": {
+    "variant_1_particle_policy_num_particles_increase": {
+      "parameter_path": "particle_policy.num_particles",
+      "original_value": 800.0,
+      "variant_value": 1000.0,
+      "variation_type": "increase",
+      "percentage_change": 0.25
+    },
+    "variant_2_particle_policy_num_particles_decrease": {
+      "parameter_path": "particle_policy.num_particles",
+      "original_value": 800.0,
+      "variant_value": 600.0,
+      "variation_type": "decrease",
+      "percentage_change": 0.25
+    },
+    "variant_3_particle_policy_mcts_iterations_increase": {
+      "parameter_path": "particle_policy.mcts_iterations",
+      "original_value": 700.0,
+      "variant_value": 875.0,
+      "variation_type": "increase",
+      "percentage_change": 0.25
+    },
+    "variant_4_particle_policy_mcts_iterations_decrease": {
+      "parameter_path": "particle_policy.mcts_iterations",
+      "original_value": 700.0,
+      "variant_value": 525.0,
+      "variation_type": "decrease",
+      "percentage_change": 0.25
+    },
+    "variant_5_particle_policy_planning_horizon_increase": {
+      "parameter_path": "particle_policy.planning_horizon",
+      "original_value": 3.0,
+      "variant_value": 3.75,
+      "variation_type": "increase",
+      "percentage_change": 0.25
+    }
+  },
+  "turn_stats": null
+}

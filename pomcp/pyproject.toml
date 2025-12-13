@@ -1,0 +1,11 @@
+[project]
+name = "uno-209as"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13.6"
+dependencies = [
+    "lefthook>=2.0.4",
+    "matplotlib>=3.10.7",
+    "pytest>=9.0.1",
+]

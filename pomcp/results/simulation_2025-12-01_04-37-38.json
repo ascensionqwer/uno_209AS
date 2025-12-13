@@ -1,0 +1,1416 @@
+{
+  "timestamp": "simulation_2025-12-01_04-37-38",
+  "config": {
+    "particle_policy": {
+      "num_particles": 800,
+      "mcts_iterations": 700,
+      "planning_horizon": 3,
+      "gamma": 0.97,
+      "ucb_c": 1.2,
+      "rollout_particle_sample_size": 150,
+      "resample_threshold": 0.3
+    },
+    "batch_run": {
+      "num_simulations": 300,
+      "num_variants": 30
+    }
+  },
+  "matchup": "all_matchups_with_variants",
+  "total_games": 12600,
+  "player_wins": {
+    "variant_1_particle_policy_num_particles_increase": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 145,
+          "player2": 155
+        },
+        "win_rates": {
+          "player1": 0.48333333333333334,
+          "player2": 0.5166666666666667
+        },
+        "avg_decision_times": {
+          "player1": 9.077828522875557e-06,
+          "player2": 6.8107756783310376e-06
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 140,
+          "player2": 160
+        },
+        "win_rates": {
+          "player1": 0.4666666666666667,
+          "player2": 0.5333333333333333
+        },
+        "avg_decision_times": {
+          "player1": 0.5866211079762252,
+          "player2": 0.47151017101078047
+        },
+        "cache_stats": {
+          "player1": 30.833333333333332,
+          "player2": 29.66
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 162,
+          "player2": 131
+        },
+        "win_rates": {
+          "player1": 0.54,
+          "player2": 0.43666666666666665
+        },
+        "avg_decision_times": {
+          "player1": 2.403472334524789,
+          "player2": 2.3022287432141293
+        },
+        "cache_stats": {
+          "player1": 28.886666666666667,
+          "player2": 28.57
+        }
+      }
+    },
+    "variant_2_particle_policy_num_particles_decrease": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 140,
+          "player2": 160
+        },
+        "win_rates": {
+          "player1": 0.4666666666666667,
+          "player2": 0.5333333333333333
+        },
+        "avg_decision_times": {
+          "player1": 1.896364043080007e-05,
+          "player2": 1.2281846730947843e-05
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 148,
+          "player2": 150
+        },
+        "win_rates": {
+          "player1": 0.49333333333333335,
+          "player2": 0.5
+        },
+        "avg_decision_times": {
+          "player1": 1.1979233825857765,
+          "player2": 1.1697141443595438
+        },
+        "cache_stats": {
+          "player1": 31.413333333333334,
+          "player2": 27.98
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 134,
+          "player2": 156
+        },
+        "win_rates": {
+          "player1": 0.44666666666666666,
+          "player2": 0.52
+        },
+        "avg_decision_times": {
+          "player1": 1.9436464710059433,
+          "player2": 1.9068250775659485
+        },
+        "cache_stats": {
+          "player1": 27.79,
+          "player2": 27.126666666666665
+        }
+      }
+    },
+    "variant_3_particle_policy_mcts_iterations_increase": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 147,
+          "player2": 153
+        },
+        "win_rates": {
+          "player1": 0.49,
+          "player2": 0.51
+        },
+        "avg_decision_times": {
+          "player1": 1.2889720962101119e-05,
+          "player2": 2.8221815583219365e-05
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 160,
+          "player2": 140
+        },
+        "win_rates": {
+          "player1": 0.5333333333333333,
+          "player2": 0.4666666666666667
+        },
+        "avg_decision_times": {
+          "player1": 0.9286399668910033,
+          "player2": 0.932564776223412
+        },
+        "cache_stats": {
+          "player1": 35.86,
+          "player2": 31.846666666666668
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 138,
+          "player2": 156
+        },
+        "win_rates": {
+          "player1": 0.46,
+          "player2": 0.52
+        },
+        "avg_decision_times": {
+          "player1": 2.0150979117161647,
+          "player2": 2.0046919565276795
+        },
+        "cache_stats": {
+          "player1": 29.013333333333332,
+          "player2": 28.446666666666665
+        }
+      }
+    },
+    "variant_4_particle_policy_mcts_iterations_decrease": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 152,
+          "player2": 148
+        },
+        "win_rates": {
+          "player1": 0.5066666666666667,
+          "player2": 0.49333333333333335
+        },
+        "avg_decision_times": {
+          "player1": 2.447049617767334e-05,
+          "player2": 2.362437257043976e-05
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 136,
+          "player2": 163
+        },
+        "win_rates": {
+          "player1": 0.4533333333333333,
+          "player2": 0.5433333333333333
+        },
+        "avg_decision_times": {
+          "player1": 0.9033482718956048,
+          "player2": 0.9261075381792988
+        },
+        "cache_stats": {
+          "player1": 35.45333333333333,
+          "player2": 30.3
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 119,
+          "player2": 167
+        },
+        "win_rates": {
+          "player1": 0.39666666666666667,
+          "player2": 0.5566666666666666
+        },
+        "avg_decision_times": {
+          "player1": 1.7714767942709861,
+          "player2": 1.7453647518857212
+        },
+        "cache_stats": {
+          "player1": 29.95,
+          "player2": 29.55
+        }
+      }
+    },
+    "variant_5_particle_policy_planning_horizon_increase": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 147,
+          "player2": 153
+        },
+        "win_rates": {
+          "player1": 0.49,
+          "player2": 0.51
+        },
+        "avg_decision_times": {
+          "player1": 1.0200025890709455e-05,
+          "player2": 1.0190796426852851e-05
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 137,
+          "player2": 163
+        },
+        "win_rates": {
+          "player1": 0.45666666666666667,
+          "player2": 0.5433333333333333
+        },
+        "avg_decision_times": {
+          "player1": 0.43727393036895595,
+          "player2": 0.5538428966291659
+        },
+        "cache_stats": {
+          "player1": 32.653333333333336,
+          "player2": 28.633333333333333
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 138,
+          "player2": 157
+        },
+        "win_rates": {
+          "player1": 0.46,
+          "player2": 0.5233333333333333
+        },
+        "avg_decision_times": {
+          "player1": 2.1428682327213733,
+          "player2": 2.032314053741894
+        },
+        "cache_stats": {
+          "player1": 27.996666666666666,
+          "player2": 27.703333333333333
+        }
+      }
+    },
+    "variant_6_particle_policy_planning_horizon_decrease": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 151,
+          "player2": 149
+        },
+        "win_rates": {
+          "player1": 0.5033333333333333,
+          "player2": 0.49666666666666665
+        },
+        "avg_decision_times": {
+          "player1": 2.158289418558849e-05,
+          "player2": 2.4745972294921348e-05
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 142,
+          "player2": 158
+        },
+        "win_rates": {
+          "player1": 0.47333333333333333,
+          "player2": 0.5266666666666666
+        },
+        "avg_decision_times": {
+          "player1": 1.165166749270593,
+          "player2": 1.140210326651937
+        },
+        "cache_stats": {
+          "player1": 34.45333333333333,
+          "player2": 30.74
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 134,
+          "player2": 152
+        },
+        "win_rates": {
+          "player1": 0.44666666666666666,
+          "player2": 0.5066666666666667
+        },
+        "avg_decision_times": {
+          "player1": 2.411503278077171,
+          "player2": 2.265058728187315
+        },
+        "cache_stats": {
+          "player1": 28.153333333333332,
+          "player2": 27.383333333333333
+        }
+      }
+    },
+    "variant_7_particle_policy_gamma_increase": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 142,
+          "player2": 158
+        },
+        "win_rates": {
+          "player1": 0.47333333333333333,
+          "player2": 0.5266666666666666
+        },
+        "avg_decision_times": {
+          "player1": 1.4691404888560942e-05,
+          "player2": 1.904753164055402e-05
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 147,
+          "player2": 153
+        },
+        "win_rates": {
+          "player1": 0.49,
+          "player2": 0.51
+        },
+        "avg_decision_times": {
+          "player1": 0.9560948174588872,
+          "player2": 0.9864286117286111
+        },
+        "cache_stats": {
+          "player1": 33.7,
+          "player2": 30.54
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 142,
+          "player2": 149
+        },
+        "win_rates": {
+          "player1": 0.47333333333333333,
+          "player2": 0.49666666666666665
+        },
+        "avg_decision_times": {
+          "player1": 2.1701084714339594,
+          "player2": 2.065041299192563
+        },
+        "cache_stats": {
+          "player1": 30.116666666666667,
+          "player2": 29.52
+        }
+      }
+    },
+    "variant_8_particle_policy_gamma_decrease": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 139,
+          "player2": 161
+        },
+        "win_rates": {
+          "player1": 0.4633333333333333,
+          "player2": 0.5366666666666666
+        },
+        "avg_decision_times": {
+          "player1": 4.550523569371045e-06,
+          "player2": 5.054357148150627e-06
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 139,
+          "player2": 161
+        },
+        "win_rates": {
+          "player1": 0.4633333333333333,
+          "player2": 0.5366666666666666
+        },
+        "avg_decision_times": {
+          "player1": 0.945568327931152,
+          "player2": 0.9918581730255408
+        },
+        "cache_stats": {
+          "player1": 31.78,
+          "player2": 28.406666666666666
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 135,
+          "player2": 155
+        },
+        "win_rates": {
+          "player1": 0.45,
+          "player2": 0.5166666666666667
+        },
+        "avg_decision_times": {
+          "player1": 1.7499771345911375,
+          "player2": 1.713953183686785
+        },
+        "cache_stats": {
+          "player1": 28.3,
+          "player2": 27.69333333333333
+        }
+      }
+    },
+    "variant_9_particle_policy_ucb_c_increase": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 147,
+          "player2": 153
+        },
+        "win_rates": {
+          "player1": 0.49,
+          "player2": 0.51
+        },
+        "avg_decision_times": {
+          "player1": 7.719952143971213e-06,
+          "player2": 1.0987785127427842e-05
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 147,
+          "player2": 152
+        },
+        "win_rates": {
+          "player1": 0.49,
+          "player2": 0.5066666666666667
+        },
+        "avg_decision_times": {
+          "player1": 0.46359493748470176,
+          "player2": 0.4512413330138073
+        },
+        "cache_stats": {
+          "player1": 33.3,
+          "player2": 30.993333333333332
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 141,
+          "player2": 153
+        },
+        "win_rates": {
+          "player1": 0.47,
+          "player2": 0.51
+        },
+        "avg_decision_times": {
+          "player1": 2.3582718635272797,
+          "player2": 2.182091265765168
+        },
+        "cache_stats": {
+          "player1": 27.626666666666665,
+          "player2": 26.856666666666666
+        }
+      }
+    },
+    "variant_10_particle_policy_ucb_c_decrease": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 141,
+          "player2": 159
+        },
+        "win_rates": {
+          "player1": 0.47,
+          "player2": 0.53
+        },
+        "avg_decision_times": {
+          "player1": 2.7329594539370307e-05,
+          "player2": 1.0558814393348366e-05
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 140,
+          "player2": 159
+        },
+        "win_rates": {
+          "player1": 0.4666666666666667,
+          "player2": 0.53
+        },
+        "avg_decision_times": {
+          "player1": 1.1862593344659893,
+          "player2": 1.1495806985925685
+        },
+        "cache_stats": {
+          "player1": 32.266666666666666,
+          "player2": 30.32
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 125,
+          "player2": 165
+        },
+        "win_rates": {
+          "player1": 0.4166666666666667,
+          "player2": 0.55
+        },
+        "avg_decision_times": {
+          "player1": 2.2908888482333456,
+          "player2": 2.134938973710315
+        },
+        "cache_stats": {
+          "player1": 30.496666666666666,
+          "player2": 29.883333333333333
+        }
+      }
+    },
+    "variant_11_particle_policy_rollout_particle_sample_size_increase": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 144,
+          "player2": 156
+        },
+        "win_rates": {
+          "player1": 0.48,
+          "player2": 0.52
+        },
+        "avg_decision_times": {
+          "player1": 1.2202325554697891e-05,
+          "player2": 2.2860052429627034e-05
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 146,
+          "player2": 153
+        },
+        "win_rates": {
+          "player1": 0.4866666666666667,
+          "player2": 0.51
+        },
+        "avg_decision_times": {
+          "player1": 0.9894980964197185,
+          "player2": 0.9846997559779154
+        },
+        "cache_stats": {
+          "player1": 28.626666666666665,
+          "player2": 28.066666666666666
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 137,
+          "player2": 150
+        },
+        "win_rates": {
+          "player1": 0.45666666666666667,
+          "player2": 0.5
+        },
+        "avg_decision_times": {
+          "player1": 2.159269892971819,
+          "player2": 2.0467116047637632
+        },
+        "cache_stats": {
+          "player1": 30.166666666666668,
+          "player2": 29.7
+        }
+      }
+    },
+    "variant_12_particle_policy_rollout_particle_sample_size_decrease": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 140,
+          "player2": 160
+        },
+        "win_rates": {
+          "player1": 0.4666666666666667,
+          "player2": 0.5333333333333333
+        },
+        "avg_decision_times": {
+          "player1": 3.820493782022236e-05,
+          "player2": 3.547507922690771e-05
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 147,
+          "player2": 152
+        },
+        "win_rates": {
+          "player1": 0.49,
+          "player2": 0.5066666666666667
+        },
+        "avg_decision_times": {
+          "player1": 0.8483403960108303,
+          "player2": 0.9983636386860829
+        },
+        "cache_stats": {
+          "player1": 31.393333333333334,
+          "player2": 29.813333333333333
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 147,
+          "player2": 147
+        },
+        "win_rates": {
+          "player1": 0.49,
+          "player2": 0.49
+        },
+        "avg_decision_times": {
+          "player1": 1.8387677698889255,
+          "player2": 1.7013885197359118
+        },
+        "cache_stats": {
+          "player1": 26.523333333333333,
+          "player2": 26.023333333333333
+        }
+      }
+    },
+    "variant_13_particle_policy_resample_threshold_increase": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 141,
+          "player2": 159
+        },
+        "win_rates": {
+          "player1": 0.47,
+          "player2": 0.53
+        },
+        "avg_decision_times": {
+          "player1": 6.720652667117699e-06,
+          "player2": 6.308170671904639e-06
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 146,
+          "player2": 154
+        },
+        "win_rates": {
+          "player1": 0.4866666666666667,
+          "player2": 0.5133333333333333
+        },
+        "avg_decision_times": {
+          "player1": 0.5005500227845617,
+          "player2": 0.49169615108522696
+        },
+        "cache_stats": {
+          "player1": 29.82,
+          "player2": 30.86
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 145,
+          "player2": 145
+        },
+        "win_rates": {
+          "player1": 0.48333333333333334,
+          "player2": 0.48333333333333334
+        },
+        "avg_decision_times": {
+          "player1": 2.349855545352269,
+          "player2": 2.267974403085011
+        },
+        "cache_stats": {
+          "player1": 26.58,
+          "player2": 26.153333333333332
+        }
+      }
+    },
+    "variant_14_particle_policy_resample_threshold_decrease": {
+      "naive_vs_naive": {
+        "player_wins": {
+          "player1": 147,
+          "player2": 153
+        },
+        "win_rates": {
+          "player1": 0.49,
+          "player2": 0.51
+        },
+        "avg_decision_times": {
+          "player1": 1.2462654529055392e-05,
+          "player2": 5.423362221317529e-05
+        },
+        "cache_stats": null
+      },
+      "naive_vs_particle_policy": {
+        "player_wins": {
+          "player1": 156,
+          "player2": 143
+        },
+        "win_rates": {
+          "player1": 0.52,
+          "player2": 0.4766666666666667
+        },
+        "avg_decision_times": {
+          "player1": 1.1776473303325474,
+          "player2": 1.206571626568608
+        },
+        "cache_stats": {
+          "player1": 30.86,
+          "player2": 30.106666666666666
+        }
+      },
+      "particle_policy_vs_particle_policy": {
+        "player_wins": {
+          "player1": 152,
+          "player2": 143
+        },
+        "win_rates": {
+          "player1": 0.5066666666666667,
+          "player2": 0.4766666666666667
+        },
+        "avg_decision_times": {
+          "player1": 2.358985327138002,
+          "player2": 2.2362224803942694
+        },
+        "cache_stats": {
+          "player1": 27.416666666666668,
+          "player2": 26.643333333333334
+        }
+      }
+    }
+  },
+  "win_rates": {
+    "variant_1_particle_policy_num_particles_increase": {
+      "naive_vs_naive": {
+        "player1": 0.48333333333333334,
+        "player2": 0.5166666666666667
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.4666666666666667,
+        "player2": 0.5333333333333333
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.54,
+        "player2": 0.43666666666666665
+      }
+    },
+    "variant_2_particle_policy_num_particles_decrease": {
+      "naive_vs_naive": {
+        "player1": 0.4666666666666667,
+        "player2": 0.5333333333333333
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.49333333333333335,
+        "player2": 0.5
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.44666666666666666,
+        "player2": 0.52
+      }
+    },
+    "variant_3_particle_policy_mcts_iterations_increase": {
+      "naive_vs_naive": {
+        "player1": 0.49,
+        "player2": 0.51
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.5333333333333333,
+        "player2": 0.4666666666666667
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.46,
+        "player2": 0.52
+      }
+    },
+    "variant_4_particle_policy_mcts_iterations_decrease": {
+      "naive_vs_naive": {
+        "player1": 0.5066666666666667,
+        "player2": 0.49333333333333335
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.4533333333333333,
+        "player2": 0.5433333333333333
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.39666666666666667,
+        "player2": 0.5566666666666666
+      }
+    },
+    "variant_5_particle_policy_planning_horizon_increase": {
+      "naive_vs_naive": {
+        "player1": 0.49,
+        "player2": 0.51
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.45666666666666667,
+        "player2": 0.5433333333333333
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.46,
+        "player2": 0.5233333333333333
+      }
+    },
+    "variant_6_particle_policy_planning_horizon_decrease": {
+      "naive_vs_naive": {
+        "player1": 0.5033333333333333,
+        "player2": 0.49666666666666665
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.47333333333333333,
+        "player2": 0.5266666666666666
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.44666666666666666,
+        "player2": 0.5066666666666667
+      }
+    },
+    "variant_7_particle_policy_gamma_increase": {
+      "naive_vs_naive": {
+        "player1": 0.47333333333333333,
+        "player2": 0.5266666666666666
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.49,
+        "player2": 0.51
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.47333333333333333,
+        "player2": 0.49666666666666665
+      }
+    },
+    "variant_8_particle_policy_gamma_decrease": {
+      "naive_vs_naive": {
+        "player1": 0.4633333333333333,
+        "player2": 0.5366666666666666
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.4633333333333333,
+        "player2": 0.5366666666666666
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.45,
+        "player2": 0.5166666666666667
+      }
+    },
+    "variant_9_particle_policy_ucb_c_increase": {
+      "naive_vs_naive": {
+        "player1": 0.49,
+        "player2": 0.51
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.49,
+        "player2": 0.5066666666666667
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.47,
+        "player2": 0.51
+      }
+    },
+    "variant_10_particle_policy_ucb_c_decrease": {
+      "naive_vs_naive": {
+        "player1": 0.47,
+        "player2": 0.53
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.4666666666666667,
+        "player2": 0.53
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.4166666666666667,
+        "player2": 0.55
+      }
+    },
+    "variant_11_particle_policy_rollout_particle_sample_size_increase": {
+      "naive_vs_naive": {
+        "player1": 0.48,
+        "player2": 0.52
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.4866666666666667,
+        "player2": 0.51
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.45666666666666667,
+        "player2": 0.5
+      }
+    },
+    "variant_12_particle_policy_rollout_particle_sample_size_decrease": {
+      "naive_vs_naive": {
+        "player1": 0.4666666666666667,
+        "player2": 0.5333333333333333
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.49,
+        "player2": 0.5066666666666667
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.49,
+        "player2": 0.49
+      }
+    },
+    "variant_13_particle_policy_resample_threshold_increase": {
+      "naive_vs_naive": {
+        "player1": 0.47,
+        "player2": 0.53
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.4866666666666667,
+        "player2": 0.5133333333333333
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.48333333333333334,
+        "player2": 0.48333333333333334
+      }
+    },
+    "variant_14_particle_policy_resample_threshold_decrease": {
+      "naive_vs_naive": {
+        "player1": 0.49,
+        "player2": 0.51
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.52,
+        "player2": 0.4766666666666667
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 0.5066666666666667,
+        "player2": 0.4766666666666667
+      }
+    }
+  },
+  "avg_decision_times": {
+    "variant_1_particle_policy_num_particles_increase": {
+      "naive_vs_naive": {
+        "player1": 9.077828522875557e-06,
+        "player2": 6.8107756783310376e-06
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.5866211079762252,
+        "player2": 0.47151017101078047
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 2.403472334524789,
+        "player2": 2.3022287432141293
+      }
+    },
+    "variant_2_particle_policy_num_particles_decrease": {
+      "naive_vs_naive": {
+        "player1": 1.896364043080007e-05,
+        "player2": 1.2281846730947843e-05
+      },
+      "naive_vs_particle_policy": {
+        "player1": 1.1979233825857765,
+        "player2": 1.1697141443595438
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 1.9436464710059433,
+        "player2": 1.9068250775659485
+      }
+    },
+    "variant_3_particle_policy_mcts_iterations_increase": {
+      "naive_vs_naive": {
+        "player1": 1.2889720962101119e-05,
+        "player2": 2.8221815583219365e-05
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.9286399668910033,
+        "player2": 0.932564776223412
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 2.0150979117161647,
+        "player2": 2.0046919565276795
+      }
+    },
+    "variant_4_particle_policy_mcts_iterations_decrease": {
+      "naive_vs_naive": {
+        "player1": 2.447049617767334e-05,
+        "player2": 2.362437257043976e-05
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.9033482718956048,
+        "player2": 0.9261075381792988
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 1.7714767942709861,
+        "player2": 1.7453647518857212
+      }
+    },
+    "variant_5_particle_policy_planning_horizon_increase": {
+      "naive_vs_naive": {
+        "player1": 1.0200025890709455e-05,
+        "player2": 1.0190796426852851e-05
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.43727393036895595,
+        "player2": 0.5538428966291659
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 2.1428682327213733,
+        "player2": 2.032314053741894
+      }
+    },
+    "variant_6_particle_policy_planning_horizon_decrease": {
+      "naive_vs_naive": {
+        "player1": 2.158289418558849e-05,
+        "player2": 2.4745972294921348e-05
+      },
+      "naive_vs_particle_policy": {
+        "player1": 1.165166749270593,
+        "player2": 1.140210326651937
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 2.411503278077171,
+        "player2": 2.265058728187315
+      }
+    },
+    "variant_7_particle_policy_gamma_increase": {
+      "naive_vs_naive": {
+        "player1": 1.4691404888560942e-05,
+        "player2": 1.904753164055402e-05
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.9560948174588872,
+        "player2": 0.9864286117286111
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 2.1701084714339594,
+        "player2": 2.065041299192563
+      }
+    },
+    "variant_8_particle_policy_gamma_decrease": {
+      "naive_vs_naive": {
+        "player1": 4.550523569371045e-06,
+        "player2": 5.054357148150627e-06
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.945568327931152,
+        "player2": 0.9918581730255408
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 1.7499771345911375,
+        "player2": 1.713953183686785
+      }
+    },
+    "variant_9_particle_policy_ucb_c_increase": {
+      "naive_vs_naive": {
+        "player1": 7.719952143971213e-06,
+        "player2": 1.0987785127427842e-05
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.46359493748470176,
+        "player2": 0.4512413330138073
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 2.3582718635272797,
+        "player2": 2.182091265765168
+      }
+    },
+    "variant_10_particle_policy_ucb_c_decrease": {
+      "naive_vs_naive": {
+        "player1": 2.7329594539370307e-05,
+        "player2": 1.0558814393348366e-05
+      },
+      "naive_vs_particle_policy": {
+        "player1": 1.1862593344659893,
+        "player2": 1.1495806985925685
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 2.2908888482333456,
+        "player2": 2.134938973710315
+      }
+    },
+    "variant_11_particle_policy_rollout_particle_sample_size_increase": {
+      "naive_vs_naive": {
+        "player1": 1.2202325554697891e-05,
+        "player2": 2.2860052429627034e-05
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.9894980964197185,
+        "player2": 0.9846997559779154
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 2.159269892971819,
+        "player2": 2.0467116047637632
+      }
+    },
+    "variant_12_particle_policy_rollout_particle_sample_size_decrease": {
+      "naive_vs_naive": {
+        "player1": 3.820493782022236e-05,
+        "player2": 3.547507922690771e-05
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.8483403960108303,
+        "player2": 0.9983636386860829
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 1.8387677698889255,
+        "player2": 1.7013885197359118
+      }
+    },
+    "variant_13_particle_policy_resample_threshold_increase": {
+      "naive_vs_naive": {
+        "player1": 6.720652667117699e-06,
+        "player2": 6.308170671904639e-06
+      },
+      "naive_vs_particle_policy": {
+        "player1": 0.5005500227845617,
+        "player2": 0.49169615108522696
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 2.349855545352269,
+        "player2": 2.267974403085011
+      }
+    },
+    "variant_14_particle_policy_resample_threshold_decrease": {
+      "naive_vs_naive": {
+        "player1": 1.2462654529055392e-05,
+        "player2": 5.423362221317529e-05
+      },
+      "naive_vs_particle_policy": {
+        "player1": 1.1776473303325474,
+        "player2": 1.206571626568608
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 2.358985327138002,
+        "player2": 2.2362224803942694
+      }
+    }
+  },
+  "cache_stats": {
+    "variant_1_particle_policy_num_particles_increase": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 30.833333333333332,
+        "player2": 29.66
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 28.886666666666667,
+        "player2": 28.57
+      }
+    },
+    "variant_2_particle_policy_num_particles_decrease": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 31.413333333333334,
+        "player2": 27.98
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 27.79,
+        "player2": 27.126666666666665
+      }
+    },
+    "variant_3_particle_policy_mcts_iterations_increase": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 35.86,
+        "player2": 31.846666666666668
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 29.013333333333332,
+        "player2": 28.446666666666665
+      }
+    },
+    "variant_4_particle_policy_mcts_iterations_decrease": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 35.45333333333333,
+        "player2": 30.3
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 29.95,
+        "player2": 29.55
+      }
+    },
+    "variant_5_particle_policy_planning_horizon_increase": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 32.653333333333336,
+        "player2": 28.633333333333333
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 27.996666666666666,
+        "player2": 27.703333333333333
+      }
+    },
+    "variant_6_particle_policy_planning_horizon_decrease": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 34.45333333333333,
+        "player2": 30.74
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 28.153333333333332,
+        "player2": 27.383333333333333
+      }
+    },
+    "variant_7_particle_policy_gamma_increase": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 33.7,
+        "player2": 30.54
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 30.116666666666667,
+        "player2": 29.52
+      }
+    },
+    "variant_8_particle_policy_gamma_decrease": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 31.78,
+        "player2": 28.406666666666666
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 28.3,
+        "player2": 27.69333333333333
+      }
+    },
+    "variant_9_particle_policy_ucb_c_increase": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 33.3,
+        "player2": 30.993333333333332
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 27.626666666666665,
+        "player2": 26.856666666666666
+      }
+    },
+    "variant_10_particle_policy_ucb_c_decrease": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 32.266666666666666,
+        "player2": 30.32
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 30.496666666666666,
+        "player2": 29.883333333333333
+      }
+    },
+    "variant_11_particle_policy_rollout_particle_sample_size_increase": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 28.626666666666665,
+        "player2": 28.066666666666666
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 30.166666666666668,
+        "player2": 29.7
+      }
+    },
+    "variant_12_particle_policy_rollout_particle_sample_size_decrease": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 31.393333333333334,
+        "player2": 29.813333333333333
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 26.523333333333333,
+        "player2": 26.023333333333333
+      }
+    },
+    "variant_13_particle_policy_resample_threshold_increase": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 29.82,
+        "player2": 30.86
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 26.58,
+        "player2": 26.153333333333332
+      }
+    },
+    "variant_14_particle_policy_resample_threshold_decrease": {
+      "naive_vs_naive": null,
+      "naive_vs_particle_policy": {
+        "player1": 30.86,
+        "player2": 30.106666666666666
+      },
+      "particle_policy_vs_particle_policy": {
+        "player1": 27.416666666666668,
+        "player2": 26.643333333333334
+      }
+    }
+  },
+  "parameter_variants": {
+    "variant_1_particle_policy_num_particles_increase": {
+      "parameter_path": "particle_policy.num_particles",
+      "original_value": 800.0,
+      "variant_value": 1000.0,
+      "variation_type": "increase",
+      "percentage_change": 0.25
+    },
+    "variant_2_particle_policy_num_particles_decrease": {
+      "parameter_path": "particle_policy.num_particles",
+      "original_value": 800.0,
+      "variant_value": 600.0,
+      "variation_type": "decrease",
+      "percentage_change": 0.25
+    },
+    "variant_3_particle_policy_mcts_iterations_increase": {
+      "parameter_path": "particle_policy.mcts_iterations",
+      "original_value": 700.0,
+      "variant_value": 875.0,
+      "variation_type": "increase",
+      "percentage_change": 0.25
+    },
+    "variant_4_particle_policy_mcts_iterations_decrease": {
+      "parameter_path": "particle_policy.mcts_iterations",
+      "original_value": 700.0,
+      "variant_value": 525.0,
+      "variation_type": "decrease",
+      "percentage_change": 0.25
+    },
+    "variant_5_particle_policy_planning_horizon_increase": {
+      "parameter_path": "particle_policy.planning_horizon",
+      "original_value": 3.0,
+      "variant_value": 3.75,
+      "variation_type": "increase",
+      "percentage_change": 0.25
+    },
+    "variant_6_particle_policy_planning_horizon_decrease": {
+      "parameter_path": "particle_policy.planning_horizon",
+      "original_value": 3.0,
+      "variant_value": 2.25,
+      "variation_type": "decrease",
+      "percentage_change": 0.25
+    },
+    "variant_7_particle_policy_gamma_increase": {
+      "parameter_path": "particle_policy.gamma",
+      "original_value": 0.97,
+      "variant_value": 1.2125,
+      "variation_type": "increase",
+      "percentage_change": 0.25
+    },
+    "variant_8_particle_policy_gamma_decrease": {
+      "parameter_path": "particle_policy.gamma",
+      "original_value": 0.97,
+      "variant_value": 0.7275,
+      "variation_type": "decrease",
+      "percentage_change": 0.25
+    },
+    "variant_9_particle_policy_ucb_c_increase": {
+      "parameter_path": "particle_policy.ucb_c",
+      "original_value": 1.2,
+      "variant_value": 1.5,
+      "variation_type": "increase",
+      "percentage_change": 0.25
+    },
+    "variant_10_particle_policy_ucb_c_decrease": {
+      "parameter_path": "particle_policy.ucb_c",
+      "original_value": 1.2,
+      "variant_value": 0.8999999999999999,
+      "variation_type": "decrease",
+      "percentage_change": 0.25
+    },
+    "variant_11_particle_policy_rollout_particle_sample_size_increase": {
+      "parameter_path": "particle_policy.rollout_particle_sample_size",
+      "original_value": 150.0,
+      "variant_value": 187.5,
+      "variation_type": "increase",
+      "percentage_change": 0.25
+    },
+    "variant_12_particle_policy_rollout_particle_sample_size_decrease": {
+      "parameter_path": "particle_policy.rollout_particle_sample_size",
+      "original_value": 150.0,
+      "variant_value": 112.5,
+      "variation_type": "decrease",
+      "percentage_change": 0.25
+    },
+    "variant_13_particle_policy_resample_threshold_increase": {
+      "parameter_path": "particle_policy.resample_threshold",
+      "original_value": 0.3,
+      "variant_value": 0.375,
+      "variation_type": "increase",
+      "percentage_change": 0.25
+    },
+    "variant_14_particle_policy_resample_threshold_decrease": {
+      "parameter_path": "particle_policy.resample_threshold",
+      "original_value": 0.3,
+      "variant_value": 0.22499999999999998,
+      "variation_type": "decrease",
+      "percentage_change": 0.25
+    }
+  }
+}
