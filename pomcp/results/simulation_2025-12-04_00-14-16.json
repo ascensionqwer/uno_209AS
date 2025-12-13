@@ -1,0 +1,132 @@
+{
+  "timestamp": "simulation_2025-12-04_00-14-16",
+  "config": {
+    "particle_policy": {
+      "num_particles": 800,
+      "mcts_iterations": 700,
+      "planning_horizon": 3,
+      "gamma": 0.97,
+      "ucb_c": 1.2,
+      "rollout_particle_sample_size": 150,
+      "resample_threshold": 0.3
+    },
+    "batch_run": {
+      "num_simulations": 50,
+      "num_variants": 5
+    },
+    "batch_black": {
+      "max_number": 9,
+      "max_colors": 4,
+      "num_simulations": 300
+    }
+  },
+  "matchup": "baseline",
+  "total_games": 150,
+  "player_wins": {
+    "naive_vs_naive": {
+      "player1": 23,
+      "player2": 27
+    },
+    "naive_vs_particle_policy": {
+      "player1": 26,
+      "player2": 24
+    },
+    "particle_policy_vs_particle_policy": {
+      "player1": 18,
+      "player2": 29
+    }
+  },
+  "win_rates": {
+    "naive_vs_naive": {
+      "player1": 0.46,
+      "player2": 0.54
+    },
+    "naive_vs_particle_policy": {
+      "player1": 0.52,
+      "player2": 0.48
+    },
+    "particle_policy_vs_particle_policy": {
+      "player1": 0.36,
+      "player2": 0.58
+    }
+  },
+  "avg_decision_times": {
+    "naive_vs_naive": {
+      "player1": 9.173636316921053e-06,
+      "player2": 5.573530991872152e-06
+    },
+    "naive_vs_particle_policy": {
+      "player1": 0.1393292684878851,
+      "player2": 0.15210893650594284
+    },
+    "particle_policy_vs_particle_policy": {
+      "player1": 0.5027238263181815,
+      "player2": 0.5406363675860512
+    }
+  },
+  "cache_stats": {
+    "naive_vs_naive": null,
+    "naive_vs_particle_policy": {
+      "player1": 29.68,
+      "player2": 32.76
+    },
+    "particle_policy_vs_particle_policy": {
+      "player1": 33.62,
+      "player2": 33.32
+    }
+  },
+  "parameter_variants": {
+    "baseline": {
+      "particle_policy.num_particles": {
+        "parameter_path": "particle_policy.num_particles",
+        "original_value": 800.0,
+        "variant_value": 800.0,
+        "variation_type": "baseline",
+        "percentage_change": 0.0
+      },
+      "particle_policy.mcts_iterations": {
+        "parameter_path": "particle_policy.mcts_iterations",
+        "original_value": 700.0,
+        "variant_value": 700.0,
+        "variation_type": "baseline",
+        "percentage_change": 0.0
+      },
+      "particle_policy.planning_horizon": {
+        "parameter_path": "particle_policy.planning_horizon",
+        "original_value": 3.0,
+        "variant_value": 3.0,
+        "variation_type": "baseline",
+        "percentage_change": 0.0
+      },
+      "particle_policy.gamma": {
+        "parameter_path": "particle_policy.gamma",
+        "original_value": 0.97,
+        "variant_value": 0.97,
+        "variation_type": "baseline",
+        "percentage_change": 0.0
+      },
+      "particle_policy.ucb_c": {
+        "parameter_path": "particle_policy.ucb_c",
+        "original_value": 1.2,
+        "variant_value": 1.2,
+        "variation_type": "baseline",
+        "percentage_change": 0.0
+      },
+      "particle_policy.rollout_particle_sample_size": {
+        "parameter_path": "particle_policy.rollout_particle_sample_size",
+        "original_value": 150.0,
+        "variant_value": 150.0,
+        "variation_type": "baseline",
+        "percentage_change": 0.0
+      },
+      "particle_policy.resample_threshold": {
+        "parameter_path": "particle_policy.resample_threshold",
+        "original_value": 0.3,
+        "variant_value": 0.3,
+        "variation_type": "baseline",
+        "percentage_change": 0.0
+      }
+    }
+  },
+  "turn_stats": null
+}

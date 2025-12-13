@@ -1,0 +1,94 @@
+{
+  "timestamp": "simulation_2025-12-02_13-18-11",
+  "config": {
+    "particle_policy": {
+      "num_particles": 800,
+      "mcts_iterations": 700,
+      "planning_horizon": 3,
+      "gamma": 0.97,
+      "ucb_c": 1.2,
+      "rollout_particle_sample_size": 150,
+      "resample_threshold": 0.3
+    },
+    "batch_run": {
+      "num_simulations": 300,
+      "num_variants": 30
+    },
+    "batch_black": {
+      "max_number": 9,
+      "max_colors": 4,
+      "num_simulations": 300
+    }
+  },
+  "matchup": "simplified_baseline_max9_colors4",
+  "total_games": 900,
+  "player_wins": {
+    "naive_vs_naive": {
+      "player1": 170,
+      "player2": 130,
+      "no_winner": 0
+    },
+    "naive_vs_particle_policy": {
+      "player1": 136,
+      "player2": 164,
+      "no_winner": 0
+    },
+    "particle_policy_vs_particle_policy": {
+      "player1": 144,
+      "player2": 156,
+      "no_winner": 0
+    }
+  },
+  "win_rates": {
+    "naive_vs_naive": {
+      "player1": 0.5666666666666667,
+      "player2": 0.43333333333333335,
+      "no_winner": 0.0
+    },
+    "naive_vs_particle_policy": {
+      "player1": 0.4533333333333333,
+      "player2": 0.5466666666666666,
+      "no_winner": 0.0
+    },
+    "particle_policy_vs_particle_policy": {
+      "player1": 0.48,
+      "player2": 0.52,
+      "no_winner": 0.0
+    }
+  },
+  "avg_decision_times": {
+    "naive_vs_naive": {
+      "player1": 2.6834856873375664e-06,
+      "player2": 3.0170004051851938e-06
+    },
+    "naive_vs_particle_policy": {
+      "player1": 0.2181977159890824,
+      "player2": 0.2854777277268816
+    },
+    "particle_policy_vs_particle_policy": {
+      "player1": 0.5174218248022665,
+      "player2": 0.5101794388887717
+    }
+  },
+  "cache_stats": {
+    "naive_vs_naive": {
+      "player1": null,
+      "player2": null
+    },
+    "naive_vs_particle_policy": {
+      "player1": 18.613333333333333,
+      "player2": 18.913333333333334
+    },
+    "particle_policy_vs_particle_policy": {
+      "player1": 16.16,
+      "player2": 15.586666666666666
+    }
+  },
+  "parameter_variants": {
+    "simplified_game": {
+      "max_number": 9,
+      "max_colors": 4,
+      "deck_size": 76
+    }
+  }
+}

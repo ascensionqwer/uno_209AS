@@ -1,0 +1,38 @@
+{
+  "particle_policy": {
+    // Number of particles for belief approximation
+    // Each particle represents a possible opponent hand + deck configuration
+    // More particles = better approximation but slower computation
+    "num_particles": 800,
+    // Number of MCTS iterations per decision (Selection -> Expansion -> Simulation -> Backpropagation)
+    // More iterations = better action selection but slower
+    "mcts_iterations": 700,
+    // Maximum lookahead depth when simulating rollouts to estimate action values
+    // Deeper = better estimates but slower
+    "planning_horizon": 3,
+    // Discount factor for value function (0-1, typically 0.95)
+    "gamma": 0.97,
+    // UCB1 exploration constant for MCTS tree search
+    // Higher = more exploration, lower = more exploitation
+    "ucb_c": 1.2,
+    // Number of particles to sample for each rollout simulation
+    // Fewer = faster but less accurate value estimates
+    "rollout_particle_sample_size": 150,
+    // Effective sample size threshold for resampling (fraction of num_particles)
+    // Lower = resample more often (better diversity but slower)
+    "resample_threshold": 0.3
+  },
+  "batch_run": {
+    // Number of simulations to run per variant
+    "num_simulations": 50,
+    // Number of variants to generate for analysis
+    "num_variants": 5
+  },
+  "batch_black": {
+    // Simplified game parameters (numbered cards only, no special cards)
+    "max_number": 9,
+    "max_colors": 4,
+    // Number of simulations to run
+    "num_simulations": 300
+  }
+}
